@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "id": "2026-08-15-21-54-nhan-chi-so-tinh-ban-thien-v2",
+  "quote": "Nhân chi sơ, tính bản thiện. Không cà khịa, rất ngứa mồm.",
+  "title": "Cà khịa mãi rồi cũng có ngày trúng chính mình",
+  "topic": "cà khịa trong code review",
+  "angle": "dân IT trải đời",
+  "context": "Góc làm việc, bàn máy tính",
+  "durationSec": 38,
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "tone": "Chân thực, tự trào, cà khịa nhẹ rồi tự dính đòn",
+  "audio": {
+    "bgm": "lofi",
+    "bgmVolume": 0.12
+  },
+  "voice": {
+    "lang": "vi-VN",
+    "gender": "male",
+    "style": "tâm sự, tự trào, có chỗ khựng lại"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "role": "hook",
+      "startSec": 0,
+      "endSec": 3,
+      "visual": "Selfie sát mặt, mắt mở to như vừa làm gì sai, tay giơ sáu ngón lên khung hình.",
+      "voiceover": "Tôi vừa gõ rồi xoá một cái comment code review. Đúng sáu lần. Sáu lần!",
+      "caption": {
+        "text": "Gõ rồi xoá 6 lần vì... ngứa mồm",
+        "highlight": [
+          "ngứa mồm"
+        ],
+        "style": "hook",
+        "emoji": null
+      },
+      "cueWords": [
+        "gõ rồi xoá",
+        "comment code review",
+        "đúng sáu lần"
+      ],
+      "sfx": [
+        "typing"
+      ],
+      "bRoll": null
+    },
+    {
+      "id": "s2",
+      "role": "story",
+      "startSec": 3,
+      "endSec": 13,
+      "visual": "Lùi ra ngang tầm mắt, hất cằm về phía màn hình, giọng kể chuyện bình thản.",
+      "voiceover": "Chuyện là chiều qua tôi review pull request của thằng em. Một cái hàm lồng năm tầng if. Biến thì đặt tên data, rồi dataFinal, rồi dataFinalFinal. Tay tôi nó tự động gõ: 'Chỗ này nên tách hàm ra em ạ'.",
+      "caption": {
+        "text": "5 tầng if và biến tên dataFinalFinal",
+        "highlight": [
+          "dataFinalFinal"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "cueWords": [
+        "review PR thằng em",
+        "năm tầng if",
+        "dataFinalFinal",
+        "nên tách hàm ra"
+      ],
+      "sfx": [
+        "record-scratch"
+      ],
+      "bRoll": "Cận cảnh màn hình diff pull request, con trỏ nhấp nháy trong ô comment"
+    },
+    {
+      "id": "s3",
+      "role": "story",
+      "startSec": 13,
+      "endSec": 22,
+      "visual": "Diễn lại động tác gõ - xoá - gõ lại bằng tay, rồi khựng hẳn lại khi đọc tin nhắn.",
+      "voiceover": "Xoá. Gõ lại nhẹ hơn. Xoá tiếp. Đúng sáu lần như thế, cuối cùng tôi cũng bấm gửi. Được ba phút, thằng em nhắn lại: 'Anh ơi, chỗ này em copy nguyên từ module anh viết hồi tháng Ba đấy ạ'.",
+      "caption": {
+        "text": "\"Chỗ này em copy từ code anh đấy ạ\"",
+        "highlight": [
+          "code anh"
+        ],
+        "style": "normal",
+        "emoji": "💀"
+      },
+      "cueWords": [
+        "xoá, gõ lại nhẹ hơn",
+        "sáu lần rồi bấm gửi",
+        "em copy từ module anh",
+        "hồi tháng Ba"
+      ],
+      "sfx": [
+        "notification",
+        "boom"
+      ],
+      "bRoll": "Cận cảnh khung chat, tin nhắn của thằng em hiện ra"
+    },
+    {
+      "id": "s4",
+      "role": "punchline",
+      "startSec": 22,
+      "endSec": 31,
+      "visual": "Nhìn thẳng ống kính, cười khổ, nói chậm hẳn lại ở câu châm ngôn.",
+      "voiceover": "Lúc đó tôi mới thấm: Nhân chi sơ, tính bản thiện. Không cà khịa, rất ngứa mồm. Mà cà khịa lâu quá thì có ngày cà khịa trúng chính mình. Code tháng Ba, tháng Chín ngồi chê.",
+      "caption": {
+        "text": "Code tháng Ba, tháng Chín ngồi chê",
+        "highlight": [
+          "ngồi chê"
+        ],
+        "style": "punch",
+        "emoji": null
+      },
+      "cueWords": [
+        "lúc đó mới thấm",
+        "nhân chi sơ... ngứa mồm",
+        "cà khịa trúng chính mình",
+        "tháng Ba, tháng Chín"
+      ],
+      "sfx": [
+        "pop"
+      ],
+      "bRoll": null
+    },
+    {
+      "id": "s5",
+      "role": "cta",
+      "startSec": 31,
+      "endSec": 38,
+      "visual": "Nghiêng đầu, nhướn mày hỏi người xem, tay chỉ xuống phần bình luận.",
+      "voiceover": "Anh em đã bao giờ chê code xong mới phát hiện ra là code của mình chưa? Kể tôi nghe với, để tôi biết mình không cô đơn.",
+      "caption": {
+        "text": "Chê code xong mới biết là code mình",
+        "highlight": [
+          "code mình"
+        ],
+        "style": "cta",
+        "emoji": "👇"
+      },
+      "cueWords": [
+        "đã bao giờ chê code",
+        "mới biết là code mình",
+        "kể tôi nghe với"
+      ],
+      "sfx": [
+        "ding"
+      ],
+      "bRoll": null
+    }
+  ],
+  "hashtags": [
+    "#dânIT",
+    "#codereview",
+    "#chuyencongso",
+    "#tutrao",
+    "#itlife",
+    "#cakhia"
+  ],
+  "postCaption": "Cà khịa code người ta xong mới biết là code mình viết hồi tháng Ba 💀 Anh em dính pha này chưa?"
+}

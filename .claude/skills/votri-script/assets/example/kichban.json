@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "id": "2026-09-29-14-30-chien-luoc-tan-gai-vi-mo",
+  "input": "Một chàng trai tặng cô gái thỏi son và nói: anh tặng em cây son nhưng mỗi ngày trả lại anh một ít nhé. Ám chỉ mỗi ngày phải hôn chàng trai một ít.",
+  "inputType": "pickup-line",
+  "title": "CHIẾN LƯỢC TÁN GÁI VĨ MÔ",
+  "subtitle": "Giáo trình khoá chặt dòng tiền bằng một thỏi son",
+  "shockLine": "180 NGÀY HÔN – VỐN 1 THỎI SON",
+  "concept": "Bài giảng kinh tế vĩ mô về tán tỉnh / Deadpan",
+  "persona": "giảng viên kinh tế vĩ mô kiêm chuyên gia tình trường",
+  "setting": "Ngồi một mình ở bàn, ánh sáng ấm, phía sau gọn gàng",
+  "props": [
+    "ly nước thuỷ tinh",
+    "một thỏi son lì còn nguyên hộp"
+  ],
+  "rhythm": "Đều, chậm, nghiêm trang như giảng bài. Tắt nhạc và im lặng hẳn ở cảnh 4 — đó là khoảnh khắc ăn tiền.",
+  "durationSec": 60,
+  "scenes": [
+    {
+      "part": "hook",
+      "label": "Phê phán hành vi lãng phí",
+      "start": 0,
+      "end": 9,
+      "camera": "Cận cảnh. Đang uống nước, ngẩng phắt lên nhìn thẳng camera, mắt mở to, nghiêm nghị.",
+      "action": "Nuốt ực, đặt ly xuống \"cộp\" nhẹ. Giọng trầm, chắc nịch.",
+      "audio": "Lo-fi suy tư, chậm, chiêm nghiệm. SFX: tiếng \"cộp\" khi đặt ly.",
+      "line": "Hôm nay tôi hướng dẫn anh em một chiến lược tán gái ở tầm vĩ mô. Dừng ngay cái hành vi mời người ta ăn lẩu một triệu rưỡi, rồi 11 giờ đêm nhắn: 'Em ngủ chưa?'… Lãng phí tài nguyên quốc gia.",
+      "onScreen": "Ăn lẩu 1tr5: LÃNG PHÍ TÀI NGUYÊN!"
+    },
+    {
+      "part": "lead",
+      "label": "Đặt nguyên tắc cam kết dài hạn",
+      "start": 9,
+      "end": 18,
+      "camera": "Trung cận. Đan hai tay lên bàn như chủ tọa cuộc họp.",
+      "action": "Mắt hơi nheo, nói chậm, rành mạch như đang phê bình nhân sự.",
+      "audio": "Lo-fi tiếp tục du dương.",
+      "line": "Tán tỉnh đỉnh cao là phải tạo ra cam kết dài hạn. Khoá chặt dòng tiền… và tối ưu hoá chi phí vận hành với nguồn vốn tối thiểu.",
+      "onScreen": "Nguyên tắc: TẠO CAM KẾT DÀI HẠN"
+    },
+    {
+      "part": "twist",
+      "label": "Bàn giao mật mã",
+      "start": 18,
+      "end": 29,
+      "camera": "Cận cảnh. Lấy thỏi son đặt ngay ngắn giữa bàn.",
+      "action": "Chỉ ngón trỏ vào son, ánh mắt kiên định như bàn giao mật mã tối mật.",
+      "audio": "Lo-fi nhỏ dần rồi tắt hẳn. Im bặt.",
+      "voice": "hạ giọng 2 tông, chậm",
+      "line": "Chuẩn bị một thỏi son lì. Đưa tận tay, nhìn thẳng vào tâm thất trái của đối phương và nói đúng một câu: 'Anh tặng em cây son này… nhưng mỗi ngày, phải trả lại anh một ít nhé.'",
+      "onScreen": "\"Mỗi ngày, phải trả lại anh một ít nhé…\""
+    },
+    {
+      "part": "twist",
+      "label": "Khoảng lặng snap zoom",
+      "start": 29,
+      "end": 35,
+      "camera": "Snap zoom giật vào mắt (cực cận).",
+      "action": "Giữ cơ mặt đơ 100%. Im lặng đúng 2 giây, chớp mắt đúng 1 lần rồi mới nói.",
+      "audio": "Record scratch dừng nhạc + tiếng dế kêu ngắt quãng.",
+      "voice": "thều thào, khô khốc",
+      "line": "Anh em hiểu ý tôi chứ? Nghĩa là hôn đó. Đừng có ngây thơ.",
+      "onScreen": "ANH EM HIỂU Ý TÔI CHỨ?",
+      "note": "Im lặng phải đủ 2 giây thật, đếm thầm trong đầu. Đây là chỗ người xem bật cười."
+    },
+    {
+      "part": "explain",
+      "label": "Phân tích hiệu suất đầu tư",
+      "start": 35,
+      "end": 48,
+      "camera": "Trung cảnh. Thẳng lưng, trở lại tác phong giảng viên kinh tế.",
+      "action": "Gõ ngón tay \"cộp-cộp-cộp\" xuống bàn ở từng con số.",
+      "audio": "Chuyển sang funky bassline vô tri, nảy nhẹ.",
+      "line": "Phân tích nghiệp vụ: một cây son hao mòn vật lý tầm 6 tháng. Nghĩa là anh em đã gài thành công một hợp đồng tiếp xúc cự ly gần suốt 180 ngày. Hiệu suất đầu tư: đỉnh nóc, kịch trần.",
+      "onScreen": "Hợp đồng: 180 NGÀY — Hiệu suất: ĐỈNH NÓC"
+    },
+    {
+      "part": "outro",
+      "label": "Cảnh báo rủi ro",
+      "start": 48,
+      "end": 60,
+      "camera": "Cận cảnh. Nhấp thêm ngụm nước, tay kia chỉ thẳng vào ống kính.",
+      "action": "Mặt nghiêm như thẩm phán cảnh báo đương sự trước khi rời phiên tòa.",
+      "audio": "Funky nhỏ dần, giữ beat nhẹ đến hết.",
+      "line": "Lý thuyết tôi dạy xong rồi, anh em tự triển khai. Còn nếu đối phương lấy dao lam gọt son, nhét vào bịch nilon trả lại rồi chặn số… thì tự giác quay lại đây comment, để tôi cập nhật báo cáo rủi ro.",
+      "onScreen": "RỦI RO: Bị gọt son trả vào bịch nilon 👇"
+    }
+  ],
+  "tips": [
+    "Không cười ở bất kỳ cảnh nào. Muốn bật cười thì cắt, quay lại — đừng giữ take có nhếch mép.",
+    "Quay cảnh 4 riêng, máy đặt sát hơn; snap zoom làm ở hậu kỳ cũng được.",
+    "Đọc chậm hơn bình thường 20%, nghỉ đúng ở dấu \"…\".",
+    "Ánh mắt nhìn vào ống kính chứ không nhìn màn hình preview.",
+    "Tiếng \"cộp\" khi đặt ly và gõ bàn là SFX thật — đặt micro gần bàn."
+  ],
+  "caption": "Đã đầu tư 1 thỏi son, giờ ngồi chờ thu hồi vốn mỗi ngày. Tới hôm nay là ngày thứ 3 bị chặn số…",
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#thathinh",
+    "#kinhtevimo"
+  ]
+}

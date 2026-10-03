@@ -1,0 +1,58 @@
+{
+  "slug": "2026-08-15-21-54-nhan-chi-so-tinh-ban-thien-v2",
+  "silenceDb": -32,
+  "minSilence": 0.35,
+  "pad": 0.08,
+  "scenes": {
+    "s1": {
+      "durationSec": 3,
+      "keep": [
+        [
+          0.92,
+          2.08
+        ]
+      ],
+      "removedSec": 1.84
+    },
+    "s2": {
+      "durationSec": 10,
+      "keep": [
+        [
+          0.92,
+          9.08
+        ]
+      ],
+      "removedSec": 1.84
+    },
+    "s3": {
+      "durationSec": 9,
+      "keep": [
+        [
+          0.92,
+          8.08
+        ]
+      ],
+      "removedSec": 1.84
+    },
+    "s4": {
+      "durationSec": 9,
+      "keep": [
+        [
+          0.92,
+          8.08
+        ]
+      ],
+      "removedSec": 1.84
+    },
+    "s5": {
+      "durationSec": 7,
+      "keep": [
+        [
+          0.92,
+          6.08
+        ]
+      ],
+      "removedSec": 1.84
+    }
+  }
+}

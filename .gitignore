@@ -1,0 +1,26 @@
+node_modules/
+.DS_Store
+
+# whisper.cpp + model (~1.5GB), tải lại được
+.whisper/
+
+# venv Python cho TTS của skill ai-story — sinh lại bằng scripts/setup.mjs
+.ai-story/
+
+# footage thô và file trung gian — nặng, sinh lại được
+content/*/raw/
+content/*/audio/
+content/*/media.json
+content/*/timing.json
+content/*/props.json
+
+# tranh AI — nặng, sinh lại được từ story.json (mất khoảng 45s một ảnh)
+content/*/images/
+
+# thành phẩm
+out/
+
+# Remotion
+remotion/.remotion/
+
+# cuts.json KHÔNG ignore: sửa tay được, nên giữ lại lịch sử chỉnh jump-cut

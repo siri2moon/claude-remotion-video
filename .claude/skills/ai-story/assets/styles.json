@@ -1,0 +1,23 @@
+{
+  "doodle": {
+    "label": "Người que doodle — dựng theo video tham khảo",
+    "note": "Nhân vật cực đơn giản nên giữ nhất quán dễ nhất. Đây là preset mặc định.",
+    "prompt": "flat 2D vector cartoon illustration, simple stick-figure explainer animation style. Drawing rules: each head is a large smooth white oval with two tiny black dot eyes, thin arched black eyebrows, a small simple curved mouth and no nose; arms and legs are thin black lines, never filled shapes; hands are small white mittens; the torso is narrow; clothing is flat solid colour with no shading. Characters, props and background are all drawn with the same clean bold black outlines and flat colours, soft even lighting, muted desaturated palette with one warm accent colour.",
+    "negative": "photograph, photorealistic, 3d render, realistic human face, detailed facial features, skin texture, text, letters, words, caption, watermark, signature, extra person, blank featureless white figure, faceless body, thick fleshy limbs, chubby rounded body, painterly, brush texture, extra limbs, deformed hands, cluttered",
+    "steps": 8
+  },
+  "tranh": {
+    "label": "Tranh minh hoạ có chiều sâu",
+    "note": "Nhân vật vẽ đầy đặn, ánh sáng kỹ hơn. Hợp chủ đề tiền kiếp, tỉnh thức. Giữ nhất quán khó hơn hẳn.",
+    "prompt": "warm hand-painted digital storybook illustration, soft brush texture, gentle rim lighting, muted earthy palette with one warm accent colour, characters drawn in a simple stylised cartoon manner with soft rounded shapes and minimal facial detail, atmospheric depth with soft haze in the background, cinematic composition, 2D illustration.",
+    "negative": "photograph, photorealistic, 3d render, harsh contrast, neon colours, text, letters, words, watermark, signature, extra limbs, deformed hands",
+    "steps": 8
+  },
+  "muc": {
+    "label": "Tranh thuỷ mặc",
+    "note": "Nét mực loang trên nền giấy. Hợp truyện thiền, cổ tích, nhân quả. Ít chi tiết nên rất dễ nhất quán.",
+    "prompt": "traditional East Asian ink wash painting on aged rice paper, sparse confident brush strokes, deep black ink bleeding softly into the paper, generous empty space, a single muted accent colour, figures suggested with a few economical strokes rather than detailed, misty distant mountains, calm meditative mood.",
+    "negative": "photograph, photorealistic, 3d render, bright saturated colours, heavy detail, text, letters, words, watermark, signature, deformed",
+    "steps": 8
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "id": "2026-08-15-21-54-nhan-chi-so-tinh-ban-thien",
+  "quote": "Nhân chi sơ, tính bản thiện. Không cà khịa, rất ngứa mồm.",
+  "title": "Bản chất lành tính, nhưng đời không cho phép",
+  "topic": "thói quen cà khịa nơi công sở",
+  "angle": "dân IT trải đời",
+  "context": "Góc làm việc, bàn máy tính",
+  "durationSec": 38,
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "tone": "Chân thực, hóm hỉnh, vừa tâm sự vừa cà khịa nhẹ",
+  "audio": {
+    "bgm": "lofi",
+    "bgmVolume": 0.12
+  },
+  "voice": {
+    "lang": "vi-VN",
+    "gender": "male",
+    "style": "tâm sự, hóm hỉnh, tốc độ nhanh, có chỗ thở dài"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "role": "hook",
+      "startSec": 0,
+      "endSec": 3,
+      "visual": "Quay selfie sát mặt, lắc đầu cười trừ, vẻ mặt bất lực nhưng hài hước.",
+      "voiceover": "Nhân chi sơ, tính bản thiện... Tự nhiên sinh ra đâu ai muốn đi cà khịa ai làm gì!",
+      "caption": {
+        "text": "Nhân chi sơ, tính bản thiện...",
+        "highlight": [
+          "bản thiện"
+        ],
+        "style": "hook",
+        "emoji": null
+      },
+      "cueWords": [
+        "nhân chi sơ",
+        "tự nhiên sinh ra",
+        "đâu ai muốn cà khịa"
+      ],
+      "sfx": [
+        "swoosh"
+      ],
+      "bRoll": null
+    },
+    {
+      "id": "s2",
+      "role": "story",
+      "startSec": 3,
+      "endSec": 12,
+      "visual": "Chuyển góc quay ngang tầm mắt, đưa tay chỉ nhẹ ra sau màn hình máy tính.",
+      "voiceover": "Nói thật với anh em, bản chất tôi lành tính lắm. Nhưng mà nhiều khi nhìn mấy pha xử lý đi vào lòng đất... không nói ra thì nó ngứa mồm không chịu nổi.",
+      "caption": {
+        "text": "Bản chất lành tính... nhưng đời không cho phép!",
+        "highlight": [
+          "lành tính"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "cueWords": [
+        "bản chất lành tính",
+        "pha xử lý đi vào lòng đất",
+        "không nói ra thì ngứa mồm"
+      ],
+      "sfx": [
+        "sigh"
+      ],
+      "bRoll": null
+    },
+    {
+      "id": "s3",
+      "role": "story",
+      "startSec": 12,
+      "endSec": 24,
+      "visual": "Gõ phím nhẹ rồi thở dài, giọng tâm sự hóm hỉnh, mắt liếc sang màn hình.",
+      "voiceover": "Kiểu như code thì không chịu test, cứ bảo 'em chạy trên máy em bình thường mà'. Hoặc khách hàng đòi làm 'tính năng giống Facebook nhưng ngân sách 2 triệu'. Lúc đó cái sự bản thiện nó phải nhường chỗ cho sự ngứa mồm liền.",
+      "caption": {
+        "text": "\"Em chạy trên máy em bình thường mà!\"",
+        "highlight": [
+          "máy em"
+        ],
+        "style": "normal",
+        "emoji": "🤦‍♂️"
+      },
+      "cueWords": [
+        "code không chịu test",
+        "máy em bình thường mà",
+        "giống Facebook, 2 triệu",
+        "bản thiện nhường chỗ"
+      ],
+      "sfx": [
+        "record-scratch",
+        "typing"
+      ],
+      "bRoll": "Cận cảnh màn hình terminal log đỏ lòm, hoặc khung chat khách hàng"
+    },
+    {
+      "id": "s4",
+      "role": "punchline",
+      "startSec": 24,
+      "endSec": 32,
+      "visual": "Nhìn thẳng ống kính, cười nửa miệng đầy thấu hiểu, nói chậm lại.",
+      "voiceover": "Thế nên mới có câu: Nhân chi sơ, tính bản thiện. Không cà khịa, rất ngứa mồm. Không phải mình ác, mà là do hoàn cảnh xô đẩy thôi anh em ạ.",
+      "caption": {
+        "text": "Không cà khịa, rất ngứa mồm!",
+        "highlight": [
+          "ngứa mồm"
+        ],
+        "style": "punch",
+        "emoji": null
+      },
+      "cueWords": [
+        "thế nên mới có câu",
+        "nhân chi sơ... ngứa mồm",
+        "không phải mình ác",
+        "hoàn cảnh xô đẩy"
+      ],
+      "sfx": [
+        "pop"
+      ],
+      "bRoll": null
+    },
+    {
+      "id": "s5",
+      "role": "cta",
+      "startSec": 32,
+      "endSec": 38,
+      "visual": "Nhếch môi, nghiêng đầu hỏi người xem, tay chỉ xuống phần bình luận.",
+      "voiceover": "Anh em đi làm có ngày nào phải nhẫn nại kiềm chế sự ngứa mồm này không? Tag ngay cái đứa hay làm ông ngứa mồm vào đây xem nào!",
+      "caption": {
+        "text": "Tag đứa hay làm bạn \"ngứa mồm\" vào đây",
+        "highlight": [
+          "Tag"
+        ],
+        "style": "cta",
+        "emoji": "👇"
+      },
+      "cueWords": [
+        "ngày nào phải kiềm chế",
+        "tag ngay cái đứa",
+        "hay làm ông ngứa mồm"
+      ],
+      "sfx": [
+        "ding"
+      ],
+      "bRoll": null
+    }
+  ],
+  "hashtags": [
+    "#dânIT",
+    "#cakhia",
+    "#chuyencongso",
+    "#lifelesson",
+    "#tamsu",
+    "#itlife"
+  ],
+  "postCaption": "Bản chất tôi lành tính lắm, tại hoàn cảnh xô đẩy thôi 😌 Tag ngay cái đứa hay làm bạn ngứa mồm!"
+}

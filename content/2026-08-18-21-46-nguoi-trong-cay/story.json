@@ -1,0 +1,150 @@
+{
+  "id": "2026-08-18-21-46-nguoi-trong-cay",
+  "topic": "Gieo mầm cho đời sau — cho đi mà không chờ nhận lại",
+  "title": {
+    "line1": "NGƯỜI TRỒNG CÂY",
+    "line2": "KHÔNG NGỒI DƯỚI BÓNG"
+  },
+  "voice": "Thanh Bình",
+  "style": "doodle",
+  "seed": 20260818,
+  "cast": [
+    {
+      "id": "lao",
+      "look": "An old white stick-figure man with a smooth bald oval head, a short white beard, two tiny black dot eyes and a calm patient expression, wearing a simple brown vest over a white shirt and loose grey trousers rolled up to the knee, thin black stick arms and legs."
+    },
+    {
+      "id": "trai",
+      "look": "A young white stick-figure man with a plain oval head, short tidy black hair, two tiny black dot eyes and a faint confident smirk, wearing a light blue short-sleeved shirt and dark trousers, thin black stick arms and legs."
+    },
+    {
+      "id": "giagia",
+      "look": "The same man now old: a white stick-figure man with a bald oval head, a short grey beard, slightly stooped shoulders, wearing a faded blue shirt and dark trousers, leaning on a simple wooden walking cane."
+    },
+    {
+      "id": "be",
+      "look": "A small white stick-figure child with a round head, two short black pigtails, two tiny black dot eyes and a curious open smile, wearing a plain yellow shirt and short trousers."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "lines": [
+        "Có một ông lão đào hố bên vệ đường đất, dưới cái nắng tháng sáu."
+      ],
+      "image": "He is digging a small hole with a worn shovel beside a dusty dirt road under a harsh summer sun, dry yellow fields stretching to the horizon, heat haze in the distance.",
+      "cast": [
+        "lao"
+      ]
+    },
+    {
+      "id": "s02",
+      "lines": [
+        "Ông trồng cây con, một hàng dài ven đường.",
+        "Cây nào cũng cách nhau đúng mười bước chân."
+      ],
+      "image": "He is planting a row of thin young saplings evenly spaced along the edge of the long dirt road, each one a fragile stick with a few leaves, the row disappearing into the distance.",
+      "cast": [
+        "lao"
+      ]
+    },
+    {
+      "id": "s03",
+      "lines": [
+        "Một chàng trai đi ngang qua, dừng lại nhìn, rồi bật cười."
+      ],
+      "image": "A young man walking along the road has stopped and is laughing openly, pointing at the old man kneeling in the dirt beside a tiny sapling.",
+      "cast": [
+        "lao",
+        "trai"
+      ]
+    },
+    {
+      "id": "s04",
+      "lines": [
+        "\"Cụ ơi, cụ bảy mươi rồi. Cây này ba chục năm nữa mới có bóng mát.\"",
+        "\"Cụ có ngồi dưới nó được đâu.\""
+      ],
+      "image": "Close view of the young man talking down at the kneeling old man, a speech bubble above him showing a small sapling with a red cross beside a stick figure sitting in shade.",
+      "cast": [
+        "lao",
+        "trai"
+      ]
+    },
+    {
+      "id": "s05",
+      "lines": [
+        "Ông lão không đáp.",
+        "Ông cúi xuống, lấp đất quanh gốc cây, rồi tưới nước."
+      ],
+      "image": "The old man, saying nothing, is gently patting soil around the base of a sapling and pouring water from a battered tin watering can, his face calm and unbothered.",
+      "cast": [
+        "lao"
+      ]
+    },
+    {
+      "id": "s06",
+      "lines": [
+        "Chàng trai lắc đầu bỏ đi. Anh nghĩ ông lão lẩm cẩm."
+      ],
+      "image": "The young man walks away down the road with his back to the viewer, shaking his head, while the small kneeling figure of the old man grows distant behind him.",
+      "cast": [
+        "lao",
+        "trai"
+      ]
+    },
+    {
+      "id": "s07",
+      "lines": [
+        "Bốn mươi năm sau.",
+        "Con đường đất ngày ấy giờ rợp bóng cây."
+      ],
+      "image": "The same road forty years later, now a wide green tunnel of tall leafy trees arching overhead, dappled sunlight falling on the path, cool and shaded, no people in sight.",
+      "cast": []
+    },
+    {
+      "id": "s08",
+      "lines": [
+        "Chàng trai năm xưa, giờ cũng đã thành một ông lão, đi qua con đường đó.",
+        "Ông ngồi xuống nghỉ dưới một tán cây."
+      ],
+      "image": "An old man with a walking cane is sitting down to rest on a smooth stone under the shade of one of the big trees, wiping his forehead, looking up at the leaves above him.",
+      "cast": [
+        "giagia"
+      ]
+    },
+    {
+      "id": "s09",
+      "lines": [
+        "Một đứa bé chạy tới hỏi: \"Ông ơi, ai trồng những cây này vậy?\""
+      ],
+      "image": "A small child has run up to the seated old man and is looking up at him, pointing at the tall trees, with a question mark in a small speech bubble above the child's head.",
+      "cast": [
+        "giagia",
+        "be"
+      ]
+    },
+    {
+      "id": "s10",
+      "lines": [
+        "Ông định trả lời, rồi chợt khựng lại.",
+        "Suốt bốn mươi năm, ông chưa từng hỏi tên người trồng cây."
+      ],
+      "image": "Close view of the seated old man with his mouth half open, frozen mid-answer, a faded grey memory bubble above him showing the young kneeling figure he once laughed at.",
+      "cast": [
+        "giagia"
+      ]
+    },
+    {
+      "id": "s11",
+      "lines": [
+        "Ông lặng lẽ đứng dậy.",
+        "Rồi ông đi tìm một cái xẻng."
+      ],
+      "image": "The old man has stood up and is walking away from the shaded road toward an empty sunlit stretch of ground, carrying a shovel over his shoulder, his cane left leaning against the tree behind him.",
+      "cast": [
+        "giagia"
+      ]
+    }
+  ]
+}
