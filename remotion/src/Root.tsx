@@ -3,6 +3,7 @@ import { TikTokVideo } from './TikTokVideo';
 import { StoryVideo } from './story/StoryVideo';
 import type { VideoProps } from './types';
 import type { StoryProps } from './story/types';
+import { LUCIFER_DURATION, LUCIFER_FPS, LuciferShort } from './lucifer/LuciferShort';
 
 // Props rỗng để Studio mở được khi chưa chạy pipeline.
 // Render thật luôn truyền --props=content/<dir>/props.json đè lên.
@@ -59,6 +60,16 @@ export const RemotionRoot: React.FC = () => (
         durationInFrames: props.durationInFrames,
         fps: props.fps,
       })}
+    />
+
+    {/* Short giới thiệu Lucifer — footage từ lucifer-promo/capture.mjs */}
+    <Composition
+      id="LuciferShort"
+      component={LuciferShort}
+      width={1080}
+      height={1920}
+      fps={LUCIFER_FPS}
+      durationInFrames={LUCIFER_DURATION}
     />
   </>
 );

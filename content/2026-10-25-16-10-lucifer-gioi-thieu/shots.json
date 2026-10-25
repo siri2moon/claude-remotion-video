@@ -1,0 +1,403 @@
+[
+ {
+  "name": "hero",
+  "seconds": 5,
+  "preroll": 1,
+  "css": ".bubble { display: none !important; }",
+  "actions": [
+   {
+    "at": -1,
+    "js": "__cap.engine.createTask({ title: 'Ra mắt app ghi chú AI', description: 'Cần PRD, kiến trúc kỹ thuật và kế hoạch marketing', priority: 'high' }).then(() => new Promise(r => setTimeout(r, 4000)))"
+   }
+  ],
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     72,
+     4,
+     8
+    ],
+    "target": [
+     8,
+     5.5,
+     -4
+    ],
+    "fov": 40
+   },
+   {
+    "t": 1,
+    "pos": [
+     30,
+     12.5,
+     20
+    ],
+    "target": [
+     0,
+     6,
+     -4
+    ],
+    "fov": 46
+   }
+  ]
+ },
+ {
+  "name": "angels",
+  "seconds": 5,
+  "css": ".bubble { display: none !important; }",
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     -11.5,
+     8.3,
+     3.4
+    ],
+    "target": [
+     -10.5,
+     6.2,
+     -4
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     -1.5,
+     8.3,
+     3.4
+    ],
+    "target": [
+     -2.5,
+     6.2,
+     -4
+    ],
+    "fov": 44
+   }
+  ]
+ },
+ {
+  "name": "ceo",
+  "seconds": 4.5,
+  "css": ".bubble { display: none !important; }",
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     4.4,
+     10.2,
+     3.2
+    ],
+    "target": [
+     2.6,
+     8.9,
+     -4
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     3.3,
+     9.75,
+     0.9
+    ],
+    "target": [
+     2.6,
+     8.85,
+     -4
+    ],
+    "fov": 44
+   }
+  ]
+ },
+ {
+  "name": "flow",
+  "seconds": 6,
+  "css": ".bubble { display: none !important; }",
+  "actions": [
+   {
+    "at": -1,
+    "js": "__cap.engine.createTask({ title: 'Xây landing page cho sản phẩm', description: 'Thiết kế, code frontend, viết nội dung', priority: 'high' }).then(() => new Promise(r => setTimeout(r, 1500)))"
+   }
+  ],
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     -28,
+     21,
+     24
+    ],
+    "target": [
+     -3,
+     5,
+     -4
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     14,
+     23,
+     28
+    ],
+    "target": [
+     -1,
+     5,
+     -4
+    ],
+    "fov": 44
+   }
+  ]
+ },
+ {
+  "name": "crew",
+  "seconds": 5,
+  "css": ".bubble { display: none !important; }",
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     -10.5,
+     6.4,
+     5.5
+    ],
+    "target": [
+     -17,
+     3.8,
+     -4
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     -12.2,
+     5.7,
+     2.8
+    ],
+    "target": [
+     -17.5,
+     3.8,
+     -4
+    ],
+    "fov": 44
+   }
+  ]
+ },
+ {
+  "name": "ui-assign",
+  "seconds": 7,
+  "hud": true,
+  "viewport": [
+   1280,
+   800,
+   2
+  ],
+  "type": {
+   "at": 0.6,
+   "selector": ".assign__title",
+   "text": "Viết kế hoạch ra mắt app ghi chú AI",
+   "cps": 16,
+   "submit": 0.5
+  },
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     26,
+     20,
+     58
+    ],
+    "target": [
+     3,
+     2,
+     11
+    ],
+    "fov": 38
+   },
+   {
+    "t": 1,
+    "pos": [
+     20,
+     17,
+     46
+    ],
+    "target": [
+     1,
+     3,
+     4
+    ],
+    "fov": 38
+   }
+  ],
+  "css": ".assign__desc, .assign select { display: none !important; } .assign__title { min-width: 0; flex: 1; font-size: 17px; }"
+ },
+ {
+  "name": "ui-board",
+  "seconds": 6,
+  "hud": true,
+  "viewport": [
+   1280,
+   800,
+   2
+  ],
+  "actions": [
+   {
+    "at": -1,
+    "js": "new Promise(r => setTimeout(r, 2500))"
+   }
+  ],
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     20,
+     17,
+     46
+    ],
+    "target": [
+     1,
+     3,
+     4
+    ],
+    "fov": 38
+   },
+   {
+    "t": 1,
+    "pos": [
+     14,
+     15,
+     40
+    ],
+    "target": [
+     -1,
+     4,
+     0
+    ],
+    "fov": 38
+   }
+  ]
+ },
+ {
+  "name": "break",
+  "seconds": 6,
+  "css": ".bubble { display: none !important; }",
+  "actions": [
+   {
+    "at": 0.3,
+    "js": "__cap.engine.stop()"
+   }
+  ],
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     -27,
+     4.2,
+     47
+    ],
+    "target": [
+     -14,
+     5.5,
+     8
+    ],
+    "fov": 48
+   },
+   {
+    "t": 1,
+    "pos": [
+     -25,
+     3.6,
+     43
+    ],
+    "target": [
+     -18,
+     3,
+     26
+    ],
+    "fov": 48
+   }
+  ]
+ },
+ {
+  "name": "bar",
+  "seconds": 4,
+  "css": ".bubble { display: none !important; }",
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     -16.5,
+     3.2,
+     41
+    ],
+    "target": [
+     -20,
+     1.6,
+     32.5
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     -18.8,
+     2.7,
+     39
+    ],
+    "target": [
+     -20,
+     1.6,
+     32.5
+    ],
+    "fov": 44
+   }
+  ],
+  "preroll": 4
+ },
+ {
+  "name": "outro",
+  "seconds": 6,
+  "css": ".bubble { display: none !important; }",
+  "labels": false,
+  "actions": [
+   {
+    "at": 0.2,
+    "js": "__cap.engine.start()"
+   }
+  ],
+  "keys": [
+   {
+    "t": 0,
+    "pos": [
+     13,
+     13,
+     8
+    ],
+    "target": [
+     2.6,
+     8.5,
+     -4
+    ],
+    "fov": 44
+   },
+   {
+    "t": 1,
+    "pos": [
+     34,
+     42,
+     62
+    ],
+    "target": [
+     0,
+     3,
+     -4
+    ],
+    "fov": 44
+   }
+  ]
+ }
+]
