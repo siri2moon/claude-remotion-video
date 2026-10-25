@@ -13,6 +13,7 @@
 import { existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { contentDir, die, hasFlag, info, ok, readJson, requireBin, sh, slugArg } from './lib.mjs';
+import { loadScript } from './kichban.mjs';
 
 const COLORS = ['0x1B2A4A', '0x4A1B2A', '0x1B4A2A', '0x4A3A1B', '0x3A1B4A', '0x1B4A4A'];
 
@@ -20,7 +21,7 @@ requireBin('ffmpeg');
 const busy = hasFlag('busy');
 const slug = slugArg();
 const dir = contentDir(slug);
-const script = readJson(join(dir, 'script.json'));
+const script = loadScript(dir);
 
 const rawDir = join(dir, 'raw');
 if (existsSync(rawDir)) {

@@ -5,11 +5,18 @@
 
 import { readFileSync } from 'node:fs';
 import { basename, dirname, resolve } from 'node:path';
+// Danh sách nhạc/SFX lấy thẳng từ bộ tổng hợp của pipeline dựng video, để hai bên không lệch nhau.
+import { MUSIC_NAMES, SFX_NAMES } from '../../tiktok-video/scripts/audio-synth.mjs';
 
 const PARTS = ['hook', 'lead', 'twist', 'explain', 'outro'];
 const INPUT_TYPES = ['quote', 'pickup-line', 'saying', 'topic', 'story'];
 // Deadpan đọc chậm hơn talking-head thường; quá ngưỡng này thì không còn chỗ cho khoảng lặng.
 const MAX_WPS = 5;
+const MUSIC = [...MUSIC_NAMES, 'silent'];
+const ZOOMS = ['none', 'snap', 'push'];
+const SFX_AT = ['start', 'end', 'pause'];
+const norm = (s) =>
+  String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/gi, 'd').toLowerCase().replace(/[^a-z0-9]/g, '');
 
 const errors = [];
 const warns = [];
@@ -79,11 +86,12 @@ else if (doc.durationSec < 45 || doc.durationSec > 120) err(`durationSec = ${doc
 // ---------- scenes ----------
 const scenes = Array.isArray(doc.scenes) ? doc.scenes : [];
 if (!Array.isArray(doc.scenes)) err('scenes: thiếu');
-else if (scenes.length < 5 || scenes.length > 8) err(`scenes có ${scenes.length} cảnh, phải 5–8`);
+else if (scenes.length < 5 || scenes.length > 12) err(`scenes có ${scenes.length} cảnh, phải 5–12`);
 
 let prevEnd = 0;
 let prevPartIdx = -1;
 const partCount = Object.fromEntries(PARTS.map((p) => [p, 0]));
+const seenFiles = new Map();
 
 scenes.forEach((s, i) => {
   const at = `scenes[${i}]`;
@@ -94,6 +102,11 @@ scenes.forEach((s, i) => {
     if (pIdx < prevPartIdx) err(`${at}.part "${s.part}" đứng sau "${PARTS[prevPartIdx]}" — thứ tự phải hook → lead → twist → explain → outro`);
     prevPartIdx = Math.max(prevPartIdx, pIdx);
   }
+  // `file` = tên footage người diễn quay cho cảnh này (raw/<file>.mov). Pipeline dựng ghép theo
+  // đúng tên này, nên trùng nhau là hai cảnh dùng chung một clip.
+  if (typeof s.file !== 'string' || !/^s\d+$/.test(s.file)) err(`${at}.file "${s.file}" phải dạng s1, s2, s7…`);
+  else if (seenFiles.has(s.file)) err(`${at}.file "${s.file}" trùng với scenes[${seenFiles.get(s.file)}]`);
+  else seenFiles.set(s.file, i);
   for (const f of ['label', 'camera', 'action', 'audio', 'line', 'onScreen']) {
     if (!isStr(s[f])) err(`${at}.${f}: thiếu hoặc rỗng`);
   }
@@ -112,6 +125,28 @@ scenes.forEach((s, i) => {
     const wps = words(s.line) / (s.end - s.start);
     if (wps > MAX_WPS) warn(`${at} (${s.part}): thoại ${wps.toFixed(1)} từ/giây — quá nhanh cho deadpan (≤ ${MAX_WPS})`);
   }
+  // --- field cho máy dựng video ---
+  if (!MUSIC.includes(s.music)) err(`${at}.music "${s.music}" không hợp lệ (${MUSIC.join(' | ')})`);
+  if (s.zoom !== undefined && !ZOOMS.includes(s.zoom)) err(`${at}.zoom "${s.zoom}" không hợp lệ (${ZOOMS.join(' | ')})`);
+  if (s.keepPauses !== undefined && typeof s.keepPauses !== 'boolean') err(`${at}.keepPauses phải là true/false`);
+  if (!Array.isArray(s.sfx)) err(`${at}.sfx: cần mảng (rỗng cũng được)`);
+  else {
+    s.sfx.forEach((x, j) => {
+      const sp = typeof x === 'string' ? { name: x } : x;
+      const where = `${at}.sfx[${j}]`;
+      if (!sp || !SFX_NAMES.includes(sp.name)) err(`${where}: tên "${sp?.name}" không có (${SFX_NAMES.join(', ')})`);
+      if (sp?.at !== undefined && !SFX_AT.includes(sp.at)) err(`${where}.at "${sp.at}" không hợp lệ (${SFX_AT.join(' | ')})`);
+      if (sp?.word !== undefined) {
+        const first = norm(String(sp.word).split(/\s+/)[0]);
+        if (!isStr(sp.word)) err(`${where}.word phải là chuỗi`);
+        else if (!String(s.line ?? '').split(/\s+/).some((w) => norm(w) === first)) {
+          warn(`${where}.word "${sp.word}" không có trong thoại cảnh này — khi dựng sẽ đặt ở đầu cảnh`);
+        }
+      }
+      if (sp?.volume !== undefined && !(isNum(sp.volume) && sp.volume > 0 && sp.volume <= 1)) err(`${where}.volume phải trong (0, 1]`);
+    });
+  }
+
   if (isStr(s.onScreen) && [...s.onScreen].length > 70) warn(`${at}.onScreen dài ${[...s.onScreen].length} ký tự (nên ≤ 70)`);
   if (/(haha|hihi|lol|\bkk+\b)/i.test(`${s.line ?? ''} ${s.action ?? ''}`)) {
     warn(`${at}: có "haha/lol" trong thoại hoặc diễn xuất — phá deadpan`);
@@ -126,8 +161,11 @@ if (scenes.length) {
   if (scenes.at(-1).part !== 'outro') err('cảnh cuối phải là outro');
   for (const p of PARTS) {
     if (partCount[p] === 0) err(`thiếu phần "${p}"`);
-    if (partCount[p] > 2) err(`phần "${p}" có ${partCount[p]} cảnh, tối đa 2`);
+    if (partCount[p] > 3) err(`phần "${p}" có ${partCount[p]} cảnh, tối đa 3`);
   }
+  const twists = scenes.filter((s) => s.part === 'twist');
+  if (twists.length && !twists.some((s) => s.keepPauses)) warn('không cảnh twist nào bật keepPauses — khi dựng, khoảng lặng deadpan sẽ bị jump-cut cắt mất');
+  if (twists.length && !twists.some((s) => s.music === 'silent')) warn('không cảnh twist nào có music "silent" — mất cú "nhạc tắt phụt"');
   if (isNum(doc.durationSec) && prevEnd !== doc.durationSec) {
     err(`durationSec = ${doc.durationSec} nhưng cảnh cuối kết thúc ở ${prevEnd}`);
   }

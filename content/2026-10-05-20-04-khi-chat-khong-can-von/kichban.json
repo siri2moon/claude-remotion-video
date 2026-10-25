@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "id": "2026-10-05-20-04-khi-chat-khong-can-von",
+  "input": "tại sao rõ ràng bạn chẳng có đồng nào? nhưng lại đem lại cho người ta cảm giác rất giàu có. cảm giác đó gọi là khí chất. khí chất chính là rõ ràng bạn không có tiền, nhưng chỉ cần bạn đứng ở đó. nói bạn nghèo rớt mồng tơi thì chẳng ai thèm tin",
+  "inputType": "saying",
+  "title": "KHÍ CHẤT KHÔNG CẦN VỐN",
+  "subtitle": "Thẩm định người vừa nhận lương được 7 phút",
+  "shockLine": "TÀI KHOẢN 37K – KHÍ CHẤT VÔ GIÁ",
+  "concept": "Báo cáo thẩm định tài sản vô hình / Deadpan",
+  "persona": "chuyên viên thẩm định tài sản ngân hàng, đang tự thẩm định chính mình",
+  "setting": "Ngồi một mình ở bàn quán cà phê hoặc bàn ở nhà, ánh sáng ấm, phía sau gọn gàng",
+  "props": [
+    "ly trà đá",
+    "một chiếc ví da rỗng",
+    "điện thoại mở sẵn màn hình số dư và app máy tính (che thông tin cá nhân)"
+  ],
+  "rhythm": "Chậm, chắc, giọng báo cáo nghiệp vụ. Cảnh 2 đọc mốc giờ đều đều như sao kê. Tắt nhạc ở cảnh twist, im lặng hẳn trước câu 'Mà tôi nghèo thật.' — đó là chỗ ăn tiền.",
+  "durationSec": 86,
+  "scenes": [
+    {
+      "part": "hook",
+      "file": "s1",
+      "label": "Ngày nhận lương",
+      "start": 0,
+      "end": 9,
+      "camera": "Cận cảnh. Đang hút trà đá, ngẩng lên nhìn thẳng camera.",
+      "action": "Đặt ly xuống \"cộp\". Nhìn xa xăm 1 nhịp như cố nhớ mặt một người quen cũ.",
+      "audio": "Lo-fi suy tư, nhỏ. SFX: tiếng \"cộp\" khi đặt ly.",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "thud",
+          "at": "start"
+        }
+      ],
+      "voice": "trầm, ráo hoảnh",
+      "line": "Hôm nay là ngày tôi nhận lương. Nhận xong rồi… nhưng tôi không nhớ mặt nó. Lương ở với tôi ngắn quá… chưa kịp làm quen.",
+      "onScreen": "HÔM NAY NHẬN LƯƠNG\nĐÃ QUÊN MẶT"
+    },
+    {
+      "part": "lead",
+      "file": "s8",
+      "label": "Nhật ký giải ngân 7 phút",
+      "start": 9,
+      "end": 21,
+      "camera": "Cận cảnh. Cầm điện thoại, lướt màn hình biến động số dư, đọc như đọc biên bản.",
+      "action": "Mỗi mốc giờ lướt ngón tay một lần, mặt không đổi. Đọc xong thì lật úp điện thoại xuống bàn.",
+      "audio": "Lo-fi tiếp tục. SFX: tiếng thông báo ngân hàng khi lương về, \"cộp\" ở chữ \"số dư\".",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "notification",
+          "at": "start"
+        },
+        {
+          "name": "thud",
+          "word": "số"
+        }
+      ],
+      "voice": "đều đều như đọc sao kê",
+      "line": "9 giờ sáng lương về. 9 giờ 01, trả nợ. 9 giờ 03, trả lãi. 9 giờ 05, tiền điện, tiền nước, tiền mạng. 9 giờ 07… số dư còn ba mươi bảy nghìn bốn trăm. Vậy mà đi đâu người ta cũng hỏi: 'Anh làm sếp ở đâu?'",
+      "onScreen": "LƯƠNG Ở LẠI: 7 PHÚT\nSỐ DƯ: 37.400đ"
+    },
+    {
+      "part": "lead",
+      "file": "s2",
+      "label": "Đặt vấn đề tài sản vô hình",
+      "start": 21,
+      "end": 32,
+      "camera": "Trung cận. Đan hai tay lên bàn như chủ tọa hội đồng thẩm định.",
+      "action": "Nói chậm, rành mạch, hơi nheo mắt như đang đọc biên bản định giá.",
+      "audio": "Lo-fi tiếp tục.",
+      "music": "lofi",
+      "sfx": [],
+      "line": "Câu hỏi đặt ra là: tại sao một người rõ ràng chẳng có đồng nào… lại đem đến cho xã hội cảm giác rất giàu có? Trong nghề thẩm định, đó gọi là tài sản vô hình. Dân gian gọi là… khí chất.",
+      "onScreen": "TÀI SẢN VÔ HÌNH = KHÍ CHẤT"
+    },
+    {
+      "part": "twist",
+      "file": "s3",
+      "label": "Định nghĩa khí chất",
+      "start": 32,
+      "end": 40,
+      "camera": "Cận cảnh. Mở chiếc ví da ra, xoè về phía camera cho thấy bên trong trống trơn.",
+      "action": "Giữ ví mở như trình bày tang vật trước toà. Mắt không rời ống kính.",
+      "audio": "Lo-fi tắt phụt. Im bặt.",
+      "music": "silent",
+      "keepPauses": true,
+      "sfx": [],
+      "voice": "hạ giọng 2 tông, chậm hơn mọi chỗ khác",
+      "line": "Khí chất… là khi tôi nói tôi nghèo rớt mồng tơi… người ta tưởng tôi khiêm tốn.",
+      "onScreen": "Nói mình nghèo…\nNGƯỜI TA TƯỞNG KHIÊM TỐN"
+    },
+    {
+      "part": "twist",
+      "file": "s4",
+      "label": "Khoảng lặng snap zoom",
+      "start": 40,
+      "end": 45,
+      "camera": "Snap zoom giật vào mắt (cực cận).",
+      "action": "Gập ví lại thật chậm. Mặt đơ 100%, im lặng 2 giây, chớp mắt đúng 1 lần rồi mới nói.",
+      "audio": "Record scratch + tiếng dế kêu trong khoảng lặng.",
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        }
+      ],
+      "voice": "khô khốc, gần như thì thầm",
+      "line": "Mà tôi nghèo thật.",
+      "onScreen": "MÀ NGHÈO THẬT.",
+      "note": "Đếm thầm đủ 2 giây im lặng trước khi nói. Câu này nói như khai báo thuế, không chút tủi thân."
+    },
+    {
+      "part": "explain",
+      "file": "s5",
+      "label": "Tiền quá cảnh",
+      "start": 45,
+      "end": 58,
+      "camera": "Trung cảnh. Thẳng lưng, trở lại tác phong chuyên viên thẩm định.",
+      "action": "Mở app máy tính trên điện thoại, bấm từng phím chậm rãi. Đến \"0,016%\" thì xoay màn hình về phía camera, giữ 1 nhịp như trình chứng cứ.",
+      "audio": "Chuyển sang waltz trang trọng như phim tài liệu. SFX: \"cộp\" ở từng con số, \"vút\" ở chữ \"quá cảnh\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "7"
+        },
+        {
+          "name": "thud",
+          "word": "43.200"
+        },
+        {
+          "name": "thud",
+          "word": "0,016%"
+        },
+        {
+          "name": "swoosh",
+          "word": "quá"
+        }
+      ],
+      "line": "Phân tích nghiệp vụ: lương ở với tôi 7 phút. Một tháng có 43.200 phút. Tỷ lệ chung sống giữa tôi và tiền lương: 0,016%. Về mặt pháp lý… đây không phải thu nhập. Đây là tiền… quá cảnh.",
+      "onScreen": "THỜI GIAN SỐNG CHUNG VỚI LƯƠNG: 0,016%\n→ TIỀN QUÁ CẢNH",
+      "voice": "đều, chắc, như đọc kết luận thanh tra"
+    },
+    {
+      "part": "explain",
+      "file": "s6",
+      "label": "Quy mô cấp tập đoàn",
+      "start": 58,
+      "end": 72,
+      "camera": "Trung cận. Hai tay đặt trên bàn.",
+      "action": "Giơ tay đếm từng ngón \"một, hai, ba, bốn\" như điểm danh cổ đông. Câu cuối hạ tay xuống bàn, nhìn thẳng ống kính như chủ tịch kết thúc đại hội.",
+      "audio": "Waltz tiếp tục. SFX: \"tưng\" ở chữ \"chi\", \"ding\" ở chữ \"tập đoàn\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "boing",
+          "word": "chi"
+        },
+        {
+          "name": "ding",
+          "word": "tập"
+        }
+      ],
+      "line": "Mỗi tháng, chủ nợ, ngân hàng, điện lực, nhà máy nước… bốn tổ chức cùng ngồi chờ dòng tiền của một người. Người giàu có nhiều nguồn thu. Tôi có nhiều… nguồn chi. Quy mô như nhau, chỉ ngược chiều. Thế nên người ta nhìn tôi… là thấy tập đoàn.",
+      "onScreen": "Người giàu: NHIỀU NGUỒN THU\nTôi: NHIỀU NGUỒN CHI",
+      "voice": "trang trọng, tự hào một cách kín đáo"
+    },
+    {
+      "part": "outro",
+      "file": "s7",
+      "label": "Đại hội cổ đông bất thường",
+      "start": 72,
+      "end": 86,
+      "camera": "Cận cảnh. Hút một ngụm trà đá, tay kia chỉ thẳng vào ống kính.",
+      "action": "Mặt nghiêm như chủ tịch tập đoàn họp báo công bố khủng hoảng. Ở \"bốc số thứ tự\" thì gật đầu chậm một cái, như xác nhận quy trình đã chuẩn.",
+      "audio": "Waltz nhỏ dần đến hết. SFX: \"ding\" ở chữ \"đại hội\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "đại"
+        }
+      ],
+      "line": "Mô hình tập đoàn này tôi chuyển giao miễn phí, anh em về tự vận hành. Còn nếu tháng sau lương chưa kịp về… mà chủ nợ, điện lực, nhà máy nước đã đứng trước cửa nhà, mỗi người cầm một tờ giấy, bốc số thứ tự… thì quay lại đây comment, để tôi triệu tập đại hội cổ đông bất thường.",
+      "onScreen": "RỦI RO: Cổ đông bốc số trước cửa nhà 👇",
+      "voice": "chắc nịch, như phát ngôn viên tập đoàn"
+    }
+  ],
+  "tips": [
+    "Không cười ở bất kỳ cảnh nào. Bật cười thì cắt, quay lại.",
+    "Cảnh im lặng (file s4) quay riêng, máy đặt sát hơn; im lặng đủ 2 giây thật trước câu 'Mà tôi nghèo thật.'",
+    "Đọc chậm hơn bình thường 20%, nghỉ đúng ở dấu \"…\".",
+    "Ví phải rỗng thật — xoè rõ về phía ống kính, giữ 1 nhịp cho người xem kịp nhìn.",
+    "Cảnh \"nguồn chi\" (file s6): đếm ngón tay chậm, nghiêm như điểm danh cổ đông — càng nghiêm càng buồn cười."
+  ],
+  "caption": "Tháng này tôi đặt KPI giữ lương được 10 phút. Ai giữ lâu hơn comment bí quyết, tôi bổ sung vào giáo trình. Ai giữ được qua đêm thì inbox, tôi xin làm đệ tử…",
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#ngaynhanluong",
+    "#khichat"
+  ]
+}

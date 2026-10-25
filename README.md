@@ -20,7 +20,8 @@ câu chuyện ──/ai-story──▶ story.json ──▶ [duyệt] ──▶ 
 **C — Kịch bản hài vô tri (deadpan) để tự diễn.** Ra PDF cầm đọc khi quay, kèm chữ cho thumbnail và caption đăng bài.
 
 ```
-câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt trong chat] ──▶ kichban.pdf ──▶ bạn quay & diễn
+câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt] ──▶ kichban.pdf ──▶ bạn quay ──/tiktok-video──▶ out/<dir>.mp4
+                                                                      raw/s1.mov …   (nhạc + SFX máy tự sinh)
 ```
 
 ## Skills
@@ -28,7 +29,7 @@ câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt trong cha
 | Skill | Việc |
 |---|---|
 | `tiktok-script` | Châm ngôn → kịch bản selfie 30–45s + hướng dẫn quay |
-| `tiktok-video` | Footage + kịch bản → mp4, jump-cut + phụ đề động theo từng từ |
+| `tiktok-video` | Footage + kịch bản (`script.json` hoặc `kichban.json`) → mp4, jump-cut + phụ đề động + nhạc/SFX tự tổng hợp |
 | `ai-story` | Câu chuyện triết lý → mp4, tranh AI + giọng AI + phụ đề theo cụm |
 | `votri-script` | Câu nói / danh ngôn / câu thính / câu chuyện → kịch bản hài vô tri deadpan 45–120s → PDF để diễn, kèm title, subtitle, dòng chữ gây sốc, caption |
 
@@ -46,7 +47,7 @@ node .claude/skills/ai-story/scripts/setup.mjs
 ```
 
 Riêng cho `votri-script`: cần **Google Chrome** (để in PDF) và `poppler` nếu muốn xem trước PDF
-dưới dạng ảnh (`brew install poppler`).
+dưới dạng ảnh (`brew install poppler`). Nhạc nền và SFX không cần cài gì — tổng hợp bằng code.
 
 Dùng **pnpm**, không dùng npm.
 
@@ -214,10 +215,54 @@ Trong chat skill cũng in lại prompt thumbnail và caption trong code block đ
 
 ## 4. Quay
 
-- Đặt máy ngang tầm mắt, nhìn vào **ống kính**, không nhìn màn hình preview.
-- Không cười. Bật cười thì cắt, quay lại take đó.
-- Twist cần **im lặng đủ 1.5–2 giây** — đếm thầm. Snap zoom có thể làm ở hậu kỳ.
-- Tiếng đặt ly "cộp", tiếng húp, tiếng gõ bàn là SFX thật — đặt mic gần bàn.
+Bạn **chỉ cần quay hình người thật** — nhạc, SFX, zoom, chữ, phụ đề máy tự thêm ở bước 5.
+
+- **Mỗi cảnh một file**, tên đúng nhãn trên đầu cảnh trong PDF: `s1.mov`, `s2.mov`…
+  Chép vào `content/<dir>/raw/`. Đuôi `.mov` hoặc `.mp4` đều được.
+- Quay dọc 9:16, **phải có tiếng** (mic cài áo hoặc đặt gần bàn).
+- Thừa vài giây đầu/đuôi không sao, máy tự tỉa. Hỏng câu thì nói lại câu đó trong cùng file
+  cũng được — nhưng khớp kịch bản càng sát thì phụ đề càng chuẩn.
+- Nhìn vào **ống kính**, không nhìn màn hình preview. Không cười — bật cười thì quay lại take đó.
+- Cảnh có ⏸ trong PDF: **im đủ nhịp** như kịch bản, máy không cắt khoảng lặng đó. Snap zoom
+  máy tự làm, không cần zoom tay.
+
+## 5. Dựng video
+
+```
+/tiktok-video dinh-luat-phu-hop-toi-uu
+```
+
+Gõ mỗi phần slug là đủ. Pipeline tự nhận ra đây là thư mục vô tri (có `kichban.json`) và:
+
+| Việc | Cách làm |
+|---|---|
+| Cắt khoảng lặng | Nhẹ tay: chừa lại 0.3s mỗi chỗ ngừng để giữ giọng chậm rãi. Cảnh twist (⏸) giữ nguyên khoảng lặng |
+| Nhạc nền | **Tổng hợp bằng code**, đổi bài theo `music` từng cảnh: lo-fi → tắt phụt ở twist → funky/waltz |
+| SFX | **Tổng hợp bằng code**, đặt đúng lúc: record scratch đầu cảnh, dế kêu ở khoảng lặng, "cộp"/"tưng" đúng từ được neo |
+| Hình | Snap zoom giật vào mắt ở cảnh twist, chữ màn hình theo kịch bản, phụ đề chạy theo giọng nói |
+
+Ra `out/<dir>.mp4`. Video ~60s render khoảng 2 phút. Lần đầu sẽ tải model whisper (~1.5GB) để
+lấy nhịp giọng nói.
+
+Nhạc và SFX do code tạo ra nên **thuộc về bạn 100%**, đăng kiếm tiền không vướng bản quyền. Nghe
+"đủ dùng" chứ không mượt như nhạc thật. Muốn dùng nhạc riêng: chép đè file cùng tên vào
+`content/_assets/bgm/` (vd `lofi.mp3`) hoặc `content/_assets/sfx/` — máy không bao giờ ghi đè file
+đã có.
+
+```bash
+node .claude/skills/tiktok-video/scripts/audio-synth.mjs --list           # tên nhạc/SFX có sẵn
+node .claude/skills/tiktok-video/scripts/audio-synth.mjs lofi --force     # sinh lại một bài
+node .claude/skills/tiktok-video/scripts/render.mjs <slug> --studio       # xem trước, tua timeline
+```
+
+Chạy thử trước khi quay thật (footage giả — **ghi đè `raw/`**, đừng chạy khi đã có footage thật):
+
+```bash
+S=.claude/skills/tiktok-video/scripts
+node $S/make-test-footage.mjs <slug> --busy
+node $S/preflight.mjs <slug> && node $S/extract-audio.mjs <slug> && node $S/transcribe.mjs <slug> --fallback
+node $S/detect-cuts.mjs <slug> && node $S/build-props.mjs <slug> && node $S/render.mjs <slug>
+```
 
 ## Chạy tay các script
 
@@ -245,13 +290,13 @@ title/caption): sửa `.claude/skills/votri-script/references/craft.md`.
 
 ```
 .claude/skills/tiktok-script/   viết kịch bản selfie + hướng dẫn quay
-.claude/skills/tiktok-video/    pipeline dựng video từ footage
+.claude/skills/tiktok-video/    pipeline dựng video từ footage + bộ tổng hợp nhạc/SFX
 .claude/skills/ai-story/        pipeline kể chuyện bằng tranh AI
 .claude/skills/votri-script/    kịch bản hài vô tri deadpan → PDF để diễn
 remotion/src/                   composition "TikTokVideo"
 remotion/src/story/             composition "StoryVideo"
 content/<dir>/                  mỗi video một thư mục
-content/_assets/{bgm,sfx}/      nhạc nền và hiệu ứng tiếng
+content/_assets/{bgm,sfx}/      nhạc nền và hiệu ứng tiếng (máy tự sinh, chép đè để dùng file riêng)
 out/                            thành phẩm
 docs/refer/                     video tham khảo + mẫu giọng
 docs/                           hồ sơ thiết kế

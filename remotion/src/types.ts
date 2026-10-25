@@ -17,6 +17,21 @@ export type Clip = {
   /** 1.0 hoặc 1.06 — so le giữa các đoạn để jump-cut trông như đổi góc máy */
   zoom: number;
   sceneId: string;
+  /**
+   * Hiệu ứng zoom theo cả scene (video vô tri). snap = giật vào mắt trong vài frame
+   * rồi giữ; push = đẩy chậm suốt scene. sceneOffset = clip này bắt đầu ở frame thứ
+   * mấy của scene, để các clip con của một scene nối tiếp nhau liền mạch.
+   */
+  fx?: { kind: 'snap' | 'push'; sceneOffset: number; sceneFrames: number };
+};
+
+/** Một đoạn nhạc nền — video vô tri đổi bài theo phần (lo-fi → im bặt → funky). */
+export type MusicSegment = {
+  src: string;
+  fromFrame: number;
+  durationInFrames: number;
+  volume: number;
+  fadeFrames: number;
 };
 
 export type Title = {
@@ -56,6 +71,8 @@ export type VideoProps = {
   fps: number;
   durationInFrames: number;
   bgm: { src: string; volume: number } | null;
+  /** Rỗng với video selfie cũ (dùng `bgm`). */
+  music?: MusicSegment[];
   clips: Clip[];
   titles: Title[];
   captions: CaptionPage[];

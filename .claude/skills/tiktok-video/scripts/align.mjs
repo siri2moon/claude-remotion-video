@@ -96,8 +96,8 @@ export const alignWords = (voiceover, heard, durationMs) => {
       out.push({ text: script[i - 1], startMs: null, endMs: null });
       i--;
     } else {
-      // user nói thêm từ ngoài kịch bản — giữ nguyên chữ whisper nghe được
-      out.push({ text: heard[j - 1].text.trim(), startMs: heard[j - 1].startMs, endMs: heard[j - 1].endMs, adlib: true });
+      // user nói thêm từ ngoài kịch bản — KHÔNG đưa lên phụ đề: chữ whisper tiếng Việt sai dấu
+      // ("chưa kịp" → "chức hiệp"), mà luật là chữ trên màn hình chỉ lấy từ voiceover.
       j--;
     }
   }
@@ -163,6 +163,25 @@ const interpolateGaps = (words, durationMs) => {
   return out;
 };
 
+/**
+ * Gộp token whisper thành từ. Với tokenLevelTimestamps, whisper.cpp cắt tiếng Việt thành
+ * mảnh BPE: " nh" + "ẹ" + "o", "H" + "ôm". Token không mở đầu bằng khoảng trắng là phần nối
+ * của từ trước. Không gộp thì aligner coi mỗi mảnh là một từ nói thêm và matchRatio tụt thảm.
+ */
+export const mergeSubwordTokens = (tokens) => {
+  const words = [];
+  for (const t of tokens) {
+    const prev = words.at(-1);
+    if (prev && !/^\s/.test(t.text)) {
+      prev.text += t.text;
+      prev.endMs = Math.max(prev.endMs, t.endMs);
+    } else {
+      words.push({ text: t.text.trim(), startMs: t.startMs, endMs: t.endMs });
+    }
+  }
+  return words.filter((w) => norm(w.text).length > 0);
+};
+
 /** Phương án chót: chia đều thời lượng cho số từ. Kém tự nhiên nhưng KHÔNG BAO GIỜ sai chữ. */
 export const evenDistribution = (voiceover, durationMs) => {
   const words = tokenize(voiceover);
@@ -224,7 +243,8 @@ if (process.argv.includes('--test')) {
       w('tháng', 700, 900), w('Chín', 900, 1100), w('ngồi', 1100, 1300), w('chê', 1300, 1500),
     ], 1500);
     const text = r.words.map((x) => x.text).join(' ');
-    check('giữ từ nói thêm', text.includes('à'), text);
+    check('không hiện từ nói thêm (chữ whisper)', !text.split(' ').includes('à'), text);
+    check('"tháng" thứ hai lấy timing sau từ nói thêm', r.words[3].startMs === 700, JSON.stringify(r.words[3]));
     check('không mất từ nào của script', ['Code', 'tháng', 'Ba', 'Chín', 'ngồi', 'chê'].every((t) => text.includes(t)), text);
   }
 
@@ -254,6 +274,20 @@ if (process.argv.includes('--test')) {
     const r = alignWords('một hai ba', [], 900);
     check('mode fallback-no-audio', r.mode === 'fallback-no-audio', r.mode);
     check('chia đều 300ms', r.words[1].startMs === 300 && r.words[1].endMs === 600, JSON.stringify(r.words[1]));
+  }
+
+  console.log('\n7. Token BPE của whisper — phải gộp thành từ rồi mới align');
+  {
+    const heard = mergeSubwordTokens([
+      w('M', 760, 800), w('à', 800, 900), w(' tôi', 900, 1200),
+      w(' nh', 1300, 1400), w('ẹ', 1400, 1500), w('o', 1500, 1600), w(' th', 1700, 1800), w('ật', 1800, 2000),
+      w('.', 2000, 2050),
+    ]);
+    check('gộp thành 4 từ', heard.length === 4, heard.map((x) => x.text).join('|'));
+    check('từ gộp giữ start mảnh đầu, end mảnh cuối', heard[2].startMs === 1300 && heard[2].endMs === 1600, JSON.stringify(heard[2]));
+    const r = alignWords('Mà tôi nghèo thật.', heard, 2100);
+    check('không rơi về fallback', r.mode === 'aligned', r.mode);
+    check('chữ đúng kịch bản', r.words.map((x) => x.text).join(' ') === 'Mà tôi nghèo thật.', r.words.map((x) => x.text).join(' '));
   }
 
   console.log(`\n${pass} pass, ${failed} fail`);

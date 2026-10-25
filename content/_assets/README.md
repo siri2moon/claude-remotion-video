@@ -22,8 +22,16 @@ _assets/
     └── riser.mp3
 ```
 
-**Thiếu file không chặn pipeline** — video vẫn render, chỉ là không có nhạc/hiệu ứng.
-`build-props.mjs` sẽ liệt kê chính xác file nào còn thiếu.
+**File ở đây phần lớn do máy tự tổng hợp** (`.claude/skills/tiktok-video/scripts/audio-synth.mjs`):
+nhạc `lofi`, `funky`, `waltz`, `romantic` và 14 SFX — `record-scratch`, `crickets`, `thud`,
+`tick-tock`, `heartbeat`, `boing`, `ding`, `notification`, `pop`, `swoosh`, `riser`, `boom`,
+`sigh`, `typing`. `build-props.mjs` tự sinh cái nào còn thiếu.
+
+Muốn dùng nhạc/SFX của riêng mình: chép đè file cùng tên vào đây — máy không bao giờ ghi đè file
+đã có. Muốn quay về bản tổng hợp: xoá file, hoặc
+`node .claude/skills/tiktok-video/scripts/audio-synth.mjs <tên> --force`.
+
+Tên không có trong bộ tổng hợp mà cũng chưa có file → bỏ qua, không chặn pipeline.
 
 BGM nên dài hơn video hoặc chấp nhận lặp (composition bật `loop`).
 

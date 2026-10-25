@@ -54,7 +54,7 @@ một câu lạnh tanh) → kết tự trào. Giữ nguyên các chi tiết user
 
 ## C. Cấu trúc 5 phần
 
-Thời lượng 45–120 giây, ngọt nhất 50–70. Tỉ lệ gợi ý:
+Thời lượng 45–120 giây. Mặc định 50–70; input có nhiều chi tiết hay (mốc giờ, danh sách, nhân vật phụ) thì cứ kéo tới 90–120 thay vì cắt bớt — giữ mỗi cảnh 8–15 giây và tăng số cảnh, đừng nhồi thoại. Tỉ lệ gợi ý:
 
 | Phần (`part`) | Tỉ lệ | Nhiệm vụ | Âm thanh |
 |---|---|---|---|
@@ -64,7 +64,7 @@ Thời lượng 45–120 giây, ngọt nhất 50–70. Tỉ lệ gợi ý:
 | `explain` — Giải thích | 20–30% | Phân tích nghiêm túc mà vô tri | Đổi sang funky / waltz / tài liệu |
 | `outro` | 10–15% | Dặn dò + kêu comment kết quả / rủi ro | Funky nhỏ dần |
 
-Mỗi phần 1–2 cảnh. Tổng 5–8 cảnh. Phần `twist` thường tách đôi: cảnh đọc câu + cảnh snap zoom im lặng.
+Mỗi phần 1–2 cảnh (video dài: tới 3). Tổng 5–8 cảnh, video > 80s thì 9–12. Phần `twist` thường tách đôi: cảnh đọc câu + cảnh snap zoom im lặng.
 
 ### Hook — 6 pattern
 | Pattern | Khung |
@@ -139,6 +139,24 @@ tục giữ vai chuyên gia ("cập nhật báo cáo rủi ro", "bổ sung vào 
   cuộc họp", không phải "ngồi nghiêm túc".
 - Dùng so sánh vai diễn để người diễn bắt được trạng thái: "như thẩm phán cảnh báo đương sự",
   "như bàn giao mật mã tối mật", "như người anh dặn cậu em mới biết yêu".
+
+## E2. Âm thanh cho máy dựng (`music`, `sfx`, `keepPauses`, `zoom`)
+
+User chỉ quay hình người thật. Nhạc nền và SFX do `/tiktok-video` **tự tổng hợp** theo các field
+này, nên viết chúng cẩn thận như viết thoại:
+
+| Phần | `music` gợi ý | `sfx` gợi ý | Khác |
+|---|---|---|---|
+| hook | `lofi` (hoặc `romantic` cho chủ đề tình yêu) | `thud` ở `start` nếu có đặt ly / gõ bàn | |
+| lead | giữ như hook | thường để trống | |
+| twist (đọc câu) | `silent` — tắt phụt | thường để trống, để im lặng làm việc | `keepPauses: true` |
+| twist (khoảng lặng) | `silent` | `record-scratch` @ `start`, `crickets` / `heartbeat` / `tick-tock` @ `pause`, `boing` neo từng vế | `keepPauses: true`, `zoom: "snap"` |
+| explain | `funky` hoặc `waltz` (giọng tài liệu, trang trọng) | `thud` neo vào từng con số | |
+| outro | giữ như explain | `ding` neo vào chữ chốt, tuỳ chọn | |
+
+- Ít mà đúng chỗ: 0–5 SFX mỗi cảnh. SFX ở mọi câu là thành video gameshow.
+- Neo `word` vào **từ đầu tiên** của cụm, đúng chính tả trong `line` (validator kiểm tra).
+- Mô tả trong `audio` phải khớp với các field này — người diễn đọc `audio`, máy đọc field.
 
 ## F. Text trên màn hình
 

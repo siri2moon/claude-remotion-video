@@ -1,0 +1,251 @@
+{
+  "version": 1,
+  "id": "2026-10-05-20-04-khi-chat-khong-can-von",
+  "derivedFrom": "kichban.json",
+  "quote": "tại sao rõ ràng bạn chẳng có đồng nào? nhưng lại đem lại cho người ta cảm giác rất giàu có. cảm giác đó gọi là khí chất. khí chất chính là rõ ràng bạn không có tiền, nhưng chỉ cần bạn đứng ở đó. nói bạn nghèo rớt mồng tơi thì chẳng ai thèm tin",
+  "title": "KHÍ CHẤT KHÔNG CẦN VỐN",
+  "durationSec": 86,
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "audio": {
+    "bgm": "lofi",
+    "bgmVolume": 0.13
+  },
+  "edit": {
+    "leaveGapSec": 0.3
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "role": "hook",
+      "part": "hook",
+      "label": "Ngày nhận lương",
+      "startSec": 0,
+      "endSec": 9,
+      "voiceover": "Hôm nay là ngày tôi nhận lương. Nhận xong rồi… nhưng tôi không nhớ mặt nó. Lương ở với tôi ngắn quá… chưa kịp làm quen.",
+      "caption": {
+        "text": "HÔM NAY NHẬN LƯƠNG ĐÃ QUÊN MẶT",
+        "highlight": [
+          "HÔM NAY NHẬN LƯƠNG ĐÃ QUÊN MẶT"
+        ],
+        "style": "hook",
+        "emoji": null
+      },
+      "sfx": [
+        {
+          "name": "thud",
+          "at": "start"
+        }
+      ],
+      "music": "lofi",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s8",
+      "role": "story",
+      "part": "lead",
+      "label": "Nhật ký giải ngân 7 phút",
+      "startSec": 9,
+      "endSec": 21,
+      "voiceover": "9 giờ sáng lương về. 9 giờ 01, trả nợ. 9 giờ 03, trả lãi. 9 giờ 05, tiền điện, tiền nước, tiền mạng. 9 giờ 07… số dư còn ba mươi bảy nghìn bốn trăm. Vậy mà đi đâu người ta cũng hỏi: 'Anh làm sếp ở đâu?'",
+      "caption": {
+        "text": "LƯƠNG Ở LẠI: 7 PHÚT SỐ DƯ: 37.400đ",
+        "highlight": [
+          "LƯƠNG Ở LẠI: 7 PHÚT SỐ DƯ:"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "sfx": [
+        {
+          "name": "notification",
+          "at": "start"
+        },
+        {
+          "name": "thud",
+          "word": "số"
+        }
+      ],
+      "music": "lofi",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s2",
+      "role": "story",
+      "part": "lead",
+      "label": "Đặt vấn đề tài sản vô hình",
+      "startSec": 21,
+      "endSec": 32,
+      "voiceover": "Câu hỏi đặt ra là: tại sao một người rõ ràng chẳng có đồng nào… lại đem đến cho xã hội cảm giác rất giàu có? Trong nghề thẩm định, đó gọi là tài sản vô hình. Dân gian gọi là… khí chất.",
+      "caption": {
+        "text": "TÀI SẢN VÔ HÌNH = KHÍ CHẤT",
+        "highlight": [
+          "TÀI SẢN VÔ HÌNH = KHÍ CHẤT"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "sfx": [],
+      "music": "lofi",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s3",
+      "role": "punchline",
+      "part": "twist",
+      "label": "Định nghĩa khí chất",
+      "startSec": 32,
+      "endSec": 40,
+      "voiceover": "Khí chất… là khi tôi nói tôi nghèo rớt mồng tơi… người ta tưởng tôi khiêm tốn.",
+      "caption": {
+        "text": "Nói mình nghèo… NGƯỜI TA TƯỞNG KHIÊM TỐN",
+        "highlight": [
+          "NGƯỜI TA TƯỞNG KHIÊM TỐN"
+        ],
+        "style": "punch",
+        "emoji": null
+      },
+      "sfx": [],
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s4",
+      "role": "punchline",
+      "part": "twist",
+      "label": "Khoảng lặng snap zoom",
+      "startSec": 40,
+      "endSec": 45,
+      "voiceover": "Mà tôi nghèo thật.",
+      "caption": {
+        "text": "MÀ NGHÈO THẬT.",
+        "highlight": [
+          "MÀ NGHÈO THẬT."
+        ],
+        "style": "punch",
+        "emoji": null
+      },
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        }
+      ],
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "bRoll": null
+    },
+    {
+      "id": "s5",
+      "role": "story",
+      "part": "explain",
+      "label": "Tiền quá cảnh",
+      "startSec": 45,
+      "endSec": 58,
+      "voiceover": "Phân tích nghiệp vụ: lương ở với tôi 7 phút. Một tháng có 43.200 phút. Tỷ lệ chung sống giữa tôi và tiền lương: 0,016%. Về mặt pháp lý… đây không phải thu nhập. Đây là tiền… quá cảnh.",
+      "caption": {
+        "text": "THỜI GIAN SỐNG CHUNG VỚI LƯƠNG: 0,016% → TIỀN QUÁ CẢNH",
+        "highlight": [
+          "THỜI GIAN SỐNG CHUNG VỚI LƯƠNG: 0,016% → TIỀN QUÁ CẢNH"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "7"
+        },
+        {
+          "name": "thud",
+          "word": "43.200"
+        },
+        {
+          "name": "thud",
+          "word": "0,016%"
+        },
+        {
+          "name": "swoosh",
+          "word": "quá"
+        }
+      ],
+      "music": "waltz",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s6",
+      "role": "story",
+      "part": "explain",
+      "label": "Quy mô cấp tập đoàn",
+      "startSec": 58,
+      "endSec": 72,
+      "voiceover": "Mỗi tháng, chủ nợ, ngân hàng, điện lực, nhà máy nước… bốn tổ chức cùng ngồi chờ dòng tiền của một người. Người giàu có nhiều nguồn thu. Tôi có nhiều… nguồn chi. Quy mô như nhau, chỉ ngược chiều. Thế nên người ta nhìn tôi… là thấy tập đoàn.",
+      "caption": {
+        "text": "Người giàu: NHIỀU NGUỒN THU Tôi: NHIỀU NGUỒN CHI",
+        "highlight": [
+          "NHIỀU NGUỒN THU",
+          "NHIỀU NGUỒN CHI"
+        ],
+        "style": "normal",
+        "emoji": null
+      },
+      "sfx": [
+        {
+          "name": "boing",
+          "word": "chi"
+        },
+        {
+          "name": "ding",
+          "word": "tập"
+        }
+      ],
+      "music": "waltz",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    },
+    {
+      "id": "s7",
+      "role": "cta",
+      "part": "outro",
+      "label": "Đại hội cổ đông bất thường",
+      "startSec": 72,
+      "endSec": 86,
+      "voiceover": "Mô hình tập đoàn này tôi chuyển giao miễn phí, anh em về tự vận hành. Còn nếu tháng sau lương chưa kịp về… mà chủ nợ, điện lực, nhà máy nước đã đứng trước cửa nhà, mỗi người cầm một tờ giấy, bốc số thứ tự… thì quay lại đây comment, để tôi triệu tập đại hội cổ đông bất thường.",
+      "caption": {
+        "text": "RỦI RO: Cổ đông bốc số trước cửa nhà",
+        "highlight": [
+          "RỦI RO:"
+        ],
+        "style": "cta",
+        "emoji": "👇"
+      },
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "đại"
+        }
+      ],
+      "music": "waltz",
+      "keepPauses": false,
+      "zoom": "none",
+      "bRoll": null
+    }
+  ]
+}

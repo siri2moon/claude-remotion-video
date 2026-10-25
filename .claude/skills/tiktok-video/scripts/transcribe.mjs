@@ -9,8 +9,9 @@ import { createRequire } from 'node:module';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { alignWords, evenDistribution } from './align.mjs';
+import { alignWords, evenDistribution, mergeSubwordTokens } from './align.mjs';
 import { ROOT, contentDir, flagValue, hasFlag, info, isFresh, ok, readJson, slugArg, warn, writeJson } from './lib.mjs';
+import { loadScript } from './kichban.mjs';
 
 const slug = slugArg();
 const fallback = hasFlag('fallback');
@@ -18,7 +19,7 @@ const force = hasFlag('force');
 const model = flagValue('model', process.env.WHISPER_MODEL ?? 'medium');
 const dir = contentDir(slug);
 
-const script = readJson(join(dir, 'script.json'));
+const script = loadScript(dir);
 const media = readJson(join(dir, 'media.json'));
 const outPath = join(dir, 'timing.json');
 
@@ -87,12 +88,13 @@ for (const m of media.scenes) {
     tokenLevelTimestamps: true,
     language: 'vi',
     printOutput: false,
+    // Mồi bằng chính lời thoại: whisper nghe đúng từ vựng kịch bản hơn hẳn ("chín giờ" → "9 giờ"
+    // thay vì "chỉnh dơ"), nên aligner bắt được nhiều mốc thời gian hơn.
+    additionalArgs: [['--prompt', voiceoverOf(m.sceneId)]],
   });
 
   const { captions } = toCaptions({ whisperCppOutput: raw });
-  const heard = captions
-    .map((c) => ({ text: c.text, startMs: c.startMs, endMs: c.endMs }))
-    .filter((c) => c.text.trim().length > 0);
+  const heard = mergeSubwordTokens(captions.map((c) => ({ text: c.text, startMs: c.startMs, endMs: c.endMs })));
 
   // Đây là chỗ quan trọng: CHỮ lấy từ voiceover, THỜI ĐIỂM lấy từ whisper.
   const aligned = alignWords(voiceoverOf(m.sceneId), heard, m.durationSec * 1000);

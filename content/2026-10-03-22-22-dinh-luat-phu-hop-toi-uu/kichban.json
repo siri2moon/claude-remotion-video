@@ -9,52 +9,99 @@
   "concept": "Bài giảng dinh dưỡng chiến lược cuối tháng / Deadpan",
   "persona": "chuyên gia hoạch định dinh dưỡng chiến lược",
   "setting": "Ngồi một mình ở bàn ăn, ánh đèn vàng, tối cuối tháng",
-  "props": ["tô mì tôm đang ăn dở", "vỏ gói mì còn nguyên logo", "đôi đũa", "ly trà đá"],
+  "props": [
+    "tô mì tôm đang ăn dở",
+    "vỏ gói mì còn nguyên logo",
+    "đôi đũa",
+    "ly trà đá"
+  ],
   "rhythm": "Chậm rãi như giảng đường. Nhạc tắt hẳn ở cảnh 3, im lặng thật lâu ở cảnh 4 rồi mới bung sang funky.",
-  "durationSec": 64,
+  "durationSec": 77,
   "scenes": [
     {
       "part": "hook",
-      "label": "Lời từ chối bò Kobe",
+      "file": "s1",
+      "label": "Lời từ chối anh Minh",
       "start": 0,
-      "end": 8,
+      "end": 16,
       "camera": "Cận cảnh. Đang cúi húp một đũa mì, từ từ ngẩng lên nhìn thẳng ống kính.",
-      "action": "Húp \"sụp\" một tiếng, nhai chậm, nuốt xong mới nói. Mặt nghiêm như vừa bác bỏ một hợp đồng triệu đô.",
-      "audio": "Lo-fi suy tư, nhỏ. SFX: tiếng húp mì \"sụp\" rõ.",
-      "line": "Hôm qua có người mời tôi đi ăn bò Kobe. Tôi từ chối. Không phải vì tôi không thích… Mà vì nó không phù hợp.",
-      "onScreen": "Tôi đã TỪ CHỐI bò Kobe."
+      "action": "Húp \"sụp\" một tiếng, nhai chậm, nuốt xong mới nói. Nói \"tôi xin giấu tên\" rồi khai luôn \"Anh Minh\" ngay lập tức, không ngập ngừng, mặt không đổi — như không hề nhận ra mình vừa lộ tên. Tới \"không bao giờ tìm ra\" thì liếc nhẹ sang một bên đúng 1 lần rồi quay lại ống kính.",
+      "audio": "Lo-fi suy tư, nhỏ. SFX: tiếng húp mì \"sụp\" rõ (tiếng thật); một tiếng \"tưng\" nhỏ đúng lúc nói \"Minh\".",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "boing",
+          "word": "Minh"
+        }
+      ],
+      "line": "Hôm qua tôi vừa từ chối một bữa bò Kobe. Người mời là một người bạn… tôi xin giấu tên. Anh Minh. Khối tài sản kếch xù. Người giàu thứ hai Đà Nẵng. Còn người giàu nhất… thì chắc không bao giờ tìm ra. Không phải vì tôi không thích bò… Mà vì nó không phù hợp.",
+      "onScreen": "Người mời: ANH M**H (xin giấu tên)\nGiàu thứ 2 Đà Nẵng. Bị TỪ CHỐI.",
+      "note": "Cái hài nằm ở chỗ chữ trên màn hình che tên, còn miệng thì khai thẳng. Đừng nhấn chữ \"Minh\", nói đều như đọc danh sách khách mời."
     },
     {
       "part": "lead",
+      "file": "s2",
       "label": "Cổ nhân nói, các bạn hiểu sai",
-      "start": 8,
-      "end": 20,
+      "start": 16,
+      "end": 28,
       "camera": "Trung cận. Đặt đũa ngang miệng tô, đan hai tay lên bàn như chủ tọa hội đồng khoa học.",
       "action": "Nói chậm, rành mạch, hơi nheo mắt. Chữ \"Sai.\" nói cụt lủn, dứt khoát.",
       "audio": "Lo-fi tiếp tục.",
+      "music": "lofi",
+      "sfx": [],
       "line": "Cổ nhân có câu: 'Tốt nhất chưa chắc đã phù hợp. Phù hợp nhất mới là sự tốt nhất.' Các bạn tưởng câu này nói về tình yêu, về công việc. Sai. Đây là một nguyên lý dinh dưỡng chiến lược.",
       "onScreen": "Tốt nhất ≠ Phù hợp nhất\n(nguyên lý DINH DƯỠNG CHIẾN LƯỢC)"
     },
     {
       "part": "twist",
+      "file": "s3",
       "label": "Trình làng giải pháp",
-      "start": 20,
-      "end": 30,
+      "start": 28,
+      "end": 38,
       "camera": "Cận cảnh mặt bàn. Đặt vỏ gói mì ngay ngắn giữa bàn, xoay logo hướng về ống kính.",
       "action": "Hai tay đặt vỏ mì xuống cẩn trọng như trưng bày cổ vật. Vuốt phẳng mép vỏ một lần.",
       "audio": "Lo-fi nhỏ dần rồi tắt phụt. Im bặt.",
+      "music": "silent",
+      "keepPauses": true,
+      "sfx": [],
       "voice": "hạ giọng, chậm, trang trọng",
-      "line": "Bò Kobe là thứ tốt nhất. Nhưng thứ phù hợp nhất với một con người vào ngày 26 của tháng lương… là gói mì tôm bốn nghìn rưỡi.",
-      "onScreen": "Ngày 26 hàng tháng:\nPHÙ HỢP NHẤT = MÌ TÔM 4K5"
+      "line": "Bò Kobe là thứ tốt nhất. Nhưng thứ phù hợp nhất với một con người có tiền lương chỉ ở lại đúng bảy phút… là gói mì tôm bốn nghìn rưỡi.",
+      "onScreen": "Lương ở lại 7 PHÚT:\nPHÙ HỢP NHẤT = MÌ TÔM 4K5"
     },
     {
       "part": "twist",
+      "file": "s4",
       "label": "Ba phẩm chất của sự phù hợp",
-      "start": 30,
-      "end": 37,
+      "start": 38,
+      "end": 45,
       "camera": "Snap zoom giật vào mắt (cực cận).",
       "action": "Im lặng 2 giây nhìn trân trân vào ống kính, chớp mắt đúng 1 lần. Sau đó nói từng vế, mỗi vế ngắt một nhịp.",
       "audio": "Record scratch + tiếng dế kêu. Mỗi vế thoại một tiếng \"tưng\" nhỏ.",
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        },
+        {
+          "name": "boing",
+          "word": "túi"
+        },
+        {
+          "name": "boing",
+          "word": "dạ"
+        },
+        {
+          "name": "boing",
+          "word": "lương"
+        }
+      ],
       "voice": "ráo hoảnh, khô khốc",
       "line": "Nó vừa túi tiền. Nó vừa dạ dày. Và nó… chưa bao giờ hỏi tôi lương bao nhiêu.",
       "onScreen": "Vừa túi tiền. Vừa dạ dày.\nKHÔNG HỎI LƯƠNG.",
@@ -62,34 +109,75 @@
     },
     {
       "part": "explain",
+      "file": "s5",
       "label": "Phân tích hiệu suất phù hợp",
-      "start": 37,
-      "end": 52,
+      "start": 45,
+      "end": 65,
       "camera": "Trung cảnh. Ngồi thẳng lưng, tác phong giảng viên. Cầm đũa làm que chỉ.",
       "action": "Gõ đầu đũa \"cộp\" xuống bàn ở từng con số. Mặt không cảm xúc như đang đọc báo cáo tài chính quý.",
       "audio": "Funky bassline vô tri, nảy nhẹ. SFX: \"cộp\" ở mỗi con số.",
-      "line": "Tôi đã tính. Bò Kobe một triệu hai một lạng. Mì tôm bốn nghìn rưỡi một gói. Một lạng bò bằng hai trăm sáu mươi sáu gói mì. Bò nuôi tôi được một bữa. Mì nuôi tôi được… gần một quý. Hiệu suất phù hợp: vượt trội tuyệt đối.",
-      "onScreen": "1 lạng bò = 266 gói mì\nBò: 1 BỮA — Mì: 1 QUÝ"
+      "music": "funky",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "triệu"
+        },
+        {
+          "name": "thud",
+          "word": "bốn"
+        },
+        {
+          "name": "thud",
+          "word": "trăm"
+        },
+        {
+          "name": "thud",
+          "word": "quý"
+        },
+        {
+          "name": "thud",
+          "word": "tám"
+        }
+      ],
+      "line": "Tôi đã tính. Bò Kobe một triệu hai một lạng. Mì tôm bốn nghìn rưỡi một gói. Một lạng bò bằng hai trăm sáu mươi sáu gói mì. Bò nuôi tôi được một bữa. Mì nuôi tôi được… gần một quý. Số dư hiện tại của tôi: ba mươi bảy nghìn bốn trăm. Đổi ra mì: tám gói. Đổi ra bò Kobe… ba gram. Hiệu suất phù hợp: vượt trội tuyệt đối.",
+      "onScreen": "1 lạng bò = 266 gói mì\nSố dư 37.400đ = 8 gói mì = 3 GRAM BÒ"
     },
     {
       "part": "outro",
+      "file": "s6",
       "label": "Tư vấn hậu chia tay",
-      "start": 52,
-      "end": 64,
+      "start": 65,
+      "end": 77,
       "camera": "Cận cảnh. Cầm tô lên húp nốt nước mì, đặt xuống, chỉ đũa thẳng vào ống kính.",
       "action": "Húp xong lau miệng bằng mu bàn tay, chậm rãi. Mặt nghiêm như bác sĩ dặn bệnh nhân trước khi ra viện.",
       "audio": "Funky nhỏ dần, giữ beat nhẹ tới hết.",
+      "music": "funky",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "tư"
+        }
+      ],
       "line": "Anh em về áp dụng ngay bữa tối nay. Còn nếu người yêu đòi ăn bò Kobe, các ông đưa gói mì ra giảng lại nguyên lý này mà bị chia tay… thì quay lại đây comment. Tôi tư vấn thêm vị mì phù hợp cho người mới độc thân.",
       "onScreen": "Bị chia tay? Comment để được TƯ VẤN VỊ MÌ 👇"
     }
   ],
   "tips": [
     "Mì phải là mì thật đang ăn dở, có hơi nóng càng tốt — tiếng húp là SFX quan trọng nhất video.",
+    "Cảnh 1: \"tôi xin giấu tên. Anh Minh.\" nói liền mạch, giọng không đổi. Nghiêm túc tin rằng mình vừa giữ bí mật.",
     "Không cười ở bất kỳ cảnh nào, kể cả lúc nói \"chưa bao giờ hỏi tôi lương bao nhiêu\". Bật cười thì cắt, quay lại.",
     "Cảnh 3: đặt vỏ mì chậm và trịnh trọng như trưng bày cổ vật — sự trang trọng sai chỗ là cái làm người xem cười.",
-    "Cảnh 5 đọc các con số rõ, đều, như đọc báo cáo; nghỉ một nhịp trước \"gần một quý\".",
+    "Cảnh 5 đọc các con số rõ, đều, như đọc báo cáo; nghỉ một nhịp trước \"gần một quý\" và trước \"ba gram\" — hai cú này phải rơi vào im lặng.",
     "Nhìn vào ống kính, không nhìn màn hình preview."
   ],
   "caption": "Người ta chọn cái tốt nhất. Tôi chọn cái phù hợp nhất. Có điều cái phù hợp nhất vừa hết hàng ở tạp hoá đầu ngõ…",
-  "hashtags": ["#xuhuong", "#tiktokvietnam", "#votri", "#haihuoc", "#deadpan", "#cuoithang", "#mitomtrietly"]
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#cuoithang",
+    "#mitomtrietly"
+  ]
 }

@@ -36,6 +36,21 @@ const PARTS = {
 const esc = (s = '') =>
   String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const br = (s) => esc(s).replace(/\n/g, '<br>');
+const MUSIC_VI = { lofi: 'lo-fi', funky: 'funky', waltz: 'waltz', romantic: 'lãng mạn', silent: 'tắt nhạc' };
+const AT_VI = { start: 'đầu cảnh', end: 'cuối cảnh', pause: 'khoảng lặng' };
+/** Dòng tóm tắt những gì máy sẽ tự thêm khi dựng — người diễn biết chỗ nào cần chừa nhịp. */
+const autoEdit = (s) => {
+  const parts = [`🎵 ${MUSIC_VI[s.music] ?? s.music}`];
+  const fx = (s.sfx ?? []).map((x) => {
+    const sp = typeof x === 'string' ? { name: x } : x;
+    return sp.word ? `${sp.name} @ "${sp.word}"` : `${sp.name} @ ${AT_VI[sp.at ?? 'start']}`;
+  });
+  if (fx.length) parts.push(`🔊 ${fx.join(', ')}`);
+  if (s.zoom === 'snap') parts.push('🔍 snap zoom');
+  if (s.zoom === 'push') parts.push('🔍 zoom đẩy chậm');
+  if (s.keepPauses) parts.push('⏸ giữ nguyên khoảng lặng');
+  return parts.join(' · ');
+};
 const mmss = (sec) => `${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}`;
 
 const scenes = doc.scenes;
@@ -57,11 +72,12 @@ const sceneCards = scenes
     const row = (k, v) => `<div class="k">${k}</div><div class="v">${br(v)}</div>`;
     return `
 <section class="scene" style="--c:${p.color}">
-  <header><span>CẢNH ${i + 1} · ${p.name}</span><em>${esc(s.label)}</em><time>${mmss(s.start)} – ${mmss(s.end)}</time></header>
+  <header><span>CẢNH ${i + 1} · ${p.name}</span><em>${esc(s.label)}</em><b class="file">${esc(s.file)}.mov</b><time>${mmss(s.start)} – ${mmss(s.end)}</time></header>
   <div class="grid">
     ${row('KHUNG HÌNH', s.camera)}
     ${row('DIỄN XUẤT', s.action)}
     ${row('ÂM THANH', s.audio)}
+    ${s.music ? `<div class="k">MÁY TỰ THÊM</div><div class="v auto">${esc(autoEdit(s))}</div>` : ''}
   </div>
   <div class="line">
     <div class="lbl">THOẠI${s.voice ? ` · <i>${esc(s.voice)}</i>` : ''}</div>
@@ -104,6 +120,10 @@ h1 { font-size: 26pt; font-weight: 800; margin: 0; letter-spacing: -.5px; line-h
 .scene header { display: flex; align-items: baseline; gap: 10px; background: #222; color: #fff; padding: 7px 12px; border-left: 6px solid var(--c); }
 .scene header span { font-weight: 800; font-size: 10pt; white-space: nowrap; }
 .scene header em { font-style: normal; color: #ddd; flex: 1; font-size: 9pt; }
+.scene header .file { font-size: 8pt; background: var(--c); color: #fff; border-radius: 3px; padding: 1px 6px; white-space: nowrap; }
+.auto { color: #555; font-size: 8.5pt; }
+.after { background: #eef3fb; } .after ol { margin: 0; padding-left: 18px; } .after li { margin-bottom: 4px; }
+.after code { background: #fff; border-radius: 3px; padding: 0 4px; font-size: 8.5pt; }
 .scene header time { font-weight: 800; font-size: 10pt; white-space: nowrap; }
 .grid { display: grid; grid-template-columns: 78px 1fr; gap: 4px 10px; padding: 8px 12px 6px; }
 .lbl { font-size: 7.5pt; font-weight: 800; color: var(--c); letter-spacing: .4px; }
@@ -138,6 +158,15 @@ ${doc.rhythm ? `<div class="rhythm">Nhịp: ${esc(doc.rhythm)}</div>` : ''}
 <div class="timeline">${timeline}</div>
 ${sceneCards}
 <div class="box tips"><h2>MẸO QUAY & DIỄN (DEADPAN)</h2><ul>${doc.tips.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div>
+<div class="box after">
+  <h2>SAU KHI QUAY — ĐỂ MÁY TỰ DỰNG</h2>
+  <ol>
+    <li>Mỗi cảnh <b>một file riêng</b>, đặt tên đúng nhãn trên đầu cảnh (${scenes.map((s) => `<code>${esc(s.file)}.mov</code>`).join(' ')}), chép vào <code>content/${esc(doc.id)}/raw/</code>.</li>
+    <li>Quay dọc 9:16, có tiếng (mic cài áo hoặc gần bàn). Thừa đầu/đuôi vài giây không sao — máy tự tỉa.</li>
+    <li>Cảnh có ⏸: cứ im đủ nhịp như kịch bản, máy <b>không</b> cắt khoảng lặng đó.</li>
+    <li>Trong Claude Code gõ <code>/tiktok-video ${esc(doc.id.replace(/^\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-/, ''))}</code> — nhạc nền, SFX, zoom, chữ và phụ đề được thêm tự động, ra file <code>out/${esc(doc.id)}.mp4</code>.</li>
+  </ol>
+</div>
 <div class="box post">
   <h2>THÔNG TIN ĐĂNG VIDEO</h2>
   <div class="k">TITLE (thumbnail – chữ lớn)</div><div class="title">${esc(doc.title)}</div>

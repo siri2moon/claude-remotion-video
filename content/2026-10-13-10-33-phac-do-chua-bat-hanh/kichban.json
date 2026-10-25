@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "id": "2026-10-13-10-33-phac-do-chua-bat-hanh",
+  "input": "Nếu cuộc đời không khiến em hạnh phúc thì, tháo nhẹ khúc áo, nằm xuống anh chỉ cho =))",
+  "inputType": "pickup-line",
+  "title": "PHÁC ĐỒ CHỮA BẤT HẠNH",
+  "subtitle": "Bài thuốc gia truyền cho người sống không vui",
+  "shockLine": "CHẠM ĐƯỢC LƯNG = XONG 80%",
+  "concept": "Lương y kê đơn chữa bất hạnh bằng một câu thính / Deadpan",
+  "persona": "lương y gia truyền, chuyên khoa chữa lành tâm hồn",
+  "setting": "Ngồi một mình ở bàn gỗ, ánh đèn vàng, phía sau gọn gàng như phòng khám đông y",
+  "props": [
+    "ly trà gừng nóng",
+    "một đồng xu cũ",
+    "lọ dầu gió xanh"
+  ],
+  "rhythm": "Chậm, chắc, nghiêm như lương y bắt mạch. Câu thính ở cảnh 3 đọc rất chậm, để người xem nghĩ lệch. Cảnh 4 im lặng thật lâu rồi mới lật: cạo gió.",
+  "durationSec": 76,
+  "scenes": [
+    {
+      "part": "hook",
+      "file": "s1",
+      "label": "Phê phán liệu pháp nghe nhạc chill",
+      "start": 0,
+      "end": 9,
+      "camera": "Cận cảnh. Đang thổi ly trà gừng, ngẩng phắt lên nhìn thẳng camera.",
+      "action": "Nhấp một ngụm, đặt ly xuống \"cộp\". Lắc đầu chậm một lần như bác sĩ xem phim chụp xấu.",
+      "audio": "Lo-fi suy tư, nhỏ. SFX: tiếng \"cộp\" khi đặt ly.",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "thud",
+          "at": "start"
+        }
+      ],
+      "line": "Dừng ngay cái hành vi thấy người ta buồn là gửi một bài nhạc chill kèm câu 'Thương em'. Vô dụng… về mặt y khoa.",
+      "onScreen": "Gửi nhạc chill: VÔ DỤNG VỀ MẶT Y KHOA"
+    },
+    {
+      "part": "lead",
+      "file": "s2",
+      "label": "Bất hạnh là một bệnh lý",
+      "start": 9,
+      "end": 19,
+      "camera": "Trung cận. Hai tay đặt ngay ngắn trên bàn, ngón cái xoa nhẹ đồng xu như lần tràng hạt.",
+      "action": "Nói rành mạch từng vế như đang đọc chẩn đoán. Hơi nheo mắt ở chữ \"phác đồ\".",
+      "audio": "Lo-fi tiếp tục.",
+      "music": "lofi",
+      "sfx": [],
+      "line": "Bất hạnh không phải tâm trạng. Nó là một bệnh lý. Mà bệnh lý thì không cần an ủi… cần phác đồ. Phác đồ của tôi… chỉ có đúng một câu.",
+      "onScreen": "Chẩn đoán: BẤT HẠNH LÀ BỆNH LÝ"
+    },
+    {
+      "part": "twist",
+      "file": "s3",
+      "label": "Kê đơn bằng một câu",
+      "start": 19,
+      "end": 30,
+      "camera": "Cận cảnh. Hơi nghiêng người về phía ống kính.",
+      "action": "Nhìn thẳng như đang nói với bệnh nhân duy nhất trong phòng. Không chớp mắt suốt câu.",
+      "audio": "Nhạc tắt phụt. Im bặt.",
+      "music": "silent",
+      "keepPauses": true,
+      "sfx": [],
+      "voice": "hạ giọng 2 tông, rất chậm",
+      "line": "'Nếu cuộc đời không khiến em hạnh phúc… thì tháo nhẹ khúc áo… nằm xuống… anh chỉ cho.'",
+      "onScreen": "\"Tháo nhẹ khúc áo… nằm xuống…\""
+    },
+    {
+      "part": "twist",
+      "file": "s4",
+      "label": "Lật mặt: cạo gió",
+      "start": 30,
+      "end": 37,
+      "camera": "Snap zoom giật vào mắt (cực cận), rồi mở ra thấy tay giơ đồng xu và lọ dầu gió.",
+      "action": "Im lặng đúng 2 giây, mặt đơ, chớp mắt 1 lần. Rồi từ từ giơ đồng xu lên ngang mặt, tay kia giơ lọ dầu gió.",
+      "audio": "Record scratch + dế kêu trong khoảng lặng. \"Tưng\" đúng chữ \"Cạo\".",
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        },
+        {
+          "name": "boing",
+          "word": "Cạo"
+        }
+      ],
+      "voice": "khô khốc, ráo hoảnh",
+      "line": "Anh em nghĩ đi đâu đấy?… Cạo gió.",
+      "onScreen": "ANH EM NGHĨ ĐI ĐÂU?\n→ CẠO GIÓ",
+      "note": "Im lặng phải đủ 2 giây thật. Đồng xu giơ lên chậm như trao huân chương."
+    },
+    {
+      "part": "explain",
+      "file": "s5",
+      "label": "Liệu pháp tự nguyện chịu đau",
+      "start": 37,
+      "end": 49,
+      "camera": "Trung cảnh. Thẳng lưng, đặt đồng xu và lọ dầu ngay ngắn trước mặt như dụng cụ phẫu thuật.",
+      "action": "Nói như giáo sư đứng lớp. Tới \"sống lưng\" thì gõ ngón tay xuống bàn một cái, dứt khoát.",
+      "audio": "Chuyển sang waltz trang trọng như phim tài liệu. \"Cộp\" ở chữ \"sống lưng\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "sống"
+        }
+      ],
+      "line": "Cạo gió là liệu pháp duy nhất trên đời… mà người ta tự nguyện cởi áo, nằm im, để mình làm đau… xong còn cảm ơn. Bất hạnh không nằm trong đầu. Nó nằm ở sống lưng.",
+      "onScreen": "Bất hạnh nằm ở: SỐNG LƯNG"
+    },
+    {
+      "part": "explain",
+      "file": "s6",
+      "label": "Lưng là cửa ngõ",
+      "start": 49,
+      "end": 62,
+      "camera": "Trung cận. Đặt đồng xu lên bàn, dùng một ngón tay đẩy chậm về phía ống kính như trao văn bản mật.",
+      "action": "Gõ bàn ở \"80%\". Tới \"anh em tự hiểu\" thì im 1 giây, nhìn thẳng camera không chớp. Câu cuối nói như từ chối trả lời phỏng vấn.",
+      "audio": "Waltz tiếp tục. \"Cộp\" ở \"80%\", dế kêu trong khoảng lặng sau \"anh em tự hiểu\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "80%"
+        },
+        {
+          "name": "crickets",
+          "at": "pause",
+          "volume": 0.4
+        }
+      ],
+      "line": "Về mặt chiến lược, lưng là cửa ngõ. Chạm được lưng… là đã đi qua 80% lộ trình điều trị. 20% còn lại… anh em tự hiểu. Tôi là lương y. Tôi không nói thẳng.",
+      "onScreen": "CHẠM ĐƯỢC LƯNG = 80% LỘ TRÌNH",
+      "keepPauses": true,
+      "note": "Khoảng lặng sau \"anh em tự hiểu\" là cú đánh của cảnh này, giữ đủ 1 giây."
+    },
+    {
+      "part": "outro",
+      "file": "s7",
+      "label": "Bệnh án: kỳ vọng sai phác đồ",
+      "start": 62,
+      "end": 76,
+      "camera": "Cận cảnh. Nhấp nốt ngụm trà gừng, tay kia chỉ thẳng vào ống kính.",
+      "action": "Nghiêm như lương y ghi bệnh án. Tới \"kỳ vọng sai phác đồ\" thì cụp mắt xuống như đang viết, rồi ngẩng lên nhìn camera lần cuối.",
+      "audio": "Waltz nhỏ dần đến hết. \"Ding\" ở chữ \"kỳ vọng\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "kỳ"
+        }
+      ],
+      "line": "Phác đồ tôi kê rồi. Còn nếu em nghe xong, đỏ mặt, kéo rèm… rồi thấy anh lôi ra một đồng xu… và đạp anh ra khỏi phòng — thì quay lại đây comment, để tôi ghi vào bệnh án: bệnh nhân kỳ vọng sai phác đồ.",
+      "onScreen": "BỆNH ÁN: Kỳ vọng sai phác đồ 👇"
+    }
+  ],
+  "tips": [
+    "Không cười ở bất kỳ cảnh nào. Bật cười thì cắt, quay lại.",
+    "Cảnh 3 đọc chậm gấp đôi bình thường, nghỉ đúng ở từng dấu \"…\" — để người xem tự nghĩ lệch.",
+    "Cảnh 4: im lặng đủ 2 giây thật rồi mới hỏi. Giơ đồng xu chậm, đường hoàng.",
+    "Đặt micro gần bàn để tiếng \"cộp\" của ly và \"cạch\" của đồng xu thu rõ.",
+    "Nhìn vào ống kính, không nhìn màn hình preview."
+  ],
+  "caption": "Kê đơn xong thì bị bệnh nhân đạp ra khỏi phòng. Đồng xu với lọ dầu gió vẫn nằm ngoài hành lang, ai cần thì qua lấy…",
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#thathinh",
+    "#caogio"
+  ]
+}

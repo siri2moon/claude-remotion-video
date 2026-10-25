@@ -6,13 +6,14 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { contentDir, die, fail, ffprobe, info, ok, readJson, requireBin, slugArg, warn, writeJson } from './lib.mjs';
+import { loadScript } from './kichban.mjs';
 
 const EXTS = ['mov', 'MOV', 'mp4', 'MP4', 'm4v'];
 
 requireBin('ffprobe');
 const slug = slugArg();
 const dir = contentDir(slug);
-const script = readJson(join(dir, 'script.json'));
+const script = loadScript(dir);
 
 const findRaw = (sceneId) => {
   for (const ext of EXTS) {
@@ -50,8 +51,11 @@ for (const scene of script.scenes) {
     continue;
   }
 
-  const width = Number(v.width);
-  const height = Number(v.height);
+  // iPhone lưu khung cảm biến ngang (3840×2160) kèm display matrix xoay ±90° — khung hiển thị là dọc.
+  const rotation = Number(v.side_data_list?.find((d) => d.rotation != null)?.rotation ?? v.tags?.rotate ?? 0);
+  const quarterTurn = Math.abs(rotation) % 180 === 90;
+  const width = Number(quarterTurn ? v.height : v.width);
+  const height = Number(quarterTurn ? v.width : v.height);
   const [num, den] = String(v.r_frame_rate ?? '30/1').split('/').map(Number);
   const fps = den ? num / den : 30;
 

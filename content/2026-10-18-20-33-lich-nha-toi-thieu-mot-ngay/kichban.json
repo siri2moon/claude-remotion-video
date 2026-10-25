@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "id": "2026-10-18-20-33-lich-nha-toi-thieu-mot-ngay",
+  "input": "Con gái tôi Siri cầm mic đến phỏng vấn tôi đang ngồi ở ban công. Con hỏi: Ba ơi, nếu hôm nay ngày 19 thì ngày mai là ngày mấy? Tôi trả lời tỉnh bơ: ngày 21.",
+  "inputType": "story",
+  "title": "LỊCH NHÀ TÔI THIẾU 1 NGÀY",
+  "subtitle": "Họp báo khẩn của Bộ Lịch Gia Đình trước 20/10",
+  "shockLine": "XÉ 1 TỜ LỊCH = TIẾT KIỆM 1 TRIỆU",
+  "concept": "Bé gái phỏng vấn, ông bố trả lời như phát ngôn viên chính phủ / Deadpan",
+  "persona": "phát ngôn viên Bộ Lịch Gia Đình, người quản lý lịch duy nhất trong nhà",
+  "setting": "Ban công nhà buổi chiều, ba ngồi ghế nhựa cạnh bàn nhỏ, Siri cầm mic đi vào phỏng vấn",
+  "props": [
+    "ly trà đá",
+    "mic (đồ chơi hoặc mic cài áo cầm tay)",
+    "một tờ lịch bóc số 20 đã bị xé",
+    "cuộn băng keo trong"
+  ],
+  "rhythm": "Siri hỏi hồn nhiên mà nghiêm như phóng viên thời sự. Ba trả lời chậm, chắc, như đọc thông cáo báo chí, không bao giờ nhìn con quá 1 giây. Cảnh 4 tắt nhạc. Cảnh 7 là cú lật cuối: mẹ đứng sau lưng.",
+  "durationSec": 75,
+  "scenes": [
+    {
+      "part": "hook",
+      "file": "s1",
+      "label": "Câu hỏi của phóng viên nhí",
+      "start": 0,
+      "end": 8,
+      "camera": "Trung cảnh ban công. Siri bước vào khung hình từ bên trái, chìa mic sát mặt ba.",
+      "action": "Ba đang nhấp trà đá, không quay đầu. Nghe hết câu hỏi, đặt ly xuống \"cộp\", trả lời ngay không cần nghĩ, mắt vẫn nhìn ra xa.",
+      "audio": "Lo-fi nhẹ. \"Cộp\" khi ba đặt ly, đúng lúc trả lời.",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "Ngày"
+        }
+      ],
+      "line": "Siri: 'Ba ơi, nếu hôm nay là ngày 19… thì ngày mai là ngày mấy?'\nBa: Ngày 21.",
+      "onScreen": "Hôm nay 19 → ngày mai là: 21"
+    },
+    {
+      "part": "lead",
+      "file": "s2",
+      "label": "Thông cáo của Bộ Lịch Gia Đình",
+      "start": 8,
+      "end": 19,
+      "camera": "Cận mặt ba. Siri chỉ thấy cánh tay và cái mic ở mép khung.",
+      "action": "Ba hắng giọng, chỉnh cổ áo như sắp lên sóng thời sự. Đan hai tay lên đùi, nói như phát ngôn viên trả lời họp báo.",
+      "audio": "Lo-fi tiếp tục.",
+      "music": "lofi",
+      "sfx": [],
+      "line": "Siri: 'Sao lại 21? Ngày 20 đâu ba?'\nBa: Câu hỏi rất hay. Ba xin trả lời với tư cách người quản lý lịch của gia đình. Năm nay… nhà mình không có ngày 20.",
+      "onScreen": "THÔNG CÁO: Năm nay nhà tôi KHÔNG CÓ ngày 20"
+    },
+    {
+      "part": "lead",
+      "file": "s3",
+      "label": "Trình vật chứng",
+      "start": 19,
+      "end": 28,
+      "camera": "Trung cận. Lia nhẹ xuống tay ba khi rút tờ lịch ra.",
+      "action": "Rút từ túi áo ra tờ lịch số 20 đã xé, giơ lên ngang mặt như trình giấy tờ tuỳ thân. Giữ yên 1 giây rồi gấp làm tư, cất lại vào túi.",
+      "audio": "Lo-fi tiếp tục. \"Tưng\" khi giơ tờ lịch.",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "boing",
+          "word": "xé"
+        }
+      ],
+      "line": "Ba đã xé từ tuần trước. Xé xong ép plastic, cất vào két… cho chắc. Ngày 20 hiện đang được bảo quản an toàn… ngoài lịch.",
+      "onScreen": "Ngày 20: ĐÃ XÉ — đang cất trong két"
+    },
+    {
+      "part": "twist",
+      "file": "s4",
+      "label": "Không có ngày 20 thì không có quà",
+      "start": 28,
+      "end": 39,
+      "camera": "Snap zoom giật vào mặt ba (cực cận) ngay khi ba bắt đầu trả lời.",
+      "action": "Siri hỏi dồn, nghiêng mic như phóng viên điều tra. Ba quay sang nhìn thẳng ống kính lần đầu tiên, đọc từng vế thật chậm. Hết câu im 2 giây, chớp mắt đúng 1 lần.",
+      "audio": "Nhạc tắt phụt. Record scratch đầu cảnh, dế kêu trong khoảng lặng cuối.",
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        }
+      ],
+      "voice": "hạ giọng 1 tông, rất chậm",
+      "line": "Siri: 'Thế lỡ mẹ hỏi quà 20/10 thì sao ba?'\nBa: Không có ngày 20… thì không có 20/10. Không có 20/10… thì không có quà.",
+      "onScreen": "KHÔNG CÓ NGÀY 20\n= KHÔNG CÓ QUÀ",
+      "note": "Khoảng lặng 2 giây sau câu là cú đánh của cảnh. Đừng cắt sớm."
+    },
+    {
+      "part": "explain",
+      "file": "s5",
+      "label": "Báo cáo tài chính",
+      "start": 39,
+      "end": 51,
+      "camera": "Trung cảnh. Ba ngồi thẳng lưng, Siri đứng cạnh cầm mic chăm chú như đang ghi hình thật.",
+      "action": "Ba đếm trên ngón tay từng khoản như kế toán trưởng đọc báo cáo quý. Gõ ngón tay xuống bàn ở mỗi con số.",
+      "audio": "Chuyển sang waltz trang trọng như phim tài liệu. \"Cộp\" ở từng con số.",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "300"
+        },
+        {
+          "name": "thud",
+          "word": "700"
+        },
+        {
+          "name": "ding",
+          "word": "0"
+        }
+      ],
+      "line": "Về mặt tài chính: một bó hoa… 300 nghìn. Một bữa tối… 700 nghìn. Xé một tờ lịch… 0 đồng. Tiết kiệm 1 triệu… chỉ bằng một động tác tay.",
+      "onScreen": "Hoa 300k + Tối 700k\nXÉ LỊCH: 0Đ"
+    },
+    {
+      "part": "explain",
+      "file": "s6",
+      "label": "Cơ sở pháp lý",
+      "start": 51,
+      "end": 61,
+      "camera": "Cận mặt ba, hơi nghiêng như phỏng vấn độc quyền.",
+      "action": "Nói như luật sư đọc điều khoản. Tới \"Ba không trốn quà\" thì lắc đầu chậm một lần, giọng oan ức nhưng mặt vẫn lạnh.",
+      "audio": "Waltz tiếp tục.",
+      "music": "waltz",
+      "sfx": [],
+      "line": "Còn về mặt pháp lý: lịch không ghi… thì sự kiện không tồn tại. Ba không trốn quà. Ba chỉ… tuân thủ lịch.",
+      "onScreen": "BA KHÔNG TRỐN QUÀ\nBA TUÂN THỦ LỊCH"
+    },
+    {
+      "part": "outro",
+      "file": "s7",
+      "label": "Mẹ đứng sau lưng",
+      "start": 61,
+      "end": 69,
+      "camera": "Siri ghé sát tai ba thì thầm. Snap zoom vào mắt ba khi ba đơ, rồi lia ra cửa ban công thấy nửa người mẹ khoanh tay.",
+      "action": "Ba đơ 2 giây, mắt liếc ra sau rồi quay lại thẳng phía trước. Lặng lẽ rút tờ lịch từ túi ra, vuốt phẳng đặt lên bàn.",
+      "audio": "Nhạc tắt phụt. Tim đập thình thịch trong khoảng lặng.",
+      "music": "silent",
+      "keepPauses": true,
+      "zoom": "snap",
+      "sfx": [
+        {
+          "name": "heartbeat",
+          "at": "pause"
+        }
+      ],
+      "voice": "ráo hoảnh, khựng một nhịp",
+      "line": "Siri: 'Ba ơi… mẹ đứng sau lưng ba nãy giờ.'\nBa: …Hôm nay ngày 20. Ba vừa nhớ ra.",
+      "onScreen": "HÔM NAY NGÀY 20.\nBa vừa nhớ ra.",
+      "note": "Mẹ không cần thoại, chỉ cần khoanh tay đứng ở cửa. Không ai được cười."
+    },
+    {
+      "part": "outro",
+      "file": "s8",
+      "label": "Kêu gọi viện trợ lịch",
+      "start": 69,
+      "end": 75,
+      "camera": "Cận tay ba cầm băng keo dán tờ lịch số 20 lại, rồi ngẩng lên nhìn thẳng camera.",
+      "action": "Dán băng keo cẩn thận như đang dán niêm phong. Nói xong chỉ tay xuống phần bình luận, mặt không cảm xúc.",
+      "audio": "Waltz quay lại, nhỏ dần đến hết. \"Ding\" ở chữ \"gửi\".",
+      "music": "waltz",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "gửi"
+        }
+      ],
+      "line": "Anh em nhà ai còn thừa tờ lịch ngày 20… gửi tôi gấp. Chị em nào năm nay nhà cũng không có ngày 20… comment để tôi lập hội.",
+      "onScreen": "CẦN GẤP: 1 tờ lịch ngày 20 👇"
+    }
+  ],
+  "tips": [
+    "Ba không bao giờ cười, kể cả khi Siri cười. Siri cười thì cắt, quay lại.",
+    "Siri hỏi như phóng viên thời sự: đứng thẳng, cầm mic chắc, mặt nghiêm.",
+    "Cảnh 4 là lần đầu ba nhìn thẳng ống kính. Các cảnh trước nhìn ra xa hoặc nhìn mic.",
+    "Tờ lịch phải thấy rõ số 20 khi giơ lên. Xé nham nhở càng tốt.",
+    "Mic cài áo của ba nên giấu kín, mic Siri cầm là đạo cụ.",
+    "Đăng đúng ngày 20/10 để cú \"Hôm nay ngày 20\" ăn trọn."
+  ],
+  "caption": "Tờ lịch dán lại rồi nhưng vẫn hơi lệch. Mẹ bảo không sao, tối nay ba cứ ngủ ngoài ban công cho quen lịch mới…",
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#2010",
+    "#chaconsiri"
+  ]
+}

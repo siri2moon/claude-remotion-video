@@ -17,6 +17,12 @@ Mỗi kịch bản là một thư mục `content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/`
 | `kichban.json` | **Bạn viết** | Bước 4 — nguồn chân lý duy nhất |
 | `kichban.html` | sinh tự động | Bước 7, trang trung gian để in |
 | `kichban.pdf` | sinh tự động | Bước 7 — **chỉ sau khi user chốt** |
+| `raw/s1.mov`… | user quay | Sau khi in PDF |
+| `script.json` | sinh tự động | Khi chạy `/tiktok-video` — bản dịch của `kichban.json` cho pipeline dựng |
+
+Quay xong → `/tiktok-video <slug>` dựng ra `out/<dir>.mp4`: jump-cut nhẹ tay, giữ khoảng lặng ở
+cảnh twist, nhạc nền + SFX **tự tổng hợp bằng code** theo `music`/`sfx` của từng cảnh, snap zoom,
+chữ màn hình và phụ đề.
 
 ---
 
@@ -39,7 +45,7 @@ Các field user có thể nói kèm, không nói thì dùng mặc định:
 
 | Field | Mặc định |
 |---|---|
-| Thời lượng | 50–70 giây (trần 45–120) |
+| Thời lượng | 50–70 giây; chuyện nhiều chi tiết thì kéo tới 120 (trần 45–120) |
 | Bối cảnh | Ngồi một mình ở bàn, có ly nước hoặc đồ ăn vặt |
 | Phần tiếp theo của video cũ | Không. Nếu user nói "phần 2", hook phải gọi lại video trước |
 
@@ -71,6 +77,9 @@ node .claude/skills/votri-script/scripts/new-dir.mjs <slug>
 Script in ra tên thư mục đầy đủ có ngày giờ và tạo thư mục. **Bắt buộc chạy, không tự gõ giờ.**
 
 Ghi `content/<dir>/kichban.json`, với `id` = đúng tên thư mục. Đặc tả: `references/format.md`.
+Mỗi cảnh có `file` (`s1`, `s2`… — tên footage người diễn sẽ lưu). Mỗi cảnh **bắt buộc** có `music` và `sfx` — đó là lệnh cho máy tự sinh nhạc/SFX khi dựng, vì
+user chỉ quay hình. Cảnh twist bật `keepPauses: true`, cảnh im lặng của twist thêm `zoom: "snap"`.
+Cách chọn: `references/craft.md` mục E2.
 Mẫu hoàn chỉnh: `assets/example/kichban.json` (chỉ là mẫu format, **không** dùng lại nội dung).
 
 Rồi validate:
@@ -96,7 +105,8 @@ In ra chat theo thứ tự:
 
 ### Bước 6 — Sửa theo phản hồi
 
-User góp ý → sửa `kichban.json` → validate lại → in lại **chỉ phần thay đổi** (hoặc cả bảng nếu
+User góp ý → sửa `kichban.json` (giữ nguyên `file` của cảnh cũ, cảnh chèn mới lấy số kế tiếp —
+xem `references/format.md` mục `file`) → validate lại → in lại **chỉ phần thay đổi** (hoặc cả bảng nếu
 đổi nhiều) → hỏi chốt lại. Lặp tới khi user đồng ý ("ok", "chốt", "được", "xuất đi"...).
 
 User chọn một trong 2 hướng khác → viết lại kịch bản trong **cùng thư mục**, quay lại bước 5.
@@ -117,6 +127,8 @@ vào thư mục scratchpad rồi Read) để chắc chắn chữ tiếng Việt 
 ### Bước 8 — Trả lời user
 
 - Đường dẫn `kichban.pdf`.
+- Nhắc cách quay để máy tự dựng: mỗi cảnh một file `s1.mov`… vào `content/<dir>/raw/`, quay xong
+  gõ `/tiktok-video <slug>` (trang cuối PDF cũng ghi).
 - Nhắc lại Title / Subtitle / Dòng chữ gây sốc, kèm một prompt thumbnail đã điền sẵn (prompt này
   cũng có ở trang cuối PDF).
 - Caption + hashtag trong code block để copy.

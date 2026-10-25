@@ -5,7 +5,9 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { assetsDir, contentDir, die, info, norm, ok, readJson, slugArg, tokenize, warn, writeJson } from './lib.mjs';
+import { contentDir, die, info, norm, ok, readJson, slugArg, tokenize, warn, writeJson } from './lib.mjs';
+import { loadScript } from './kichban.mjs';
+import { ensureMusic, ensureSfx } from './audio-synth.mjs';
 
 const ZOOM = 1.06;
 const MAX_WORDS_PER_PAGE = 3;
@@ -14,6 +16,8 @@ const MAX_PAGE_SEC = 1.6;
 const PAGE_HOLD_SEC = 0.4;
 const TITLE_DELAY_SEC = 0.15;
 const TITLE_SHOW_SEC = 2.6;
+const SFX_VOLUME = 0.55;
+const MUSIC_FADE_SEC = 0.25;
 
 const slug = slugArg();
 const dir = contentDir(slug);
@@ -24,7 +28,7 @@ const need = (name) => {
   return readJson(p);
 };
 
-const script = need('script.json');
+const script = loadScript(dir);
 const media = need('media.json');
 const timingDoc = need('timing.json');
 const cuts = need('cuts.json');
@@ -37,6 +41,8 @@ const titles = [];
 const captions = [];
 const sfx = [];
 const missingSfx = new Set();
+const missingMusic = new Set();
+const sceneSpans = []; // { music, from, to } để dựng các đoạn nhạc nền sau vòng lặp
 
 let cursor = 0;
 let clipIndex = 0;
@@ -49,6 +55,7 @@ for (const m of media.scenes) {
   if (!scene || !cut || !timing) die(`dữ liệu không khớp cho scene ${m.sceneId} — chạy lại pipeline từ preflight`);
 
   const sceneStart = cursor;
+  const firstClip = clips.length;
 
   // --- footage: mỗi đoạn giữ lại là một clip ---
   const segments = [];
@@ -76,6 +83,15 @@ for (const m of media.scenes) {
   if (sceneFrames <= 0) {
     warn(`${m.sceneId}: không còn frame nào sau khi cắt — bỏ qua scene này`);
     continue;
+  }
+  sceneSpans.push({ music: scene.music ?? null, from: sceneStart, to: sceneEnd });
+
+  // --- hiệu ứng zoom cả scene (votri-script): snap = giật vào mắt, push = đẩy chậm ---
+  if (scene.zoom === 'snap' || scene.zoom === 'push') {
+    for (const c of clips.slice(firstClip)) {
+      c.zoom = 1;
+      c.fx = { kind: scene.zoom, sceneOffset: c.fromFrame - sceneStart, sceneFrames };
+    }
   }
 
   // --- ánh xạ thời gian trong file gốc → frame trên timeline tổng ---
@@ -158,20 +174,70 @@ for (const m of media.scenes) {
     });
   }
 
-  // --- sfx (bỏ qua nếu chưa có file, không chặn pipeline) ---
-  for (const name of scene.sfx ?? []) {
-    if (existsSync(join(assetsDir(), 'sfx', `${name}.mp3`))) {
-      sfx.push({ src: `_assets/sfx/${name}.mp3`, atFrame: sceneStart, volume: 0.5 });
-    } else {
-      missingSfx.add(name);
+  // --- sfx: tự sinh nếu chưa có file; tên lạ mà user chưa bỏ file thì bỏ qua, không chặn ---
+  // Mỗi mục là "tên" (đặt ở đầu scene) hoặc { name, at: start|end|pause, word, volume }.
+  for (const item of scene.sfx ?? []) {
+    const spec = typeof item === 'string' ? { name: item } : item;
+    if (!ensureSfx(spec.name)) {
+      missingSfx.add(spec.name);
+      continue;
     }
+    sfx.push({ src: `_assets/sfx/${spec.name}.mp3`, atFrame: sfxFrame(spec), volume: spec.volume ?? SFX_VOLUME });
+  }
+
+  /** Mốc thời gian của một SFX trên timeline tổng. */
+  function sfxFrame(spec) {
+    if (spec.word) {
+      // Neo vào từ ĐẦU TIÊN của cụm (phụ đề tách theo từng từ một).
+      const key = norm(tokenize(spec.word)[0]);
+      const hit = words.find((w) => norm(w.text) === key);
+      if (hit) return hit.fromFrame;
+      warn(`${m.sceneId}: SFX "${spec.name}" neo vào từ "${spec.word}" nhưng không thấy từ đó trong thoại — đặt ở đầu scene`);
+      return sceneStart;
+    }
+    if (spec.at === 'end') return Math.max(sceneStart, sceneEnd - sec(0.6));
+    if (spec.at === 'pause') {
+      // Khoảng lặng dài nhất trong scene, tính cả đoạn trước từ đầu tiên — chỗ người diễn
+      // "im 2 giây". SFX vào ngay sau khi câu trước dứt.
+      let best = { at: sceneStart, len: words.length ? words[0].fromFrame - sceneStart : 0 };
+      for (let i = 1; i < words.length; i++) {
+        const len = words[i].fromFrame - words[i - 1].toFrame;
+        if (len > best.len) best = { at: words[i - 1].toFrame, len };
+      }
+      return best.at + sec(0.1);
+    }
+    return sceneStart;
   }
 }
 
-const bgmFile = join(assetsDir(), 'bgm', `${script.audio.bgm}.mp3`);
-const bgm = existsSync(bgmFile)
-  ? { src: `_assets/bgm/${script.audio.bgm}.mp3`, volume: script.audio.bgmVolume }
-  : null;
+// --- nhạc nền ---
+// Kịch bản có `music` theo scene (votri-script) → nhiều đoạn nhạc, đổi bài theo phần,
+// 'silent' là tắt hẳn. Không có → một bài chạy suốt video như bản selfie cũ.
+const perScene = sceneSpans.some((x) => x.music);
+let bgm = null;
+const music = [];
+if (perScene) {
+  for (const span of sceneSpans) {
+    const name = span.music ?? 'silent';
+    const last = music[music.length - 1];
+    if (last && last.name === name && last.to === span.from) last.to = span.to;
+    else music.push({ name, from: span.from, to: span.to });
+  }
+} else if (ensureMusic(script.audio.bgm)) {
+  bgm = { src: `_assets/bgm/${script.audio.bgm}.mp3`, volume: script.audio.bgmVolume };
+} else {
+  missingMusic.add(script.audio.bgm);
+}
+const musicSegments = music
+  .filter((x) => x.name !== 'silent')
+  .filter((x) => (ensureMusic(x.name) ? true : (missingMusic.add(x.name), false)))
+  .map((x) => ({
+    src: `_assets/bgm/${x.name}.mp3`,
+    fromFrame: x.from,
+    durationInFrames: x.to - x.from,
+    volume: script.audio.bgmVolume,
+    fadeFrames: sec(MUSIC_FADE_SEC),
+  }));
 
 const props = {
   slug,
@@ -179,6 +245,7 @@ const props = {
   fps,
   durationInFrames: cursor,
   bgm,
+  music: musicSegments,
   clips,
   titles,
   captions,
@@ -203,5 +270,6 @@ if (droppedPages) {
       `Chạy lại detect-cuts với --silence-db=-40 hoặc --no-cut.`,
   );
 }
-if (!bgm) info(`chưa có nhạc nền: bỏ file vào content/_assets/bgm/${script.audio.bgm}.mp3`);
-if (missingSfx.size) info(`chưa có SFX: ${[...missingSfx].map((n) => `content/_assets/sfx/${n}.mp3`).join(', ')}`);
+if (perScene) info(`nhạc nền: ${music.map((x) => `${x.name} ${(x.from / fps).toFixed(1)}–${(x.to / fps).toFixed(1)}s`).join(' → ')}`);
+if (missingMusic.size) info(`không có nhạc: ${[...missingMusic].map((n) => `content/_assets/bgm/${n}.mp3`).join(', ')} — tên này không tự sinh được, bỏ file vào đó`);
+if (missingSfx.size) info(`không có SFX: ${[...missingSfx].map((n) => `content/_assets/sfx/${n}.mp3`).join(', ')} — tên này không tự sinh được, bỏ file vào đó`);

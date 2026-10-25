@@ -1,6 +1,6 @@
 ---
 name: tiktok-video
-description: Dựng video ngắn TikTok 9:16 từ kịch bản content/<dir>/script.json và footage selfie tự quay trong content/<dir>/raw/. Chạy pipeline 6 stage — preflight, tách tiếng, whisper word-timing, jump-cut khoảng lặng, build props, render Remotion — ra out/<dir>.mp4 có phụ đề động và highlight từ khoá. Dùng khi user nói "dựng video", "render video", "ghép footage", "làm video từ kịch bản", hoặc đã quay xong và muốn ra thành phẩm.
+description: Dựng video ngắn TikTok 9:16 từ kịch bản content/<dir>/script.json (tiktok-script) hoặc kichban.json (votri-script, hài vô tri) và footage tự quay trong content/<dir>/raw/. Nhạc nền và SFX tự tổng hợp bằng code, không cần file nhạc. Chạy pipeline 6 stage — preflight, tách tiếng, whisper word-timing, jump-cut khoảng lặng, build props, render Remotion — ra out/<dir>.mp4 có phụ đề động và highlight từ khoá. Dùng khi user nói "dựng video", "render video", "ghép footage", "làm video từ kịch bản", hoặc đã quay xong và muốn ra thành phẩm.
 ---
 
 # TikTok Video Builder (Remotion)
@@ -26,6 +26,19 @@ content/2026-08-18-09-23-nhan-chi-so-tinh-ban-thien/
 ```
 
 Quy ước "một scene = một file" là thứ làm pipeline này khả thi. Thiếu file nào, stage 1 báo tên chính xác.
+
+### Thư mục của `votri-script` (video hài vô tri)
+
+Có `kichban.json` thay vì `script.json`. **Không cần làm gì khác** — mọi stage đọc kịch bản qua
+`scripts/kichban.mjs::loadScript()`, nó tự dịch `kichban.json` → `script.json` (file phái sinh, có
+`"derivedFrom": "kichban.json"`, sửa kichban chứ đừng sửa nó). Khác biệt khi dựng:
+
+| | Selfie (`tiktok-script`) | Vô tri (`votri-script`) |
+|---|---|---|
+| Jump-cut | Cắt sạch khoảng lặng | Chừa lại 0.3s mỗi chỗ ngừng; cảnh `keepPauses` không cắt khoảng lặng bên trong |
+| Nhạc nền | Một bài suốt video | Đổi bài theo `music` từng cảnh, `silent` = tắt hẳn, fade 0.25s ở chỗ đổi |
+| SFX | Đầu scene | Neo `start` / `end` / `pause` / một từ trong thoại |
+| Zoom | So le 1.0 / 1.06 giữa các đoạn | Thêm `snap` (giật vào mắt) và `push` (đẩy chậm) |
 
 ---
 
@@ -75,7 +88,7 @@ Mỗi stage ghi ra một file trung gian, chạy lại độc lập được. Ch
 | `extract-audio` | `audio/sN.wav` | 16kHz mono cho whisper + chuẩn hoá -14 LUFS |
 | `transcribe` | `timing.json` | Whisper lấy thời điểm, **chữ lấy từ `voiceover` gốc** |
 | `detect-cuts` | `cuts.json` | Tìm khoảng lặng → danh sách đoạn giữ lại |
-| `build-props` | `props.json` | Re-time toàn bộ theo footage thật |
+| `build-props` | `props.json` | Re-time toàn bộ theo footage thật, **tự sinh nhạc/SFX còn thiếu** |
 | `render` | `out/<dir>.mp4` | Remotion render |
 
 ### Bước 3 — Đọc kỹ WARN
@@ -91,7 +104,8 @@ Pipeline chạy xong không có nghĩa là video ổn. Ba WARN phải báo lại
 1. Đường dẫn `out/<dir>.mp4`, thời lượng thành phẩm.
 2. Nếu thành phẩm lệch nhiều so với `durationSec` trong kịch bản → nói rõ (bình thường, timeline lấy theo footage thật).
 3. Mọi WARN ở bước 3.
-4. Thiếu BGM/SFX thì nhắc user bỏ file vào `content/_assets/`.
+4. Nhạc nền và SFX có tên trong `audio-synth.mjs --list` được **tự tổng hợp** khi thiếu. Chỉ khi
+   kịch bản dùng tên lạ (không có trong danh sách) mới cần user bỏ file vào `content/_assets/`.
 
 ---
 
@@ -144,7 +158,9 @@ Màu sắc, font, safe area, preset caption: `references/design-system.md`.
   Timeline thật luôn tính từ footage. Đừng cố ép thành phẩm khớp `durationSec`.
 - **Chữ trên màn hình luôn lấy từ `voiceover`**, không bao giờ lấy từ output whisper.
   Whisper tiếng Việt sai dấu — đây là lý do tồn tại của `scripts/align.mjs`.
-- Thiếu BGM/SFX **không chặn** pipeline. Video vẫn render, chỉ là không có nhạc.
+- Thiếu BGM/SFX **không chặn** pipeline. Tên có trong bộ tổng hợp thì tự sinh; tên lạ thì bỏ qua.
+- File user tự bỏ vào `content/_assets/` luôn được ưu tiên — bộ tổng hợp chỉ sinh khi chưa có.
+  Muốn sinh lại bản tổng hợp: xoá file đó, hoặc `node scripts/audio-synth.mjs <tên> --force`.
 
 ## Cấu trúc
 
@@ -157,6 +173,8 @@ Màu sắc, font, safe area, preset caption: `references/design-system.md`.
 │   └── troubleshooting.md   ← lỗi hay gặp
 └── scripts/
     ├── lib.mjs              tiện ích chung
+    ├── kichban.mjs          loadScript(): đọc script.json, hoặc dịch từ kichban.json (votri-script)
+    ├── audio-synth.mjs      tổng hợp nhạc nền + SFX bằng code (--list, --all, --force)
     ├── align.mjs            ghép timing whisper vào chữ gốc  (self-test: --test)
     ├── preflight.mjs        stage 1
     ├── extract-audio.mjs    stage 2

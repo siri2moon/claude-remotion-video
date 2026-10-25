@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "id": "2026-10-14-20-55-tu-dien-tieng-phu-nu",
+  "input": "Ngách 20/10: Từ điển phiên dịch tiếng Phụ nữ — dịch các câu quen thuộc của chị em, có đoạn dịch ngược tiếng Đàn ông, twist vợ nhắn tin giữa lúc quay.",
+  "inputType": "topic",
+  "title": "TỪ ĐIỂN TIẾNG PHỤ NỮ",
+  "subtitle": "Tài liệu tập huấn khẩn cấp trước 20/10",
+  "shockLine": "EM KHÔNG CẦN QUÀ = CẦN",
+  "concept": "Tập huấn phiên dịch ngoại giao trước 20/10 / Deadpan",
+  "persona": "phiên dịch viên cấp cao, chuyên ngành tiếng Phụ nữ",
+  "setting": "Ngồi một mình ở bàn, ánh sáng ấm, phía sau gọn gàng như phòng họp",
+  "props": [
+    "ly trà đá",
+    "cuốn sổ bìa cứng dán nhãn \"TỪ ĐIỂN\"",
+    "điện thoại úp trên bàn",
+    "bút bi"
+  ],
+  "rhythm": "Nghiêm như buổi tập huấn ngoại giao, càng về sau cấp độ càng căng. Nhạc tắt khi điện thoại rung ở cảnh 5 và giữ im tới hết cảnh 7. Chữ \"Ừ.\" ở cảnh 6 là cú gọi lại cấp độ đỏ ở cảnh 4.",
+  "durationSec": 115,
+  "scenes": [
+    {
+      "part": "hook",
+      "file": "s1",
+      "label": "Câu ai cũng từng nghe",
+      "start": 0,
+      "end": 10,
+      "camera": "Cận cảnh. Đang hút trà đá, ngẩng phắt lên nhìn thẳng camera.",
+      "action": "Câu đầu đọc nhỏ nhẹ, bắt chước giọng hiền lành. Đặt ly xuống \"cộp\" ở chữ \"chia buồn\", mặt nghiêm như bác sĩ báo tin xấu.",
+      "audio": "Lo-fi nhỏ. \"Cộp\" ở \"chia buồn\".",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "chia"
+        }
+      ],
+      "line": "'Em không cần quà đâu.'… Anh em nghe câu này mà tin thật… thì tôi xin chia buồn. Anh em vừa trượt môn ngoại ngữ quan trọng nhất của đời đàn ông.",
+      "onScreen": "\"Em không cần quà đâu\"\nANH EM TIN THẬT À?"
+    },
+    {
+      "part": "lead",
+      "file": "s2",
+      "label": "Tài liệu mật",
+      "start": 10,
+      "end": 22,
+      "camera": "Trung cận. Đặt cuốn sổ dán nhãn \"TỪ ĐIỂN\" giữa bàn, hai tay đặt lên như tuyên thệ.",
+      "action": "Nói như sĩ quan tình báo. Ở \"ngủ sofa\" thì nhắm mắt một giây như nhớ lại chiến trường.",
+      "audio": "Lo-fi tiếp tục.",
+      "music": "lofi",
+      "sfx": [],
+      "line": "Còn đúng 3 ngày nữa là 20/10. Đây không phải diễn tập. Phụ nữ không bao giờ nói dối. Phụ nữ nói bằng mã hoá. Cuốn từ điển này… tôi đánh đổi bằng 3 năm ngủ sofa. Hôm nay tôi giải mã theo 3 cấp độ nguy hiểm.",
+      "onScreen": "Tài liệu mật — giá: 3 NĂM NGỦ SOFA"
+    },
+    {
+      "part": "lead",
+      "file": "s3",
+      "label": "Cấp độ vàng",
+      "start": 22,
+      "end": 38,
+      "camera": "Cận cảnh. Lật sổ, đọc như phiên dịch viên ở hội nghị thượng đỉnh.",
+      "action": "Câu gốc đọc nhỏ nhẹ. Phần \"Dịch\" đọc khô khốc, gõ ngón tay xuống sổ mỗi lần.",
+      "audio": "Lo-fi. \"Ding\" ở chữ \"Dịch\" đầu tiên, \"cộp\" ở số 21.",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "Dịch"
+        },
+        {
+          "name": "thud",
+          "word": "21"
+        }
+      ],
+      "line": "Cấp độ vàng. 'Em không cần quà đâu.' Dịch: cần. Và cần trước ngày 20, không phải ngày 21. 'Tuỳ anh.' Dịch: anh đã chọn sai… chỉ là chưa biết sai chỗ nào. 'Hoa thì phí lắm.' Dịch: mua hoa. Mua thêm một món khác… để hoa đỡ cô đơn.",
+      "onScreen": "🟡 \"Tuỳ anh\" = ANH ĐÃ CHỌN SAI"
+    },
+    {
+      "part": "lead",
+      "file": "s4",
+      "label": "Cấp độ cam và đỏ",
+      "start": 38,
+      "end": 54,
+      "camera": "Trung cận. Lật thêm một trang, nheo mắt. Tới cấp độ đỏ thì gập sổ lại.",
+      "action": "Giảng chữ \"được\" như giáo sư ngôn ngữ học. Cấp độ đỏ đọc chậm hẳn, giơ một ngón tay lên ở chữ \"Ừ\".",
+      "audio": "Lo-fi nhỏ dần. \"Tưng\" ở chữ \"được\", tim đập ở \"Cấp độ đỏ\".",
+      "music": "lofi",
+      "sfx": [
+        {
+          "name": "boing",
+          "word": "được."
+        },
+        {
+          "name": "heartbeat",
+          "word": "đỏ.",
+          "volume": 0.4
+        }
+      ],
+      "line": "Cấp độ cam. 'Anh cứ đi với bạn đi, em ở nhà một mình cũng được.' Dịch: chữ 'được' ở đây chỉ khả năng… không phải sự cho phép. Cấp độ đỏ. Một chữ 'Ừ.'… có dấu chấm. Không emoji. Không 'nha'. Nguy hiểm gấp ba lần một câu dài.",
+      "onScreen": "🔴 \"Ừ.\" CÓ DẤU CHẤM = BÁO ĐỘNG ĐỎ"
+    },
+    {
+      "part": "twist",
+      "file": "s5",
+      "label": "Tin nhắn thứ nhất",
+      "start": 54,
+      "end": 63,
+      "camera": "Cận cảnh. Điện thoại úp trên bàn rung lên. Lật lên đọc, rồi gõ trả lời bằng một ngón tay, rất tự tin.",
+      "action": "Mặt không đổi. Đọc tin nhắn chậm. Câu trả lời đọc như người nắm chắc tình hình.",
+      "audio": "Nhạc tắt phụt. Tiếng báo tin nhắn, tiếng gõ phím ở \"trả lời\".",
+      "music": "silent",
+      "sfx": [
+        {
+          "name": "notification",
+          "at": "start"
+        },
+        {
+          "name": "typing",
+          "word": "trả"
+        }
+      ],
+      "keepPauses": true,
+      "voice": "chậm, khô",
+      "line": "Xin lỗi anh em. Vợ tôi vừa nhắn: 'Anh đang quay video gì đấy?' Tôi trả lời bằng tiếng Đàn ông: 'Anh đang làm việc.'",
+      "onScreen": "💬 \"Anh đang quay video gì đấy?\""
+    },
+    {
+      "part": "twist",
+      "file": "s6",
+      "label": "Tin nhắn thứ hai",
+      "start": 63,
+      "end": 70,
+      "camera": "Cận cảnh. Điện thoại rung lần nữa. Nhìn xuống, rồi từ từ quay màn hình về phía camera.",
+      "action": "Im lặng thật lâu. Chỉ đọc đúng một chữ, rồi thêm ba chữ thì thầm.",
+      "audio": "Tiếng báo tin nhắn, rồi dế kêu trong khoảng lặng.",
+      "music": "silent",
+      "sfx": [
+        {
+          "name": "notification",
+          "at": "start"
+        },
+        {
+          "name": "crickets",
+          "at": "pause"
+        }
+      ],
+      "keepPauses": true,
+      "voice": "thì thầm",
+      "line": "…'Ừ.'… Có dấu chấm.",
+      "onScreen": "💬 \"Ừ.\"",
+      "note": "Im ít nhất 2 giây trước khi đọc \"Ừ\". Người xem đã được dạy ở cảnh 4, họ sẽ tự hiểu trước khi bạn nói."
+    },
+    {
+      "part": "twist",
+      "file": "s7",
+      "label": "Bản dịch cuối cùng",
+      "start": 70,
+      "end": 76,
+      "camera": "Snap zoom giật vào mắt (cực cận).",
+      "action": "Chớp mắt đúng 1 lần. Úp điện thoại xuống bàn thật nhẹ, như đậy nắp quan tài.",
+      "audio": "Record scratch rồi im bặt.",
+      "music": "silent",
+      "sfx": [
+        {
+          "name": "record-scratch",
+          "at": "start"
+        }
+      ],
+      "keepPauses": true,
+      "zoom": "snap",
+      "voice": "thều thào",
+      "line": "Dịch:… tôi chết rồi.",
+      "onScreen": "DỊCH: TÔI CHẾT RỒI."
+    },
+    {
+      "part": "explain",
+      "file": "s8",
+      "label": "Phác đồ khẩn cấp",
+      "start": 76,
+      "end": 90,
+      "camera": "Trung cảnh. Ngồi thẳng lại, chỉnh cổ áo, mở sổ ra trang trắng, cầm bút như lập kế hoạch tác chiến.",
+      "action": "Gõ bút xuống bàn ở từng con số.",
+      "audio": "Funky bassline vô tri. \"Cộp\" ở 72 và 48.",
+      "music": "funky",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "72"
+        },
+        {
+          "name": "thud",
+          "word": "48"
+        }
+      ],
+      "line": "Bình tĩnh. Kích hoạt phác đồ khẩn cấp. Từ giờ tới 20/10 còn 72 giờ. Trừ ba đêm ngủ sofa, còn lại 48 giờ… để mua hoa, mua quà, và học thuộc cuốn từ điển này.",
+      "onScreen": "Còn 72 GIỜ − 3 đêm sofa = 48 GIỜ"
+    },
+    {
+      "part": "explain",
+      "file": "s9",
+      "label": "Video cầu mong bị flop",
+      "start": 90,
+      "end": 102,
+      "camera": "Trung cận. Đặt bút xuống, đan hai tay lên bàn như chủ tọa họp khẩn.",
+      "action": "Nói như báo cáo rủi ro trước hội đồng. Câu cuối nói chậm, thành khẩn.",
+      "audio": "Funky tiếp tục. \"Cộp\" ở \"tỉ lệ nghịch\".",
+      "music": "funky",
+      "sfx": [
+        {
+          "name": "thud",
+          "word": "tỉ"
+        }
+      ],
+      "line": "Phân tích rủi ro: video này càng nhiều lượt xem, vợ tôi càng dễ thấy. Xác suất sống sót của tôi tỉ lệ nghịch với lượt xem. Đây là video đầu tiên trong lịch sử… mà tác giả cầu mong bị flop.",
+      "onScreen": "Lượt xem ↑ = XÁC SUẤT SỐNG SÓT ↓"
+    },
+    {
+      "part": "outro",
+      "file": "s10",
+      "label": "Đừng chia sẻ",
+      "start": 102,
+      "end": 115,
+      "camera": "Cận cảnh. Chỉ thẳng vào ống kính, tay kia giữ chặt cuốn sổ.",
+      "action": "Nghiêm như dặn dò trước khi lên đường làm nhiệm vụ. Câu cuối liếc nhanh sang điện thoại một lần.",
+      "audio": "Funky nhỏ dần. \"Ding\" ở \"2026\".",
+      "music": "funky",
+      "sfx": [
+        {
+          "name": "ding",
+          "word": "2026"
+        }
+      ],
+      "line": "Nên anh em xem xong… tuyệt đối đừng chia sẻ. Đừng tag vợ. Còn chị em, nhà mình có câu mã hoá nào, bình luận xuống đây để tôi bổ sung từ điển bản 2026… nếu tôi còn sống.",
+      "onScreen": "CHỊ EM: góp câu cho TỪ ĐIỂN 2026 👇"
+    }
+  ],
+  "tips": [
+    "Không cười ở bất kỳ cảnh nào, kể cả khi đọc câu của chị em.",
+    "Câu gốc đọc nhỏ nhẹ, phần \"Dịch\" đọc khô như máy — độ chênh đó là chỗ buồn cười.",
+    "Cảnh 4 phải nói rõ \"Ừ.\" có dấu chấm là cấp độ đỏ, vì cảnh 6 ăn tiền nhờ người xem đã nhớ điều này.",
+    "Cảnh 6: im đủ 2 giây trước chữ \"Ừ\", quay màn hình điện thoại về phía camera thật chậm.",
+    "Số ngày ở cảnh 2 và số giờ ở cảnh 8 sửa theo ngày đăng: đăng 17/10 là \"3 ngày / 72 giờ\", 18/10 là \"2 ngày / 48 giờ\"."
+  ],
+  "caption": "Tin nhắn tiếp theo vợ gửi là \"Về nhà nói chuyện\". Tôi đã tra hết cuốn từ điển. Không có trang nào dịch được câu này…",
+  "hashtags": [
+    "#xuhuong",
+    "#tiktokvietnam",
+    "#votri",
+    "#haihuoc",
+    "#deadpan",
+    "#2010",
+    "#tudientiengphunu"
+  ]
+}

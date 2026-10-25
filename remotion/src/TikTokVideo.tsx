@@ -1,5 +1,5 @@
-import { AbsoluteFill, Audio, Sequence, staticFile } from 'remotion';
-import type { VideoProps } from './types';
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile } from 'remotion';
+import type { MusicSegment, VideoProps } from './types';
 import { SceneClip } from './components/SceneClip';
 import { TitleCard } from './components/TitleCard';
 import { Subtitles } from './components/Subtitles';
@@ -38,12 +38,35 @@ export const TikTokVideo: React.FC<VideoProps> = (props) => {
 
       {/* Tiếng nói đi kèm footage (OffthreadVideo tự phát). Đây là nhạc nền + SFX. */}
       {props.bgm ? <Audio src={staticFile(props.bgm.src)} volume={props.bgm.volume} loop /> : null}
+      {(props.music ?? []).map((m, i) => (
+        <Sequence key={`music-${i}`} from={m.fromFrame} durationInFrames={m.durationInFrames} name="nhạc nền">
+          <MusicTrack seg={m} />
+        </Sequence>
+      ))}
       {props.sfx.map((s, i) => (
         <Sequence key={`sfx-${i}`} from={s.atFrame} name="sfx">
           <Audio src={staticFile(s.src)} volume={s.volume} />
         </Sequence>
       ))}
     </AbsoluteFill>
+  );
+};
+
+/** Một đoạn nhạc nền, fade vào/ra ở hai đầu để chỗ đổi bài không bị "cụp". */
+const MusicTrack: React.FC<{ seg: MusicSegment }> = ({ seg }) => {
+  const fade = Math.max(1, Math.min(seg.fadeFrames, Math.floor(seg.durationInFrames / 3)));
+  return (
+    <Audio
+      src={staticFile(seg.src)}
+      loop
+      volume={(f) =>
+        seg.volume *
+        interpolate(f, [0, fade, seg.durationInFrames - fade, seg.durationInFrames], [0, 1, 1, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        })
+      }
+    />
   );
 };
 
