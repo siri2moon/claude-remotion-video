@@ -14,9 +14,14 @@ content/*/audio/
 content/*/media.json
 content/*/timing.json
 content/*/props.json
+content/*/props-*.json
 
 # tranh AI — nặng, sinh lại được từ story.json (mất khoảng 45s một ảnh)
 content/*/images/
+
+# nhạc thật cho short: có bản quyền theo giấy phép từng nơi, không đưa lên git
+content/_assets/music/*
+!content/_assets/music/README.md
 
 # thành phẩm
 out/

@@ -1,0 +1,325 @@
+{
+ "id": "2026-10-25-20-16-ec2-login-dep",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/beautiful-ec2-login-amazon-linux-2023-script"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "DevOps"
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "terminal": {
+    "title": "ssh ec2-user@54.169.12.7",
+    "fontSize": 30,
+    "start": 0.1,
+    "items": [
+     {
+      "out": "   ,     #_\n   ~\\_  ####_        Amazon Linux 2023\n  ~~  \\_#####\\\n  ~~     \\###|\n  ~~       \\#/ ___\n   ~~       V~' '->\n    ~~~         /\n      ~~._.   _/\n         _/ _/\n       _/m/'",
+      "after": 0.2
+     },
+     {
+      "cmd": "",
+      "prompt": "[ec2-user@ip-172-31-24-187 ~]$ "
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "3 tab SSH y hệt nhau…",
+     "tab nào là *PROD*? 😱"
+    ],
+    "en": [
+     "3 identical SSH tabs…",
+     "which one is *PROD*? 😱"
+    ]
+   }
+  },
+  {
+   "id": "run",
+   "beats": 7,
+   "terminal": {
+    "title": "ec2-user@ip-172-31-24-187",
+    "fontSize": 27,
+    "cps": 20,
+    "start": 0.2,
+    "items": [
+     {
+      "cmd": "bash init-beautiful-ec2.sh",
+      "prompt": "[ec2-user@ip-172-31-24-187 ~]$ ",
+      "enter": 0.3
+     },
+     {
+      "out": "{cyan}=== [1/7] Setting hostname to 'nebula-dev' ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [2/7] Installing build tools ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [3/7] Silencing the stock Amazon Linux logo ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [4/7] Installing Fastfetch ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [5/7] Building FIGlet from source ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [6/7] Letting ec2-user use Docker without sudo ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{cyan}=== [7/7] Adding prompt and banner to ~/.bashrc ==={/}",
+      "after": 0.22
+     },
+     {
+      "out": "{green} Done. Hostname: nebula-dev{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Chạy *1 script* Bash",
+     "trên Amazon Linux 2023"
+    ],
+    "en": [
+     "Run *one Bash script*",
+     "on Amazon Linux 2023"
+    ]
+   }
+  },
+  {
+   "id": "login",
+   "beats": 8,
+   "terminal": {
+    "title": "ssh ec2-user@nebula-dev",
+    "fontSize": 23,
+    "start": 0.2,
+    "items": [
+     {
+      "out": "{cyan}    _   ____________  __  ____    ___       ____  _______    __{/}\n{cyan}   / | / / ____/ __ )/ / / / /   /   |     / __ \\/ ____/ |  / /{/}\n{cyan}  /  |/ / __/ / __  / / / / /   / /| |    / / / / __/  | | / /{/}\n{cyan} / /|  / /___/ /_/ / /_/ / /___/ ___ |   / /_/ / /___  | |/ /{/}\n{cyan}/_/ |_/_____/_____/\\____/_____/_/  |_|  /_____/_____/  |___/{/}",
+      "after": 0.3
+     },
+     {
+      "out": " "
+     },
+     {
+      "out": "  {dim},     #_{/}            {green}ec2-user{/}@{cyan}nebula-dev{/}\n  {dim}~\\_  ####_{/}          -------------------\n {dim}~~  \\_#####\\{/}         {yellow}OS{/}: Amazon Linux 2023 aarch64\n {dim}~~     \\###|{/}         {yellow}Kernel{/}: Linux 6.1\n {dim}~~       \\#/ ___{/}     {yellow}Shell{/}: bash 5.2.15\n  {dim}~~       V~' '->{/}    {yellow}CPU{/}: Graviton3 (2)\n   {dim}~~~         /{/}      {yellow}Memory{/}: 0.6 / 3.7 GiB\n     {dim}~~._.   _/{/}       {yellow}Disk (/){/}: 3.1 / 30 GiB",
+      "after": 0.3
+     },
+     {
+      "out": " "
+     },
+     {
+      "cmd": "",
+      "prompt": "{green}ec2-user{/}@{cyan}nebula-dev{/}:{yellow}~{/}$ "
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "SSH vào là có *banner riêng* ✨",
+     "prompt có *màu*, có *tên máy*"
+    ],
+    "en": [
+     "Every login: *its own banner* ✨",
+     "*colors* and a real *hostname*"
+    ]
+   }
+  },
+  {
+   "id": "prod",
+   "beats": 6,
+   "terminal": {
+    "title": "ssh ec2-user@prod-api",
+    "fontSize": 24,
+    "start": 0.2,
+    "items": [
+     {
+      "out": "{red}    ____  ____  ____  ____     ___    ____  ____{/}\n{red}   / __ \\/ __ \\/ __ \\/ __ \\   /   |  / __ \\/  _/{/}\n{red}  / /_/ / /_/ / / / / / / /  / /| | / /_/ // /{/}\n{red} / ____/ _, _/ /_/ / /_/ /  / ___ |/ ____// /{/}\n{red}/_/   /_/ |_|\\____/_____/  /_/  |_/_/   /___/{/}",
+      "after": 0.3
+     },
+     {
+      "out": " "
+     },
+     {
+      "cmd": "docker system prune",
+      "prompt": "{green}ec2-user{/}@{red}prod-api{/}:{yellow}~{/}$ ",
+      "enter": 0.2
+     },
+     {
+      "out": "{red}✋ khoan đã… đây là PROD{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Mỗi môi trường *một màu*",
+     "*prod đỏ*, *dev xanh* 🚦"
+    ],
+    "en": [
+     "One *color per environment*",
+     "*prod red*, *dev cyan* 🚦"
+    ]
+   }
+  },
+  {
+   "id": "traps",
+   "shot": "post-steps",
+   "beats": 7,
+   "lines": {
+    "vi": [
+     "Né *4 cái bẫy*",
+     "của Amazon Linux 2023 🪤"
+    ],
+    "en": [
+     "Dodges *4 traps*",
+     "in Amazon Linux 2023 🪤"
+    ]
+   },
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 270,
+     "cy": 420,
+     "zoom": 1.85
+    },
+    {
+     "f": 126,
+     "cx": 270,
+     "cy": 520,
+     "zoom": 1.95
+    }
+   ]
+  },
+  {
+   "id": "script",
+   "shot": "post-script",
+   "beats": 6,
+   "lines": {
+    "vi": [
+     "Chạy cả *Graviton* lẫn *x86*",
+     "chạy lại *thoải mái* ✅"
+    ],
+    "en": [
+     "Works on *Graviton* and *x86*",
+     "safe to *run again* ✅"
+    ]
+   },
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 270,
+     "cy": 420,
+     "zoom": 1.85
+    },
+    {
+     "f": 108,
+     "cx": 270,
+     "cy": 520,
+     "zoom": 1.95
+    }
+   ]
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Full script + giải thích trên *siri2moon.com*",
+   "en": "Full script and walkthrough on *siri2moon.com*"
+  },
+  "chips": [
+   "Amazon Linux 2023",
+   "Bash",
+   "FIGlet",
+   "Fastfetch"
+  ],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "mẹo DevOps & AI mỗi ngày 🚀",
+    "Link bài viết ở bình luận ghim 📌"
+   ],
+   "en": [
+    "daily DevOps & AI tips 🚀",
+    "Link to the post in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/beautiful-ec2-login-amazon-linux-2023-script",
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   {
+    "name": "post-steps",
+    "seconds": 4.6,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 5150
+     },
+     {
+      "t": 1,
+      "scroll": 6250
+     }
+    ]
+   },
+   {
+    "name": "post-script",
+    "seconds": 4.0,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 2330
+     },
+     {
+      "t": 1,
+      "scroll": 3250
+     }
+    ]
+   },
+   {
+    "name": "post-top",
+    "seconds": 7.0,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 0
+     },
+     {
+      "t": 1,
+      "scroll": 420
+     }
+    ]
+   }
+  ]
+ }
+}

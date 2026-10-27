@@ -1,0 +1,232 @@
+{
+  "url": "https://siri2moon.com/posts/beautiful-ec2-login-amazon-linux-2023-script",
+  "title": "One Script for a Beautiful EC2 Login: Hostname, Colored Prompt, FIGlet Banner and Fastfetch on Amazon Linux 2023",
+  "description": "A tested Bash script that gives a fresh Amazon Linux 2023 instance a custom hostname, a colored prompt, a FIGlet ASCII banner, a Fastfetch system summary and sudo-free Docker, plus the four AL2023 traps it avoids along the way.",
+  "cover": "https://siri2moon.com/uploads/beautiful-ec2-login-cover.jpg",
+  "pageHeight": 15360,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "What You Get",
+      "top": 1441,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Prerequisites",
+      "top": 2036,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "The Script",
+      "top": 2297,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Run It",
+      "top": 4688,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step by Step: What Each Part Does (and the Traps It Avoids)",
+      "top": 5225,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "1. Hostname that survives a reboot",
+      "top": 5323,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "2. Build tools, and why curl is not in the list",
+      "top": 5720,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "3. Removing the stock Amazon Linux logo",
+      "top": 6474,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "4. Fastfetch from GitHub releases",
+      "top": 7121,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "5. FIGlet, built from source",
+      "top": 8165,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "6. Docker without sudo",
+      "top": 8858,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7. The .bashrc block: prompt and banner",
+      "top": 9282,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Customize It Per Environment",
+      "top": 10741,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Run It Automatically at Launch (User Data)",
+      "top": 11308,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Troubleshooting",
+      "top": 11773,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Undo Everything",
+      "top": 12752,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Wrap-Up",
+      "top": 13083,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1544,
+      "height": 350,
+      "lang": "text",
+      "head": "    _   ____________  __  ____    ___       ____  _______    __\n   / | / / ____/ __ )/ / / / /   /   |     / __ \\/ ____/ |  / /\n  /  |/ / __/ / __  / / / / /   / /| |    / / / / __/  | | / /\n / /|  / /___/ /_/ / /_/ / /___/ ___ |   / /_/ / /___  | |/ /\n/_/ |_/_____/_____/\\____/_____/_/  |_|  /_____/_____/  |___/\n"
+    },
+    {
+      "top": 2426,
+      "height": 2222,
+      "lang": "bash",
+      "head": "#!/usr/bin/env bash\n# ==============================================================================\n# init-beautiful-ec2.sh: make a fresh Amazon Linux 2023 instance nice to SSH into\n#   - custom hostname\n#   - colored PS1 prompt\n#   - Fastfetch system summary (Graviton/ARM64 or x86_64)"
+    },
+    {
+      "top": 4817,
+      "height": 116,
+      "lang": "bash",
+      "head": "# from your laptop\nscp -i ~/.ssh/my-key.pem init-beautiful-ec2.sh ec2-user@<public-ip>:~\n\n# on the instance\nbash init-beautiful-ec2.sh\n"
+    },
+    {
+      "top": 5374,
+      "height": 62,
+      "lang": "bash",
+      "head": "sudo hostnamectl set-hostname \"nebula-dev\"\necho \"preserve_hostname: true\" | sudo tee /etc/cloud/cloud.cfg.d/99-preserve-hostname.cfg\n\nCopy"
+    },
+    {
+      "top": 5772,
+      "height": 44,
+      "lang": "bash",
+      "head": "sudo dnf install -y gcc make git wget jq tar\n\nCopy"
+    },
+    {
+      "top": 5968,
+      "height": 98,
+      "lang": "text",
+      "head": "  - package curl-minimal-8.5.0-1.amzn2023.0.5.aarch64 from amazonlinux conflicts\n    with curl provided by curl-8.21.0-5.amzn2023.0.2.aarch64 from amazonlinux\n(try to add '--allowerasing' to command line to replace conflicting packages\n or '--skip-broken' to skip uninstallable packages)\n\nCopy"
+    },
+    {
+      "top": 6649,
+      "height": 98,
+      "lang": "bash",
+      "head": "$ ls /usr/lib/motd.d/\n30-banner\n$ rpm -qf /usr/lib/motd.d/30-banner\nsystem-release-2023.12.20260930-0.amzn2023.noarch\n\nCopy"
+    },
+    {
+      "top": 6925,
+      "height": 62,
+      "lang": "bash",
+      "head": "sudo mkdir -p /etc/motd.d\nsudo ln -sf /dev/null /etc/motd.d/30-banner\n\nCopy"
+    },
+    {
+      "top": 7271,
+      "height": 188,
+      "lang": "bash",
+      "head": "case \"$(uname -m)\" in\n  aarch64) FASTFETCH_ARCH=\"aarch64\" ;;\n  x86_64)  FASTFETCH_ARCH=\"amd64\" ;;\nesac\n\nFASTFETCH_URL=$(curl -fsSL https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \\"
+    },
+    {
+      "top": 8216,
+      "height": 80,
+      "lang": "bash",
+      "head": "git clone --depth 1 https://github.com/cmatsuoka/figlet.git \"$WORKDIR/figlet\"\nmake -C \"$WORKDIR/figlet\"\nsudo make -C \"$WORKDIR/figlet\" install\n\nCopy"
+    },
+    {
+      "top": 8670,
+      "height": 80,
+      "lang": "bash",
+      "head": "for f in /usr/local/share/figlet/*.flf; do\n  echo \"== $(basename \"$f\" .flf)\"; figlet -f \"$f\" \"NEBULA\"\ndone\n\nCopy"
+    },
+    {
+      "top": 8910,
+      "height": 62,
+      "lang": "bash",
+      "head": "sudo usermod -aG docker \"$(id -un)\"\nsudo systemctl enable --now docker\n\nCopy"
+    },
+    {
+      "top": 9477,
+      "height": 98,
+      "lang": "bash",
+      "head": "cat << EOF >> ~/.bashrc\nexport PS1=\"\\[\\e[1;32m\\]\\u ... \\$ \"\nif [[ \\$- == *i* ]]; then ...\nEOF\n\nCopy"
+    },
+    {
+      "top": 9851,
+      "height": 116,
+      "lang": "bash",
+      "head": "printf 'WELCOME_BANNER_TEXT=%q\\n'  \"$BANNER_TEXT\"\nprintf 'WELCOME_BANNER_COLOR=%q\\n' \"$BANNER_COLOR\"\ncat << 'EOF'\n...\nEOF\n"
+    },
+    {
+      "top": 10477,
+      "height": 44,
+      "lang": "bash",
+      "head": "if [[ $- == *i* && -n ${SSH_TTY:-} && ${SHLVL:-1} -eq 1 ]]; then\n\nCopy"
+    },
+    {
+      "top": 11489,
+      "height": 116,
+      "lang": "bash",
+      "head": "#!/bin/bash\ncat > /tmp/init-beautiful-ec2.sh << 'SCRIPT'\n# ... paste the full script here ...\nSCRIPT\nsu - ec2-user -c 'bash /tmp/init-beautiful-ec2.sh'\n"
+    },
+    {
+      "top": 12855,
+      "height": 188,
+      "lang": "bash",
+      "head": "# remove the prompt + banner block from .bashrc\nsed -i '/^# --- EC2 CUSTOM PROMPT AND WELCOME BANNER ---$/,/^# --- END EC2 CUSTOM PROMPT AND WELCOME BANNER ---$/d' ~/.bashrc\n\n# bring back the Amazon Linux logo\nsudo rm /etc/motd.d/30-banner\n"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [
+    {
+      "path": "/posts/figlet-terminal-welcome-guide",
+      "title": "The FIGlet guide"
+    },
+    {
+      "path": "/posts/colorful-cli-prompt",
+      "title": "The colored prompt guide"
+    }
+  ],
+  "text": "A fresh EC2 instance greets you with [ec2-user@ip-172-31-24-187 ~]$, a beige prompt and the Amazon Linux bird logo. That's fine for one server. With three of them open in different tabs (dev, staging, the box you're about to docker system prune on), the ip-based hostname becomes a real risk.\n\nThis post walks through one Bash script that turns a stock Amazon Linux 2023 instance into this:\n\na hostname you chose, kept across reboots\na colored prompt: user in green, host in cyan, directory in yellow\na big ASCII banner in FIGlet's Slant font on every SSH login\na Fastfetch summary of the machine (OS, kernel, CPU, memory, disk)\nthe stock Amazon Linux logo removed\nDocker usable without sudo\n\nIt runs on both Graviton (ARM64) and x86_64 instances, and you can run it again safely. I tested every step below in Amazon Linux 2023 containers on both architectures. Along the way it ran into four AL2023 quirks that can break a setup script like this, and each one gets its own section.\n\nIf you only want the pieces, two earlier posts cover them separately: FIGlet welcome banners and colored cloud prompts. This one puts them together into a single script.\n\nWhat You Get\n\nOn SSH login:\n\n    _   ____________  __  ____    ___       ____  _______    __\n   / | / / ____/ __ )/ / / / /   /   |     / __ \\/ ____/ |  / /\n  /  |/ / __/ / __  / / / / /   / /| |    / / / / __/  | | / /\n / /|  / /___/ /_/ / /_/ / /___/ ___ |   / /_/ / /___  | |/ /\n/_/ |_/_____/_____/\\____/_____/_/  |_|  /_____/_____/  |___/\n\n  ,     #_            ec2-user@nebula-dev\n  ~\\_  ####_          -------------------\n ~~  \\_#####\\         OS: Amazon Linux 2023 aarch64\n ~~     \\###|         Kernel: Linux 6.1\n ~~       \\#/ ___     Shell: bash 5.2.15\n  ~~       V~' '->    CPU: ...\n   ~~~         /      Memory: ...\n     ~~._.   _/       Disk (/): ...\n        _/ _/\n      _/m/'\n\nec2-user@nebula-dev:~$\n\nCopy\n\nThe banner is cyan by default and the prompt is colored. Pick a different banner color per environment and you can tell prod from dev before you read a single word.\n\nPrerequisites\nAn EC2 instance running Amazon Linux 2023, on any instance type (Graviton or Intel/AMD).\nSSH access as ec2-user, which has passwordless sudo by default.\nOutbound internet access from the instance, to reach the dnf repositories and GitHub.\nThe Script\n\nSave this as init-beautiful-ec2.sh. The only lines you need to edit are the three in the configuration block.\n\n#!/usr/bin/env bash\n# ==============================================================================\n# init-beautiful-ec2.sh: make a fresh Amazon Linux 2023 instance nice to SSH into\n#   - custom hostname\n#   - colored PS1 prompt\n#   - Fastfetch system summary (Graviton/ARM64 or x86_64)\n#   - FIGlet ASCII banner in the Slant font\n#   - no stock Amazon Linux logo\n#   - Docker usable without sudo\n# Run it once as ec2-user. Running it again is safe.\n# ==============================================================================\n\nset -e\n\n# ==============================================================================\n# CONFIGURATION: change these per server\n# ==============================================================================\nNEW_HOSTNAME=\"nebula-dev\"\nBANNER_TEXT=\"NEBULA DEV\"\n\n# ANSI colors: \\e[1;36m Cyan | \\e[1;32m Green | \\e[1;33m Yellow | \\e[1;35m Magenta | \\e[1;31m Red\nBANNER_COLOR=\"\\e[1;36m\"\n# ==============================================================================\n\nWORKDIR=$(mktemp -d)\ntrap 'rm -rf \"$WORKDIR\"' EXIT\n\necho \"=== [1/7] Setting hostname to '${NEW_HOSTNAME}' ===\"\nsudo hostnamectl set-hostname \"${NEW_HOSTNAME}\"\n# Tell cloud-init the hostname is ours, so a reboot does not put the\n# ip-172-31-x-x name back.\necho \"preserve_hostname: true\" | sudo tee /etc/cloud/cloud.cfg.d/99-preserve-hostname.cfg > /dev/null\n\necho \"=== [2/7] Installing build tools ===\"\nsudo dnf update -y\n# No `curl` here on purpose: AL2023 ships curl-minimal, which already provides\n# /usr/bin/curl, and asking for the full package makes dnf refuse the whole\n# transaction.\nsudo dnf install -y gcc make git wget jq tar\n\necho \"=== [3/7] Silencing the stock Amazon Linux logo ===\"\n# The logo lives in /usr/lib/motd.d/30-banner. A same-named link to /dev/null\n# in /etc/motd.d overrides it, and survives system-release package updates.\nsudo mkdir -p /etc/motd.d\nsudo ln -sf /dev/null /etc/motd.d/30-banner\n\necho \"=== [4/7] Installing Fastfetch ===\"\ncase \"$(uname -m)\" in\n  aarch64) FASTFETCH_ARCH=\"aarch64\" ;;\n  x86_64)  FASTFETCH_ARCH=\"amd64\" ;;\n  *) echo \"No Fastfetch build for $(uname -m)\" >&2; exit 1 ;;\nesac\n\nFASTFETCH_URL=$(curl -fsSL https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \\\n  | jq -r --arg suffix \"linux-${FASTFETCH_ARCH}.tar.gz\" \\\n      '.assets[] | select(.name | endswith($suffix)) | .browser_download_url' \\\n  | head -n 1)\n\n# Over GitHub's anonymous rate limit (60 requests/hour per IP) the API returns\n# no assets, jq prints nothing, and set -e does not notice. Stop here with a\n# useful message instead of letting wget fail with a confusing one.\nif [ -z \"$FASTFETCH_URL\" ]; then\n  echo \"Could not read the Fastfetch release from the GitHub API.\" >&2\n  echo \"Usually the hourly rate limit. Check with:\" >&2\n  echo \"  curl -s https://api.github.com/rate_limit\" >&2\n  echo \"Or pick a URL by hand from\" >&2\n  echo \"  https://github.com/fastfetch-cli/fastfetch/releases/latest\" >&2\n  exit 1\nfi\n\nwget -q -O \"$WORKDIR/fastfetch.tar.gz\" \"$FASTFETCH_URL\"\ntar -xzf \"$WORKDIR/fastfetch.tar.gz\" -C \"$WORKDIR\"\nsudo install -m 755 \"$WORKDIR/fastfetch-linux-${FASTFETCH_ARCH}/usr/bin/fastfetch\" /usr/local/bin/fastfetch\n\necho \"=== [5/7] Building FIGlet from source ===\"\ngit clone --depth 1 https://github.com/cmatsuoka/figlet.git \"$WORKDIR/figlet\"\nmake -C \"$WORKDIR/figlet\"\nsudo make -C \"$WORKDIR/figlet\" install\n\necho \"=== [6/7] Letting $(id -un) use Docker without sudo ===\"\nif ! command -v docker &> /dev/null; then\n  sudo dnf install -y docker\nfi\nsudo usermod -aG docker \"$(id -un)\"\nsudo systemctl enable --now docker\n\necho \"=== [7/7] Adding prompt and banner to ~/.bashrc ===\"\nBASHRC_MARKER=\"# --- EC2 CUSTOM PROMPT AND WELCOME BANNER ---\"\n\nif ! grep -qF \"$BASHRC_MARKER\" ~/.bashrc; then\n  {\n    echo \"\"\n    echo \"$BASHRC_MARKER\"\n    # %q quotes the values so any text is safe inside .bashrc.\n    printf 'WELCOME_BANNER_TEXT=%q\\n' \"$BANNER_TEXT\"\n    printf 'WELCOME_BANNER_COLOR=%q\\n' \"$BANNER_COLOR\"\n    # Quoted 'EOF': everything below is written exactly as shown.\n    cat << 'EOF'\n# user (green) @ host (cyan) : directory (yellow)\nexport PS1='\\[\\e[1;32m\\]\\u\\[\\e[0m\\]@\\[\\e[1;36m\\]\\h\\[\\e[0m\\]:\\[\\e[1;33m\\]\\w\\[\\e[0m\\]\\$ '\n\n# Banner + system summary only for the first shell of an SSH login,\n# not for every subshell, script or tmux pane.\nif [[ $- == *i* && -n ${SSH_TTY:-} && ${SHLVL:-1} -eq 1 ]]; then\n  echo -e \"${WELCOME_BANNER_COLOR}\"\n  command -v figlet > /dev/null && figlet -f slant \"${WELCOME_BANNER_TEXT}\"\n  echo -e \"\\e[0m\"\n  command -v fastfetch > /dev/null && fastfetch\nfi\n# --- END EC2 CUSTOM PROMPT AND WELCOME BANNER ---\nEOF\n  } >> ~/.bashrc\n  echo \".bashrc updated.\"\nelse\n  echo \".bashrc already configured, skipping.\"\nfi\n\necho \"\"\necho \"==========================================================================\"\necho \" Done. Hostname: ${NEW_HOSTNAME}\"\necho \" Log out and SSH back in to see the banner and to pick up the docker group.\"\necho \"==========================================================================\"\n\nCopy\nRun It\n\nCopy the script to the instance and run it as ec2-user (not with sudo: it writes to your ~/.bashrc and adds you to the docker group):\n\n# from your laptop\nscp -i ~/.ssh/my-key.pem init-beautiful-ec2.sh ec2-user@<public-ip>:~\n\n# on the instance\nbash init-beautiful-ec2.sh\n\nCopy\n\nIt takes a minute or two, mostly dnf update and compiling FIGlet. When it finishes, log out and SSH back in. Two things only take effect on a new login: the banner, and membership in the docker group.\n\nRunning the script a second time is harmless. dnf skips packages that are already installed, the binaries are overwritten in place, and the .bashrc block is guarded by a marker line, so it is never appended twice.\n\nStep by Step: What Each Part Does (and the Traps It Avoids)\n1. Hostname that survives a reboot\nsudo hostnamectl set-hostname \"nebula-dev\"\necho \"preserve_hostname: true\" | sudo tee /etc/cloud/cloud.cfg.d/99-preserve-hostname.cfg\n\nCopy\n\nhostnamectl changes the hostname right away and writes it to /etc/hostname. The second line makes the name stick: cloud-init manages the hostname on EC2, and preserve_hostname: true tells it to leave yours alone on future boots. Putting it in its own file under cloud.cfg.d/ keeps the main cloud.cfg untouched, so package updates never conflict with your change.\n\nThe prompt's \\h reads this hostname, so this one value is what you see in every prompt.\n\n2. Build tools, and why curl is not in the list\nsudo dnf install -y gcc make git wget jq tar\n\nCopy\n\nThe obvious version of this line includes curl. On Amazon Linux 2023 that breaks the whole step. AL2023 ships curl-minimal, which already owns /usr/bin/curl. The full curl package wants the same path, so dnf refuses:\n\n  - package curl-minimal-8.5.0-1.amzn2023.0.5.aarch64 from amazonlinux conflicts\n    with curl provided by curl-8.21.0-5.amzn2023.0.2.aarch64 from amazonlinux\n(try to add '--allowerasing' to command line to replace conflicting packages\n or '--skip-broken' to skip uninstallable packages)\n\nCopy\n\nThere's one such line for every curl version in the repository, often hundreds of them, and then nothing is installed at all. dnf rejects the whole transaction, so gcc, git and everything else in the same command are skipped too, and the script dies a few lines later with a confusing error.\n\ncurl-minimal is the same curl command with fewer protocols compiled in, and HTTPS is all this script needs. --allowerasing would also make the error go away, but it does so by swapping out a base system package. That isn't worth it for a prompt and a banner.\n\njq and tar are in the list because step 4 needs them. A full EC2 AMI usually has tar already, but listing it costs nothing.\n\n3. Removing the stock Amazon Linux logo\n\nThe bird logo you see on login is not in /etc/motd. On AL2023, /etc/motd is an empty file, so the common advice to \"empty /etc/motd\" quietly does nothing. The logo is a file owned by the system-release package:\n\n$ ls /usr/lib/motd.d/\n30-banner\n$ rpm -qf /usr/lib/motd.d/30-banner\nsystem-release-2023.12.20260930-0.amzn2023.noarch\n\nCopy\n\nSSH logins print it through pam_motd, which reads /etc/motd.d, /run/motd.d and /usr/lib/motd.d. When the same filename appears in several of these directories, only the first one is used. The pam_motd man page documents the clean way to silence a message: put a same-named symlink to /dev/null in /etc/motd.d.\n\nsudo mkdir -p /etc/motd.d\nsudo ln -sf /dev/null /etc/motd.d/30-banner\n\nCopy\n\nDeleting /usr/lib/motd.d/30-banner would work too, until the next dnf update reinstalls system-release and puts it back. The override in /etc survives updates.\n\n4. Fastfetch from GitHub releases\n\nFastfetch is a fast, maintained successor to neofetch. It isn't in the AL2023 repositories (neither is FIGlet), so the script downloads the official build from GitHub:\n\ncase \"$(uname -m)\" in\n  aarch64) FASTFETCH_ARCH=\"aarch64\" ;;\n  x86_64)  FASTFETCH_ARCH=\"amd64\" ;;\nesac\n\nFASTFETCH_URL=$(curl -fsSL https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest \\\n  | jq -r --arg suffix \"linux-${FASTFETCH_ARCH}.tar.gz\" \\\n      '.assets[] | select(.name | endswith($suffix)) | .browser_download_url' \\\n  | head -n 1)\n\nCopy\n\nA few details here matter more than they look:\n\nArchitecture mapping. uname -m says x86_64, but Fastfetch names its Intel build amd64. Graviton reports aarch64, which matches the asset name as is.\njq with an exact suffix, not grep. A recent release has 60+ assets, and several look alike: fastfetch-linux-aarch64.tar.gz, fastfetch-linux-aarch64-polyfilled.tar.gz, .deb, .rpm, .zip. A loose grep aarch64 matches several of "
+}

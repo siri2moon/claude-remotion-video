@@ -1,0 +1,648 @@
+{
+ "id": "2026-10-25-16-10-lucifer-gioi-thieu",
+ "kind": "project",
+ "project": "lucifer",
+ "theme": "lucifer",
+ "chip": {
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Công ty AI mã nguồn mở",
+   "en": "Open-source AI company"
+  }
+ },
+ "music": {
+  "progression": 0
+ },
+ "scenes": [
+  {
+   "id": "hero",
+   "beats": 6,
+   "big": true,
+   "lines": {
+    "vi": [
+     "Tôi xây một công ty",
+     "*100%* nhân viên là *AI 😇*"
+    ],
+    "en": [
+     "I built a company",
+     "staffed *100%* by *AI 😇*"
+    ]
+   }
+  },
+  {
+   "id": "angels",
+   "beats": 6,
+   "lines": {
+    "vi": [
+     "Mỗi nhân viên là một *AI agent*",
+     "trên *du thuyền 6 sao* ✨"
+    ],
+    "en": [
+     "Every employee is an *AI agent*",
+     "on a *six-star yacht* ✨"
+    ]
+   }
+  },
+  {
+   "id": "assign",
+   "shot": "ui-assign",
+   "beats": 6,
+   "skip": 0.3,
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 400,
+     "zoom": 0.78
+    },
+    {
+     "f": 20,
+     "cx": 615,
+     "cy": 595,
+     "zoom": 2
+    },
+    {
+     "f": 94,
+     "cx": 615,
+     "cy": 595,
+     "zoom": 2
+    },
+    {
+     "f": 108,
+     "cx": 640,
+     "cy": 560,
+     "zoom": 1.6
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Bạn chỉ cần",
+     "*giao mục tiêu* cho CEO"
+    ],
+    "en": [
+     "All you do is",
+     "*hand the CEO a goal*"
+    ]
+   }
+  },
+  {
+   "id": "ceo",
+   "beats": 6,
+   "lines": {
+    "vi": [
+     "CEO *Lucifer* tự lên kế hoạch",
+     "rồi *chia việc* cho cả team"
+    ],
+    "en": [
+     "CEO *Lucifer* makes a plan",
+     "and *splits the work*"
+    ]
+   }
+  },
+  {
+   "id": "flow",
+   "beats": 7,
+   "lines": {
+    "vi": [
+     "Giao xuống *từng phòng ban*",
+     "đúng *sơ đồ tổ chức*"
+    ],
+    "en": [
+     "Down to *every department*",
+     "along the *org chart*"
+    ]
+   }
+  },
+  {
+   "id": "board",
+   "shot": "ui-board",
+   "beats": 7,
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 620,
+     "zoom": 1.45
+    },
+    {
+     "f": 50,
+     "cx": 1100,
+     "cy": 260,
+     "zoom": 2.1
+    },
+    {
+     "f": 126,
+     "cx": 1100,
+     "cy": 520,
+     "zoom": 2.1
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Theo dõi *mọi bước*",
+     "trên bảng *Kanban* realtime"
+    ],
+    "en": [
+     "Watch *every step*",
+     "on a live *Kanban* board"
+    ]
+   }
+  },
+  {
+   "id": "crew",
+   "beats": 6,
+   "lines": {
+    "vi": [
+     "Có cả *tiếp viên*",
+     "mang *cà phê* tận bàn ☕"
+    ],
+    "en": [
+     "There's even *cabin crew*",
+     "with *coffee* at your desk ☕"
+    ]
+   }
+  },
+  {
+   "id": "break",
+   "beats": 7,
+   "skip": 1,
+   "lines": {
+    "vi": [
+     "Bấm *cho nghỉ* một cái…",
+     "cả team *bay vào bờ* 🏖️"
+    ],
+    "en": [
+     "Hit *break time*…",
+     "and the team *flies ashore* 🏖️"
+    ]
+   }
+  },
+  {
+   "id": "bar",
+   "beats": 4,
+   "lines": {
+    "vi": [
+     "chill ở *Heaven’s Brew* 😎"
+    ],
+    "en": [
+     "coffee at *Heaven’s Brew* 😎"
+    ]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "outro",
+  "beats": 11,
+  "rate": 0.9,
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Công ty AI *mã nguồn mở*",
+   "en": "An *open-source* AI company"
+  },
+  "chips": {
+   "vi": [
+    "Claude",
+    "DeepSeek",
+    "Gemini",
+    "Chạy mô phỏng miễn phí"
+   ],
+   "en": [
+    "Claude",
+    "DeepSeek",
+    "Gemini",
+    "Free simulation mode"
+   ]
+  },
+  "link": "github.com/siri2moon/lucifer"
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "để xem mình xây Lucifer từ đầu 🚀",
+    "Link GitHub ở bình luận ghim 📌"
+   ],
+   "en": [
+    "to watch Lucifer being built 🚀",
+    "GitHub link in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "http://localhost:5173/",
+  "loadWait": 6,
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "setup": "await __cap.initR3F(); __cap.office = (await import('/src/state/office.ts')).useOffice; __cap.engine = (await import('/src/state/engine.ts')).engineApi; const s = __cap.office.getState(); s.setLang(__cap.lang); s.closeGuide(); if (s.followWork) s.toggleFollow();",
+  "shotSetup": "(shot) => { const s = __cap.office.getState(); if (!!shot.hud !== s.panelsVisible) s.togglePanels(); return (shot.hud ? '' : '.hud { display: none !important; }') + (shot.labels === false ? ' .labels { display: none !important; }' : '') + (shot.bubbles ? '' : ' .bubble { display: none !important; }'); }",
+  "shots": [
+   {
+    "name": "hero",
+    "seconds": 5,
+    "preroll": 1,
+    "actions": [
+     {
+      "at": -1,
+      "js": "__cap.engine.createTask({ title: __cap.lang === 'en' ? 'Launch an AI notes app' : 'Ra mắt app ghi chú AI', description: __cap.lang === 'en' ? 'We need a PRD, a technical architecture and a marketing plan' : 'Cần PRD, kiến trúc kỹ thuật và kế hoạch marketing', priority: 'high' }).then(() => new Promise(r => setTimeout(r, 4000)))"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       72,
+       4,
+       8
+      ],
+      "target": [
+       8,
+       5.5,
+       -4
+      ],
+      "fov": 40
+     },
+     {
+      "t": 1,
+      "pos": [
+       30,
+       12.5,
+       20
+      ],
+      "target": [
+       0,
+       6,
+       -4
+      ],
+      "fov": 46
+     }
+    ]
+   },
+   {
+    "name": "angels",
+    "seconds": 5,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -11.5,
+       8.3,
+       3.4
+      ],
+      "target": [
+       -10.5,
+       6.2,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       -1.5,
+       8.3,
+       3.4
+      ],
+      "target": [
+       -2.5,
+       6.2,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   {
+    "name": "ceo",
+    "seconds": 4.5,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       4.4,
+       10.2,
+       3.2
+      ],
+      "target": [
+       2.6,
+       8.9,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       3.3,
+       9.75,
+       0.9
+      ],
+      "target": [
+       2.6,
+       8.85,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   {
+    "name": "flow",
+    "seconds": 6,
+    "actions": [
+     {
+      "at": -1,
+      "js": "__cap.engine.createTask({ title: __cap.lang === 'en' ? 'Build the product landing page' : 'Xây landing page cho sản phẩm', description: __cap.lang === 'en' ? 'Design, frontend code and copy' : 'Thiết kế, code frontend, viết nội dung', priority: 'high' }).then(() => new Promise(r => setTimeout(r, 1500)))"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -28,
+       21,
+       24
+      ],
+      "target": [
+       -3,
+       5,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       14,
+       23,
+       28
+      ],
+      "target": [
+       -1,
+       5,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   {
+    "name": "crew",
+    "seconds": 5,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -10.5,
+       6.4,
+       5.5
+      ],
+      "target": [
+       -17,
+       3.8,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       -12.2,
+       5.7,
+       2.8
+      ],
+      "target": [
+       -17.5,
+       3.8,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   {
+    "name": "ui-assign",
+    "seconds": 7,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "type": {
+     "at": 0.6,
+     "selector": ".assign__title",
+     "text": {
+      "vi": "Viết kế hoạch ra mắt app ghi chú AI",
+      "en": "Write a launch plan for an AI notes app"
+     },
+     "cps": 16,
+     "submit": 0.5
+    },
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       26,
+       20,
+       58
+      ],
+      "target": [
+       3,
+       2,
+       11
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       20,
+       17,
+       46
+      ],
+      "target": [
+       1,
+       3,
+       4
+      ],
+      "fov": 38
+     }
+    ],
+    "css": ".assign__desc, .assign select { display: none !important; } .assign__title { min-width: 0; flex: 1; font-size: 17px; }",
+    "bubbles": true
+   },
+   {
+    "name": "ui-board",
+    "seconds": 6,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "actions": [
+     {
+      "at": -1,
+      "js": "new Promise(r => setTimeout(r, 2500))"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       20,
+       17,
+       46
+      ],
+      "target": [
+       1,
+       3,
+       4
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       14,
+       15,
+       40
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     }
+    ],
+    "bubbles": true
+   },
+   {
+    "name": "break",
+    "seconds": 6,
+    "actions": [
+     {
+      "at": 0.3,
+      "js": "__cap.engine.stop()"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -27,
+       4.2,
+       47
+      ],
+      "target": [
+       -14,
+       5.5,
+       8
+      ],
+      "fov": 48
+     },
+     {
+      "t": 1,
+      "pos": [
+       -25,
+       3.6,
+       43
+      ],
+      "target": [
+       -18,
+       3,
+       26
+      ],
+      "fov": 48
+     }
+    ]
+   },
+   {
+    "name": "bar",
+    "seconds": 4,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -16.5,
+       3.2,
+       41
+      ],
+      "target": [
+       -20,
+       1.6,
+       32.5
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       -18.8,
+       2.7,
+       39
+      ],
+      "target": [
+       -20,
+       1.6,
+       32.5
+      ],
+      "fov": 44
+     }
+    ],
+    "preroll": 4
+   },
+   {
+    "name": "outro",
+    "seconds": 6,
+    "labels": false,
+    "actions": [
+     {
+      "at": 0.2,
+      "js": "__cap.engine.start()"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       13,
+       13,
+       8
+      ],
+      "target": [
+       2.6,
+       8.5,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       34,
+       42,
+       62
+      ],
+      "target": [
+       0,
+       3,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   }
+  ]
+ }
+}

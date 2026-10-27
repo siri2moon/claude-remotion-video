@@ -1,19 +1,33 @@
-// Music and sound effects for the Lucifer short, synthesized in code (no samples, no licensing).
-//   node lucifer-promo/music.mjs <out dir>
-// Writes bgm.wav (a 100 BPM deep-house groove: lush 7th-chord pads, a plucked arpeggio, sidechained
-// sub bass) and the SFX: whoosh, impact, shimmer, tick, pop.
+#!/usr/bin/env node
+// Nhạc nền + SFX cho short, tổng hợp bằng code (không sample, không vướng bản quyền).
+//   node music.mjs <slug> [--force]
+// Đọc props.json (chạy build-props.mjs trước) để biết video dài bao nhiêu và màn kết bắt đầu lúc nào.
+// Ghi content/<dir>/audio/bgm.wav: groove deep-house 100 BPM (pad hợp âm 7, arpeggio gảy, sub bass
+// sidechain), trống dừng đúng lúc vào màn kết. Bốn vòng hợp âm, chọn theo `music.progression`
+// trong short.json hoặc theo id, nên các video liên tiếp không trùng nhạc.
+// SFX dùng chung (whoosh, impact, shimmer, tick, pop) sinh một lần vào content/_assets/short/.
 //
-// Timing: 100 BPM, so a beat is 0.6 s and a bar 2.4 s. The video cuts on beats.
+// 100 BPM: một phách 0,6 s, một ô nhịp 2,4 s. Video cắt đúng phách.
 
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { contentDir, hasFlag, loadShort, ok, readJson, ROOT, slugArg } from './lib.mjs';
 
 const SR = 44100;
 const TAU = Math.PI * 2;
 const BEAT = 0.6;
 const BAR = BEAT * 4;
-const out = process.argv[2] ?? '.';
+const dir = slugArg();
+const short = loadShort(dir);
+// Bài nhạc thật (music.file) thì không tổng hợp nhạc nền, chỉ đảm bảo có SFX.
+const synthBgm = !short.music?.file;
+const propsFile = join(contentDir(dir), 'props.json');
+if (!existsSync(propsFile)) throw new Error('thiếu props.json: chạy build-props.mjs trước');
+const props = readJson(propsFile);
+const out = join(contentDir(dir), 'audio');
+const sfxOut = join(ROOT, 'content', '_assets', 'short');
 mkdirSync(out, { recursive: true });
+mkdirSync(sfxOut, { recursive: true });
 
 const rng = (seed) => {
   let s = seed >>> 0 || 1;
@@ -98,20 +112,26 @@ function writeWav(path, [L, R]) {
 // The track
 // ---------------------------------------------------------------------------
 
-const BARS = 18;
-const LENGTH = BARS * BAR + 2;
-/** Drums play from bar 1 to the end card (bar 16.5 = 39.6 s). */
-const DRUMS_FROM = BAR * 1, DRUMS_TO = 39.6;
-// Fmaj7 · G6 · Am9 · Em7: bright, open, a little wistful.
-const CHORDS = [
-  { bass: 41, pad: [57, 60, 64, 65, 72] },
-  { bass: 43, pad: [59, 62, 64, 67, 71] },
-  { bass: 45, pad: [60, 64, 67, 71, 74] },
-  { bass: 40, pad: [59, 62, 64, 67, 71] },
+const VIDEO_S = props.durationInFrames / props.fps;
+const LENGTH = VIDEO_S + 2;
+const BARS = Math.ceil(LENGTH / BAR);
+/** Trống từ ô nhịp thứ 2 tới lúc vào màn kết; màn kết chỉ còn pad và arpeggio ngân. */
+const DRUMS_FROM = BAR * 1, DRUMS_TO = props.endcard.from / props.fps;
+const PROGRESSIONS = [
+  // 0 · sang, mở, hơi hoài niệm: Fmaj7 · G6 · Am9 · Em7
+  [{ bass: 41, pad: [57, 60, 64, 65, 72] }, { bass: 43, pad: [59, 62, 64, 67, 71] }, { bass: 45, pad: [60, 64, 67, 71, 74] }, { bass: 40, pad: [59, 62, 64, 67, 71] }],
+  // 1 · tech, thúc tới: Am9 · Fmaj7 · C · G
+  [{ bass: 45, pad: [57, 60, 64, 67, 71] }, { bass: 41, pad: [57, 60, 64, 65, 72] }, { bass: 48, pad: [55, 60, 64, 67, 72] }, { bass: 43, pad: [55, 59, 62, 67, 74] }],
+  // 2 · mơ màng, tươi: Dmaj9 · Bm7 · Gmaj7 · A
+  [{ bass: 38, pad: [54, 57, 61, 64, 69] }, { bass: 35, pad: [54, 57, 59, 62, 66] }, { bass: 43, pad: [55, 59, 62, 66, 71] }, { bass: 45, pad: [57, 61, 64, 69, 73] }],
+  // 3 · đêm, sâu: Cm9 · Abmaj7 · Eb · Bb
+  [{ bass: 36, pad: [55, 58, 62, 63, 67] }, { bass: 44, pad: [55, 60, 63, 67, 72] }, { bass: 39, pad: [55, 58, 63, 67, 70] }, { bass: 46, pad: [53, 58, 62, 65, 70] }],
 ];
+const hash = [...(short.id ?? dir)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+const CHORDS = PROGRESSIONS[(short.music?.progression ?? hash) % PROGRESSIONS.length];
 
 const pads = stereo(LENGTH), plucks = stereo(LENGTH), bass = stereo(LENGTH), drums = stereo(LENGTH);
-const noise = rng(7);
+const noise = rng(7 + (hash % 1000));
 
 // Pads: three detuned saws per note, slow attack, lowpass opening over the intro.
 for (let bar = 0; bar < BARS; bar++) {
@@ -143,7 +163,7 @@ for (let bar = 0; bar < BARS - 1; bar++) {
   const chord = CHORDS[bar % 4];
   for (let e = 0; e < 8; e++) {
     const t0 = bar * BAR + e * (BEAT / 2);
-    if (t0 > 41) break;
+    if (t0 > LENGTH - 1.5) break;
     const note = chord.pad[ARP[e]] + 12;
     const period = Math.round(SR / hz(note));
     const line = new Float32Array(period).map(() => noise() * 0.5);
@@ -245,17 +265,21 @@ for (let i = 0; i < mixL.length; i++) {
   mixL[i] = (pads[0][i] * d + plucks[0][i] * (0.6 + 0.4 * d) + bass[0][i] * d + drums[0][i]) * fade;
   mixR[i] = (pads[1][i] * d + plucks[1][i] * (0.6 + 0.4 * d) + bass[1][i] * d + drums[1][i]) * fade;
 }
-writeWav(join(out, 'bgm.wav'), [mixL, mixR]);
+if (synthBgm) writeWav(join(out, 'bgm.wav'), [mixL, mixR]);
+if (synthBgm) ok(`audio/bgm.wav: ${LENGTH.toFixed(1)}s, vòng hợp âm ${PROGRESSIONS.indexOf(CHORDS)}`);
 
 // ---------------------------------------------------------------------------
 // SFX
 // ---------------------------------------------------------------------------
 
 function sfx(name, sec, fn, verb) {
+  const file = join(sfxOut, `${name}.wav`);
+  if (existsSync(file) && !hasFlag('force')) return;
   const st = stereo(sec);
   fn(st);
   if (verb) reverb(st, verb);
-  writeWav(join(out, `${name}.wav`), st);
+  writeWav(file, st);
+  ok(`_assets/short/${name}.wav`);
 }
 
 sfx('whoosh', 1.0, ([L, R]) => {
@@ -311,4 +335,3 @@ sfx('pop', 0.4, ([L, R]) => {
   }
 }, { mix: 0.15 });
 
-console.log(`wrote bgm.wav (${LENGTH.toFixed(1)} s) and 5 SFX to ${out}`);

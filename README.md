@@ -1,8 +1,8 @@
 # claude-remotion-video
 
-Dựng video dọc 9:16 bằng Claude Code + Remotion. Ba định dạng, ba đường đi riêng.
+Dựng video dọc 9:16 bằng Claude Code + Remotion. Bốn định dạng, bốn đường đi riêng.
 
-## Ba pipeline
+## Bốn pipeline
 
 **A — Selfie quay thật.** Giọng thật, mặt thật, không TTS.
 
@@ -24,6 +24,14 @@ câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt] ──�
                                                                       raw/s1.mov …   (nhạc + SFX máy tự sinh)
 ```
 
+**D — Short quảng bá Siri2Moon.** Giới thiệu một dự án trong ecosystem (quay thật app đang chạy) hoặc
+biến một bài trên siri2moon.com thành video: cảnh terminal động, trang blog lia mượt, phụ đề VI/EN,
+màn thương hiệu, màn kết Siri. Không quay tay, không thu âm.
+
+```
+bài blog / dự án ──/siri2moon-short──▶ short.json ──▶ capture (Chrome headless) ──▶ out/<dir>.mp4 + dang-bai.md
+```
+
 ## Skills
 
 | Skill | Việc |
@@ -32,6 +40,7 @@ câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt] ──�
 | `tiktok-video` | Footage + kịch bản (`script.json` hoặc `kichban.json`) → mp4, jump-cut + phụ đề động + nhạc/SFX tự tổng hợp |
 | `ai-story` | Câu chuyện triết lý → mp4, tranh AI + giọng AI + phụ đề theo cụm |
 | `votri-script` | Câu nói / danh ngôn / câu thính / câu chuyện → kịch bản hài vô tri deadpan 45–120s → PDF để diễn, kèm title, subtitle, dòng chữ gây sốc, caption |
+| `siri2moon-short` | Dự án hoặc bài blog siri2moon.com → short 30–45s quảng bá thương hiệu, footage quay tự động + phụ đề VI/EN + caption đăng bài |
 
 ## Setup
 
@@ -286,6 +295,34 @@ title/caption): sửa `.claude/skills/votri-script/references/craft.md`.
 
 ---
 
+# Pipeline D — short quảng bá Siri2Moon
+
+```
+/siri2moon-short https://siri2moon.com/posts/beautiful-ec2-login-amazon-linux-2023-script
+/siri2moon-short giới thiệu Lucifer
+/siri2moon-short làm video hôm nay          # bài blog mới nhất chưa có video
+```
+
+Skill tự đọc bài (hoặc chạy dự án), viết `short.json`, quay, tự soi khung hình, dựng
+`out/<dir>.mp4` và viết `content/<dir>/dang-bai.md` (tiêu đề, mô tả, hashtag cho YouTube, TikTok,
+Facebook). Muốn bản tiếng Anh: "làm thêm bản tiếng Anh" → `out/<dir>-en.mp4`.
+
+Chạy tay:
+
+```bash
+S=.claude/skills/siri2moon-short/scripts
+node $S/page-info.mjs <url>                # đọc bài: heading, khối code, vị trí cuộn
+node $S/validate.mjs <slug>
+node $S/capture.mjs  <slug> --preview      # soi góc máy, rồi bỏ --preview để quay thật
+node $S/render.mjs   <slug> --stills       # một khung mỗi cảnh để duyệt
+node $S/render.mjs   <slug> [--lang=en]
+```
+
+Cần **Google Chrome** (quay) và `figlet` nếu muốn banner ASCII thật (`brew install figlet`).
+Dự án nào chạy ra sao, quay góc nào đẹp: `.claude/skills/siri2moon-short/references/projects.md`.
+
+---
+
 ## Cấu trúc
 
 ```
@@ -293,10 +330,13 @@ title/caption): sửa `.claude/skills/votri-script/references/craft.md`.
 .claude/skills/tiktok-video/    pipeline dựng video từ footage + bộ tổng hợp nhạc/SFX
 .claude/skills/ai-story/        pipeline kể chuyện bằng tranh AI
 .claude/skills/votri-script/    kịch bản hài vô tri deadpan → PDF để diễn
+.claude/skills/siri2moon-short/ short quảng bá thương hiệu: quay tự động, terminal động, dựng
 remotion/src/                   composition "TikTokVideo"
 remotion/src/story/             composition "StoryVideo"
+remotion/src/short/             composition "BrandShort"
 content/<dir>/                  mỗi video một thư mục
 content/_assets/{bgm,sfx}/      nhạc nền và hiệu ứng tiếng (máy tự sinh, chép đè để dùng file riêng)
+content/_assets/{short,brand}/  SFX của short + Siri, logo Siri2Moon
 out/                            thành phẩm
 docs/refer/                     video tham khảo + mẫu giọng
 docs/                           hồ sơ thiết kế
@@ -309,5 +349,6 @@ sample/                         PDF kịch bản vô tri làm tay trước đây
 node .claude/skills/tiktok-script/scripts/validate-script.mjs content/<dir>/script.json
 node .claude/skills/tiktok-video/scripts/align.mjs --test
 node .claude/skills/votri-script/scripts/validate.mjs .claude/skills/votri-script/assets/example/kichban.json
+node .claude/skills/siri2moon-short/scripts/validate.mjs lucifer-gioi-thieu
 ```
 
