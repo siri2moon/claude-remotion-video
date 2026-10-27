@@ -1,0 +1,198 @@
+{
+ "id": "2026-10-27-08-18-xuong-video-ai-tap-2",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-video-script-writer"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "series": {
+  "name": { "vi": "Xưởng video AI", "en": "AI Video Studio" },
+  "ep": 2,
+  "of": 5,
+  "next": { "vi": "Tập 3: Clip thô → video hoàn chỉnh", "en": "Ep 3: Raw clips → finished video" }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "terminal": {
+    "title": "AI chat",
+    "fontSize": 27,
+    "start": 0.1,
+    "items": [
+     { "out": "{gray}> viết kịch bản TikTok về deadline{/}", "after": 0.25 },
+     { "out": " " },
+     { "out": "{bold}🎬 KỊCH BẢN{/}", "after": 0.2 },
+     { "out": "\"{yellow}Hey guys!{/} Hôm nay mình sẽ nói", "after": 0.05 },
+     { "out": " về chủ đề deadline nhé...\"", "after": 0.35 },
+     { "out": "\"Bạn có biết {yellow}99% người đi làm{/}...\"", "after": 0.35 },
+     { "out": "\"Hãy nhớ: quản lý thời gian", "after": 0.05 },
+     { "out": " {yellow}là chìa khoá thành công!{/}\"" }
+    ]
+   },
+   "lines": {
+    "vi": ["AI viết kịch bản…", "toàn *“Hey guys”* 😩"],
+    "en": ["AI-written scripts…", "all *“Hey guys”* 😩"]
+   }
+  },
+  {
+   "id": "roles",
+   "shot": "post-roles",
+   "beats": 7,
+   "layout": "card",
+   "keys": [
+    { "f": 0, "cx": 270, "cy": 420, "zoom": 1.85 },
+    { "beat": 7, "cx": 270, "cy": 470, "zoom": 1.95 }
+   ],
+   "lines": {
+    "vi": ["Khung *4 khối* rõ ràng", "hook *≤ 4s*, kết bằng *câu hỏi*"],
+    "en": ["A strict *4-block* structure", "*≤ 4s* hook, *a question* last"]
+   }
+  },
+  {
+   "id": "hooks",
+   "beats": 7,
+   "terminal": {
+    "title": "references/framework.md",
+    "fontSize": 25,
+    "start": 0.2,
+    "items": [
+     { "out": "{cyan}## C. Thư viện Hook{/}", "after": 0.25 },
+     { "out": " " },
+     { "out": "{yellow}1{/} Đảo ngược kỳ vọng   {yellow}5{/} Trích lời người khác", "after": 0.15 },
+     { "out": "{yellow}2{/} Thú nhận sốc        {yellow}6{/} Hình ảnh bất lực", "after": 0.15 },
+     { "out": "{yellow}3{/} Câu hỏi cứa         {yellow}7{/} Phủ định thẳng", "after": 0.15 },
+     { "out": "{yellow}4{/} Con số cụ thể       {yellow}8{/} Cắt giữa câu", "after": 0.3 },
+     { "out": " " },
+     { "out": "{dim}\"3 giờ sáng. Bug thứ 14.{/}", "after": 0.05 },
+     { "out": "{dim} Và nó nằm ở một dấu chấm phẩy.\"{/}" }
+    ]
+   },
+   "lines": {
+    "vi": ["Dạy Claude *8 kiểu hook*", "giữ lại câu *sắc nhất* 🎯"],
+    "en": ["Teach Claude *8 hook patterns*", "keep *the sharpest* 🎯"]
+   }
+  },
+  {
+   "id": "validator",
+   "beats": 8,
+   "terminal": {
+    "title": "claude — ~/video-studio",
+    "fontSize": 24,
+    "cps": 30,
+    "start": 0.15,
+    "items": [
+     { "cmd": "node validate-script.mjs script.json", "enter": 0.2 },
+     { "out": "{red}ERROR{/} s2: 64 từ trong 9s = {red}7.1 từ/giây{/}", "after": 0.05 },
+     { "out": "{dim}      quá nhồi, cắt bớt lời hoặc kéo dài scene{/}", "after": 0.6 },
+     { "out": "{orange}⏺{/} Update(script.json) {dim}cắt 30 từ{/}", "after": 0.5 },
+     { "cmd": "node validate-script.mjs script.json", "enter": 0.2 },
+     { "out": "{green}OK{/}     5 scene, 38s. Không có vấn đề." }
+    ]
+   },
+   "lines": {
+    "vi": ["Nói *7 từ/giây*? *Bị chặn* ⛔", "Claude *tự cắt lời*, chạy lại"],
+    "en": ["7 words a second? *Blocked* ⛔", "Claude *trims it* and re-runs"]
+   }
+  },
+  {
+   "id": "script",
+   "beats": 7,
+   "terminal": {
+    "title": "content/…-nhan-chi-so-tinh-ban-thien/script.md",
+    "fontSize": 24,
+    "start": 0.2,
+    "items": [
+     { "out": "{yellow}Quote{/}  Nhân chi sơ, tính bản thiện.", "after": 0.05 },
+     { "out": "       Không cà khịa, rất ngứa mồm.", "after": 0.3 },
+     { "out": " " },
+     { "out": "{cyan}0–3s  {/} {bold}hook{/}   Nhân chi sơ, tính bản thiện...", "after": 0.25 },
+     { "out": "{cyan}3–12s {/} {bold}story{/}  Bản chất lành tính...", "after": 0.25 },
+     { "out": "{cyan}12–24s{/} {bold}story{/}  \"Em chạy trên máy em", "after": 0.05 },
+     { "out": "                bình thường mà!\"", "after": 0.25 },
+     { "out": "{cyan}24–32s{/} {bold}chốt{/}   Không cà khịa, rất ngứa mồm!", "after": 0.25 },
+     { "out": "{cyan}32–38s{/} {bold}cta{/}    Tag đứa hay làm bạn \"ngứa mồm\"" }
+    ]
+   },
+   "lines": {
+    "vi": ["Ra kịch bản có *chuyện thật*", "và *câu thoại* người thật 💬"],
+    "en": ["Scripts with *a real story*", "and *real dialogue* 💬"]
+   }
+  },
+  {
+   "id": "shoot",
+   "beats": 8,
+   "terminal": {
+    "title": "shoot.md",
+    "fontSize": 25,
+    "start": 0.2,
+    "items": [
+     { "out": "{bold}Thứ tự quay:{/} s2 → s3 → s4 → s5 → {yellow}s1{/}", "after": 0.1 },
+     { "out": "{dim}Hook quay cuối cùng, lúc đã nóng máy.{/}", "after": 0.45 },
+     { "out": " " },
+     { "out": "{cyan}### s2 · Tâm sự — 9s{/}   ☐ take 1 ☐ take 2", "after": 0.3 },
+     { "out": "{bold}Cue card:{/}", "after": 0.05 },
+     { "out": "{yellow}bản chất lành tính{/} →", "after": 0.05 },
+     { "out": "{yellow}pha xử lý đi vào lòng đất{/} →", "after": 0.05 },
+     { "out": "{yellow}không nói ra thì ngứa mồm{/}", "after": 0.3 },
+     { "out": "{bold}Nhịp:{/} 3.8 từ/giây — nói thong thả", "after": 0.2 },
+     { "out": "{bold}Lưu file:{/} {green}raw/s2.mov{/}" }
+    ]
+   },
+   "lines": {
+    "vi": ["Kèm *hướng dẫn quay* 🎥", "hook để *quay sau cùng*"],
+    "en": ["Plus *a shooting guide* 🎥", "film *the hook last*"]
+   }
+  },
+  {
+   "id": "files",
+   "shot": "post-files",
+   "beats": 6,
+   "layout": "card",
+   "keys": [
+    { "f": 0, "cx": 270, "cy": 420, "zoom": 1.85 },
+    { "beat": 6, "cx": 270, "cy": 470, "zoom": 1.95 }
+   ],
+   "lines": {
+    "vi": ["Claude chỉ viết *1 file JSON*", "file *.md* đều *tự sinh* 📄"],
+    "en": ["Claude writes *one JSON file*", "the *.md* is *generated* 📄"]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Code đầy đủ Tập 2 trên *siri2moon.com*",
+   "en": "Full Part 2 code on *siri2moon.com*"
+  },
+  "chips": ["Claude Code", "Skill", "Validator", "TikTok"],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": { "vi": "Theo dõi @siri2moondev", "en": "Follow @siri2moondev" },
+  "lines": {
+   "vi": ["Link bài viết ở bình luận ghim 📌"],
+   "en": ["Link to the post in the pinned comment 📌"]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-video-script-writer",
+  "viewport": [540, 960, 2],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   { "name": "post-roles", "seconds": 4.8, "keys": [{ "t": 0, "scroll": 2195 }, { "t": 1, "scroll": 2235 }] },
+   { "name": "post-files", "seconds": 4.2, "keys": [{ "t": 0, "scroll": 1190 }, { "t": 1, "scroll": 1230 }] },
+   { "name": "post-top", "seconds": 7.0, "keys": [{ "t": 0, "scroll": 0 }, { "t": 1, "scroll": 420 }] }
+  ]
+ }
+}

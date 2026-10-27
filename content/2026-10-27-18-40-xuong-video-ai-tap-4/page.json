@@ -1,0 +1,211 @@
+{
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-local-ai-story-video",
+  "title": "Build an AI Video Studio, Part 4: A Local AI Story Skill with Vietnamese TTS and Z-Image Turbo",
+  "description": "Build the ai-story skill: a fable becomes a narrated, illustrated video generated entirely on a Mac — per-line TTS for exact subtitles, consistent characters from a local image model, and an approval gate before the slow part.",
+  "cover": "https://siri2moon.com/uploads/video-ai-cover-en-b4.jpg",
+  "pageHeight": 13565,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "Step 1: The setup script",
+      "top": 1924,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 2: The contract — story.json",
+      "top": 2779,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 3: The craft reference — storytelling.md",
+      "top": 4303,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 4: Validate and STOP — the approval gate",
+      "top": 5143,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 5: Narration with exact timing — tts.mjs + tts_worker.py",
+      "top": 5921,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 6: Illustrations — images.mjs + styles.json",
+      "top": 7345,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 7: The composition — StoryVideo",
+      "top": 9299,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 8: Test without waiting two hours",
+      "top": 10454,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 9: The procedure — SKILL.md",
+      "top": 10765,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "What you've built",
+      "top": 11430,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1588,
+      "height": 296,
+      "lang": null,
+      "head": ".claude/skills/ai-story/\n├── SKILL.md\n├── references/\n│   ├── storytelling.md     ← structure, titles, scene cuts, anti-patterns\n│   ├── output-format.md    ← the story.json contract\n│   ├── design-system.md    ← layout numbers, measured from a reference video"
+    },
+    {
+      "top": 2105,
+      "height": 278,
+      "lang": "js",
+      "head": "if (!has('ffmpeg')) die('missing ffmpeg. Install with: brew install ffmpeg');\nif (!has('uv')) die('missing uv. Install with: brew install uv');\n\nrun('uv', ['venv', join(toolDir(), 'venv'), '--python', '3.11'], 'create Python 3.11 venv');\nrun('uv', ['pip', 'install', '--python', py, '--upgrade', 'vieneu'], 'install VieNeu-TTS');\n"
+    },
+    {
+      "top": 2836,
+      "height": 404,
+      "lang": "json",
+      "head": "{\n  \"id\": \"2026-08-18-21-46-nguoi-trong-cay\",\n  \"title\": { \"line1\": \"NGƯỜI TRỒNG CÂY\", \"line2\": \"KHÔNG NGỒI DƯỚI BÓNG\" },\n  \"voice\": \"Thanh Bình\",\n  \"style\": \"doodle\",\n  \"seed\": 20260818,"
+    },
+    {
+      "top": 5357,
+      "height": 170,
+      "lang": "js",
+      "head": "const CHARS_PER_SEC = 18.5;\nconst estSec = totalChars / CHARS_PER_SEC + scenes.length * 0.4;   // + pauses between scenes\nsceneSecs.forEach((sec, i) => {\n  if (sec > 8) warn(`scenes[${i}] holds one picture for ~${sec.toFixed(1)}s — split it`);\n  if (sec < 1.2) warn(`scenes[${i}] is only ~${sec.toFixed(1)}s — the picture changes before anyone sees it`);\n});"
+    },
+    {
+      "top": 5653,
+      "height": 152,
+      "lang": "markdown",
+      "head": "### Step 7 — STOP and get approval\nThis is the most expensive step to skip. Images take ~3.5 minutes each; a 30-scene story\nis nearly 2 hours. Editing the script after drawing throws those hours away.\n\nPrint: the two-line title, the scene table from story.md, the estimated duration and\nthe image-generation minutes. Ask the user to approve or request changes."
+    },
+    {
+      "top": 6285,
+      "height": 278,
+      "lang": "python",
+      "head": "job = json.load(sys.stdin)\ntts = Vieneu()                                   # ONNX path; faster than MPS on Apple Silicon\nvoice = tts.add_voice(\"user\", job[\"refAudio\"], denoise=True) if job.get(\"refAudio\") else job[\"voice\"]\n\nresults = []\nfor item in job[\"lines\"]:"
+    },
+    {
+      "top": 6903,
+      "height": 98,
+      "lang": "js",
+      "head": "const delays = items.map((it, i) => `[${i}:a]adelay=${Math.round(it.startSec * 1000)}:all=1[a${i}]`).join(';');\nconst mix = items.map((_, i) => `[a${i}]`).join('');\nconst filter = `${delays};${mix}amix=inputs=${items.length}:normalize=0:dropout_transition=0[m];` +\n               `[m]apad=whole_dur=${totalSec},loudnorm=I=-16:TP=-1.5:LRA=11[out]`;\n\nCopy"
+    },
+    {
+      "top": 7474,
+      "height": 116,
+      "lang": "json",
+      "head": "\"doodle\": {\n  \"prompt\": \"flat 2D vector cartoon illustration, simple stick-figure explainer animation style. Drawing rules: each head is a large smooth white oval with two tiny black dot eyes ... Characters, props and background are all drawn with the same clean bold black outlines and flat colours ...\",\n  \"negative\": \"photograph, photorealistic, 3d render, ... text, letters, words, caption, watermark, ... extra person, blank featureless white figure, ...\",\n  \"steps\": 8\n}\n"
+    },
+    {
+      "top": 7840,
+      "height": 260,
+      "lang": "js",
+      "head": "const count = cast.length\n  ? `Exactly ${NUM[cast.length]} character${cast.length > 1 ? 's' : ''} in the frame, no one else.`\n  : '';\nconst prompt = [style.prompt, `Scene: ${sc.image}`, count, who].filter(Boolean).join(' ');\n\nspawnSync('mflux-generate-z-image-turbo', ["
+    },
+    {
+      "top": 9428,
+      "height": 188,
+      "lang": "tsx",
+      "head": "export const StoryVideo: React.FC<StoryProps> = (props) => (\n  <AbsoluteFill style={{ backgroundColor: STORY.bg }}>\n    <ImagePanel shots={props.shots} />\n    <TitleBar title={props.title} />\n    <StoryCaptions captions={props.captions} />\n    {props.voice ? <Audio src={staticFile(props.voice.src)} /> : null}"
+    },
+    {
+      "top": 10609,
+      "height": 116,
+      "lang": "bash",
+      "head": "S=.claude/skills/ai-story/scripts\nnode $S/tts.mjs <slug>\nnode $S/make-test-images.mjs <slug>      # placeholders — OVERWRITES images/\nnode $S/build-props.mjs <slug>\nnode $S/render.mjs <slug> --frame=240\n"
+    },
+    {
+      "top": 10822,
+      "height": 440,
+      "lang": "markdown",
+      "head": "---\nname: ai-story\ndescription: Turn a life-lesson story into a 9:16 video made entirely by AI — narration\n  read by a local TTS, illustrations drawn by a local image model, no filming, no\n  recording. Writes content/<dir>/story.json and renders out/<dir>.mp4. Use when the user\n  pastes a story or a lesson, or says \"AI story video\", \"philosophy video\"."
+    }
+  ],
+  "images": [
+    {
+      "top": 3340,
+      "height": 328,
+      "alt": "Scene s01 generated locally with Z-Image Turbo: a stick-figure old man digging beside a dusty road under a summer sun",
+      "src": "https://siri2moon.com/uploads/ai-story-scene-s01.jpg"
+    },
+    {
+      "top": 8278,
+      "height": 328,
+      "alt": "An early test render: the child and the old man, plus an uninvited blank white figure",
+      "src": "https://siri2moon.com/uploads/ai-story-extra-figure.jpg"
+    },
+    {
+      "top": 8705,
+      "height": 328,
+      "alt": "A later render of the same scene with only the child and the old man",
+      "src": "https://siri2moon.com/uploads/ai-story-two-characters.jpg"
+    }
+  ],
+  "diagrams": [],
+  "posts": [
+    {
+      "path": "/posts/build-ai-video-studio-claude-code-remotion-setup",
+      "title": "1. Setup & your first skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-video-script-writer",
+      "title": "2. The script-writing skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-remotion-video-editor",
+      "title": "3. The editing skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-comedy-script-pdf",
+      "title": "Part 5"
+    },
+    {
+      "path": "/posts/how-to-make-talking-head-video-claude-code",
+      "title": "Talking-head video"
+    },
+    {
+      "path": "/posts/how-to-make-ai-story-video-claude-code",
+      "title": "AI story video"
+    },
+    {
+      "path": "/posts/how-to-make-deadpan-comedy-video-claude-code",
+      "title": "Deadpan comedy video"
+    },
+    {
+      "path": "/posts/whisper-timing-script-aligned-subtitles",
+      "title": "Subtitles"
+    },
+    {
+      "path": "/posts/automatic-jump-cuts-ffmpeg-remotion",
+      "title": "Jump cuts"
+    },
+    {
+      "path": "/posts/synthesize-music-sound-effects-javascript",
+      "title": "Music & SFX"
+    }
+  ],
+  "text": "AI Video Studio with Claude Code + Remotion\n\n🛠 Build it: 1. Setup & your first skill · 2. The script-writing skill · 3. The editing skill · 4. The local AI story skill · 5. The comedy script skill\n\n🎬 Use it: Talking-head video · AI story video · Deadpan comedy video\n\n🔬 Under the hood: Subtitles · Jump cuts · Music & SFX\n\nThe first three parts built a studio for videos where you're on camera. This part builds one where nobody is. ai-story takes a short fable — an old man planting trees he'll never sit under, a ferryman who never asks where his passengers are going — and produces a narrated, illustrated vertical video in a well-known short-video format:\n\na bold two-line title, frozen at the top for the whole video,\nan illustration in the middle that changes every few seconds with a slow zoom and smooth crossfades,\na calm Vietnamese narrator,\none subtitle line at a time underneath.\n\nEverything runs on your Mac: narration from VieNeu-TTS, illustrations from Z-Image Turbo running in mflux on Apple's MLX framework, editing in Remotion. No API keys, no per-video cost. You need an Apple Silicon Mac with at least 16 GB of memory; the timings in this post were measured on an M3 Pro with 18 GB.\n\nThe skill's design is shaped by one number: an illustration takes about three and a half minutes. A 30-scene story is close to two hours of image generation, so the skill must get the script right before it draws anything. The full source is in the repository under .claude/skills/ai-story/ and remotion/src/story/.\n\n.claude/skills/ai-story/\n├── SKILL.md\n├── references/\n│   ├── storytelling.md     ← structure, titles, scene cuts, anti-patterns\n│   ├── output-format.md    ← the story.json contract\n│   ├── design-system.md    ← layout numbers, measured from a reference video\n│   └── setup.md            ← install, voices, styles, speed, troubleshooting\n├── scripts/\n│   ├── setup.mjs  new-dir.mjs  validate-story.mjs  build-docs.mjs\n│   ├── tts.mjs  tts_worker.py  voice-sample.mjs\n│   ├── images.mjs  make-test-images.mjs\n│   ├── build-props.mjs  render.mjs  lib.mjs\n└── assets/\n    ├── styles.json         ← art-style presets\n    └── example/story.json\n\nCopy\nStep 1: The setup script\n\nTwo tools need installing, and the skill should do it rather than leave you a list of commands. setup.mjs checks for FFmpeg and uv, creates an isolated Python 3.11 environment for the TTS, installs VieNeu-TTS into it, and installs mflux as a uv tool:\n\nif (!has('ffmpeg')) die('missing ffmpeg. Install with: brew install ffmpeg');\nif (!has('uv')) die('missing uv. Install with: brew install uv');\n\nrun('uv', ['venv', join(toolDir(), 'venv'), '--python', '3.11'], 'create Python 3.11 venv');\nrun('uv', ['pip', 'install', '--python', py, '--upgrade', 'vieneu'], 'install VieNeu-TTS');\n\n// torch is NOT needed for the built-in voices (they run on ONNX), but voice cloning\n// requires it: the reference-voice encoder is a torch model. About 1 GB extra.\nif (!hasFlag('no-clone')) run('uv', ['pip', 'install', '--python', py, 'torch', 'torchaudio'], 'install torch');\n\nrun('uv', ['tool', 'install', '--upgrade', 'mflux'], 'install mflux');\nif (!has('mflux-generate-z-image-turbo')) {\n  warn('mflux is installed but not on PATH. Add to ~/.zshrc:  export PATH=\"$HOME/.local/bin:$PATH\"');\n}\n\nCopy\n\ntoolDir() is .ai-story/ at the project root (already in .gitignore). Add a --check mode that prints what's present and tries import vieneu in the venv; the skill tells Claude to run it whenever something fails.\n\nModels download on first real use: about 300 MB for the TTS, and for the images, one choice saves you 27 GB. mflux's built-in name z-image-turbo points to full-precision weights — a 33 GB download that's quantized locally. The mflux author publishes a pre-quantized 4-bit build, filipstrand/Z-Image-Turbo-mflux-4bit, at 5.5 GB, which is plenty for flat illustration styles. Use that as the default (it needs mflux 0.13 or newer). Setting HF_TOKEN to a free Hugging Face read token speeds the download up considerably.\n\nStep 2: The contract — story.json\n{\n  \"id\": \"2026-08-18-21-46-nguoi-trong-cay\",\n  \"title\": { \"line1\": \"NGƯỜI TRỒNG CÂY\", \"line2\": \"KHÔNG NGỒI DƯỚI BÓNG\" },\n  \"voice\": \"Thanh Bình\",\n  \"style\": \"doodle\",\n  \"seed\": 20260818,\n  \"cast\": [\n    {\n      \"id\": \"lao\",\n      \"look\": \"An old white stick-figure man with a smooth bald oval head, a short white beard, two tiny black dot eyes and a calm patient expression, wearing a simple brown vest over a white shirt and loose grey trousers rolled up to the knee, thin black stick arms and legs.\"\n    }\n  ],\n  \"scenes\": [\n    {\n      \"id\": \"s01\",\n      \"lines\": [\"Có một ông lão đào hố bên vệ đường đất, dưới cái nắng tháng sáu.\"],\n      \"image\": \"He is digging a small hole with a worn shovel beside a dusty dirt road under a harsh summer sun, dry yellow fields stretching to the horizon, heat haze in the distance.\",\n      \"cast\": [\"lao\"]\n    }\n  ]\n}\n\nCopy\n\nThis is what the image model drew for that first scene, from the image text plus the lao description:\n\nThree rules in this contract come straight from the models' limitations, and each becomes a validator check:\n\nNarration (lines) in Vietnamese; image descriptions (image, cast[].look) in English. The image model doesn't understand Vietnamese. The validator rejects any Vietnamese diacritic in an image field.\nEvery recurring character is declared once in cast and referenced by id. The image model has no memory between scenes; the only way the old man looks the same in scene 7 is if scene 7's prompt describes him in exactly the same words. A good look covers build, hair, eyes, top, bottom and one signature prop; the validator warns below 40 characters. The same person at two ages gets two entries.\nOne entry in lines = one subtitle line = one audio file. That's what gives the video perfect subtitle timing (Step 5). Each line should be a full sentence under about 85 characters; over 110 is an error because it won't fit in two subtitle lines.\n\nThe title is two uppercase lines under 20 characters each (30 is an error) — it stays on screen for the whole video, so it has to be short enough to read at a glance.\n\nStep 3: The craft reference — storytelling.md\n\nAs in Part 2, the reference is where the quality comes from. The core of it is a five-beat structure with a time budget, and one rule about endings:\n\nBEAT\tSHARE\tJOB\nOpen\t10%\tPut the character in a specific place\nBuild\t30%\tShow what they do, steadily\nClash\t25%\tSomeone mocks them, or something goes wrong\nTurn\t25%\tTime passes or the truth comes out\nSettle\t10%\tAn action, not a lesson\n\n\"He stood up. Then he went to find a shovel.\" beats \"So let us all be grateful to those who came before.\" The reference also covers:\n\ntitle patterns (paradox, \"who fears whom\", \"what it costs\") and never spoiling the ending;\nwhen to cut to a new scene — when the picture must change, not because a sentence is long; one scene is 1–3 lines and 2.5–6 seconds;\nthe genre's visual vocabulary for abstract ideas: a thought bubble with a picture inside, a fork in the road for a choice, the same landscape across seasons for passing time;\na ban on attributing invented quotes to real people.\nStep 4: Validate and STOP — the approval gate\n\nvalidate-story.mjs enforces the contract and, just as importantly, estimates the cost so the approval step has real numbers. VieNeu-TTS reads at about 18.5 characters per second (measured, within 5%), and an image takes about 200 seconds:\n\nconst CHARS_PER_SEC = 18.5;\nconst estSec = totalChars / CHARS_PER_SEC + scenes.length * 0.4;   // + pauses between scenes\nsceneSecs.forEach((sec, i) => {\n  if (sec > 8) warn(`scenes[${i}] holds one picture for ~${sec.toFixed(1)}s — split it`);\n  if (sec < 1.2) warn(`scenes[${i}] is only ~${sec.toFixed(1)}s — the picture changes before anyone sees it`);\n});\nconsole.log(`       ${scenes.length} scenes · ~${Math.round(estSec)}s`);\nconsole.log(`       image generation will take about ${Math.ceil((scenes.length * 200) / 60)} minutes`);\n\nCopy\n\nbuild-docs.mjs turns the JSON into story.md, a table of start time, duration, narration and scene description. Then the skill does something none of the earlier skills did — it stops:\n\n### Step 7 — STOP and get approval\nThis is the most expensive step to skip. Images take ~3.5 minutes each; a 30-scene story\nis nearly 2 hours. Editing the script after drawing throws those hours away.\n\nPrint: the two-line title, the scene table from story.md, the estimated duration and\nthe image-generation minutes. Ask the user to approve or request changes.\nOnly run step 8 after the user agrees.\n\nCopy\n\nThat gate is the most valuable line in the skill. Approving a script takes a minute; regenerating thirty illustrations takes two hours.\n\nStep 5: Narration with exact timing — tts.mjs + tts_worker.py\n\nThe selfie pipeline needed speech recognition to find out when each word was said. This one doesn't, because it creates the audio itself — one line at a time. Each line's duration is then a measured fact (samples ÷ sample rate), and the subtitle for that line can switch exactly when the voice does.\n\nThe TTS is a Python library and the pipeline is Node, so the bridge is a small worker that takes a JSON job on stdin and returns JSON on stdout (logs go to stderr so they stream without corrupting the result):\n\njob = json.load(sys.stdin)\ntts = Vieneu()                                   # ONNX path; faster than MPS on Apple Silicon\nvoice = tts.add_voice(\"user\", job[\"refAudio\"], denoise=True) if job.get(\"refAudio\") else job[\"voice\"]\n\nresults = []\nfor item in job[\"lines\"]:\n    wav = tts.infer(item[\"text\"], voice=voice)\n    path = out_dir / f\"{item['id']}.wav\"\n    tts.save(wav, path)\n    results.append({\"id\": item[\"id\"], \"file\": path.name, \"sec\": round(len(wav) / tts.sample_rate, 4)})\n\njson.dump({\"sampleRate\": tts.sample_rate, \"lines\": results}, sys.stdout, ensure_ascii=False)\nsys.stdout.flush(); sys.stderr.flush()\nos._exit(0)   # skip destructors: torch + ONNX occasionally crash on teardown AFTER success\n\nCopy\n\nThe Node side then does three things:\n\nTrims silence from each file using a threshold relative to that file's own peak (6% of peak RMS, in 10 ms windows, keeping 40 ms of pad). VieNeu adds up to 500 ms of uneven silence per file, and a fixed dB threshold either kept audible breaths or clipped soft consonants.\nLays out the timeline: 0.35 s lead-in, 0.16 s between lines in the same scene, 0.38 s between scenes, 0.9 s tail.\nMixes everything in one FFmpeg pass, placing each line at its exact millisecond with adelay and normalizing to −16 LUFS:\nconst delays = items.map((it, i) => `[${i}:a]adelay=${Math.round(it.startSec * 1000)}:all=1[a${i}]`).join(';');\nconst mix = items.map((_, i) => `[a${i}]`).join('');\nconst filter = `${delays};${mix}amix=inputs=${items.length}:normalize=0:dropout_transition=0[m];` +\n               `[m]apad=whole_dur=${totalSec},loudnorm=I=-16:TP=-1.5:LRA=11[out]`;\n\nCopy\n\nIt writes audio/voice.wav and timing.json — the start and end of every line — which becomes the timing contract for the whole video. Measured speed: about 6 s to load the model, then 6.4× real time, so three minutes of narration takes about half a minute.\n\nThere are 14 built-in voices across Northern, Central and Southern accents; for fables, use the four storytelling voices (the news voices sound like a bulletin). --ref=my-voice.wav clones a voice from 5–10 seconds of clean speech. The repository also has voice-sample.mjs, which finds and cleans the best sample window in an existing video.\n\nStep 6: Illustrations — images.mjs + styles.json\n\nArt styles are data, not code. Each preset in styles.json has a long positive prompt, a negative prompt and a step count:\n\n\"doodle\": {\n  \"prompt\": \"flat 2D vector cartoon illustration, simple stick-figure explainer animation style. Drawing rules: each head is a large smooth white oval with two tiny black dot eyes ... Characters, props and background are all drawn with the same clean bold black outlines and flat colours ...\",\n  \"negative\": \"photograph, photorealistic, 3d render, ... text, letters, words, caption, watermark, ... extra person, blank featureless white figure, ...\",\n  \"steps\": 8\n}\n\nCopy\n\nShip three: doodle (stick figures — by far the easiest to keep consistent), tranh (painted storybook) and muc (ink wash). Ban text in the negative prompt: the model misspells Vietnamese, and words belong in the subtitle layer.\n\nimages.mjs builds each prompt in a deliberate order — style, then the scene, then an explicit head count in words, then each present character's look — and calls mflux:\n\nconst count = cast.length\n  ? `Exactly ${NUM[cast.length]} character${cast.length > 1 ? 's' : ''} in the frame, no one else.`\n  : '';\nconst prompt = [style.prompt, `Scene: ${sc.image}`, count, who].filter(Boolean).join(' ');\n\nspawnSync('mflux-generate-z-image-turbo', [\n  '--model', 'filipstrand/Z-Image-Turbo-mflux-4bit',\n  '--prompt', prompt, '--negative-prompt', style.negative,\n  '--width', '1216', '--height', '784',     // the panel's 1.552 ratio, with room to zoom\n  '--steps', String(style.steps),\n  '--seed', String(seed),                    // same seed for every scene → steadier characters\n  '--output', out,\n]);\n\nCopy\n\nWithout the head count, the model often added a blank white figure: it read the style's drawing rules as a description of another character. Here is an early test render of a scene with two characters — the child and the old man — where the model drew a third:\n\nAnd the same scene from a later revision of the prompt, with exactly the two characters it describes:\n\nAnd there's no --guidance flag on purpose — Z-Image Turbo is a distilled model that ignores it (the same seed at 1.8 and 3.0 produced pixel-identical images).\n\nAbove all, make the stage resumable. It skips any scene whose image already exists, so an interrupted run loses nothing, and --only=s07 redraws one scene after you edit its description. --dry prints every prompt without drawing.\n\nStep 7: The composition — StoryVideo\n\nRegister a second composition next to TikTokVideo, again with length from props. It has four layers:\n\nexport const StoryVideo: React.FC<StoryProps> = (props) => (\n  <AbsoluteFill style={{ backgroundColor: STORY.bg }}>\n    <ImagePanel shots={props.shots} />\n    <TitleBar title={props.title} />\n    <StoryCaptions captions={props.captions} />\n    {props.voice ? <Audio src={staticFile(props.voice.src)} /> : null}\n    {props.bgm ? <Audio src={staticFile(props.bgm.src)} volume={props.bgm.volume} loop /> : null}\n  </AbsoluteFill>\n);\n\nCopy\n\nThe layout was measured from a reference video in the genre and scaled to 1080×1920: a flat blue-grey background, title at 14.7–29.2% of the height, image panel at 31.8–68%, subtitles from about 70%, and the bottom quarter left empty for the platform's buttons.\n\nTitleBar uses the Anton font (one of very few heavy condensed fonts with a Vietnamese subset), lime line one and red line two, and one shared size for both lines: each line is measured with fitText from @remotion/layout-utils and both use the smaller result, capped at 120 px. Line height is 1.4 rather than 1.3, or stacked diacritics on line two (Ồ, Ữ) hit line one. Add the package: pnpm add @remotion/layout-utils@4.0.512.\nImagePanel crossfades over 12 frames by fading only the incoming image on top of a fully opaque outgoing one — fading both reveals the background mid-transition — and gives each image a slow zoom that alternates direction (1.02→1.11, then 1.11→1.02) and origin, so it never looks mechanical.\nStoryCaptions shows one line at a time in Nunito italic with text-wrap: balance, timed straight from timing.json, lingering 0.28 s after the voice but never past the next line.\n\nbuild-props.mjs is simple because there's nothing to guess: lines become captions, each scene's image starts when its first line starts and runs until the next scene's, and the background track (if you have one in _assets/bgm/) plays at 10% volume.\n\nrender.mjs adds one flag worth copying: --frame=240 renders a single frame to PNG with remotion still, so you can check layout in seconds instead of rendering the whole video.\n\nStep 8: Test without waiting two hours\n\nmake-test-images.mjs writes one flat-colored placeholder per scene, so you can check the whole edit — layout, pacing, subtitle timing — before generating anything:\n\nS=.claude/skills/ai-story/scripts\nnode $S/tts.mjs <slug>\nnode $S/make-test-images.mjs <slug>      # placeholders — OVERWRITES images/\nnode $S/build-props.mjs <slug>\nnode $S/render.mjs <slug> --frame=240\n\nCopy\nStep 9: The procedure — SKILL.md\n---\nname: ai-story\ndescription: Turn a life-lesson story into a 9:16 video made entirely by AI — narration\n  read by a local TTS, illustrations drawn by a local image model, no filming, no\n  recording. Writes content/<dir>/story.json and renders out/<dir>.mp4. Use when the user\n  pastes a story or a lesson, or says \"AI story video\", \"philosophy video\".\n---\n\n## Steps\n0. First time: node .claude/skills/ai-story/scripts/setup.mjs (and --check any time).\n1. Extract input: story or theme (required); voice (default \"Thanh Bình\"); voiceRef;\n   style (default \"doodle\"). A bare theme → invent a concrete story and SAY SO.\n2. Read references/storytelling.md before writing anything.\n3. Brainstorm internally: 3 two-line titles → keep the sharpest; the twist; the lesson.\n4. node .claude/skills/ai-story/scripts/new-dir.mjs <slug>\n5. Write story.json. Narration in Vietnamese, image and look in ENGLISH. Every recurring\n   character in cast.\n6. validate-story.mjs && build-docs.mjs. Fix every ERROR.\n7. STOP. Show the title, the scene table, the estimated duration and image minutes.\n   Wait for approval.\n8. tts.mjs → images.mjs (long; can run in the background) → build-props.mjs → render.mjs\n9. Report: mp4 path, real duration, scene count, and every WARN — a scene over 8 s,\n   a failed image (re-run with --only=), a line over 7 s.\n\nCopy\n\nThe order in step 8 is deliberate: narration first, because it's fast and its timing file is needed by everything else; images second, because they're slow and can run in the background while you do something else.\n\nWhat you've built\n\nA second production line that needs no camera and no microphone, built on the same foundations as the first — one JSON contract, validators, generated docs, resumable stages, a typed props file — plus two new ideas worth reusing elsewhere:\n\nEstimate the cost in the validator and put a human approval gate in front of the expensive step.\nLet model limitations shape the schema: no memory → declare characters once; English-only → validate the language.\n\nPart 5 builds the last skill: a deadpan comedy writer that exports a printable PDF and plugs into the editing pipeline you built in Part 3."
+}

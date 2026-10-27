@@ -1,0 +1,406 @@
+{
+ "id": "2026-10-26-22-30-xuong-video-ai-tap-1",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/build-ai-video-studio-claude-code-remotion-setup"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "series": {
+  "name": {
+   "vi": "Xưởng video AI",
+   "en": "AI Video Studio"
+  },
+  "ep": 1,
+  "of": 5,
+  "next": {
+   "vi": "Tập 2: AI viết kịch bản quay được",
+   "en": "Ep 2: AI writes a filmable script"
+  }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "terminal": {
+    "title": "claude — ~/video-studio",
+    "fontSize": 30,
+    "cps": 22,
+    "start": 0.1,
+    "items": [
+     {
+      "out": "{orange}✻{/} {bold}Welcome to Claude Code!{/}",
+      "after": 0.15
+     },
+     {
+      "out": " "
+     },
+     {
+      "cmd": "/hello-video Remotion trong 4 dòng",
+      "prompt": "{gray}> {/}",
+      "enter": 0.2
+     },
+     {
+      "out": "{orange}⏺{/} {dim}Skill(hello-video){/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Gõ *1 dòng* cho Claude…",
+     "nhận về *video MP4* 🎬"
+    ],
+    "en": [
+     "Type *one line*…",
+     "get back *an MP4* 🎬"
+    ]
+   }
+  },
+  {
+   "id": "result",
+   "src": "2026-10-26-22-30-xuong-video-ai-tap-1/footage/hello.mp4",
+   "beats": 7,
+   "rate": 1.7,
+   "skip": 0.2,
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 540,
+     "cy": 900,
+     "zoom": 0.95
+    },
+    {
+     "beat": 7,
+     "cx": 540,
+     "cy": 900,
+     "zoom": 1.08
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Chữ *nảy lên* từng dòng ✨",
+     "*9:16*, lên TikTok ngay"
+    ],
+    "en": [
+     "Lines *spring in* one by one ✨",
+     "*9:16*, ready for TikTok"
+    ]
+   }
+  },
+  {
+   "id": "series",
+   "shot": "post-skills",
+   "beats": 6,
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 270,
+     "cy": 420,
+     "zoom": 1.85
+    },
+    {
+     "beat": 6,
+     "cx": 270,
+     "cy": 470,
+     "zoom": 1.95
+    }
+   ],
+   "lines": {
+    "vi": [
+     "*5 tập*, *4 skill* Claude Code",
+     "tự xây *xưởng video AI* 🛠"
+    ],
+    "en": [
+     "*5 parts*, *4 Claude Code skills*",
+     "your own *AI video studio* 🛠"
+    ]
+   }
+  },
+  {
+   "id": "install",
+   "beats": 7,
+   "terminal": {
+    "title": "zsh — ~",
+    "fontSize": 25,
+    "cps": 32,
+    "start": 0.1,
+    "items": [
+     {
+      "cmd": "brew install ffmpeg uv",
+      "enter": 0.15
+     },
+     {
+      "out": "{green}✓{/} ffmpeg, uv",
+      "after": 0.2
+     },
+     {
+      "cmd": "npm i -g pnpm @anthropic-ai/claude-code",
+      "enter": 0.15
+     },
+     {
+      "out": "{green}✓{/} pnpm, claude",
+      "after": 0.2
+     },
+     {
+      "cmd": "claude",
+      "enter": 0.2
+     },
+     {
+      "out": "{orange}✻{/} {bold}Welcome to Claude Code!{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Đồ nghề: *3 lệnh* cài đặt",
+     "đăng nhập Claude là *xong*"
+    ],
+    "en": [
+     "Setup: *three commands*",
+     "sign in to Claude, *done*"
+    ]
+   }
+  },
+  {
+   "id": "remotion",
+   "beats": 7,
+   "terminal": {
+    "title": "remotion/src/HelloVideo.tsx",
+    "fontSize": 27,
+    "start": 0.2,
+    "items": [
+     {
+      "out": "{magenta}const{/} frame = {cyan}useCurrentFrame{/}();",
+      "after": 0.25
+     },
+     {
+      "out": "{magenta}const{/} enter = {cyan}spring{/}({ frame, fps });",
+      "after": 0.35
+     },
+     {
+      "out": " "
+     },
+     {
+      "out": "{magenta}return{/} (",
+      "after": 0.1
+     },
+     {
+      "out": "  {blue}<div{/} style={{",
+      "after": 0.1
+     },
+     {
+      "out": "    transform: {yellow}`scale(${enter})`{/}",
+      "after": 0.1
+     },
+     {
+      "out": "  }}{blue}>{/}",
+      "after": 0.1
+     },
+     {
+      "out": "    {text}",
+      "after": 0.1
+     },
+     {
+      "out": "  {blue}</div>{/}",
+      "after": 0.1
+     },
+     {
+      "out": ");"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Video viết bằng *React* ⚛️",
+     "*frame* vào, *khung hình* ra"
+    ],
+    "en": [
+     "Video, written in *React* ⚛️",
+     "*frame* in, *pixels* out"
+    ]
+   }
+  },
+  {
+   "id": "loop",
+   "beats": 8,
+   "terminal": {
+    "title": "claude — ~/video-studio",
+    "fontSize": 23,
+    "start": 0.15,
+    "items": [
+     {
+      "out": "{orange}⏺{/} Bash(node new-dir.mjs remotion-4-dong)",
+      "after": 0.3
+     },
+     {
+      "out": "  {dim}⎿  2026-10-26-22-30-remotion-4-dong{/}",
+      "after": 0.35
+     },
+     {
+      "out": "{orange}⏺{/} Write(content/…/hello.json)",
+      "after": 0.35
+     },
+     {
+      "out": "{orange}⏺{/} Bash(node validate.mjs hello.json)",
+      "after": 0.3
+     },
+     {
+      "out": "  {red}⎿  ERROR lines[2] is 52 characters, max 40{/}",
+      "after": 0.55
+     },
+     {
+      "out": "{orange}⏺{/} Update(hello.json) {dim}tách dòng dài{/}",
+      "after": 0.35
+     },
+     {
+      "out": "{orange}⏺{/} Bash(node validate.mjs hello.json)",
+      "after": 0.3
+     },
+     {
+      "out": "  {green}⎿  OK 4 lines, 8s{/}",
+      "after": 0.35
+     },
+     {
+      "out": "{orange}⏺{/} Bash(node render.mjs …)",
+      "after": 0.35
+     },
+     {
+      "out": "  {green}⎿  OK out/2026-10-26-22-30-remotion-4-dong.mp4{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Dòng quá dài? *Validator chặn*",
+     "Claude *tự sửa*, tự render ✅"
+    ],
+    "en": [
+     "Too long? *Validator says no*",
+     "Claude *fixes it*, renders ✅"
+    ]
+   }
+  },
+  {
+   "id": "rule",
+   "shot": "post-rule",
+   "beats": 6,
+   "layout": "card",
+   "keys": [
+    {
+     "f": 0,
+     "cx": 270,
+     "cy": 420,
+     "zoom": 1.85
+    },
+    {
+     "beat": 6,
+     "cx": 270,
+     "cy": 470,
+     "zoom": 1.95
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Claude lo *phần sáng tạo*",
+     "script lo *phần chính xác* 🎯"
+    ],
+    "en": [
+     "Claude does *the creative part*",
+     "scripts do *the exact bits* 🎯"
+    ]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Code đầy đủ Tập 1 trên *siri2moon.com*",
+   "en": "Full Part 1 code on *siri2moon.com*"
+  },
+  "chips": [
+   "Claude Code",
+   "Remotion",
+   "React",
+   "FFmpeg"
+  ],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "Link bài viết ở bình luận ghim 📌"
+   ],
+   "en": [
+    "Link to the post in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/build-ai-video-studio-claude-code-remotion-setup",
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   {
+    "name": "post-skills",
+    "seconds": 4.2,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 960
+     },
+     {
+      "t": 1,
+      "scroll": 1000
+     }
+    ]
+   },
+   {
+    "name": "post-rule",
+    "seconds": 4.2,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 6260
+     },
+     {
+      "t": 1,
+      "scroll": 6420
+     }
+    ]
+   },
+   {
+    "name": "post-top",
+    "seconds": 7,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 0
+     },
+     {
+      "t": 1,
+      "scroll": 420
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,136 @@
+{
+ "id": "2026-10-27-17-51-xuong-video-ai-tap-3",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-remotion-video-editor",
+  "proof": "content/2026-10-05-20-04-khi-chat-khong-can-von (raw/s4.mov, audio/s8.wav, cuts.json, timing.json thật); footage/after.mp4 = TikTokVideo render đoạn s4"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "series": {
+  "name": { "vi": "Xưởng video AI", "en": "AI Video Studio" },
+  "ep": 3,
+  "of": 5,
+  "next": { "vi": "Tập 4: Video truyện AI, không cần camera", "en": "Ep 4: AI story videos, no camera" }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "motion": {
+    "type": "split",
+    "before": "2026-10-05-20-04-khi-chat-khong-can-von/raw/s4.mov",
+    "after": "2026-10-27-17-51-xuong-video-ai-tap-3/footage/after.mp4",
+    "labels": { "vi": ["TRƯỚC", "SAU"], "en": ["BEFORE", "AFTER"] }
+   },
+   "voice": { "src": "2026-10-27-17-51-xuong-video-ai-tap-3/footage/after.mp4" },
+   "lines": {
+    "vi": ["Trái: tôi *tự quay*", "phải: *Claude dựng* 🤯"],
+    "en": ["Left: *I filmed it*", "right: *Claude cut it* 🤯"]
+   }
+  },
+  {
+   "id": "silence",
+   "beats": 8,
+   "motion": {
+    "type": "wave",
+    "audio": "2026-10-05-20-04-khi-chat-khong-can-von/audio/s8.wav",
+    "label": "raw/s8.mov",
+    "from": 0,
+    "to": 10.35,
+    "cuts": "2026-10-05-20-04-khi-chat-khong-can-von/cuts.json#s8",
+    "cutAt": 0.55,
+    "silenceLabel": { "vi": "im lặng", "en": "silence" },
+    "cutLabel": { "vi": "im lặng", "en": "of silence" }
+   },
+   "lines": {
+    "vi": ["Tự tìm *khoảng im lặng*…", "rồi *cắt phăng* ✂️"],
+    "en": ["Finds every *silence*…", "and *cuts it out* ✂️"]
+   }
+  },
+  {
+   "id": "words",
+   "beats": 9,
+   "motion": {
+    "type": "words",
+    "timing": "2026-10-05-20-04-khi-chat-khong-can-von/timing.json#s8",
+    "from": 0,
+    "tag": { "vi": "Whisper nghe từng chữ", "en": "Whisper hears every word" }
+   },
+   "voice": { "src": "2026-10-05-20-04-khi-chat-khong-can-von/audio/s8.wav" },
+   "lines": {
+    "vi": ["Nghe ra *từng chữ*, *từng giây*", "phụ đề *khớp từng tiếng* 🎯"],
+    "en": ["Hears *every word*, *to the ms*", "captions *hit every word* 🎯"]
+   }
+  },
+  {
+   "id": "pipeline",
+   "beats": 8,
+   "motion": {
+    "type": "pipeline",
+    "steps": [
+     { "icon": "🔍", "title": { "vi": "Kiểm tra đầu vào", "en": "Preflight" }, "sub": "preflight.mjs" },
+     { "icon": "🎧", "title": { "vi": "Tách tiếng", "en": "Extract audio" }, "sub": "extract-audio.mjs" },
+     { "icon": "📝", "title": { "vi": "Nghe chữ", "en": "Transcribe" }, "sub": "transcribe.mjs · Whisper" },
+     { "icon": "✂️", "title": { "vi": "Cắt khoảng lặng", "en": "Cut silences" }, "sub": "detect-cuts.mjs" },
+     { "icon": "🧩", "title": { "vi": "Ráp timeline", "en": "Build timeline" }, "sub": "build-props.mjs" },
+     { "icon": "🎬", "title": { "vi": "Render MP4", "en": "Render MP4" }, "sub": "render.mjs · Remotion" }
+    ]
+   },
+   "lines": {
+    "vi": ["*6 bước* chạy tự động", "lỗi là *dừng ngay* ⛔"],
+    "en": ["*6 stages*, fully automatic", "errors *stop it instantly* ⛔"]
+   }
+  },
+  {
+   "id": "polish",
+   "beats": 7,
+   "src": "2026-10-27-17-51-xuong-video-ai-tap-3/footage/after.mp4",
+   "layout": "phone",
+   "rate": 0.72,
+   "callouts": [
+    { "at": 0.3, "y": 300, "side": "right", "text": { "vi": "Tiêu đề khối", "en": "Block title" } },
+    { "at": 0.9, "y": 1360, "side": "left", "text": { "vi": "Phụ đề từng chữ", "en": "Word-by-word captions" } },
+    { "at": 1.5, "y": 860, "side": "right", "text": { "vi": "Zoom khi cắt", "en": "Punch-in zoom" } },
+    { "at": 2.1, "y": 1700, "side": "left", "text": { "vi": "Nhạc + hiệu ứng 🎵", "en": "Music + SFX 🎵" } }
+   ],
+   "lines": {
+    "vi": ["Tiêu đề, *zoom*, *nhạc*, *hiệu ứng*", "y như *editor* làm tay 🎬"],
+    "en": ["Titles, *zooms*, *music*, *SFX*", "like *a real editor* 🎬"]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Code đầy đủ Tập 3 trên *siri2moon.com*",
+   "en": "Full Part 3 code on *siri2moon.com*"
+  },
+  "chips": ["Whisper", "FFmpeg", "Remotion", "Claude Code"],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": { "vi": "Theo dõi @siri2moondev", "en": "Follow @siri2moondev" },
+  "lines": {
+   "vi": ["Link bài viết ở bình luận ghim 📌"],
+   "en": ["Link to the post in the pinned comment 📌"]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-remotion-video-editor",
+  "viewport": [540, 960, 2],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   { "name": "post-top", "seconds": 7.0, "keys": [{ "t": 0, "scroll": 0 }, { "t": 1, "scroll": 420 }] }
+  ]
+ }
+}

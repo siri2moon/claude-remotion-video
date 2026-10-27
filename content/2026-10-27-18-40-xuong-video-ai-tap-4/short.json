@@ -1,0 +1,136 @@
+{
+ "id": "2026-10-27-18-40-xuong-video-ai-tap-4",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-local-ai-story-video",
+  "proof": "content/2026-08-18-21-46-nguoi-trong-cay: tranh vẽ thật bằng Z-Image Turbo (images.mjs), giọng VieNeu-TTS thật (audio/l*.wav), video render lại bằng render.mjs của ai-story → footage/story.mp4"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "series": {
+  "name": { "vi": "Xưởng video AI", "en": "AI Video Studio" },
+  "ep": 4,
+  "of": 5,
+  "next": { "vi": "Tập 5: Kịch bản hài in ra PDF", "en": "Ep 5: Comedy scripts as print-ready PDFs" }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "src": "2026-10-27-18-40-xuong-video-ai-tap-4/footage/story.mp4",
+   "layout": "phone",
+   "voice": { "src": "2026-10-27-18-40-xuong-video-ai-tap-4/footage/story.mp4", "volume": 1 },
+   "lines": {
+    "vi": ["Video này *không ai quay*", "*AI vẽ*, *AI đọc* 🤯"],
+    "en": ["*Nobody filmed* this", "*AI drew*, *AI narrated* 🤯"]
+   }
+  },
+  {
+   "id": "prompt",
+   "beats": 8,
+   "motion": {
+    "type": "prompt",
+    "label": "story.json → cast[\"lao\"].look",
+    "text": "An old white stick-figure man with a smooth bald oval head, a short white beard, two tiny black dot eyes and a calm patient expression, wearing a simple brown vest over a white shirt and loose grey trousers.",
+    "image": "2026-08-18-21-46-nguoi-trong-cay/images/s01.png"
+   },
+   "lines": {
+    "vi": ["Tả nhân vật *đúng 1 lần*", "cảnh nào *cũng y hệt* 👴"],
+    "en": ["Describe the character *once*", "*same face*, every scene 👴"]
+   }
+  },
+  {
+   "id": "gallery",
+   "beats": 7,
+   "motion": {
+    "type": "gallery",
+    "images": [
+     "2026-08-18-21-46-nguoi-trong-cay/images/s01.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s02.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s03.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s04.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s05.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s06.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s07.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s08.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s09.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s10.png",
+     "2026-08-18-21-46-nguoi-trong-cay/images/s11.png"
+    ],
+    "badge": { "vi": "11 tranh · 57 phút · 0đ", "en": "11 images · 57 min · $0" }
+   },
+   "lines": {
+    "vi": ["Vẽ *ngay trên Mac*", "không API, *0 đồng* 💸"],
+    "en": ["Drawn *on a Mac*", "no API, *zero cost* 💸"]
+   }
+  },
+  {
+   "id": "speak",
+   "beats": 7,
+   "motion": {
+    "type": "speak",
+    "label": "VieNeu-TTS · audio/l005.wav",
+    "text": "“Cụ ơi, cụ bảy mươi rồi. Cây này ba chục năm nữa mới có bóng mát.”",
+    "audio": "2026-08-18-21-46-nguoi-trong-cay/audio/l005.wav",
+    "tag": { "vi": "chạy local, không cần mạng", "en": "runs locally, offline" }
+   },
+   "voice": { "src": "2026-08-18-21-46-nguoi-trong-cay/audio/l005.wav" },
+   "lines": {
+    "vi": ["Giọng Việt *đọc ngay trên máy*", "phụ đề *khớp từng câu*"],
+    "en": ["A Vietnamese voice, *on-device*", "every line *timed exactly*"]
+   }
+  },
+  {
+   "id": "gate",
+   "beats": 8,
+   "motion": {
+    "type": "pipeline",
+    "steps": [
+     { "icon": "✍️", "title": { "vi": "Claude viết truyện", "en": "Claude writes the story" }, "sub": "story.json" },
+     { "icon": "🔍", "title": { "vi": "Kiểm tra + ước giờ", "en": "Validate + estimate" }, "sub": "validate-story.mjs" },
+     { "icon": "✋", "title": { "vi": "DỪNG: bạn duyệt", "en": "STOP: you approve" }, "sub": "approval gate" },
+     { "icon": "🎙", "title": { "vi": "Đọc lời", "en": "Narrate" }, "sub": "tts.mjs · VieNeu-TTS" },
+     { "icon": "🎨", "title": { "vi": "Vẽ tranh", "en": "Illustrate" }, "sub": "images.mjs · Z-Image Turbo" },
+     { "icon": "🎬", "title": { "vi": "Render MP4", "en": "Render MP4" }, "sub": "render.mjs · Remotion" }
+    ]
+   },
+   "lines": {
+    "vi": ["*Dừng lại* chờ bạn duyệt", "khỏi phí *hàng giờ* vẽ lại ✋"],
+    "en": ["It *stops* for your approval", "no *hours* of redrawing ✋"]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Code đầy đủ Tập 4 trên *siri2moon.com*",
+   "en": "Full Part 4 code on *siri2moon.com*"
+  },
+  "chips": ["Z-Image Turbo", "VieNeu-TTS", "MLX", "Remotion"],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": { "vi": "Theo dõi @siri2moondev", "en": "Follow @siri2moondev" },
+  "lines": {
+   "vi": ["Link bài viết ở bình luận ghim 📌"],
+   "en": ["Link to the post in the pinned comment 📌"]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-local-ai-story-video",
+  "viewport": [540, 960, 2],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   { "name": "post-top", "seconds": 7.0, "keys": [{ "t": 0, "scroll": 0 }, { "t": 1, "scroll": 420 }] }
+  ]
+ }
+}

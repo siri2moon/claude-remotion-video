@@ -1,0 +1,288 @@
+{
+  "url": "https://siri2moon.com/posts/build-ai-video-studio-claude-code-remotion-setup",
+  "title": "Build an AI Video Studio with Claude Code and Remotion: Setup and Your First Skill",
+  "description": "Step-by-step: install the tools, set up a Remotion project, and build a complete Claude Code skill that turns a one-line idea into a rendered vertical MP4 — the foundation for a full AI video studio.",
+  "cover": "https://siri2moon.com/uploads/video-ai-cover-en-b1.jpg",
+  "pageHeight": 17171,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "What you need",
+      "top": 1947,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 1: Install the tools",
+      "top": 2298,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 2: Create the project",
+      "top": 2659,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 3: Set up Remotion",
+      "top": 3516,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 4: Install Remotion's official agent skills",
+      "top": 5337,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 5: Write CLAUDE.md",
+      "top": 5782,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 6: How a Claude Code skill works",
+      "top": 6201,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 7: Build your first skill — hello-video",
+      "top": 7112,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7a. The composition",
+      "top": 7327,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7b. The folder script",
+      "top": 9313,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7c. The validator",
+      "top": 10142,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7d. The render script",
+      "top": 11054,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "7e. The skill itself",
+      "top": 11743,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 8: Run it",
+      "top": 12647,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "If something goes wrong",
+      "top": 14347,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "What you've built",
+      "top": 14977,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 2355,
+      "height": 188,
+      "lang": "bash",
+      "head": "# FFmpeg, plus uv (a fast Python package manager, needed in Part 4)\nbrew install ffmpeg uv\n\n# pnpm, if you don't have it\nnpm install -g pnpm\n"
+    },
+    {
+      "top": 2788,
+      "height": 80,
+      "lang": "bash",
+      "head": "mkdir video-studio && cd video-studio\ngit init\nmkdir -p .claude/skills content/_assets out remotion/src\n\nCopy"
+    },
+    {
+      "top": 2892,
+      "height": 152,
+      "lang": null,
+      "head": "video-studio/\n├── .claude/skills/      ← your skills, one folder each\n├── content/             ← one folder per video: scripts, footage, intermediate files\n│   └── _assets/         ← shared music, sound effects, voice samples\n├── out/                 ← finished MP4s\n├── remotion/            ← the Remotion project (React components that render video)"
+    },
+    {
+      "top": 3144,
+      "height": 332,
+      "lang": "gitignore",
+      "head": "# .gitignore\nnode_modules/\n.DS_Store\nout/\nremotion/.remotion/\n"
+    },
+    {
+      "top": 3821,
+      "height": 368,
+      "lang": "json",
+      "head": "{\n  \"name\": \"video-studio-renderer\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"studio\": \"remotion studio --public-dir=../content\""
+    },
+    {
+      "top": 4263,
+      "height": 314,
+      "lang": "json",
+      "head": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2022\",\n    \"lib\": [\"ES2022\", \"DOM\"],\n    \"module\": \"ESNext\",\n    \"moduleResolution\": \"bundler\","
+    },
+    {
+      "top": 4651,
+      "height": 98,
+      "lang": "ts",
+      "head": "import { Config } from '@remotion/cli/config';\n\nConfig.setVideoImageFormat('jpeg');\nConfig.setOverwriteOutput(true);\n\nCopy"
+    },
+    {
+      "top": 4823,
+      "height": 98,
+      "lang": "ts",
+      "head": "import { registerRoot } from 'remotion';\nimport { RemotionRoot } from './Root';\n\nregisterRoot(RemotionRoot);\n\nCopy"
+    },
+    {
+      "top": 5047,
+      "height": 44,
+      "lang": "bash",
+      "head": "cd remotion && pnpm install && cd ..\n\nCopy"
+    },
+    {
+      "top": 5518,
+      "height": 44,
+      "lang": "bash",
+      "head": "npx skills add remotion-dev/skills\n\nCopy"
+    },
+    {
+      "top": 5937,
+      "height": 224,
+      "lang": "markdown",
+      "head": "# Video studio\n\nVertical 9:16 videos (1080×1920, 30 fps) built with Claude Code skills + Remotion.\n\n## Rules\n- Use pnpm, never npm/npx, inside remotion/."
+    },
+    {
+      "top": 6330,
+      "height": 134,
+      "lang": "markdown",
+      "head": "---\nname: hello-video\ndescription: What it produces, when to use it, and the phrases a user would type.\n---\n\n# The procedure, written for Claude"
+    },
+    {
+      "top": 7451,
+      "height": 962,
+      "lang": "tsx",
+      "head": "import { AbsoluteFill, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from 'remotion';\nimport { loadFont } from '@remotion/google-fonts/BeVietnamPro';\n\n// The 'vietnamese' subset is required, or accented letters render as boxes.\nconst { fontFamily } = loadFont('normal', { weights: ['800'], subsets: ['vietnamese', 'latin'] });\n"
+    },
+    {
+      "top": 8741,
+      "height": 386,
+      "lang": "tsx",
+      "head": "import { Composition } from 'remotion';\nimport { HelloVideo, type HelloProps } from './HelloVideo';\n\nconst placeholder: HelloProps = { title: 'Xin chào', lines: ['Chưa có props'], secondsPerLine: 2 };\n\nexport const RemotionRoot: React.FC = () => ("
+    },
+    {
+      "top": 9560,
+      "height": 422,
+      "lang": "js",
+      "head": "#!/usr/bin/env node\n// Create content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/ and print its name.\n// The model knows the date but not the local time, so this script owns the timestamp.\nimport { existsSync, mkdirSync } from 'node:fs';\nimport { join, resolve } from 'node:path';\nimport { fileURLToPath } from 'node:url';"
+    },
+    {
+      "top": 10338,
+      "height": 530,
+      "lang": "js",
+      "head": "#!/usr/bin/env node\n// Validate content/<dir>/hello.json. Exit 1 on any ERROR, so `&&` stops the render.\nimport { readFileSync } from 'node:fs';\nimport { basename, dirname, resolve } from 'node:path';\n\nconst file = resolve(process.argv[2] ?? '');"
+    },
+    {
+      "top": 11151,
+      "height": 458,
+      "lang": "js",
+      "head": "#!/usr/bin/env node\n// Render content/<dir>/hello.json → out/<dir>.mp4 with the HelloVideo composition.\nimport { spawnSync } from 'node:child_process';\nimport { existsSync, mkdirSync } from 'node:fs';\nimport { join, resolve } from 'node:path';\nimport { fileURLToPath } from 'node:url';"
+    },
+    {
+      "top": 11841,
+      "height": 638,
+      "lang": "markdown",
+      "head": "---\nname: hello-video\ndescription: Turn a short idea into a 9:16 text-animation video. Writes content/<date>-<time>-<slug>/hello.json, validates it, and renders out/<dir>.mp4 with Remotion. Use when the user says \"make a hello video\", \"turn this into a quick text video\", or wants to test the video pipeline.\n---\n\n# Hello Video"
+    },
+    {
+      "top": 12776,
+      "height": 62,
+      "lang": null,
+      "head": "claude\n> /hello-video explain Remotion to a beginner in 4 lines\n\nCopy"
+    },
+    {
+      "top": 13042,
+      "height": 116,
+      "lang": "json",
+      "head": "{\n  \"permissions\": {\n    \"allow\": [\"Bash(node .claude/skills/:*)\"]\n  }\n}\n"
+    }
+  ],
+  "images": [
+    {
+      "top": 13258,
+      "height": 903,
+      "alt": "A frame from the rendered hello-video: the title \"Learn Remotion\" at the top and the line \"Frames in, pixels out\" in yellow",
+      "src": "https://siri2moon.com/uploads/hello-video-frame-en.jpg"
+    }
+  ],
+  "diagrams": [
+    {
+      "top": 6996,
+      "height": 60
+    }
+  ],
+  "posts": [
+    {
+      "path": "/posts/build-claude-code-skill-video-script-writer",
+      "title": "Part 2"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-remotion-video-editor",
+      "title": "3. The editing skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-local-ai-story-video",
+      "title": "4. The local AI story skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-comedy-script-pdf",
+      "title": "5. The comedy script skill"
+    },
+    {
+      "path": "/posts/how-to-make-talking-head-video-claude-code",
+      "title": "Talking-head video"
+    },
+    {
+      "path": "/posts/how-to-make-ai-story-video-claude-code",
+      "title": "AI story video"
+    },
+    {
+      "path": "/posts/how-to-make-deadpan-comedy-video-claude-code",
+      "title": "Deadpan comedy video"
+    },
+    {
+      "path": "/posts/whisper-timing-script-aligned-subtitles",
+      "title": "Subtitles"
+    },
+    {
+      "path": "/posts/automatic-jump-cuts-ffmpeg-remotion",
+      "title": "Jump cuts"
+    },
+    {
+      "path": "/posts/synthesize-music-sound-effects-javascript",
+      "title": "Music & SFX"
+    }
+  ],
+  "text": "AI Video Studio with Claude Code + Remotion\n\n🛠 Build it: 1. Setup & your first skill · 2. The script-writing skill · 3. The editing skill · 4. The local AI story skill · 5. The comedy script skill\n\n🎬 Use it: Talking-head video · AI story video · Deadpan comedy video\n\n🔬 Under the hood: Subtitles · Jump cuts · Music & SFX\n\nThis series builds an AI video studio you run from your terminal. You type something like /tiktok-script \"a proverb\" in Claude Code, and a skill writes a filmable script. You record a few clips, type /tiktok-video, and get a finished vertical MP4 with jump cuts, word-by-word subtitles, music and sound effects. Or you type /ai-story \"a fable\" and get a narrated, illustrated video without touching a camera at all.\n\nBy the end of the series you'll have built four Claude Code skills and two Remotion compositions:\n\nSKILL\tWHAT IT DOES\tBUILT IN\ntiktok-script\tA quote or opinion → a 30–45 s talking-head script plus a shooting guide\tPart 2\ntiktok-video\tYour clips + the script → an edited MP4: jump cuts, animated subtitles, music, SFX\tPart 3\nai-story\tA fable → a narrated video with AI illustrations, generated entirely on your Mac\tPart 4\nvotri-script\tA saying or a pickup line → a deadpan comedy script exported as a print-ready PDF\tPart 5\n\nThe finished source for everything in this series is public at github.com/siri2moon/claude-remotion-video. You can follow along from scratch, or clone it and use the posts as a guided tour. If you only want to use the skills, jump to the \"Use it\" guides in the series list above.\n\nThis first part lays the foundation: installing the tools, creating the project, wiring up Remotion, and building a small but complete skill — hello-video — that goes from a one-line idea to a rendered MP4. Every later skill is a bigger version of the same loop, so it's worth getting this one working end to end.\n\nWhat you need\nmacOS on Apple Silicon is recommended. Parts 1–3 and 5 work on any OS with Node and FFmpeg; Part 4 (local AI illustrations) uses Apple's MLX framework and needs an M-series Mac with at least 16 GB of memory.\nNode.js 20 or newer and pnpm.\nFFmpeg — audio extraction, silence detection, format conversion.\nClaude Code with a Claude subscription or API access.\nGoogle Chrome — Part 5 prints PDFs with headless Chrome.\nStep 1: Install the tools\n# FFmpeg, plus uv (a fast Python package manager, needed in Part 4)\nbrew install ffmpeg uv\n\n# pnpm, if you don't have it\nnpm install -g pnpm\n\n# Claude Code\nnpm install -g @anthropic-ai/claude-code\nclaude --version\n\nCopy\n\nRun claude once in any folder and sign in. That's all the setup Claude Code needs.\n\nStep 2: Create the project\n\nThe project has one folder per concern. Make it now; every part of the series fills in one piece of it.\n\nmkdir video-studio && cd video-studio\ngit init\nmkdir -p .claude/skills content/_assets out remotion/src\n\nCopy\nvideo-studio/\n├── .claude/skills/      ← your skills, one folder each\n├── content/             ← one folder per video: scripts, footage, intermediate files\n│   └── _assets/         ← shared music, sound effects, voice samples\n├── out/                 ← finished MP4s\n├── remotion/            ← the Remotion project (React components that render video)\n└── CLAUDE.md            ← project rules Claude reads at the start of every session\n\nCopy\n\nVideo work produces large files that can always be regenerated. Keep them out of git from day one:\n\n# .gitignore\nnode_modules/\n.DS_Store\nout/\nremotion/.remotion/\n\n# raw footage and intermediate files — large, regenerable\ncontent/*/raw/\ncontent/*/audio/\ncontent/*/images/\ncontent/*/media.json\ncontent/*/timing.json\ncontent/*/props.json\n\n# speech-recognition binaries and models (Part 3), Python venv (Part 4)\n.whisper/\n.ai-story/\n\nCopy\nStep 3: Set up Remotion\n\nRemotion renders video from React components. Each component receives the current frame number and returns what that frame should look like. You can scaffold a project with npx create-video@latest, but setting it up by hand takes five small files and shows you exactly what each one does.\n\nremotion/package.json — pin every @remotion/* package to the same exact version; mixing versions is the most common source of strange Remotion errors.\n\n{\n  \"name\": \"video-studio-renderer\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"studio\": \"remotion studio --public-dir=../content\"\n  },\n  \"dependencies\": {\n    \"@remotion/cli\": \"4.0.512\",\n    \"@remotion/google-fonts\": \"4.0.512\",\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"remotion\": \"4.0.512\"\n  },\n  \"devDependencies\": {\n    \"@types/react\": \"^19.0.0\",\n    \"typescript\": \"^5.8.2\"\n  }\n}\n\nCopy\n\nremotion/tsconfig.json\n\n{\n  \"compilerOptions\": {\n    \"target\": \"ES2022\",\n    \"lib\": [\"ES2022\", \"DOM\"],\n    \"module\": \"ESNext\",\n    \"moduleResolution\": \"bundler\",\n    \"jsx\": \"react-jsx\",\n    \"strict\": true,\n    \"noEmit\": true,\n    \"skipLibCheck\": true,\n    \"esModuleInterop\": true,\n    \"resolveJsonModule\": true,\n    \"isolatedModules\": true\n  },\n  \"include\": [\"src\", \"remotion.config.ts\"]\n}\n\nCopy\n\nremotion/remotion.config.ts\n\nimport { Config } from '@remotion/cli/config';\n\nConfig.setVideoImageFormat('jpeg');\nConfig.setOverwriteOutput(true);\n\nCopy\n\nremotion/src/index.ts — the entry point Remotion looks for:\n\nimport { registerRoot } from 'remotion';\nimport { RemotionRoot } from './Root';\n\nregisterRoot(RemotionRoot);\n\nCopy\n\nThe fifth file, Root.tsx, registers your compositions. You'll write it in Step 6 together with the first composition. Install the dependencies now:\n\ncd remotion && pnpm install && cd ..\n\nCopy\n\nOne design decision to make early: Remotion's public folder is content/. Every render passes --public-dir ../content, so a component can load staticFile('<video-folder>/raw/s1.mov') or staticFile('_assets/bgm/lofi.mp3') directly, with no copying. We set it on the command line rather than in remotion.config.ts because a relative path in the config depends on the current directory, which differs between the Studio and the render scripts.\n\nStep 4: Install Remotion's official agent skills\n\nRemotion publishes its own skills for coding agents, covering composition structure, animation, captions, rendering, and documentation lookup. Your skills will lean on them whenever a component needs changing, so install them:\n\nnpx skills add remotion-dev/skills\n\nCopy\n\nThis adds skills such as /remotion-best-practices, /remotion-markup, /remotion-captions, /remotion-render and /remotion-docs. The rule you'll follow in every skill of this series: your skills describe your pipeline; Remotion's skills describe Remotion. Never copy framework documentation into your own skill — it goes stale the day Remotion ships a new release.\n\nStep 5: Write CLAUDE.md\n\nCLAUDE.md at the project root is loaded into every Claude Code session in this folder. Keep it short and put only project-wide rules in it; anything specific to one skill belongs in that skill.\n\n# Video studio\n\nVertical 9:16 videos (1080×1920, 30 fps) built with Claude Code skills + Remotion.\n\n## Rules\n- Use pnpm, never npm/npx, inside remotion/.\n- One folder per video: content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/. Always create it with the\n  skill's new-dir.mjs script — never type a date or time yourself.\n- The JSON file a skill writes is the source of truth. Files generated from it (.md, .pdf,\n  props.json) are never edited by hand.\n- Before editing anything in remotion/src/, read /remotion-best-practices.\n\nCopy\nStep 6: How a Claude Code skill works\n\nA skill is a folder under .claude/skills/ with a SKILL.md file. The file starts with YAML front matter:\n\n---\nname: hello-video\ndescription: What it produces, when to use it, and the phrases a user would type.\n---\n\n# The procedure, written for Claude\n\nCopy\n\nThree things are worth knowing before you write one:\n\nThe description is what Claude sees first. At the start of a session Claude only knows each skill's name and description; it loads the full body when the skill is invoked (/hello-video) or when your request matches the description. So the description must say what the skill produces and include the words a user would naturally type.\nThe body is a runbook, not documentation. Numbered steps, exact commands, hard rules. Claude follows a short, precise procedure far more reliably than a long essay.\nA skill can carry files. Put long guidance in references/ and tell Claude at which step to read it. Put deterministic work — creating folders, validating, rendering — in scripts/, and tell Claude to run them. Claude does the creative part; scripts do the exact part.\n\nEverything in this series follows one loop:\n\nERROR\n\nOK\n\nYour request\n\nClaude follows SKILL.md\n\nnew-dir.mjs creates the folder\n\nClaude writes one JSON file\n\nvalidate.mjs\n\nrender.mjs → Remotion\n\nout/video.mp4\n\nStep 7: Build your first skill — hello-video\n\nhello-video turns an idea into a short vertical video where three to six lines of text animate in one after another. It's deliberately small, but it has every part the real skills have: a folder convention, a JSON contract, a validator, a render script and a Remotion composition.\n\n7a. The composition\n\nremotion/src/HelloVideo.tsx — shows a title at the top and one line at a time in the middle, each in its own Sequence:\n\nimport { AbsoluteFill, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from 'remotion';\nimport { loadFont } from '@remotion/google-fonts/BeVietnamPro';\n\n// The 'vietnamese' subset is required, or accented letters render as boxes.\nconst { fontFamily } = loadFont('normal', { weights: ['800'], subsets: ['vietnamese', 'latin'] });\n\nexport type HelloProps = { title: string; lines: string[]; secondsPerLine: number };\n\nconst Line: React.FC<{ text: string }> = ({ text }) => {\n  const frame = useCurrentFrame();\n  const { fps, durationInFrames } = useVideoConfig();\n  const enter = spring({ frame, fps, config: { damping: 14 } });\n  const exit = interpolate(frame, [durationInFrames - 8, durationInFrames], [1, 0], {\n    extrapolateLeft: 'clamp',\n    extrapolateRight: 'clamp',\n  });\n  return (\n    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', padding: 80 }}>\n      <div\n        style={{\n          fontSize: 96,\n          fontWeight: 800,\n          color: '#FFE14D',\n          textAlign: 'center',\n          lineHeight: 1.25,\n          textWrap: 'balance',\n          opacity: exit,\n          transform: `translateY(${interpolate(enter, [0, 1], [60, 0])}px) scale(${interpolate(enter, [0, 1], [0.9, 1])})`,\n        }}\n      >\n        {text}\n      </div>\n    </AbsoluteFill>\n  );\n};\n\nexport const HelloVideo: React.FC<HelloProps> = ({ title, lines, secondsPerLine }) => {\n  const { fps } = useVideoConfig();\n  const slot = Math.round(secondsPerLine * fps);\n  return (\n    <AbsoluteFill style={{ backgroundColor: '#0B0B0F', fontFamily }}>\n      <div style={{ position: 'absolute', top: 180, width: '100%', textAlign: 'center', color: '#fff', fontSize: 56, fontWeight: 800 }}>\n        {title}\n      </div>\n      {lines.map((text, i) => (\n        <Sequence key={i} from={i * slot} durationInFrames={slot}>\n          <Line text={text} />\n        </Sequence>\n      ))}\n    </AbsoluteFill>\n  );\n};\n\nCopy\n\nA few Remotion basics are on display here. Inside a Sequence, useCurrentFrame() counts from zero at the sequence's start, and useVideoConfig().durationInFrames is the sequence's own length — which is why the same Line component can fade out at the right moment no matter which slot it's in. spring() gives the entrance a natural overshoot; interpolate() with clamping handles the fade. And Math.round matters: secondsPerLine can be 3.3, and Remotion needs whole frame counts.\n\nremotion/src/Root.tsx — registers the composition and lets the props decide the length:\n\nimport { Composition } from 'remotion';\nimport { HelloVideo, type HelloProps } from './HelloVideo';\n\nconst placeholder: HelloProps = { title: 'Xin chào', lines: ['Chưa có props'], secondsPerLine: 2 };\n\nexport const RemotionRoot: React.FC = () => (\n  <Composition\n    id=\"HelloVideo\"\n    component={HelloVideo}\n    width={1080}\n    height={1920}\n    fps={30}\n    durationInFrames={60}\n    defaultProps={placeholder}\n    // The video is as long as the props say: one slot per line.\n    calculateMetadata={({ props }) => ({\n      durationInFrames: Math.max(1, props.lines.length) * Math.round(props.secondsPerLine * 30),\n    })}\n  />\n);\n\nCopy\n\ncalculateMetadata is the key idea for everything that follows: the composition's length comes from its input data, not from a hardcoded number. Preview it now with cd remotion && pnpm run studio — the Studio opens in your browser with the placeholder props.\n\n7b. The folder script\n\nEvery video lives in content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/. The fixed-width timestamp means ls content/ lists videos in the order they were made. Claude knows today's date but not your machine's local time, and it will happily invent one — so a script owns the timestamp.\n\n.claude/skills/hello-video/scripts/new-dir.mjs\n\n#!/usr/bin/env node\n// Create content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/ and print its name.\n// The model knows the date but not the local time, so this script owns the timestamp.\nimport { existsSync, mkdirSync } from 'node:fs';\nimport { join, resolve } from 'node:path';\nimport { fileURLToPath } from 'node:url';\n\nconst ROOT = resolve(fileURLToPath(import.meta.url), '../../../../..');\nconst slug = process.argv[2];\nif (!slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {\n  console.error('ERROR  usage: new-dir.mjs <kebab-case-slug>');\n  process.exit(1);\n}\n\nconst d = new Date();\nconst p = (n) => String(n).padStart(2, '0');\nconst stamp = `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}-${p(d.getHours())}-${p(d.getMinutes())}`;\n\nlet name = `${stamp}-${slug}`;\nfor (let v = 2; existsSync(join(ROOT, 'content', name)); v++) name = `${stamp}-${slug}-v${v}`;\nmkdirSync(join(ROOT, 'content', name), { recursive: true });\nconsole.log(name);\n\nCopy\n\nROOT is resolved five levels up from the script (scripts → hello-video → skills → .claude → project root), so the script works no matter which directory Claude runs it from. If two videos with the same slug are created in the same minute, the second gets -v2.\n\n7c. The validator\n\nThe validator is how you hand your quality bar to Claude. It exits with code 1 on any error, so a && chain stops before rendering a bad file, and Claude reads the messages and fixes the JSON.\n\n.claude/skills/hello-video/scripts/validate.mjs\n\n#!/usr/bin/env node\n// Validate content/<dir>/hello.json. Exit 1 on any ERROR, so `&&` stops the render.\nimport { readFileSync } from 'node:fs';\nimport { basename, dirname, resolve } from 'node:path';\n\nconst file = resolve(process.argv[2] ?? '');\nlet doc;\ntry {\n  doc = JSON.parse(readFileSync(file, 'utf8'));\n} catch (e) {\n  console.error(`ERROR  cannot read ${file}: ${e.message}`);\n  process.exit(1);\n}\n\nconst errors = [];\nconst folder = basename(dirname(file));\nif (doc.id !== folder) errors.push(`id \"${doc.id}\" must equal the folder name \"${folder}\"`);\nif (typeof doc.title !== 'string' || !doc.title.trim()) errors.push('title is missing');\nif (!Array.isArray(doc.lines) || doc.lines.length < 3 || doc.lines.length > 6) errors.push('lines must have 3–6 items');\n(doc.lines ?? []).forEach((l, i) => {\n  if (typeof l !== 'string' || !l.trim()) errors.push(`lines[${i}] is empty`);\n  else if (l.length > 40) errors.push(`lines[${i}] is ${l.length} characters, max 40`);\n});\nif (!(doc.secondsPerLine >= 1.5 && doc.secondsPerLine <= 4)) errors.push('secondsPerLine must be 1.5–4');\n\nerrors.forEach((m) => console.error(`ERROR  ${m}`));\nif (errors.length) process.exit(1);\nconsole.log(`OK     ${folder}: ${doc.lines.length} lines, ${doc.lines.length * doc.secondsPerLine}s`);\n\nCopy\n\nNotice the 40-character limit. It isn't about JSON validity; it encodes a design rule (a line must fit on a phone screen at 96 px). That's what validators are for in this series: they turn \"Claude should remember to keep lines short\" into \"Claude cannot finish until lines are short.\"\n\n7d. The render script\n\n.claude/skills/hello-video/scripts/render.mjs\n\n#!/usr/bin/env node\n// Render content/<dir>/hello.json → out/<dir>.mp4 with the HelloVideo composition.\nimport { spawnSync } from 'node:child_process';\nimport { existsSync, mkdirSync } from 'node:fs';\nimport { join, resolve } from 'node:path';\nimport { fileURLToPath } from 'node:url';\n\nconst ROOT = resolve(fileURLToPath(import.meta.url), '../../../../..');\nconst dir = process.argv[2];\nconst props = join(ROOT, 'content', dir ?? '', 'hello.json');\nif (!dir || !existsSync(props)) {\n  console.error(`ERROR  no content/${dir}/hello.json`);\n  process.exit(1);\n}\n\nmkdirSync(join(ROOT, 'out'), { recursive: true });\nconst out = join(ROOT, 'out', `${dir}.mp4`);\nconst r = spawnSync(\n  'pnpm',\n  ['exec', 'remotion', 'render', 'HelloVideo', out, `--props=${props}`, '--public-dir', join(ROOT, 'content')],\n  { cwd: join(ROOT, 'remotion'), stdio: 'inherit' },\n);\nif (r.status !== 0) process.exit(r.status ?? 1);\nconsole.log(`OK     out/${dir}.mp4`);\n\nCopy\n\nHere the JSON file is the props file: --props points straight at hello.json. In Part 3, a build step will sit between the two, because real footage needs measuring before it can be described in frames.\n\n7e. The skill itself\n\n.claude/skills/hello-video/SKILL.md\n\n---\nname: hello-video\ndescription: Turn a short idea into a 9:16 text-animation video. Writes content/<date>-<time>-<slug>/hello.json, validates it, and renders out/<dir>.mp4 with Remotion. Use when the user says \"make a hello video\", \"turn this into a quick text video\", or wants to test the video pipeline.\n---\n\n# Hello Video\n\nTurn an idea into a vertical video where 3–6 short lines appear one after another.\n\n## Steps\n\n1. **Pick a slug** from the idea: lowercase, no accents, kebab-case, at most 5 words.\n2. **Create the folder.** Run the script — never type the date or time yourself:\n   ```bash\n   node .claude/skills/hello-video/scripts/new-dir.mjs <slug>\n   ```\n   It prints the folder name, e.g. `2026-10-10-09-30-learn-remotion`.\n3. **Write `content/<dir>/hello.json`:**\n   ```json\n   { \"id\": \"<the folder name, exactly>\", \"title\": \"…\", \"lines\": [\"…\", \"…\", \"…\"], \"secondsPerLine\": 2 }\n   ```\n   - `lines`: 3–6 lines, each under 40 characters, so they fit on screen.\n   - `secondsPerLine`: 1.5–4.\n4. **Validate, then render.** Fix every ERROR and re-run until clean:\n   ```bash\n   node .claude/skills/hello-video/scripts/validate.mjs content/<dir>/hello.json && \\\n   node .claude/skills/hello-video/scripts/render.mjs <dir>\n   ```\n5. **Reply** with the path `out/<dir>.mp4` and the lines you used. Do not paste the JSON.\n\n## Hard rules\n\n- `id` must equal the folder name. The validator checks it.\n- Only write `hello.json`. Never edit anything under `remotion/` for a normal request.\n\nCopy\n\nRead it as Claude would. Each step says what to do and how to know it's done. The two places where Claude would otherwise guess — the timestamp and whether the file is good — are both handed to scripts.\n\nStep 8: Run it\n\nStart Claude Code in the project root and invoke the skill with an idea:\n\nclaude\n> /hello-video explain Remotion to a beginner in 4 lines\n\nCopy\n\nClaude reads the skill, picks a slug, runs new-dir.mjs, writes hello.json, validates it, and renders. A first render downloads a headless Chrome build for Remotion, so it takes a minute; after that, an 8-second video renders in seconds. Claude Code will ask permission the first time it runs each command. Approve it, or allow the skill's scripts permanently in .claude/settings.json:\n\n{\n  \"permissions\": {\n    \"allow\": [\"Bash(node .claude/skills/:*)\"]\n  }\n}\n\nCopy\n\nThe result is out/<dir>.mp4, 1080×1920, with each line springing in and fading out:\n\nTry to break it, too. Ask for a video with ten lines, or one line of 80 characters. You'll see Claude hit the validator, read the ERROR, shorten or split the lines, and re-run — without you saying anything. That feedback loop is the most important thing to understand in this whole series.\n\nIf something goes wrong\nSYMPTOM\tCAUSE\tFIX\nERR_PNPM_… or \"Cannot find module 'remotion'\"\tDependencies not installed\tcd remotion && pnpm install\nAccented letters show as boxes\tFont loaded without the Vietnamese subset\tKeep subsets: ['vietnamese', 'latin']\n\"durationInFrames must be an integer\"\tA fractional frame count\tRound every seconds × fps product\nClaude types its own folder name\tThe skill's step 2 is too vague\tKeep \"never type the date or time yourself\" in bold\nThe skill doesn't trigger from a plain request\tDescription doesn't match the wording\tAdd the phrases you actually use to description\nWhat you've built\n\nYou now have the complete skeleton every later part extends:\n\nA project layout with a clear home for skills, content, renders and the Remotion project.\nA composition whose length comes from its props.\nA skill whose creative part (writing the lines) is done by Claude and whose exact parts (folder, validation, rendering) are done by scripts.\n\nThe skills in the next parts are this same shape, scaled up. Part 2 builds the script-writing skill: a much richer JSON contract, a craft reference that teaches Claude how short-form scripts actually work, and a generator that turns the JSON into a shooting guide you hold next to the camera."
+}

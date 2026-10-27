@@ -1,0 +1,149 @@
+{
+ "id": "2026-10-27-22-20-xuong-video-ai-tap-5",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-comedy-script-pdf",
+  "proof": "content/2026-10-05-20-04-khi-chat-khong-can-von: kichban.json + kichban.pdf thật do votri-script viết (PDF render ra footage/page-*.png), raw/s4.mov quay thật; footage after.mp4 của Tập 3 = tiktok-video dựng cảnh s4 (record scratch + tiếng dế theo kichban)"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "series": {
+  "name": { "vi": "Xưởng video AI", "en": "AI Video Studio" },
+  "ep": 5,
+  "of": 5,
+  "next": { "vi": "Xem trọn bộ 5 tập trong playlist", "en": "Watch all 5 parts in the playlist" }
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "motion": {
+    "type": "pages",
+    "pages": [
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-1.png",
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-2.png",
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-3.png",
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-4.png",
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-5.png",
+     "2026-10-27-22-20-xuong-video-ai-tap-5/footage/page-6.png"
+    ],
+    "badge": { "vi": "6 trang A4 · cầm diễn", "en": "6 A4 pages · ready to perform" }
+   },
+   "lines": {
+    "vi": ["AI viết *kịch bản hài*", "in ra *PDF* cầm diễn 📄"],
+    "en": ["AI writes *the comedy*", "prints a *PDF* script 📄"]
+   }
+  },
+  {
+   "id": "acts",
+   "beats": 8,
+   "motion": {
+    "type": "acts",
+    "kichban": "2026-10-05-20-04-khi-chat-khong-can-von/kichban.json",
+    "label": { "vi": "kichban.json · 86 giây", "en": "kichban.json · 86 seconds" },
+    "acts": {
+     "hook": { "icon": "🎣", "name": { "vi": "MỞ", "en": "HOOK" }, "job": { "vi": "Giữ chân người xem trong 3 giây", "en": "Hook them in 3 seconds" } },
+     "lead": { "icon": "📋", "name": { "vi": "DẪN", "en": "LEAD" }, "job": { "vi": "Đặt vấn đề như họp hội đồng", "en": "State the problem, very officially" } },
+     "twist": { "icon": "😐", "name": { "vi": "TWIST", "en": "TWIST" }, "job": { "vi": "Tắt nhạc, im lặng, mặt đơ", "en": "Music cuts, silence, straight face" } },
+     "explain": { "icon": "🧮", "name": { "vi": "GIẢI THÍCH", "en": "EXPLAIN" }, "job": { "vi": "Phân tích nghiêm túc chuyện vô tri", "en": "Serious analysis of nonsense" } },
+     "outro": { "icon": "👇", "name": { "vi": "KẾT", "en": "OUTRO" }, "job": { "vi": "Rủ người xem comment", "en": "Ask viewers to comment" } }
+    },
+    "music": {
+     "lofi": "lo-fi",
+     "silent": { "vi": "im lặng", "en": "silence" },
+     "waltz": "waltz"
+    }
+   },
+   "lines": {
+    "vi": ["Chia *5 hồi* như sân khấu", "tới *twist* là *tắt nhạc* 🔇"],
+    "en": ["*5 acts*, like a stage play", "at the *twist*, *music cuts* 🔇"]
+   }
+  },
+  {
+   "id": "twist",
+   "beats": 5,
+   "src": "2026-10-27-17-51-xuong-video-ai-tap-3/footage/after.mp4",
+   "layout": "phone",
+   "voice": { "src": "2026-10-27-17-51-xuong-video-ai-tap-3/footage/after.mp4" },
+   "callouts": [
+    { "at": 0.1, "y": 330, "side": "right", "text": { "vi": "📼 Rè đĩa", "en": "📼 Record scratch" } },
+    { "at": 0.6, "y": 760, "side": "left", "text": { "vi": "😐 Mặt đơ 100%", "en": "😐 100% straight face" } },
+    { "at": 1.1, "y": 1450, "side": "right", "text": { "vi": "🦗 Tiếng dế", "en": "🦗 Crickets" } }
+   ],
+   "lines": {
+    "vi": ["Câu chốt đọc *chậm, khô*", "*tắt nhạc*, chỉ còn *dế kêu* 🦗"],
+    "en": ["The punchline, *slow and dry*", "*no music*, just *crickets* 🦗"]
+   }
+  },
+  {
+   "id": "calc",
+   "beats": 8,
+   "motion": {
+    "type": "calc",
+    "label": { "vi": "s5.mov · Phân tích nghiệp vụ", "en": "s5.mov · Professional analysis" },
+    "rows": [
+     { "label": { "vi": "Lương ở lại", "en": "Salary stays" }, "value": { "vi": "7 phút", "en": "7 min" } },
+     { "label": { "vi": "Một tháng có", "en": "A month has" }, "value": { "vi": "43.200 phút", "en": "43,200 min" } },
+     { "label": { "vi": "Tỷ lệ chung sống", "en": "Time together" }, "value": { "vi": "0,016%", "en": "0.016%" } }
+    ],
+    "stamp": { "vi": "TIỀN QUÁ CẢNH", "en": "TRANSIT MONEY" }
+   },
+   "lines": {
+    "vi": ["Phép tính *cực nghiêm túc*", "cho chuyện *vô tri* 🧮"],
+    "en": ["*Dead-serious* math", "for a *pointless* problem 🧮"]
+   }
+  },
+  {
+   "id": "pipeline",
+   "beats": 8,
+   "motion": {
+    "type": "pipeline",
+    "steps": [
+     { "icon": "✍️", "title": { "vi": "Claude viết kịch bản", "en": "Claude writes the script" }, "sub": "kichban.json" },
+     { "icon": "🔁", "title": { "vi": "Bạn sửa trong chat", "en": "You revise in chat" }, "sub": { "vi": "vòng duyệt", "en": "review loop" } },
+     { "icon": "📄", "title": { "vi": "Xuất PDF", "en": "Export the PDF" }, "sub": "build-pdf.mjs · Chrome" },
+     { "icon": "🎥", "title": { "vi": "Bạn quay từng cảnh", "en": "You film each scene" }, "sub": "raw/s1.mov … s8.mov" },
+     { "icon": "🔌", "title": { "vi": "Adapter", "en": "Adapter" }, "sub": "kichban.json → script.json" },
+     { "icon": "🎬", "title": { "vi": "Tập 3 tự dựng", "en": "Part 3 edits it" }, "sub": "/tiktok-video" }
+    ]
+   },
+   "lines": {
+    "vi": ["Quay xong, *bộ dựng Tập 3*", "*tự lo* phần còn lại 🎬"],
+    "en": ["After filming, *Part 3's editor*", "*does the rest* 🎬"]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Code đầy đủ *5 tập* trên *siri2moon.com*",
+   "en": "Full code for *all 5 parts* on *siri2moon.com*"
+  },
+  "chips": ["Claude Code", "Headless Chrome", "Remotion", "FFmpeg"],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": { "vi": "Theo dõi @siri2moondev", "en": "Follow @siri2moondev" },
+  "lines": {
+   "vi": ["Link bài viết ở bình luận ghim 📌"],
+   "en": ["Link to the post in the pinned comment 📌"]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-comedy-script-pdf",
+  "viewport": [540, 960, 2],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   { "name": "post-top", "seconds": 7.0, "keys": [{ "t": 0, "scroll": 0 }, { "t": 1, "scroll": 420 }] }
+  ]
+ }
+}

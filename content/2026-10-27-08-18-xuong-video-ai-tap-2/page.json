@@ -1,0 +1,162 @@
+{
+  "url": "https://siri2moon.com/posts/build-claude-code-skill-video-script-writer",
+  "title": "Build an AI Video Studio, Part 2: A Claude Code Skill That Writes Filmable Scripts",
+  "description": "Build the tiktok-script skill: a JSON contract, a craft reference that teaches Claude how short-form scripts work, a validator that enforces pacing and structure, and a generated shooting guide with cue cards.",
+  "cover": "https://siri2moon.com/uploads/video-ai-cover-en-b2.jpg",
+  "pageHeight": 12867,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "What the skill produces",
+      "top": 1364,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 1: Design the contract — script.json",
+      "top": 2313,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 2: Write the craft reference — framework.md",
+      "top": 3853,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 3: The validator — encode the craft rules",
+      "top": 5471,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 4: The generator — build-docs.mjs",
+      "top": 6646,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 5: One complete example",
+      "top": 7741,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 6: The procedure — SKILL.md",
+      "top": 8140,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Step 7: Test it",
+      "top": 9803,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "What you've learned",
+      "top": 10682,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1911,
+      "height": 260,
+      "lang": null,
+      "head": ".claude/skills/tiktok-script/\n├── SKILL.md                    ← the procedure\n├── references/\n│   ├── framework.md            ← the craft: hooks, timing, story rules, anti-patterns\n│   └── output-format.md        ← the script.json contract, field by field\n├── scripts/"
+    },
+    {
+      "top": 2931,
+      "height": 332,
+      "lang": "json",
+      "head": "{\n  \"id\": \"s2\",\n  \"role\": \"story\",\n  \"startSec\": 3,\n  \"endSec\": 12,\n  \"visual\": \"Chuyển góc quay ngang tầm mắt, đưa tay chỉ nhẹ ra sau màn hình máy tính.\","
+    },
+    {
+      "top": 5652,
+      "height": 170,
+      "lang": "js",
+      "head": "const errors = [];\nconst warns = [];\nconst err = (m) => errors.push(m);\nconst warn = (m) => warns.push(m);\n// ...checks...\nfor (const m of errors) console.log(`ERROR  ${m}`);"
+    },
+    {
+      "top": 5896,
+      "height": 458,
+      "lang": "js",
+      "head": "// Scenes must be contiguous: no gaps, no overlaps, and they fill the whole duration.\nif (i === 0 && s.startSec !== 0) err(`${at}: the first scene must start at 0`);\nif (i > 0 && s.startSec !== scenes[i - 1].endSec) err(`${at}: startSec must equal the previous endSec`);\nif (i === scenes.length - 1 && s.endSec !== doc.durationSec) err(`${at}: the last scene must end at durationSec`);\n\n// Structure."
+    },
+    {
+      "top": 6899,
+      "height": 98,
+      "lang": "js",
+      "head": "// Film every scene first, the hook LAST — by then you're warmed up.\nconst order = [...doc.scenes.keys()].filter((i) => doc.scenes[i].role !== 'hook');\nconst hookIdx = doc.scenes.findIndex((s) => s.role === 'hook');\nif (hookIdx !== -1) order.push(hookIdx);\n\nCopy"
+    },
+    {
+      "top": 7097,
+      "height": 98,
+      "lang": "js",
+      "head": "const wps = (words(s.voiceover) / dur).toFixed(1);\nconst pace = wps >= 6 ? \"fast, don't pause much\"\n           : wps <= 4 ? \"relaxed, room to breathe\"\n           : \"medium, natural pauses\";\n\nCopy"
+    },
+    {
+      "top": 8295,
+      "height": 1016,
+      "lang": "markdown",
+      "head": "---\nname: tiktok-script\ndescription: Create a 9:16 selfie-style TikTok script (30–45 s) from a proverb, quote,\n  opinion or topic. Writes content/<date>-<time>-<slug>/script.json (the data contract\n  for the editing pipeline) plus script.md and shoot.md. Use when the user says \"write a\n  script\", \"make a video about this quote\", or pastes a quote and wants a short video."
+    },
+    {
+      "top": 9860,
+      "height": 44,
+      "lang": null,
+      "head": "/tiktok-script \"Có công mài sắt, có ngày nên kim\"\n\nCopy"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [
+    {
+      "path": "/posts/build-ai-video-studio-claude-code-remotion-setup",
+      "title": "Part 1"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-remotion-video-editor",
+      "title": "Part 3"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-local-ai-story-video",
+      "title": "4. The local AI story skill"
+    },
+    {
+      "path": "/posts/build-claude-code-skill-comedy-script-pdf",
+      "title": "5. The comedy script skill"
+    },
+    {
+      "path": "/posts/how-to-make-talking-head-video-claude-code",
+      "title": "Talking-head video"
+    },
+    {
+      "path": "/posts/how-to-make-ai-story-video-claude-code",
+      "title": "AI story video"
+    },
+    {
+      "path": "/posts/how-to-make-deadpan-comedy-video-claude-code",
+      "title": "Deadpan comedy video"
+    },
+    {
+      "path": "/posts/whisper-timing-script-aligned-subtitles",
+      "title": "Subtitles"
+    },
+    {
+      "path": "/posts/automatic-jump-cuts-ffmpeg-remotion",
+      "title": "Jump cuts"
+    },
+    {
+      "path": "/posts/synthesize-music-sound-effects-javascript",
+      "title": "Music & SFX"
+    }
+  ],
+  "text": "AI Video Studio with Claude Code + Remotion\n\n🛠 Build it: 1. Setup & your first skill · 2. The script-writing skill · 3. The editing skill · 4. The local AI story skill · 5. The comedy script skill\n\n🎬 Use it: Talking-head video · AI story video · Deadpan comedy video\n\n🔬 Under the hood: Subtitles · Jump cuts · Music & SFX\n\nIn Part 1 you built hello-video: a skill where Claude writes a small JSON file, a script validates it, and Remotion renders it. This part builds the first real skill of the studio, tiktok-script. You give it a proverb, a quote or an opinion; it gives you back a 30–45 second talking-head script that's actually good to film, plus a shooting guide you can tape next to your camera.\n\nWriting skills are where most people's Claude Code automations fall apart. Ask an AI for \"a TikTok script about X\" and you get something generic: a hook that starts with \"Hey guys\", a story with no specifics, a moral delivered like a school essay. The fix isn't a better one-line prompt. It's giving Claude the craft knowledge a good short-form writer has, a strict output contract, and a validator that refuses to let weak structure through. That's what this part builds.\n\nWhat the skill produces\n\nEvery run creates a folder content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/ with three files:\n\nFILE\tREAD BY\tWRITTEN BY\nscript.json\tMachines — the editing skill in Part 3 consumes it\tClaude\nscript.md\tYou — the script as a table\tgenerated\nshoot.md\tYou, at the camera — setup checklist, filming order, cue cards\tgenerated\n\nClaude writes only the JSON. Both Markdown files are generated from it by a script, every time. If Claude wrote both, they would drift apart within two edits; generating them makes that impossible.\n\nThe finished skill has this layout:\n\n.claude/skills/tiktok-script/\n├── SKILL.md                    ← the procedure\n├── references/\n│   ├── framework.md            ← the craft: hooks, timing, story rules, anti-patterns\n│   └── output-format.md        ← the script.json contract, field by field\n├── scripts/\n│   ├── new-dir.mjs             ← same idea as Part 1\n│   ├── validate-script.mjs     ← schema + craft rules, zero dependencies\n│   └── build-docs.mjs          ← script.json → script.md + shoot.md\n└── assets/example/\n    ├── script.json             ← one complete, valid example\n    ├── script.md\n    └── shoot.md\n\nCopy\n\nBuild it in the order below: contract first, craft second, procedure last. The procedure is easy to write once you know exactly what it must produce.\n\nStep 1: Design the contract — script.json\n\nA short talking-head video in this style has four blocks, and the contract encodes them as roles:\n\nROLE\tSHARE OF THE VIDEO\tJOB\nhook\t~8% (≤ 4 s)\tStop the scroll. Explain nothing.\nstory\t~45%\tOne concrete, real-life situation viewers recognize themselves in\npunchline\t~30%\tSay the quote word for word, then twist it into a new angle\ncta\t~17% (4–10 s)\tA specific question people can answer in one comment\n\nA scene in the contract looks like this — a real one, from the skill's bundled example (the visual field is a camera direction: \"switch to eye level, gesture lightly toward the back of the monitor\"):\n\n{\n  \"id\": \"s2\",\n  \"role\": \"story\",\n  \"startSec\": 3,\n  \"endSec\": 12,\n  \"visual\": \"Chuyển góc quay ngang tầm mắt, đưa tay chỉ nhẹ ra sau màn hình máy tính.\",\n  \"voiceover\": \"Nói thật với anh em, bản chất tôi lành tính lắm. Nhưng mà nhiều khi nhìn mấy pha xử lý đi vào lòng đất... không nói ra thì nó ngứa mồm không chịu nổi.\",\n  \"caption\": {\n    \"text\": \"Bản chất lành tính... nhưng đời không cho phép!\",\n    \"highlight\": [\"lành tính\"],\n    \"style\": \"normal\",\n    \"emoji\": null\n  },\n  \"cueWords\": [\"bản chất lành tính\", \"pha xử lý đi vào lòng đất\", \"không nói ra thì ngứa mồm\"],\n  \"sfx\": [\"sigh\"],\n  \"bRoll\": null\n}\n\nCopy\n\nEach field exists because something downstream needs it:\n\nvoiceover is the exact text that will be said. The editing skill uses it as the spelling of the subtitles, so it must be correct.\ncaption is not a transcript. It's a headline for the block (at most 60 characters ideally, 90 hard limit) so people watching muted still follow. highlight lists words to color, and each must appear verbatim in caption.text.\ncueWords are memory prompts: three to five short phrases taken from the speaker's own lines, in order, meant to be glanced at next to the lens — not a teleprompter.\nstartSec/endSec are targets for filming, not truth. The real timeline comes from the footage in Part 3.\n\nTop-level fields carry the quote, title, duration (20–60 s, ideally 30–45), fps (30), size (1080×1920), music choice and volume, five to eight hashtags and a post caption. The full field-by-field spec goes into references/output-format.md. Write that file now, as a table per object. It's the document Claude consults while writing, and the one you'll consult when the validator complains.\n\nStep 2: Write the craft reference — framework.md\n\nThis file is the difference between a generic script and a good one. It's long — around 200 lines — and Claude reads it at one specific step, before writing a single word. Organize it into sections Claude can apply mechanically:\n\nTone. Write like you're on a video call with a close friend, not giving a TED talk. Sentences under 15 words. Strong verbs and concrete images. Self-deprecating humor that mocks situations, never people. Then list what's banned: preachy openers (\"you should…\", \"did you know that…\"), empty morals with no example, marketing phrases (\"secret\", \"shocking truth\", \"99% of people don't know\").\n\nThe time budget. The four-block table above, with the hard constraints: the hook is at most 4 s, the CTA 4–10 s, 4–6 scenes in total, first scene hook, last scene cta, exactly one punchline.\n\nA hook library. Eight named patterns, each with a template. Claude picks three, drafts one hook per pattern, and keeps the sharpest:\n\nPATTERN\tTEMPLATE\nSubverted expectation\tRead half the quote seriously, then swerve\nShocking confession\tAdmit to doing what you once mocked\nA question that stings\tAsk about a pain everyone shares\nA bare number\t\"3 a.m. Bug number 14. It was a semicolon.\"\nSomeone else's words\tQuote the classic line: \"Just a quick one, it's simple\"\nHelpless reaction\tA sigh, a head shake, then the first line\nFlat denial\t\"This saying is wrong. At least for people with jobs.\"\nMid-sentence start\t\"…and that was the third time this week.\"\n\nStory rules. One situation, explored deeply, beats three shallow ones. Every story needs at least one line of direct speech from another person, in quotes, and at least one concrete detail — a number, a time, a tool, a file name. The viewer must recognize themselves before second 12.\n\nPunchline techniques. Five ways to twist a saying (flip the second half, add a condition, change who it's about, bring it down to office language, elevate something trivial into a principle), and one ban: never explain the saying like a dictionary.\n\nCTA patterns with the rule that \"What do you think?\" is a dead CTA. The question must be answerable in one comment.\n\nAnti-patterns, as a checklist Claude rereads before saving the file.\n\nWriting this file is where your taste goes. Spend real time on it: every hour you put into framework.md improves every script the skill will ever write.\n\nStep 3: The validator — encode the craft rules\n\nvalidate-script.mjs checks the schema, and — more importantly — the craft rules that are easy to break while being creative. It's plain Node with no dependencies, collects every problem before reporting, and exits 1 if there's any ERROR:\n\nconst errors = [];\nconst warns = [];\nconst err = (m) => errors.push(m);\nconst warn = (m) => warns.push(m);\n// ...checks...\nfor (const m of errors) console.log(`ERROR  ${m}`);\nfor (const m of warns) console.log(`WARN   ${m}`);\nprocess.exit(errors.length > 0 ? 1 : 0);\n\nCopy\n\nThe checks worth copying:\n\n// Scenes must be contiguous: no gaps, no overlaps, and they fill the whole duration.\nif (i === 0 && s.startSec !== 0) err(`${at}: the first scene must start at 0`);\nif (i > 0 && s.startSec !== scenes[i - 1].endSec) err(`${at}: startSec must equal the previous endSec`);\nif (i === scenes.length - 1 && s.endSec !== doc.durationSec) err(`${at}: the last scene must end at durationSec`);\n\n// Structure.\nif (s.role === 'hook' && dur > 4) err(`${at}: hook is ${dur}s, max 4s`);\nif (s.role === 'cta' && (dur < 4 || dur > 10)) warn(`${at}: cta is ${dur}s, aim for 4–10s`);\n\n// Speaking pace: words per second, the most common way a script fails on camera.\nconst wps = s.voiceover.trim().split(/\\s+/).length / dur;\nif (wps > 7.0) err(`${at}: ${wps.toFixed(1)} words/s — too dense, cut words or lengthen the scene`);\nelse if (wps > 6.5) warn(`${at}: ${wps.toFixed(1)} words/s — a bit fast (sweet spot 4.0–6.5)`);\nelse if (wps < 3.0) warn(`${at}: ${wps.toFixed(1)} words/s — too sparse, the scene will drag`);\n\n// Every highlight must exist verbatim, or the renderer has nothing to color.\nc.highlight.forEach((h) => {\n  if (!c.text.includes(h)) err(`${at}: highlight \"${h}\" does not appear verbatim in caption.text`);\n});\n\n// The quote must actually be said in the punchline.\nif (!norm(punch.voiceover).includes(norm(doc.quote))) {\n  warn('the punchline voiceover does not contain the quote word for word');\n}\n\nCopy\n\nAlso check that id equals the folder name — Part 3 builds footage paths from it — and that every scene has 2–6 cueWords with at least one of them actually taken from the voiceover.\n\nThe split between ERROR and WARN is a design decision. ERRORs are things that break the pipeline or the format; WARNs are craft judgments where a deliberate exception is fine — a 4.5-second hook that needs a pause, say. The skill tells Claude to fix WARNs or explain to the user why it kept them.\n\nStep 4: The generator — build-docs.mjs\n\nThis script reads script.json and writes both Markdown files. Two details make the shooting guide genuinely useful rather than a reformatted copy of the JSON.\n\nFilm the hook last. By the time you've told the story, you're warmed up and the opening comes out natural. The generator computes the filming order from the roles:\n\n// Film every scene first, the hook LAST — by then you're warmed up.\nconst order = [...doc.scenes.keys()].filter((i) => doc.scenes[i].role !== 'hook');\nconst hookIdx = doc.scenes.findIndex((s) => s.role === 'hook');\nif (hookIdx !== -1) order.push(hookIdx);\n\nCopy\n\nPacing advice per scene, computed from words per second, so the speaker knows whether to rush or breathe:\n\nconst wps = (words(s.voiceover) / dur).toFixed(1);\nconst pace = wps >= 6 ? \"fast, don't pause much\"\n           : wps <= 4 ? \"relaxed, room to breathe\"\n           : \"medium, natural pauses\";\n\nCopy\n\nEach scene in shoot.md becomes a card: camera and acting notes, the cue words joined with arrows, the lines with a reminder to understand them, not memorize them, the pace, take checkboxes, and the exact file name to save — raw/s2.mov. That file-naming instruction is the contract with Part 3, and putting it on every card is how you make sure it's followed.\n\nThe guide also opens with a setup checklist written for someone holding a phone, not a cinematographer: phone vertical and fixed, lens at or slightly above eye level, 50–70 cm away, 4K if available (the editor zooms in slightly at cuts), beauty filter off, exposure locked, window light in front, lapel mic below the collarbone, airplane mode on, and a five-second test recording before the real thing.\n\nscript.md is the simpler output: a metadata table and the four-column script table (time, visual, voiceover, on-screen text with highlights in bold). Both files start with an HTML comment saying they're generated and must not be edited.\n\nStep 5: One complete example\n\nPut one complete, validated script.json in assets/example/, and run build-docs.mjs on it so the example Markdown files exist too. Claude uses the example to understand the format; the files also serve as your regression test when you change the generator.\n\nThere's a trap here: Claude imitates examples closely. If the example is about office life with a coworker who says \"it works on my machine\", you'll get an endless stream of office stories with that exact line. So the skill says, in its hard rules: the example is a format reference, not a content bank — never reuse its situations. The framework's story bank also says \"suggestions, never reuse verbatim.\"\n\nStep 6: The procedure — SKILL.md\n\nNow the skill itself. The real one is written in Vietnamese, the language of its user; write yours in the language you work in, since Claude follows either equally well. Here is its structure in English:\n\n---\nname: tiktok-script\ndescription: Create a 9:16 selfie-style TikTok script (30–45 s) from a proverb, quote,\n  opinion or topic. Writes content/<date>-<time>-<slug>/script.json (the data contract\n  for the editing pipeline) plus script.md and shoot.md. Use when the user says \"write a\n  script\", \"make a video about this quote\", or pastes a quote and wants a short video.\n---\n\n# TikTok Selfie Script\n\nRole: a short-form video strategist — an IT person with life experience, casual, witty.\n\n## Steps\n\n### 1. Extract the input\nquote (required), context (default \"a desk with a computer\"), durationSec (default 38),\nangle (default \"IT / office worker\").\n- Given a topic instead of a quote → coin a short quote yourself and SAY SO in the reply.\n- Given several quotes → pick the sharpest one. Don't merge.\n- Quote longer than 25 words → shorten it to something sayable in 4 seconds.\nDon't ask trivial questions.\n\n### 2. Read references/framework.md — mandatory, before writing anything.\n\n### 3. Brainstorm internally (do NOT print)\n- 3 hooks from 3 different patterns → keep the sharpest.\n- 1 concrete situation with a number/time/tool and one line of direct speech.\n- 1 twist on the quote.\n\n### 4. Write the 4 blocks: Hook → Story → Punchline & Quote → CTA.\n4.0–6.5 words/second. The caption is a headline, not a transcript.\n\n### 4b. Write cueWords for each scene (3–5 phrases from the lines, in order).\n\n### 5. Create the folder: node .claude/skills/tiktok-script/scripts/new-dir.mjs <slug>\nNever type the date or time yourself.\n\n### 6. Write script.json. id = the exact folder name. Spec: references/output-format.md.\nWrite ONLY script.json.\n\n### 7. Validate, then generate docs (mandatory)\nnode .../validate-script.mjs content/<dir>/script.json && \\\nnode .../build-docs.mjs content/<dir>/script.json\nERROR → fix and re-run. WARN → fix, or explain why you kept it.\n\n### 8. Reply\nThe script table, the three file paths (say that shoot.md is the one to open when\nfilming), the validation result in one line, and any quote you coined or shortened.\nDo not paste the JSON.\n\n## Hard rules\n- Everyday Vietnamese. \"tôi\"/\"mình\", address viewers as \"anh em\"/\"mọi người\".\n- No preaching. Self-deprecating humor. Never insult jobs, regions, genders or looks.\n- Never invent statistics, studies or quotes from real people.\n- Never copy assets/example/ content — it's a format reference only.\n\nCopy\n\nA few choices in this procedure are worth stealing for any writing skill:\n\n\"Brainstorm internally, do not print.\" Drafting three hooks and keeping the best one noticeably improves the result, but printing all three makes the reply noisy. Claude can do the comparison without showing it.\n\"Say so if you invented something.\" When Claude has to coin a quote or shorten yours, the reply must say so. Silent liberties erode trust in a skill faster than anything else.\nDefaults instead of questions. Every optional input has a default, and the skill says \"don't ask trivial questions.\" A writing skill that interrogates you before writing is one you'll stop using.\nThe reply format is specified. A table, paths, one validation line. No JSON dump.\nStep 7: Test it\n/tiktok-script \"Có công mài sắt, có ngày nên kim\"\n\nCopy\n\nWatch what happens: Claude reads the framework, creates content/…-co-cong-mai-sat/, writes the JSON, and runs the validator. It's common to see a first run fail on pacing — a 9-second story scene with 70 words — and Claude cut the lines and re-run without being asked. The reply is a script table and a pointer to shoot.md.\n\nThen test the edges:\n\nTRY\tWHAT SHOULD HAPPEN\nA topic instead of a quote: /tiktok-script deadline\tClaude coins a quote and says it did\nA 40-word quote\tIt's shortened, and the reply says so\n\"Make it 25 seconds\"\tdurationSec 25 → the validator WARNs (sweet spot 30–45), Claude keeps it and explains\nEdit voiceover by hand to 100 words, run the validator yourself\tERROR on words per second\n\nOpen shoot.md. If you'd actually be comfortable filming from it — clear order, readable cue cards, the file name for each scene — the skill is done. If something feels off, fix the generator or the framework, never the generated file.\n\nWhat you've learned\nContract first. Design the JSON around what downstream code needs, field by field.\nCraft lives in a reference file read at a specific step, not crammed into the prompt.\nValidators enforce taste, not just syntax: pacing, structure, verbatim highlights.\nGenerate every human-readable file from the JSON.\nExamples are dangerous: label them \"format only.\"\n\nThe script is ready and the clips are filmed. Part 3 builds the skill that turns them into a finished video: a six-stage pipeline with silence detection, word-level speech timing, and a Remotion composition with animated subtitles."
+}
