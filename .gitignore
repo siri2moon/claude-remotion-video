@@ -30,3 +30,11 @@ out/
 remotion/.remotion/
 
 # cuts.json KHÔNG ignore: sửa tay được, nên giữ lại lịch sử chỉnh jump-cut
+
+# khoá API (ElevenLabs…)
+.env
+
+# giọng đọc ElevenLabs sinh ra (narrate.mjs) — tái tạo được từ short.json, tốn credit nên cache local
+content/*/voice/
+# mẫu nghe thử giọng (voice-try.mjs) — file nháp
+content/_assets/voice-try/

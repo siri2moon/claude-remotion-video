@@ -1,20 +1,20 @@
 #!/usr/bin/env node
-// short.json → props.json cho composition BrandShort.
+// short.json → props.json for the BrandShort composition.
 //   node build-props.mjs <slug> [--lang=vi|en]
-// Đổi phách ra frame, đo kích thước footage, rải SFX (impact, whoosh mỗi cú cắt, tiếng gõ phím
-// khớp với `type` lúc quay, shimmer ở màn thương hiệu). Không render gì.
+// Converts beats to frames, measures footage size, and lays out SFX (impact, a whoosh per cut, key clicks
+// matching the `type` used while capturing, shimmer on the brand screen). Renders nothing.
 
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { contentDir, ROOT, toTrackBeats, die, flagValue, FPS, hasFlag, loadShort, readJson, musicTiming, ok, sh, slugArg, tr, warn, writeJson } from './lib.mjs';
+import { contentDir, ROOT, toTrackBeats, die, flagValue, FPS, hasFlag, loadShort, readJson, musicTiming, narrationOf, ok, sh, slugArg, tr, VOICE_IN, warn, writeJson } from './lib.mjs';
 
 const dir = slugArg();
 const lang = flagValue('lang', 'vi');
 const short = loadShort(dir);
 const timing = await musicTiming(dir, short);
 const BEAT_FRAMES = timing.beatFrames;
-// Cộng dồn phách rồi mới làm tròn, để mốc cắt không trôi khỏi nhịp khi một phách lẻ frame.
+// Accumulate beats before rounding, so cuts do not drift off the beat when a beat has a fractional frame count.
 let beatClock = 0;
 const span = (beats) => {
   const from = Math.round(beatClock * BEAT_FRAMES);
@@ -30,7 +30,7 @@ const probe = (file) => {
   return [w, h];
 };
 
-/** Cảnh terminal: tính frame bắt đầu của từng dòng, và tiếng gõ phím cho từng ký tự lệnh. */
+/** Terminal scene: start frame of each line, and a key click for each typed command character. */
 const plain = (s) => s.replace(/\{[a-z]+\}|\{\/\}/g, '');
 function terminal(sc, from) {
   const t = sc.terminal;
@@ -63,7 +63,7 @@ const need = (rel) => {
 };
 const readJsonAt = (rel) => readJson(need(rel));
 
-/** Biên độ (0–1) của `bars` cột trên đoạn [from, to] giây của một file âm thanh. */
+/** Amplitude (0–1) of `bars` columns over the [from, to] seconds of an audio file. */
 function peaks(rel, from, to, bars) {
   const SR = 8000;
   const r = spawnSync('ffmpeg', ['-v', 'error', '-ss', String(from), '-t', String(to - from), '-i', need(rel), '-ac', '1', '-ar', String(SR), '-f', 'f32le', '-'], { maxBuffer: 1 << 28 });
@@ -78,7 +78,7 @@ function peaks(rel, from, to, bars) {
   return out.map((v) => Math.round(Math.sqrt(v / max) * 1000) / 1000);
 }
 
-/** Cảnh đồ hoạ: đổi giây/phách ra frame, đọc dữ liệu thật (cuts.json, timing.json, sóng âm). */
+/** Motion scene: converts seconds/beats to frames and reads real data (cuts.json, timing.json, waveforms). */
 function motion(sc, dur) {
   const m = sc.motion;
   if (m.type === 'split') return { type: 'split', before: m.before, after: m.after, labels: tr(m.labels, lang) ?? ['TRƯỚC', 'SAU'] };
@@ -89,7 +89,7 @@ function motion(sc, dur) {
       const [file, id] = m.cuts.split('#');
       keep = readJsonAt(file).scenes[id].keep;
     }
-    // Giữ phần nằm trong cửa sổ, đổi ra phần (0–1) của cửa sổ.
+    // Keep what falls inside the window, as fractions (0–1) of the window.
     const win = keep.map(([a, b]) => [Math.max(a, from), Math.min(b, to)]).filter(([a, b]) => b > a);
     const keptSeconds = win.reduce((n, [a, b]) => n + b - a, 0);
     const removed = to - from - keptSeconds;
@@ -136,7 +136,7 @@ function motion(sc, dur) {
     return { type: 'pages', pages: m.pages, every, badge: tr(m.badge, lang) ?? '', badgeAt: m.pages.length * every + 22 };
   }
   if (m.type === 'acts') {
-    // Đọc thẳng kichban.json: gộp các cảnh liền nhau cùng hồi / cùng nhạc thành từng khúc trên thanh.
+    // Read kichban.json directly: merge adjacent scenes sharing an act / a music cue into one segment on the bar.
     const k = readJsonAt(m.kichban);
     const total = k.scenes[k.scenes.length - 1].end;
     const runs = (key) => k.scenes.reduce((out, sc) => {
@@ -154,7 +154,7 @@ function motion(sc, dur) {
     return { type: 'acts', label: tr(m.label, lang) ?? 'kichban.json', seconds: total, sweep: [Math.round(0.4 * FPS), dur - Math.round(0.7 * FPS)], acts, music };
   }
   if (m.type === 'calc') {
-    // "43.200 phút" → số đếm lên được; dấu nhóm/thập phân theo ngôn ngữ.
+    // "43.200 phút" → a number that can count up; grouping/decimal separators follow the language.
     const [group, dec] = lang === 'en' ? [',', '.'] : ['.', ','];
     const stampAt = Math.round(dur * 0.66);
     const every = (stampAt - 8) / m.rows.length;
@@ -169,11 +169,64 @@ function motion(sc, dur) {
     });
     return { type: 'calc', label: tr(m.label, lang) ?? '', rows, stamp: tr(m.stamp, lang), stampAt };
   }
+  if (m.type === 'statusline') {
+    // Run the post's actual statusline script with JSON mimicking Claude Code, once per quota level,
+    // then split the ANSI output into groups at │: the colors on screen are what the real script prints.
+    const script = need(m.script);
+    const resetAt = Math.floor(Date.now() / 1000) + (m.resetIn ?? 8070);
+    const levels = m.mode === 'quota' ? m.quota : [m.quota?.[0] ?? 64];
+    const start = Math.round(0.3 * FPS);
+    const every = (dur - start - Math.round(0.9 * FPS)) / Math.max(1, levels.length - 1);
+    const states = levels.map((left, i) => {
+      const input = structuredClone(m.input);
+      input.rate_limits = { ...input.rate_limits, five_hour: { used_percentage: 100 - left, resets_at: resetAt } };
+      const out = spawnSync('bash', [script], { input: JSON.stringify(input), encoding: 'utf8', cwd: ROOT });
+      if (out.status !== 0 || !out.stdout) die(`cảnh "${sc.id}": script lỗi: ${out.stderr}`);
+      const groups = ansiGroups(out.stdout);
+      const qg = groups.find((g) => g.some((sp) => /%left/.test(sp.t)));
+      const qs = qg?.find((sp) => /%left/.test(sp.t));
+      const quota = qs ? { left, color: qs.c, reset: qg.find((sp) => sp.t.startsWith('↻'))?.t.slice(1) ?? '' } : null;
+      return { at: levels.length === 1 ? 0 : Math.round(start + i * every), groups, quota };
+    });
+    let rows = [];
+    if (m.mode === 'explain') {
+      const n = states[0].groups.length;
+      if (m.rows.length !== n) die(`cảnh "${sc.id}": script in ra ${n} nhóm, rows có ${m.rows.length}`);
+      const gap = (dur - start - Math.round(0.8 * FPS)) / n;
+      rows = m.rows.map((r, i) => ({ label: tr(r, lang), at: Math.round(start + 6 + i * gap) }));
+    }
+    return { type: 'statusline', mode: m.mode, label: tr(m.label, lang) ?? '', states, rows };
+  }
   die(`cảnh "${sc.id}": motion.type "${m.type}" không có`);
 }
 
-/** Tiếng thật của cảnh (giọng, tiếng clip). */
-const voiceOf = (sc) => (sc.voice ? { src: (need(sc.voice.src), sc.voice.src), startFrom: Math.round((sc.voice.skip ?? 0) * FPS), volume: sc.voice.volume ?? 1 } : null);
+/** ANSI output (\e[..m) → groups of spans {t, c}, split at spans containing only "│". */
+function ansiGroups(text) {
+  const COLOR = { 31: '#f87171', 32: '#4ade80', 33: '#fcd34d', 34: '#60a5fa', 35: '#e879f9', 36: '#67e8f9', 90: '#7c8197', 97: '#ffffff' };
+  const spans = [];
+  let color = '#e5e7eb';
+  for (const part of text.split(/(\x1b\[\d+m)/)) {
+    const code = part.match(/^\x1b\[(\d+)m$/);
+    if (code) color = COLOR[code[1]] ?? '#e5e7eb';
+    else if (part) spans.push({ t: part, c: color });
+  }
+  const groups = [[]];
+  for (const sp of spans) {
+    if (sp.t.trim() === '│') groups.push([]);
+    else groups[groups.length - 1].push(sp);
+  }
+  return groups
+    .map((g) => g.filter((sp, i) => !(sp.t.trim() === '' && (i === 0 || i === g.length - 1))))
+    .map((g) => g.map((sp, i) => ({ ...sp, t: i === 0 ? sp.t.trimStart() : i === g.length - 1 ? sp.t.trimEnd() : sp.t })))
+    .filter((g) => g.length);
+}
+
+/** Audio of the scene: real sound (`voice`: a real voice or clip audio) wins; otherwise ElevenLabs narration when the video enables `narration`. */
+const voiceOf = (sc) => {
+  if (sc.voice) return { src: (need(sc.voice.src), sc.voice.src), startFrom: Math.round((sc.voice.skip ?? 0) * FPS), volume: sc.voice.volume ?? 1, delay: 0 };
+  const said = narrationOf(dir, short, sc.id, lang);
+  return said ? { src: said.src, startFrom: 0, volume: short.narration.volume ?? 1, delay: Math.round(VOICE_IN * FPS) } : null;
+};
 
 function scene(sc, from) {
   const dur = sc.dur ?? span(sc.beats ?? 6);
@@ -188,7 +241,7 @@ function scene(sc, from) {
     if (end > dur) warn(`cảnh "${sc.id}": terminal chạy hết ${(end / FPS).toFixed(1)}s, dài hơn cảnh ${(dur / FPS).toFixed(1)}s (tăng beats hoặc cps)`);
     terminalTicks.push(...ticks.filter((f) => f < from + dur));
     return {
-      id: sc.id, from, dur, src: '', kind: 'terminal', terminal: spec, startFrom: 0, rate: 1,
+      id: sc.id, from, dur, src: '', kind: 'terminal', terminal: spec, voice: voiceOf(sc), startFrom: 0, rate: 1,
       layout: 'full', keys: [], size: [1080, 1920], dpr: 1, lines: tr(sc.lines, lang) ?? [], big: !!sc.big,
     };
   }
@@ -200,7 +253,7 @@ function scene(sc, from) {
   } else {
     const shot = shots[sc.shot ?? sc.id];
     if (!shot) die(`cảnh "${sc.id}": không có shot "${sc.shot ?? sc.id}" trong capture.shots`);
-    // Bản ngôn ngữ khác dùng footage quay lại bằng giao diện ngôn ngữ đó nếu có (capture --lang).
+    // Other languages use footage re-captured with that language's UI when it exists (capture --lang).
     const localized = `${dir}/footage-${lang}/${shot.name}.mp4`;
     rel = lang !== 'vi' && existsSync(join(ROOT, 'content', localized)) ? localized : `${dir}/footage/${shot.name}.mp4`;
     dpr = (shot.viewport ?? defaultViewport)[2];
@@ -258,47 +311,85 @@ const endcard = {
 };
 t += endcard.dur;
 
-// SFX dùng chung nằm ở content/_assets/short (music.mjs sinh). Nhạc nền mỗi video một bài.
-const S = (name) => `_assets/short/${name}.wav`;
-const sfx = [{ src: S('impact'), from: 0, dur: 90, volume: 0.75 }];
-for (const s of [...scenes.slice(1), outro, endcard].filter(Boolean)) sfx.push({ src: S('whoosh'), from: Math.max(0, s.from - 7), dur: 30, volume: 0.32 });
+// SFX are real Mixkit recordings in content/_assets/cine, copied from the video-shotcraft skill (each file's source is
+// listed in that skill's assets/audio/ATTRIBUTION.md). No synthesized sounds: they read as game audio, rule S1 in
+// aesthetic-rules.md. `lead` = frames from the start of the file to its peak, measured with ffmpeg. hit() subtracts lead
+// plus 1 frame of AAC delay in the render, so the peak lands on the frame of the on-screen action instead of after it.
+const CINE = {
+  impact: { lead: 16, dur: 110 }, // cinematic whoosh + deep impact: the stamp, quota turning red
+  hit: { lead: 3, dur: 33 }, // short bass hit: the opening
+  whoosh: { lead: 21, dur: 52 }, // big whoosh: into the outro and the end card
+  swoosh: { lead: 9, dur: 24 }, // small sweep: regular scene cuts
+  'click-a': { lead: 0, dur: 20 }, // real switch; two samples alternate so it never sounds like a machine gun (S2)
+  'click-b': { lead: 0, dur: 20 },
+  'key-a': { lead: 4, dur: 12 }, // typewriter key, two samples alternating
+  'key-b': { lead: 5, dur: 14 },
+  shimmer: { lead: 29, dur: 90 }, // sparkle: the logo appearing
+};
+const sfx = [];
+const hit = (name, frame, volume) => {
+  const c = CINE[name];
+  sfx.push({ src: `_assets/cine/${name}.mp3`, from: Math.max(0, Math.round(frame) - c.lead - 1), dur: c.dur, volume });
+};
+/** A run of clicks: two samples alternate and the volume steps down (S2 in video-shotcraft). */
+const clicks = (frames, volume) => frames.forEach((f, i) => hit(i % 2 ? 'click-b' : 'click-a', f, volume * Math.max(0.6, 1 - 0.08 * i)));
+/** Typing: at most one click every 3 frames, so fast commands do not turn into a buzz. */
+const keys = (frames, volume) => {
+  let last = -99, n = 0;
+  for (const f of [...frames].sort((x, y) => x - y)) {
+    if (f - last < 3) continue;
+    hit(n++ % 2 ? 'key-b' : 'key-a', f, volume * (n % 3 === 0 ? 0.8 : 1));
+    last = f;
+  }
+};
+
+hit('hit', 3, 0.7);
+for (const s of scenes.slice(1)) hit('swoosh', s.from, 0.42);
+for (const s of [outro, endcard].filter(Boolean)) hit('whoosh', s.from, 0.5);
 short.scenes.forEach((sc, i) => {
   const shot = shots[sc.shot ?? sc.id];
   if (!shot?.type || sc.src) return;
   const { at, cps = 14, submit } = shot.type;
   const text = tr(shot.type.text, lang);
   const base = scenes[i].from - (sc.skip ?? 0) * FPS;
-  [...text].forEach((ch, k) => {
-    const f = Math.round(base + (at + k / cps) * FPS);
-    if (f >= scenes[i].from && f < scenes[i].from + scenes[i].dur) sfx.push({ src: S('tick'), from: f, dur: 4, volume: ch === ' ' ? 0.12 : 0.22 });
-  });
+  const end = scenes[i].from + scenes[i].dur;
+  keys([...text].map((ch, k) => (ch === ' ' ? -1 : Math.round(base + (at + k / cps) * FPS))).filter((f) => f >= scenes[i].from && f < end), 0.26);
   if (submit) {
     const f = Math.round(base + (at + text.length / cps + submit) * FPS);
-    if (f < scenes[i].from + scenes[i].dur) sfx.push({ src: S('pop'), from: f, dur: 12, volume: 0.45 });
+    if (f < end) hit('click-a', f, 0.5);
   }
 });
-// Cảnh đồ hoạ: tiếng "xoẹt" khi khép khoảng lặng, tiếng pop mỗi bước pipeline / mỗi chữ hiện ra.
+// Motion scenes: a switch click for each element that appears, an impact for each payoff (silence cut, stamp, red quota).
 for (const sc of scenes.filter((x) => x.kind === 'motion')) {
   const m = sc.motion;
-  if (m.type === 'wave') sfx.push({ src: S('whoosh'), from: sc.from + m.cutAt, dur: 30, volume: 0.5 }, { src: S('pop'), from: sc.from + m.cutAt + 14, dur: 12, volume: 0.45 });
-  if (m.type === 'pipeline') for (const st of m.steps) sfx.push({ src: S('pop'), from: sc.from + st.at, dur: 12, volume: 0.32 });
+  if (m.type === 'wave') {
+    hit('swoosh', sc.from + m.cutAt, 0.5);
+    hit('click-a', sc.from + m.cutAt + 14, 0.45);
+  }
+  if (m.type === 'pipeline') clicks(m.steps.map((st) => sc.from + st.at), 0.4);
   if (m.type === 'pages') {
-    m.pages.forEach((_, i) => sfx.push({ src: S('tick'), from: sc.from + 2 + i * m.every + 6, dur: 4, volume: 0.3 }));
-    sfx.push({ src: S('pop'), from: sc.from + m.badgeAt, dur: 12, volume: 0.45 });
+    keys(m.pages.map((_, i) => sc.from + 2 + i * m.every + 6), 0.3);
+    hit('hit', sc.from + m.badgeAt, 0.5);
   }
   if (m.type === 'acts') {
-    // Đầu đọc đi theo easing inOut(sin): đổi vị trí khúc ra frame để pop đúng lúc bước vào hồi mới.
+    // The playhead follows an inOut(sin) easing: convert each segment position to a frame so the click lands as a new act begins.
     const [a, b] = m.sweep;
-    for (const act of m.acts.slice(1)) sfx.push({ src: S('pop'), from: sc.from + Math.round(a + ((b - a) * Math.acos(1 - 2 * act.from)) / Math.PI), dur: 12, volume: 0.32 });
+    clicks(m.acts.slice(1).map((act) => sc.from + Math.round(a + ((b - a) * Math.acos(1 - 2 * act.from)) / Math.PI)), 0.38);
+  }
+  if (m.type === 'statusline') {
+    if (m.mode === 'quota') {
+      const states = m.states.slice(1);
+      clicks(states.filter((st) => !(st.quota?.left <= 10)).map((st) => sc.from + st.at), 0.45);
+      for (const st of states.filter((x) => x.quota?.left <= 10)) hit('impact', sc.from + st.at, 0.6);
+    } else clicks(m.rows.map((r) => sc.from + r.at), 0.38);
   }
   if (m.type === 'calc') {
-    for (const r of m.rows) sfx.push({ src: S('pop'), from: sc.from + r.at, dur: 12, volume: 0.35 });
-    sfx.push({ src: S('impact'), from: sc.from + m.stampAt, dur: 90, volume: 0.6 });
+    clicks(m.rows.map((r) => sc.from + r.at), 0.4);
+    hit('impact', sc.from + m.stampAt, 0.65);
   }
 }
-for (const f of terminalTicks) sfx.push({ src: S('tick'), from: f, dur: 4, volume: 0.2 });
-if (outro) sfx.push({ src: S('shimmer'), from: outro.from + 20, dur: 96, volume: 0.55 });
-sfx.push({ src: S('pop'), from: endcard.from + 4, dur: 12, volume: 0.35 });
+keys(terminalTicks, 0.24);
+if (outro) hit('shimmer', outro.from + 34, 0.5);
 
 const props = {
   id: short.id ?? dir,
@@ -307,14 +398,14 @@ const props = {
   fps: FPS,
   durationInFrames: t,
   chip: short.chip ? { title: tr(short.chip.title, lang), subtitle: tr(short.chip.subtitle, lang) ?? '' } : null,
-  // Video thuộc một series nhiều tập: nhãn "TẬP 1/5" dưới chip suốt video.
+  // Video belongs to a multi-episode series: an "EP 1/5" label under the chip for the whole video.
   series: short.series
     ? { label: `${lang === 'en' ? 'EP' : 'TẬP'} ${short.series.ep}/${short.series.of}`, name: tr(short.series.name, lang) ?? '' }
     : null,
   scenes,
   outro,
   endcard,
-  // --no-music: chỉ còn SFX, để thêm nhạc trending ngay trong app lúc đăng.
+  // --no-music: SFX only, so trending music can be added in the app when posting.
   bgm: hasFlag('no-music')
     ? null
     : timing.track

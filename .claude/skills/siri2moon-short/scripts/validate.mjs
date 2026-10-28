@@ -1,24 +1,24 @@
 #!/usr/bin/env node
-// Kiểm short.json trước khi quay và dựng.
+// Checks short.json before capturing and rendering.
 //   node validate.mjs <slug>
-// ERROR chặn (sửa rồi chạy lại), WARN là chỗ nên xem lại, INFO để biết.
+// ERROR blocks (fix and rerun), WARN is worth a second look, INFO is for awareness.
 
 import { die, info, loadShort, musicTiming, ok, slugArg, toTrackBeats, warn } from './lib.mjs';
 
 const dir = slugArg();
 const s = loadShort(dir);
 const errors = [];
-// Độ dài phách theo bài nhạc (100 BPM nếu tổng hợp): footage phải đủ cho cảnh tính theo nhịp đó.
+// Beat length follows the track (100 BPM when synthesized): footage must cover each scene at that tempo.
 const timing = await musicTiming(dir, s);
 const { bpm } = timing;
 const secs = (beats) => toTrackBeats(beats, timing) * timing.beatS;
 const err = (m) => errors.push(m);
 
-// Phụ đề 66 px trên khung 960 px: khoảng 27 ký tự một dòng (dòng hook 74 px: 23). Emoji tính 2.
+// 66 px captions in a 960 px box: about 27 characters per line (74 px hook line: 23). Emoji count as 2.
 const width = (line) => [...line.replace(/\*/g, '').replace(/\p{Extended_Pictographic}️?/gu, 'MM')].length;
 const langs = (v) => (v == null ? {} : Array.isArray(v) || typeof v === 'string' ? { vi: v } : v);
 
-// Handle kênh là @siri2moondev; @siri2moon là tài khoản cá nhân của user.
+// The channel handle is @siri2moondev; @siri2moon is the user's personal account.
 const raw = JSON.stringify(s);
 if (/@siri2moon(?![\w.])/.test(raw)) err('có "@siri2moon" trong short.json: handle kênh là @siri2moondev');
 if (s.id !== dir) err(`id "${s.id}" phải đúng tên thư mục "${dir}"`);
@@ -41,9 +41,12 @@ const check = (sc, label) => {
   const shotName = sc.shot ?? sc.id;
   if (sc.motion) {
     const t = sc.motion.type;
-    if (!['split', 'wave', 'words', 'pipeline', 'prompt', 'gallery', 'speak', 'pages', 'acts', 'calc'].includes(t)) err(`${label}: motion.type "${t}" không có (split | wave | words | pipeline | prompt | gallery | speak | pages | acts | calc)`);
+    if (!['split', 'wave', 'words', 'pipeline', 'prompt', 'gallery', 'speak', 'pages', 'acts', 'calc', 'statusline'].includes(t)) err(`${label}: motion.type "${t}" không có (split | wave | words | pipeline | prompt | gallery | speak | pages | acts | calc | statusline)`);
     if (t === 'pages' && !(sc.motion.pages?.length >= 1 && sc.motion.pages.length <= 8)) err(`${label}: pages cần 1–8 ảnh trang`);
     if (t === 'acts' && !sc.motion.kichban) err(`${label}: acts cần kichban ("<dir>/kichban.json")`);
+    if (t === 'statusline' && !(sc.motion.script && sc.motion.input && ['quota', 'explain'].includes(sc.motion.mode))) err(`${label}: statusline cần script, input, mode quota|explain`);
+    if (t === 'statusline' && sc.motion.mode === 'quota' && !(sc.motion.quota?.length >= 1)) err(`${label}: statusline quota cần mảng quota (% còn lại)`);
+    if (t === 'statusline' && sc.motion.mode === 'explain' && !sc.motion.rows?.length) err(`${label}: statusline explain cần rows (mỗi nhóm một dòng)`);
     if (t === 'calc' && !(sc.motion.rows?.length >= 1 && sc.motion.rows.length <= 3 && sc.motion.stamp)) err(`${label}: calc cần 1–3 rows và stamp`);
     if (t === 'prompt' && !(sc.motion.text && sc.motion.image)) err(`${label}: prompt cần text và image`);
     if (t === 'gallery' && !(sc.motion.images?.length >= 2 && sc.motion.images.length <= 12)) err(`${label}: gallery cần 2–12 images`);
@@ -74,13 +77,15 @@ s.scenes?.forEach((sc, i) => {
   if (!byLang.vi?.length) err(`${label}: thiếu lines tiếng Việt`);
   if (byLang.vi?.length > 2) warn(`${label}: ${byLang.vi.length} dòng phụ đề, tối đa 2 cho dễ đọc`);
   for (const [lang, lines] of Object.entries(byLang)) {
-    // Dòng đầu của cụm hai dòng nhỏ hơn 12%, nên chứa được nhiều chữ hơn.
+    // The first line of a two-line caption is 12% smaller, so it fits more characters.
     const maxAt = (j) => (sc.big ? 23 : j === 0 && lines.length > 1 ? 30 : 27);
     for (const [j, l] of lines.entries()) if (width(l) > maxAt(j)) warn(`${label} [${lang}]: "${l.replace(/\*/g, '')}" dài ${width(l)} ký tự (> ${maxAt(j)}), sẽ xuống dòng`);
     for (const l of lines) if ((l.match(/\*/g) ?? []).length % 2) err(`${label} [${lang}]: dấu * lẻ trong "${l}"`);
   }
   if (!byLang.en) info(`${label}: chưa có lines.en (bản tiếng Anh sẽ dùng tiếng Việt)`);
   if (i === 0 && !sc.big) warn('cảnh đầu nên có "big": true: đó là câu hook');
+  if (sc.say && !s.narration) info(`${label}: có "say" nhưng video chưa bật narration, câu đọc bị bỏ qua`);
+  if (sc.say && sc.voice) warn(`${label}: có cả voice (tiếng thật) lẫn say: dùng tiếng thật, bỏ câu đọc`);
   if (i === 0 && (sc.beats ?? 6) > 6) warn(`cảnh hook dài ${sc.beats} phách (> 6 = 3,6s): người xem lướt qua trước khi hiểu`);
   if ((sc.beats ?? 6) > 8) warn(`${label}: ${sc.beats} phách (${secs(sc.beats).toFixed(1)}s), cảnh đứng lâu dễ mất người xem`);
 });

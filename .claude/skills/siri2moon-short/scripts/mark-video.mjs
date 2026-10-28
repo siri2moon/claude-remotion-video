@@ -1,17 +1,19 @@
 #!/usr/bin/env node
-// Ghi nhận bài blog nào đã làm video, vào bảng post_videos của D1 siri2moon-blog
-// (blog-siri2moon/db/migrations/0005_post_videos.sql). Admin của blog đọc bảng này: cột Video
-// và bộ lọc "No video yet" ở /admin/posts, khung "Short videos" khi sửa bài.
+// Records which blog posts already have a video, in the post_videos table of the siri2moon-blog D1
+// (blog-siri2moon/db/migrations/0005_post_videos.sql). The blog admin reads this table: the Video column
+// and the "No video yet" filter on /admin/posts, and the "Short videos" panel when editing a post.
 //
-// Dùng:
-//   node mark-video.mjs <dir>                     ghi video content/<dir> vào bài trong short.json → source.url
-//   node mark-video.mjs <dir> --post=<slug>       video dự án (không có source.url): chỉ rõ bài
+// Usage:
+//   node mark-video.mjs <dir>                     records video content/<dir> against the post in short.json → source.url
+//   node mark-video.mjs <dir> --post=<slug>       project video (no source.url): name the post explicitly
+//   node mark-video.mjs <id> --post=<slug> --title=<title> [--made=YYYY-MM-DDTHH:MM]
+//                                                 video made outside content/ (no short.json)
 //   node mark-video.mjs <dir> --youtube=<url> --facebook=<url> --tiktok=<url>
-//                                                 thêm link sau khi đăng (chạy lại được, link cũ giữ nguyên)
-//   node mark-video.mjs --todo                    bài đã xuất bản CHƯA có video, mới nhất trước
-//   node mark-video.mjs --list                    các video đã ghi
-// Mặc định ghi vào D1 production (--remote). --local để thử trên bản local.
-// Thư mục blog: BLOG_DIR, mặc định ../blog-siri2moon cạnh repo này.
+//                                                 add links after posting (safe to rerun; existing links are kept)
+//   node mark-video.mjs --todo                    published posts WITHOUT a video, newest first
+//   node mark-video.mjs --list                    videos recorded so far
+// Writes to production D1 by default (--remote). Use --local to try it on the local copy.
+// Blog folder: BLOG_DIR, defaults to ../blog-siri2moon next to this repo.
 
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -27,7 +29,7 @@ const target = has('local') ? '--local' : '--remote';
 
 if (!existsSync(join(BLOG_DIR, 'wrangler.jsonc'))) die(`không thấy blog ở ${BLOG_DIR} (đặt BLOG_DIR)`);
 
-// wrangler d1 execute không nhận tham số bind, nên mọi giá trị đi qua lit().
+// wrangler d1 execute takes no bind parameters, so every value goes through lit().
 const lit = (v) => (v == null ? 'NULL' : `'${String(v).replace(/'/g, "''")}'`);
 
 function query(sql) {
@@ -67,27 +69,30 @@ if (has('list')) {
 const dir = args.find((a) => !a.startsWith('--'));
 if (!dir) die('thiếu <dir>. Dùng: node mark-video.mjs 2026-10-27-22-20-xuong-video-ai-tap-5');
 const shortPath = join(contentDir(dir), 'short.json');
-if (!existsSync(shortPath)) die(`không có ${shortPath}`);
-const short = readJson(shortPath);
+// Video made outside content/ (e.g. a hand-built project demo): no short.json, so the post and title are passed in.
+const short = existsSync(shortPath) ? readJson(shortPath) : null;
+if (!short && !(flag('post') && flag('title'))) die(`không có ${shortPath}; video ngoài content/ thì truyền --post=<slug> --title=<tên>`);
 
-const fromUrl = short.source?.url?.match(/siri2moon\.com\/posts\/([^/?#]+)/)?.[1] ?? null;
+const fromUrl = short?.source?.url?.match(/siri2moon\.com\/posts\/([^/?#]+)/)?.[1] ?? null;
 const slug = flag('post') ?? fromUrl;
 if (!slug) die('short.json không có source.url trỏ tới bài siri2moon.com, truyền --post=<slug>');
 
 const strip = (s) => s.replace(/\*/g, '').trim();
-const title = short.series
-  ? `${short.series.name.vi ?? short.series.name} · Tập ${short.series.ep}/${short.series.of}`
-  : strip((short.scenes[0].lines.vi ?? short.scenes[0].lines).join(' '));
-// Tên thư mục bắt đầu bằng ngày giờ tạo (new-dir.mjs): 2026-10-27-22-20-…
+const title =
+  flag('title') ??
+  (short.series
+    ? `${short.series.name.vi ?? short.series.name} · Tập ${short.series.ep}/${short.series.of}`
+    : strip((short.scenes[0].lines.vi ?? short.scenes[0].lines).join(' ')));
+// Folder names start with their creation date and time (new-dir.mjs): 2026-10-27-22-20-…
 const m = dir.match(/^(\d{4}-\d{2}-\d{2})-(\d{2})-(\d{2})/);
-const madeAt = m ? `${m[1]}T${m[2]}:${m[3]}:00` : new Date().toISOString().slice(0, 19);
+const madeAt = flag('made') ?? (m ? `${m[1]}T${m[2]}:${m[3]}:00` : new Date().toISOString().slice(0, 19));
 
 const [post] = query(`SELECT slug, title FROM posts WHERE slug = ${lit(slug)}`);
 if (!post) die(`không có bài "${slug}" trong D1 (${target.slice(2)})`);
 
 const urls = { youtube_url: flag('youtube'), facebook_url: flag('facebook'), tiktok_url: flag('tiktok') };
 const cols = Object.keys(urls);
-// Chạy lại để thêm link: link chưa truyền thì giữ giá trị cũ.
+// Rerun to add links: links not passed keep their stored value.
 query(
   `INSERT INTO post_videos (post_slug, video_id, title, made_at, ${cols.join(', ')})
    VALUES (${[slug, dir, title, madeAt, ...Object.values(urls)].map(lit).join(', ')})

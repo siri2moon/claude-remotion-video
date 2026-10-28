@@ -19,22 +19,22 @@ import { Callouts, MotionScene, Phone, PHONE } from './Motion';
 import { Terminal } from './Terminal';
 import type { ShortProps, ShortScene, ThemeName } from './types';
 
-// Short quảng bá thương hiệu Siri2Moon (9:16, 30 fps): footage quay thật + phụ đề từng chữ,
-// cắt whip-zoom đúng phách, màn thương hiệu và màn kết Siri. Props từ skill siri2moon-short.
+// Siri2Moon brand short (9:16, 30 fps): real captured footage + word-by-word captions,
+// whip-zoom cuts on the beat, a brand screen and the Siri end card. Props come from the siri2moon-short skill.
 
 const { fontFamily: serif } = loadCormorant('normal', { weights: ['600', '700'], subsets: ['vietnamese', 'latin'] });
 
 const BEAT = 18;
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const BRAND = '_assets/brand';
-/** Handle của kênh trên YouTube, TikTok, Facebook. @siri2moon là tài khoản cá nhân, không dùng. */
+/** Channel handle on YouTube, TikTok and Facebook. @siri2moon is a personal account, never use it. */
 const HANDLE = '@siri2moondev';
 
 type Theme = {
   bg: string;
-  /** Viền chữ phụ đề, nền thẻ. */
+  /** Caption outline, card background. */
   ink: string;
-  /** Màu chữ nhấn trong phụ đề. */
+  /** Color of emphasized caption words. */
   accent: string;
   gradient: string;
   titleFont: string;
@@ -42,13 +42,13 @@ type Theme = {
   titleSpacing: string;
   line: string;
   glow: string;
-  /** Lớp tối phủ footage cho chữ dễ đọc (r,g,b). */
+  /** Dark layer over the footage so text stays readable (r,g,b). */
   shade: string;
   buttonText: string;
 };
 
 const THEMES: Record<ThemeName, Theme> = {
-  // Midnight & Champagne, giống HUD của Lucifer office.
+  // Midnight & Champagne, like the Lucifer office HUD.
   lucifer: {
     bg: '#07122a',
     ink: '#07122a',
@@ -62,7 +62,7 @@ const THEMES: Record<ThemeName, Theme> = {
     shade: '4,10,26',
     buttonText: '#07122a',
   },
-  // Bầu trời đêm của blog siri2moon.com: chàm, aurora xanh trời → tím → hồng.
+  // The siri2moon.com blog's night sky: indigo, with an aurora going sky blue → violet → pink.
   siri2moon: {
     bg: '#0a0d24',
     ink: '#0a0d24',
@@ -84,7 +84,7 @@ export const BrandShort: React.FC<ShortProps> = (props) => {
     return <AbsoluteFill style={{ background: theme.bg, color: '#fff', fontFamily, fontSize: 40, alignItems: 'center', justifyContent: 'center' }}>Chưa có props: chạy skill siri2moon-short</AbsoluteFill>;
   }
   const first = props.scenes[0];
-  // Cảnh có giọng thật: nhạc nền hạ xuống 25% để nghe rõ lời, vào/ra mượt trong 6 frame.
+  // Scenes with a real voice: background music ducks to 25% so the words are clear, easing in/out over 6 frames.
   const voiced = props.scenes.filter((sc) => sc.voice);
   const duck = (f: number) =>
     voiced.reduce((v, sc) => Math.min(v, interpolate(f, [sc.from - 6, sc.from, sc.from + sc.dur - 4, sc.from + sc.dur + 4], [1, 0.25, 0.25, 1], clamp)), 1);
@@ -97,7 +97,11 @@ export const BrandShort: React.FC<ShortProps> = (props) => {
           </Whip>
           <Grade theme={theme} />
           {scene.callouts && scene.callouts.length > 0 && <Callouts callouts={scene.callouts} size={scene.size} theme={theme} />}
-          {scene.voice && <Audio src={staticFile(scene.voice.src)} startFrom={scene.voice.startFrom} volume={scene.voice.volume} />}
+          {scene.voice && (
+            <Sequence from={scene.voice.delay ?? 0} name="voice">
+              <Audio src={staticFile(scene.voice.src)} startFrom={scene.voice.startFrom} volume={scene.voice.volume} />
+            </Sequence>
+          )}
           {scene.lines.length > 0 && <Caption lines={scene.lines} dur={scene.dur} big={scene.big} theme={theme} />}
         </Sequence>
       ))}
@@ -111,7 +115,9 @@ export const BrandShort: React.FC<ShortProps> = (props) => {
         <Sequence from={props.outro.from} durationInFrames={props.outro.dur} name="outro">
           {props.outro.scene ? (
             <Whip dur={props.outro.dur}>
-              <Footage scene={props.outro.scene} theme={theme} />
+              <Defocus>
+                <Footage scene={props.outro.scene} theme={theme} />
+              </Defocus>
             </Whip>
           ) : (
             <NightSky />
@@ -143,7 +149,7 @@ export const BrandShort: React.FC<ShortProps> = (props) => {
 // ---------------------------------------------------------------------------
 // Footage
 
-/** Cắt kiểu whip-zoom: vào thì phóng to + nhoè rồi nét lại, ra thì đẩy tới + nhoè. */
+/** Whip-zoom cut: zooms in + blurred on the way in, then sharpens; pushes forward + blurs on the way out. */
 const Whip: React.FC<{ dur: number; first?: boolean; children: ReactNode }> = ({ dur, first, children }) => {
   const f = useCurrentFrame();
   const enter = first ? 0 : interpolate(f, [0, 8], [1, 0], { ...clamp, easing: Easing.out(Easing.cubic) });
@@ -151,6 +157,36 @@ const Whip: React.FC<{ dur: number; first?: boolean; children: ReactNode }> = ({
   const scale = (1 + 0.1 * enter + 0.07 * exit) * interpolate(f, [0, dur], [1, 1.035]);
   const blur = 12 * enter + 9 * exit;
   return <AbsoluteFill style={{ transform: `scale(${scale})`, filter: blur > 0.2 ? `blur(${blur}px)` : undefined }}>{children}</AbsoluteFill>;
+};
+
+/**
+ * Motion / terminal panels fly in with depth: tilted back, slightly low and small, then standing upright.
+ * Once settled the 3D transform is dropped entirely, because Chromium rasterizes 3D layers at low resolution and blurs text
+ * (Q2 in video-shotcraft's aesthetic-rules). No camera shake (Q3); the slow zoom over the whole scene already lives in Whip.
+ */
+const Stage: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const f = useCurrentFrame();
+  const p = interpolate(f, [0, 18], [0, 1], { ...clamp, easing: Easing.bezier(0.16, 1, 0.3, 1) });
+  if (p >= 1) return <AbsoluteFill>{children}</AbsoluteFill>;
+  return (
+    <AbsoluteFill
+      style={{
+        transformOrigin: '50% 30%',
+        transform: `perspective(2200px) translateY(${(1 - p) * 110}px) rotateX(${(1 - p) * 16}deg) scale(${0.92 + 0.08 * p})`,
+        opacity: Math.min(1, p * 2.2),
+      }}
+    >
+      {children}
+    </AbsoluteFill>
+  );
+};
+
+/** Outro: the captured page recedes into a blurred background as the logo appears, so its small text does not compete with the logo
+ *  (Q11: text is either meant to be read or is background texture, never stuck in between). */
+const Defocus: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const f = useCurrentFrame();
+  const b = interpolate(f, [8, 36], [0, 14], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  return <AbsoluteFill style={{ filter: b > 0.2 ? `blur(${b}px)` : undefined, transform: `scale(${1 + b * 0.004})` }}>{children}</AbsoluteFill>;
 };
 
 const Media: React.FC<{ scene: ShortScene; style: CSSProperties }> = ({ scene, style }) =>
@@ -171,7 +207,9 @@ const Footage: React.FC<{ scene: ShortScene; theme: Theme }> = ({ scene, theme }
     return (
       <AbsoluteFill>
         {theme.bg === THEMES.siri2moon.bg ? <NightSky /> : <AbsoluteFill style={{ background: `radial-gradient(80% 50% at 50% 40%, ${theme.glow}, transparent 70%), ${theme.bg}` }} />}
-        <Terminal spec={scene.terminal} line={theme.line} bg="rgba(8,11,24,0.94)" glow={theme.glow} />
+        <Stage>
+          <Terminal spec={scene.terminal} line={theme.line} bg="rgba(8,11,24,0.94)" glow={theme.glow} />
+        </Stage>
       </AbsoluteFill>
     );
   }
@@ -179,7 +217,9 @@ const Footage: React.FC<{ scene: ShortScene; theme: Theme }> = ({ scene, theme }
     return (
       <AbsoluteFill>
         <NightSky />
-        <MotionScene scene={scene} spec={scene.motion} theme={theme} />
+        <Stage>
+          <MotionScene scene={scene} spec={scene.motion} theme={theme} />
+        </Stage>
       </AbsoluteFill>
     );
   }
@@ -197,7 +237,7 @@ const Footage: React.FC<{ scene: ShortScene; theme: Theme }> = ({ scene, theme }
   }
   const [vw, vh] = scene.size;
   if (scene.layout === 'full') {
-    // Phủ kín khung, lia/zoom theo key (toạ độ CSS của trang).
+    // Fill the frame, panning/zooming along the keys (in the page's CSS coordinates).
     const cx = keyAt(scene, f, 'cx'), cy = keyAt(scene, f, 'cy'), zoom = keyAt(scene, f, 'zoom');
     const s = zoom / scene.dpr;
     return (
@@ -209,7 +249,7 @@ const Footage: React.FC<{ scene: ShortScene; theme: Theme }> = ({ scene, theme }
       </AbsoluteFill>
     );
   }
-  // Card: cửa sổ bo góc lia theo key, nền là chính footage phóng to + nhoè.
+  // Card: a rounded window panning along the keys, over the same footage enlarged + blurred.
   const W = 1000, H = 820;
   const cx = keyAt(scene, f, 'cx'), cy = keyAt(scene, f, 'cy'), zoom = keyAt(scene, f, 'zoom');
   const s = zoom / scene.dpr;
@@ -232,7 +272,7 @@ const Footage: React.FC<{ scene: ShortScene; theme: Theme }> = ({ scene, theme }
   );
 };
 
-/** Gradient trên/dưới cho chữ dễ đọc, và vignette nhẹ. */
+/** Top/bottom gradients so text stays readable, plus a light vignette. */
 const Grade: React.FC<{ theme: Theme }> = ({ theme }) => (
   <AbsoluteFill
     style={{
@@ -245,11 +285,11 @@ const Grade: React.FC<{ theme: Theme }> = ({ theme }) => (
 );
 
 // ---------------------------------------------------------------------------
-// Phụ đề
+// Captions
 
 /**
- * "*cụm chữ*" là cụm nhấn. Mỗi cụm nhấn giữ trên một dòng, nên "AI agent" không bị bẻ đôi.
- * Dấu câu đứng sau cụm nhấn ("*PROD*?") dính liền vào cụm, không bị tách ra.
+ * "*a phrase*" is an emphasized phrase. Each emphasized phrase stays on one line, so "AI agent" never splits in two.
+ * Punctuation right after an emphasized phrase ("*PROD*?") sticks to the phrase instead of being split off.
  */
 type Group = { words: string[]; hot: boolean; tail: string };
 const parse = (line: string) => {
@@ -317,7 +357,7 @@ const Word: React.FC<{ text: string; hot: boolean; tight?: boolean; delay: numbe
 };
 
 // ---------------------------------------------------------------------------
-// Thương hiệu
+// Brand
 
 const Crest: React.FC<{ size: number }> = ({ size }) => {
   const stars = Array.from({ length: 6 }, (_, i) => {
@@ -351,7 +391,7 @@ const Logo: React.FC<{ themeName: ThemeName; size: number }> = ({ themeName, siz
 
 const gradientText = (theme: Theme): CSSProperties => ({ backgroundImage: theme.gradient, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' });
 
-/** Nhãn nhỏ phía trên suốt video, để ai lướt qua giữa chừng cũng biết đây là gì. */
+/** Small label at the top for the whole video, so anyone scrolling in midway knows what this is. */
 const BrandChip: React.FC<{ chip: NonNullable<ShortProps['chip']>; series: ShortProps['series']; theme: Theme; themeName: ThemeName }> = ({ chip, series, theme, themeName }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -368,7 +408,7 @@ const BrandChip: React.FC<{ chip: NonNullable<ShortProps['chip']>; series: Short
       <span style={{ fontFamily: theme.titleFont, fontWeight: theme.titleWeight, fontSize: themeName === 'lucifer' ? 40 : 34, letterSpacing: themeName === 'lucifer' ? '0.2em' : '0.06em', ...gradientText(theme) }}>
         {chip.title}
       </span>
-      {/* Series: tên series thay chủ đề, kèm nhãn "TẬP 1/5" để người lướt qua biết còn tập khác. */}
+      {/* Series: the series name replaces the topic, with an "EP 1/5" label so people scrolling by know there are other episodes. */}
       {(series?.name || chip.subtitle) && <span style={{ fontSize: 27, fontWeight: 600, color: 'rgba(255,255,255,0.8)' }}>· {series?.name || chip.subtitle}</span>}
       {series && (
         <span style={{ marginRight: -14, padding: '6px 18px', borderRadius: 999, fontSize: 27, fontWeight: 800, letterSpacing: '0.04em', background: theme.gradient, color: theme.buttonText }}>{series.label}</span>
@@ -456,7 +496,7 @@ const GitHubMark: React.FC<{ size: number; color: string }> = ({ size, color }) 
   </svg>
 );
 
-/** Bầu trời đêm của Siri2Moon: nền cho màn kết và cho outro không có footage. */
+/** The Siri2Moon night sky: background for the end card and for an outro without footage. */
 const NightSky: React.FC = () => {
   const f = useCurrentFrame();
   const stars = Array.from({ length: 70 }, (_, i) => ({ x: random(`x${i}`) * 1080, y: random(`y${i}`) * 1920, r: 1 + random(`r${i}`) * 2.6, tw: random(`t${i}`) * Math.PI * 2 }));
@@ -471,7 +511,7 @@ const NightSky: React.FC = () => {
   );
 };
 
-/** Kết: Siri bay lên, mời theo dõi @siri2moondev. Giống nhau ở mọi video để khán giả nhận ra kênh. */
+/** Ending: Siri flies up and invites viewers to follow @siri2moondev. Identical in every video so viewers recognize the channel. */
 const EndCard: React.FC<{ endcard: ShortProps['endcard'] }> = ({ endcard }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();

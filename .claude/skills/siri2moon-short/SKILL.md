@@ -105,6 +105,22 @@ node $S/render.mjs <slug>               # out/<dir>.mp4, in ra thời lượng v
 
 `render.mjs` tự chạy build-props và sinh nhạc (mỗi id một vòng hợp âm, cùng id thì cùng bài).
 
+### 7a. Soát chất lượng theo video-shotcraft
+
+Trước khi báo xong, xem khung hình theo các quy tắc trong `.claude/skills/video-shotcraft/references/aesthetic-rules.md` (tài liệu tiếng Trung, mã quy tắc giữ nguyên):
+
+| Quy tắc | Kiểm tra gì |
+|---|---|
+| R1 | Thông tin chính hiện xong phải đứng yên ít nhất 1 s rồi mới cắt |
+| R3 | Bản đầu thường quá nhanh: gõ phím, thao tác phải theo tốc độ người thật |
+| Q3 | Không rung máy |
+| Q4 | Hiệu ứng quét sáng chỉ dùng một lần cho nhân vật chính, cắt gọn trong góc bo |
+| Q11 | Chữ cần đọc phải đủ to. Chữ nền thì làm mờ hẳn, không để lửng lơ giữa hai trạng thái |
+| P4 | Một kiểu chuyển động chỉ làm nhân vật chính một lần trong video |
+| S1–S4 | SFX: tiếng thật (`content/_assets/cine`), không dùng tiếng "game"; tiếng liền nhau thì thay mẫu và giảm dần âm lượng |
+
+Cần một kiểu cảnh động mới thì tìm trong `.claude/skills/video-shotcraft/references/shots/` trước. Mỗi thẻ có code demo mẫu trong `demos/`, viết cho khung 16:9 nên phải đổi bố cục sang 9:16.
+
 ### 7b. Nhạc
 
 Nhạc tổng hợp (mặc định) chỉ là lót nền, **không bao giờ "hot trend"**. Mỗi video giao thêm:

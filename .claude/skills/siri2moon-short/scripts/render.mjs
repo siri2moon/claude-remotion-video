@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Dựng short: build-props → nhạc → Remotion render.
+// Renders a short: build-props → music → Remotion render.
 //   node render.mjs <slug>                 out/<dir>.mp4
-//   node render.mjs <slug> --lang=en       out/<dir>-en.mp4 (phụ đề tiếng Anh, cùng hình và nhạc)
-//   node render.mjs <slug> --no-music      out/<dir>-khong-nhac.mp4: chỉ SFX, để gắn nhạc trending trong app
-//   node render.mjs <slug> --stills        chỉ chụp một khung giữa mỗi cảnh → out/<dir>-stills.jpg để duyệt
-//   node render.mjs <slug> --studio        mở Remotion Studio để tua timeline
+//   node render.mjs <slug> --lang=en       out/<dir>-en.mp4 (English captions, same picture and music)
+//   node render.mjs <slug> --no-music      out/<dir>-khong-nhac.mp4: SFX only, to add trending music in the app
+//   node render.mjs <slug> --stills        grabs one frame mid-scene → out/<dir>-stills.jpg for review
+//   node render.mjs <slug> --studio        opens Remotion Studio to scrub the timeline
 
 import { mkdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
@@ -18,9 +18,11 @@ const node = (script, ...args) => {
   if (r.status !== 0) process.exit(r.status ?? 1);
 };
 
-// Nhạc tính theo độ dài bản tiếng Việt; bản tiếng Anh dùng chung nên build bản vi trước.
+// Music follows the length of the Vietnamese cut; the English cut shares it, so the vi props are built first.
+// ElevenLabs narration (only when short.json enables `narration`) must exist first, since it decides scene length.
+node('narrate.mjs');
 node('build-props.mjs', '--lang=vi');
-// Nhạc sinh lại mỗi lần (vài giây) để luôn khớp độ dài; cùng id thì ra cùng một bài.
+// Music is regenerated every run (a few seconds) so it always matches the length; the same id yields the same track.
 node('music.mjs');
 const noMusic = hasFlag('no-music');
 if (lang !== 'vi' || noMusic) node('build-props.mjs', `--lang=${lang}`, ...(noMusic ? ['--no-music'] : []));

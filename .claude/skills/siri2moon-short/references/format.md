@@ -19,6 +19,7 @@ bản tiếng Anh dùng tiếng Việt.
 | `chip` | | `{ title, subtitle }` nhãn phía trên suốt video. `title` viết HOA |
 | `series` | | Video thuộc series nhiều tập: `{ name, ep, of, next }`. Chip đổi thành `SIRI2MOON · <name> [TẬP ep/of]` (bản en: `EP`), màn kết thêm nút `▶ <next>` ("Tập 2: …"). `name`, `next` song ngữ |
 | `music` | | Nhạc tổng hợp: `{ progression: 0–3, volume: 0.9 }` (0 sang · 1 tech · 2 tươi · 3 đêm, mặc định theo id). Bài thật: `{ file: "_assets/music/x.mp3", start?: giây, bpm?: số, volume?: 1 }` |
+| `narration` | | Giọng đọc ElevenLabs, **mặc định tắt**: chỉ thêm khi user yêu cầu hoặc loại video cần lời dẫn (xem "Giọng đọc" bên dưới). `{ voice?: { vi, en }, model?: "eleven_v3", volume?: 1, speed?: 1, stability?: 0.5, style?: 0.3 }` |
 | `scenes` | ✅ | danh sách cảnh, theo thứ tự xem |
 | `outro` | | màn logo |
 | `endcard` | | màn kết Siri |
@@ -41,6 +42,7 @@ bản tiếng Anh dùng tiếng Việt.
 | `terminal` | | cảnh terminal dựng bằng code (không cần shot), xem dưới |
 | `motion` | | cảnh đồ hoạ giải thích bằng hình (không cần shot), xem dưới. **Ưu tiên hơn terminal** khi ý có thể vẽ ra |
 | `voice` | | tiếng thật của cảnh: `{ src: "<đường dẫn trong content/>", skip?: giây, volume?: 1 }`. Nhạc nền tự hạ còn 25% trong cảnh đó |
+| `say` | | câu giọng đọc ElevenLabs của cảnh, song ngữ. Chỉ có tác dụng khi bật `narration`. Cảnh tự dài ra cho vừa câu dài nhất giữa vi và en |
 | `callouts` | | layout `phone`: nhãn chỉ vào video, `[{ at: giây, y: px của video gốc, side: "left"\|"right", text }]` |
 
 `card` + `keys` cho footage HUD ngang (1280×800 CSS): toàn cảnh `zoom 0.78`, đọc được chữ ở
@@ -85,6 +87,7 @@ Video "dễ hiểu" là video **cho thấy** chứ không chỉ kể: dùng dữ
 | `pages` | Các trang tài liệu bay lên chồng nhau rồi xoè quạt, trang đầu ở trước, cuối hiện nhãn | `pages` (1–8 ảnh, render PDF bằng `pdftoppm -r 110 -png`), `badge` |
 | `acts` | Thanh các hồi của kịch bản hài + làn nhạc (khúc im lặng đỏ, phẳng), đầu đọc quét qua, thẻ dưới nói hồi đang chạy | `kichban` (`<dir>/kichban.json`, đọc thẳng `part`/`music`/`start`/`end`), `acts.<part>` = `{icon, name, job}`, `music.<tên>` = nhãn |
 | `calc` | Phép tính nghiêm túc: từng dòng hiện ra, số đếm lên, cuối đóng dấu đỏ | `rows` (1–3 `{label, value}`, value viết như hiển thị: `"43.200 phút"` / `"43,200 min"`), `stamp`, `label` |
+| `statusline` | Cửa sổ Claude Code với dòng trạng thái **thật**: build-props chạy `script` (copy nguyên văn từ bài) với JSON `input`, tách màu ANSI theo nhóm `│`. `quota`: số quota to đổi màu đúng màu script in ra qua từng mức. `explain`: từng nhóm sáng lên kèm dòng giải thích | `mode` (`quota` \| `explain`), `script`, `input` (JSON Claude Code gửi vào stdin), `quota` (mảng % còn lại của 5h), `rows` (explain: đúng số nhóm script in ra), `label`, `resetIn` (giây, 8070) |
 | `pipeline` | Các bước dọc, lần lượt bật sáng rồi thành ✓, thanh tiến độ chạy | `steps: [{ icon, title, sub }]` 2–7 bước, rải đều trong cảnh |
 
 Panel nằm trong vùng y 300–1060, phụ đề vẫn ở dưới như mọi cảnh.
@@ -105,3 +108,24 @@ Panel nằm trong vùng y 300–1060, phụ đề vẫn ở dưới như mọi c
 ## Endcard
 
 `{ "beats": 5, "follow": "Theo dõi @siri2moondev", "lines": ["…", "…"] }`. `@siri2moondev` tự tô xanh Siri.
+
+## Giọng đọc (ElevenLabs)
+
+Mặc định **tắt**. Bật khi user yêu cầu, hoặc khi loại video cần người dẫn chuyện (giải thích nhiều bước, kể chuyện).
+Video khoe giao diện hoặc chạy theo nhạc trend thì để tắt.
+
+```json
+"narration": { "voice": { "vi": "<voice id>", "en": "<voice id>" } },
+"scenes": [
+  { "id": "hook", "say": { "vi": "Đang code ngon thì Claude báo hết quota.", "en": "You're mid-task and Claude hits the limit." }, … }
+]
+```
+
+- **Key và giọng:** khoá API nằm ở `ELEVENLABS_API_KEY` trong `.env` ở gốc dự án (chép từ `.env.example`). Giọng lấy từ `narration.voice`, nếu không có thì lấy `ELEVENLABS_VOICE_VI` / `ELEVENLABS_VOICE_EN` trong `.env`.
+- **Cách sinh:** `render.mjs` tự chạy `narrate.mjs` trước khi build, lưu ra `content/<dir>/voice/<lang>-<cảnh>.mp3`. File được cache theo nội dung câu, nên render lại không tốn credit. Chỉ khi sửa câu, đổi giọng hoặc đổi model thì mới đọc lại.
+- **Cách viết câu:** viết cho tai nghe, không chép y phụ đề. Phụ đề là chữ nhấn ngắn, câu đọc là lời nói tự nhiên, khoảng 2,5 chữ mỗi giây với tiếng Việt và 2,8 từ mỗi giây với tiếng Anh.
+  - Cảnh hook đọc không quá 3,5 s.
+  - Với `eleven_v3` có thể chèn tag cảm xúc như `[excited]`, `[whispers]`.
+- **Độ dài cảnh:** câu dài hơn cảnh thì cảnh tự dài ra (`beats` tăng), nên `validate.mjs` có thể báo cảnh dài. Khi đó rút gọn câu đọc chứ đừng để cảnh lê thê.
+- **Âm lượng:** nhạc nền tự hạ còn 25% trong cảnh có giọng. Cảnh có `voice` tiếng thật thì dùng tiếng thật, bỏ câu đọc.
+- **Đăng TikTok:** bật nhãn "nội dung do AI tạo" khi video có giọng AI.

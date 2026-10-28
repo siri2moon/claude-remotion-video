@@ -1,13 +1,14 @@
 import type { CSSProperties } from 'react';
 import { AbsoluteFill, Easing, Img, interpolate, OffthreadVideo, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { stroke, textShadowAt } from '../tokens';
-import type { Callout, MotionSpec, ShortScene } from './types';
+import type { Callout, MotionSpec, ShortScene, StatusSpan } from './types';
 
-// Cảnh đồ hoạ chuyển động của BrandShort: giải thích bằng hình thay cho chữ nhỏ trên terminal.
-// split = trước/sau hai điện thoại · wave = sóng âm bị cắt khoảng lặng · words = chữ sáng lên
-// đúng lúc nói · pipeline = các bước chạy lần lượt · prompt/gallery/speak = tranh và giọng AI ·
-// pages = trang PDF xoè quạt · acts = các hồi kịch bản + làn nhạc · calc = phép tính đóng dấu.
-// Dữ liệu (frame, biên độ…) do build-props tính.
+// Motion graphics scenes of BrandShort: explain with pictures instead of small terminal text.
+// split = before/after on two phones · wave = a waveform with its silences cut · words = words lighting up
+// as they are spoken · pipeline = steps running in turn · prompt/gallery/speak = AI pictures and voice ·
+// pages = PDF pages fanning out · acts = script acts + music lane · calc = a stamped calculation ·
+// statusline = Claude Code's real status line (quota changing color, or explaining each part).
+// Data (frames, amplitudes…) is computed by build-props.
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const mono = '"JetBrains Mono", "SF Mono", Menlo, monospace';
@@ -21,7 +22,7 @@ const panel = (theme: MotionTheme): CSSProperties => ({
   boxShadow: `0 30px 80px rgba(0,0,0,0.5), 0 0 0 10px ${theme.glow}`,
 });
 
-/** Video dọc trong khung điện thoại bo góc. */
+/** Vertical video in a rounded phone frame. */
 export const Phone: React.FC<{ src: string; startFrom?: number; rate?: number; x: number; y: number; w: number; theme: MotionTheme; style?: CSSProperties }> = ({ src, startFrom = 0, rate = 1, x, y, w, theme, style }) => (
   <div
     style={{
@@ -35,7 +36,7 @@ export const Phone: React.FC<{ src: string; startFrom?: number; rate?: number; x
 
 export const PHONE = { w: 440, y: 262 };
 
-/** Nhãn chỉ vào video trong khung phone, mọc ra hai bên. */
+/** Labels pointing into the video in the phone frame, growing out to both sides. */
 export const Callouts: React.FC<{ callouts: Callout[]; size: [number, number]; theme: MotionTheme }> = ({ callouts, size, theme }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -52,7 +53,7 @@ export const Callouts: React.FC<{ callouts: Callout[]; size: [number, number]; t
         const pillW = left - 30;
         return (
           <div key={i} style={{ position: 'absolute', top: y, left: 0, width: 1080, opacity: Math.min(1, p * 1.5) }}>
-            {/* đường dẫn từ nhãn tới chấm trên video */}
+            {/* leader line from the label to the dot on the video */}
             <div style={{ position: 'absolute', top: -2, height: 4, borderRadius: 2, left: isLeft ? left - 14 : edge, width: 54 * p, background: theme.accent, boxShadow: `0 0 12px ${theme.accent}` }} />
             <div style={{ position: 'absolute', top: -11, left: edge - 11, width: 22, height: 22, borderRadius: 11, background: theme.accent, transform: `scale(${p})`, boxShadow: `0 0 18px ${theme.accent}` }} />
             <div
@@ -82,6 +83,7 @@ export const MotionScene: React.FC<{ scene: ShortScene; spec: MotionSpec; theme:
   if (spec.type === 'pages') return <Pages spec={spec} theme={theme} />;
   if (spec.type === 'acts') return <Acts spec={spec} theme={theme} />;
   if (spec.type === 'calc') return <Calc spec={spec} theme={theme} />;
+  if (spec.type === 'statusline') return <StatusLine spec={spec} theme={theme} />;
   return <Pipeline spec={spec} theme={theme} />;
 };
 
@@ -136,7 +138,7 @@ const Wave: React.FC<{ spec: Extract<MotionSpec, { type: 'wave' }>; theme: Motio
   const n = spec.peaks.length;
   const slot = W / n;
   const enter = spring({ frame: f, fps, config: { damping: 16 } });
-  // Đầu đọc quét qua, khoảng lặng đỏ lên khi bị quét tới, rồi khép lại.
+  // The playhead sweeps across; silences turn red as it reaches them, then close up.
   const head = interpolate(f, [4, spec.cutAt - 4], [0, 1], { ...clamp, easing: Easing.inOut(Easing.quad) });
   const cut = interpolate(f, [spec.cutAt, spec.cutAt + 16], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   const kept = (x: number) => spec.keep.some(([s, e]) => x >= s && x < e);
@@ -146,7 +148,7 @@ const Wave: React.FC<{ spec: Extract<MotionSpec, { type: 'wave' }>; theme: Motio
   const secs = interpolate(cut, [0, 1], [spec.seconds, spec.keptSeconds]);
   const fmt = (v: number) => v.toFixed(1).replace('.', ',') + 's';
   const done = spring({ frame: f - spec.cutAt - 14, fps, config: { damping: 11 } });
-  // Vùng im lặng (theo phần của cửa sổ) để vẽ nền đỏ + nhãn.
+  // Silent regions (as fractions of the window), for the red background + labels.
   const gaps: [number, number][] = [];
   let prev = 0;
   for (const [s, e] of spec.keep) {
@@ -161,7 +163,7 @@ const Wave: React.FC<{ spec: Extract<MotionSpec, { type: 'wave' }>; theme: Motio
         <span style={{ fontFamily: mono, fontSize: 30, color: 'rgba(255,255,255,0.6)' }}>🎙 {spec.file}</span>
         <span style={{ fontFamily: mono, fontSize: 64, fontWeight: 800, color: cut > 0.98 ? theme.accent : '#fff' }}>{fmt(secs)}</span>
       </div>
-      {/* nền đỏ của khoảng lặng, mờ dần khi khép */}
+      {/* red background of the silences, fading as they close */}
       {gaps.map(([s, e], i) => {
         const lit = head >= s;
         return (
@@ -192,7 +194,7 @@ const Wave: React.FC<{ spec: Extract<MotionSpec, { type: 'wave' }>; theme: Motio
           />
         );
       })}
-      {/* đầu đọc */}
+      {/* playhead */}
       {cut === 0 && <div style={{ position: 'absolute', left: left + head * W - 2, top: top - 30, width: 4, height: H + 60, background: '#fff', boxShadow: '0 0 16px #fff', opacity: head > 0 && head < 1 ? 1 : 0 }} />}
       {gaps.map(([s, e], i) => (
         <div
@@ -415,7 +417,7 @@ const Pages: React.FC<{ spec: Extract<MotionSpec, { type: 'pages' }>; theme: Mot
   const { fps } = useVideoConfig();
   const n = spec.pages.length;
   const w = 470, h = Math.round(w * 1.414), top = 318;
-  // Trang cuối đáp xuống trước, trang đầu đáp sau cùng nên nằm trên; rồi các trang sau xoè ra hai bên.
+  // The last page lands first and the first page lands last, so it sits on top; then the following pages fan out to both sides.
   const fan = spring({ frame: f - n * spec.every - 6, fps, config: { damping: 14, mass: 0.8 } });
   const badge = spring({ frame: f - spec.badgeAt, fps, config: { damping: 11 } });
   const order = spec.pages.map((_, i) => n - 1 - i);
@@ -461,7 +463,7 @@ const Acts: React.FC<{ spec: Extract<MotionSpec, { type: 'acts' }>; theme: Motio
   const head = headAt(f);
   const idx = (x: number) => Math.max(0, spec.acts.findIndex((a) => x < a.to || a === spec.acts[spec.acts.length - 1]));
   const cur = f < spec.sweep[0] ? -1 : idx(head);
-  // Frame đầu đọc bước vào hồi hiện tại, để thẻ bên dưới bật lên đúng lúc đó.
+  // Frame where the playhead enters the current act, so the card below pops up right then.
   let entered = spec.sweep[0];
   for (let x = f; x >= spec.sweep[0]; x--) if (idx(headAt(x)) !== cur) { entered = x + 1; break; }
   const card = spring({ frame: f - entered, fps, config: { damping: 12, mass: 0.6 } });
@@ -580,6 +582,111 @@ const Calc: React.FC<{ spec: Extract<MotionSpec, { type: 'calc' }>; theme: Motio
       >
         {spec.stamp}
       </div>
+    </AbsoluteFill>
+  );
+};
+
+/** One status line, wrapping by group (a narrow terminal also breaks right at the │ separators). */
+const StatusRow: React.FC<{ groups: StatusSpan[][]; size: number; focus?: number; dimOthers?: number }> = ({ groups, size, focus = -1, dimOthers = 0 }) => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: size * 0.6, rowGap: size * 0.35, fontFamily: mono, fontSize: size, lineHeight: 1.25 }}>
+    {groups.map((g, i) => (
+      <span
+        key={i}
+        style={{
+          whiteSpace: 'pre', borderRadius: 10, padding: '2px 8px', margin: '0 -8px', opacity: focus >= 0 && i !== focus ? 1 - dimOthers : 1,
+          background: i === focus ? 'rgba(255,255,255,0.12)' : undefined, boxShadow: i === focus ? '0 0 0 2px rgba(255,255,255,0.35)' : undefined,
+        }}
+      >
+        {g.map((sp, k) => (
+          <span key={k} style={{ color: sp.c }}>{sp.t}</span>
+        ))}
+        {i < groups.length - 1 && <span style={{ color: '#5c6178' }}>{'  │'}</span>}
+      </span>
+    ))}
+  </div>
+);
+
+const StatusLine: React.FC<{ spec: Extract<MotionSpec, { type: 'statusline' }>; theme: MotionTheme }> = ({ spec, theme }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const enter = spring({ frame: f, fps, config: { damping: 16 } });
+  let si = 0;
+  spec.states.forEach((s, i) => { if (f >= s.at) si = i; });
+  const st = spec.states[si];
+  const prev = spec.states[Math.max(0, si - 1)];
+  const hit = spring({ frame: f - st.at, fps, config: { damping: 10, mass: 0.7 } });
+  const cursor = Math.floor(f / 15) % 2 === 0;
+
+  const claudeWindow = (top: number, size: number, focus = -1, input = true) => (
+    <>
+      <div style={{ position: 'absolute', left: 40, top: 290, width: 1000, height: 770, ...panel(theme) }} />
+      <div style={{ position: 'absolute', left: 80, top: 318, right: 80, display: 'flex', justifyContent: 'space-between', fontFamily: mono, fontSize: 28 }}>
+        <span style={{ color: '#f0a07a', fontWeight: 800 }}>✻ Claude Code</span>
+        <span style={{ color: theme.accent }}>{spec.label}</span>
+      </div>
+      {input && <div style={{ position: 'absolute', left: 80, right: 80, top: top - 96, height: 72, borderRadius: 14, border: '2px solid rgba(255,255,255,0.25)', display: 'flex', alignItems: 'center', padding: '0 22px', fontFamily: mono, fontSize: 32, color: '#fff' }}>
+        {'> '}
+        <span style={{ display: 'inline-block', width: 18, height: 34, marginLeft: 6, background: cursor ? '#fff' : 'transparent' }} />
+      </div>}
+      <div style={{ position: 'absolute', left: 92, right: 80, top }}>
+        <StatusRow groups={st.groups} size={size} focus={focus} dimOthers={focus >= 0 ? 0.7 : 0} />
+      </div>
+    </>
+  );
+
+  if (spec.mode === 'quota') {
+    const q = st.quota;
+    const from = prev.quota?.left ?? q?.left ?? 0;
+    const left = q ? interpolate(f, [st.at, st.at + 12], [si === 0 ? q.left : from, q.left], { ...clamp, easing: Easing.out(Easing.cubic) }) : 0;
+    const danger = q ? q.left <= 10 : false;
+    const shake = danger ? Math.sin(f * 2.1) * 9 * Math.max(0, 1 - (f - st.at) / 24) : 0;
+    return (
+      <AbsoluteFill style={{ opacity: enter }}>
+        {claudeWindow(500, 30)}
+        {q && (
+          <div style={{ position: 'absolute', left: 80, right: 80, top: 720, transform: `translateX(${shake}px)` }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 24 }}>
+              <span style={{ fontFamily: mono, fontSize: 44, color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>⚡ 5h</span>
+              <span style={{ fontFamily: mono, fontSize: 150, fontWeight: 900, color: q.color, lineHeight: 1, textShadow: `0 0 ${20 + 30 * hit}px ${q.color}`, transform: `scale(${1 + 0.12 * (1 - hit)})`, display: 'inline-block' }}>
+                {Math.round(left)}%
+              </span>
+              <span style={{ fontFamily: mono, fontSize: 40, color: 'rgba(255,255,255,0.7)' }}>left</span>
+            </div>
+            <div style={{ marginTop: 26, height: 30, borderRadius: 15, background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+              <div style={{ width: `${left}%`, height: '100%', borderRadius: 15, background: q.color, boxShadow: `0 0 24px ${q.color}` }} />
+            </div>
+            <div style={{ marginTop: 20, fontFamily: mono, fontSize: 36, color: '#67e8f9' }}>↻ {q.reset}</div>
+          </div>
+        )}
+      </AbsoluteFill>
+    );
+  }
+
+  // explain: the group being explained is lit, the others dim.
+  let focus = -1;
+  spec.rows.forEach((r, i) => { if (f >= r.at) focus = i; });
+  const rowTop = 610, rowH = 72;
+  return (
+    <AbsoluteFill style={{ opacity: enter }}>
+      {claudeWindow(392, 27, focus, false)}
+      {spec.rows.map((r, i) => {
+        const p = spring({ frame: f - r.at, fps, config: { damping: 14 } });
+        const g = st.groups[i] ?? [];
+        const icon = g[0]?.t.trim().split(' ')[0] ?? '•';
+        const color = g.find((sp) => sp.t.trim())?.c ?? '#fff';
+        return (
+          <div
+            key={i}
+            style={{
+              position: 'absolute', left: 80, right: 80, top: rowTop + i * rowH, height: rowH - 10, display: 'flex', alignItems: 'center', gap: 22,
+              opacity: Math.min(1, p * 1.5) * (i === focus ? 1 : 0.55), transform: `translateX(${(1 - p) * -50}px)`,
+            }}
+          >
+            <span style={{ width: 64, height: 64, borderRadius: 18, background: 'rgba(255,255,255,0.08)', border: `2px solid ${color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: mono, fontSize: 36, color }}>{icon}</span>
+            <span style={{ fontSize: 42, fontWeight: 800, color: '#fff' }}>{r.label}</span>
+          </div>
+        );
+      })}
     </AbsoluteFill>
   );
 };
