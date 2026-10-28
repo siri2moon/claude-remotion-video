@@ -1,0 +1,303 @@
+{
+ "id": "2026-10-28-18-51-bat-trom-may-tinh",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/catch-computer-thief-python-script",
+  "proof": "cảnh terminal dựng lại script trong bài; giọng đọc ElevenLabs (eleven_v3, giọng Brian)"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Python"
+ },
+ "narration": {
+  "voice": {
+   "vi": "nPczCjzI2devNBz1zQrb",
+   "en": "nPczCjzI2devNBz1zQrb"
+  },
+  "model": "eleven_v3",
+  "volume": 1.15
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "say": {
+    "vi": "Ai đó vừa lén dùng máy tính của bạn?",
+    "en": "Someone's been sneaking onto your computer?"
+   },
+   "terminal": {
+    "title": "zsh — ~",
+    "fontSize": 26,
+    "cps": 22,
+    "start": 0.2,
+    "items": [
+     {
+      "cmd": "ls -lt ~/thief",
+      "enter": 0.25
+     },
+     {
+      "out": "{cyan}shot_2026-10-28_15-42-03.png{/}\n{cyan}shot_2026-10-28_15-41-03.png{/}\n{cyan}shot_2026-10-28_15-40-03.png{/}\n{cyan}shot_2026-10-28_15-39-03.png{/}\n{dim}… 47 more{/}",
+      "after": 0.18
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Ai vừa *dùng máy*",
+     "của bạn? 🕵️"
+    ],
+    "en": [
+     "Who's been *using*",
+     "your computer? 🕵️"
+    ]
+   }
+  },
+  {
+   "id": "how",
+   "beats": 7,
+   "say": {
+    "vi": "Một script Python bé xíu, cứ mỗi phút lại chụp màn hình, âm thầm cất làm bằng chứng.",
+    "en": "A tiny Python script grabs a screenshot every minute and quietly files it away as evidence."
+   },
+   "motion": {
+    "type": "pipeline",
+    "steps": [
+     {
+      "icon": "🐍",
+      "title": {
+       "vi": "Python thức dậy",
+       "en": "Python wakes up"
+      },
+      "sub": "while True"
+     },
+     {
+      "icon": "📸",
+      "title": {
+       "vi": "mss chụp màn hình",
+       "en": "mss grabs the screen"
+      },
+      "sub": "sct.grab(monitor)"
+     },
+     {
+      "icon": "🕐",
+      "title": {
+       "vi": "Đặt tên theo giờ",
+       "en": "Name it by timestamp"
+      },
+      "sub": "shot_%Y-%m-%d_%H-%M-%S"
+     },
+     {
+      "icon": "📁",
+      "title": {
+       "vi": "Lưu vào ~/thief",
+       "en": "Save to ~/thief"
+      },
+      "sub": "img.save(path)"
+     },
+     {
+      "icon": "😴",
+      "title": {
+       "vi": "Ngủ 60 giây",
+       "en": "Sleep 60 seconds"
+      },
+      "sub": "time.sleep(60)"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Python chụp màn hình",
+     "*mỗi 60 giây* 📸"
+    ],
+    "en": [
+     "Python screenshots",
+     "*every 60 seconds* 📸"
+    ]
+   }
+  },
+  {
+   "id": "code",
+   "beats": 8,
+   "say": {
+    "vi": "Thư viện mss chụp cực nhanh, Pillow lưu ảnh, mỗi file gắn đúng ngày và giờ.",
+    "en": "The mss library grabs the screen fast, Pillow saves it, each file stamped with the exact date and time."
+   },
+   "terminal": {
+    "title": "thief_catcher.py",
+    "fontSize": 25,
+    "cps": 40,
+    "start": 0.2,
+    "items": [
+     {
+      "out": "{magenta}with{/} mss.mss() {magenta}as{/} sct:\n    shot = sct.grab(sct.monitors[{orange}1{/}])\n    img  = Image.frombytes({green}\"RGB\"{/}, ...)\n\n    name = datetime.now().strftime(\n        {green}\"shot_%Y-%m-%d_%H-%M-%S.png\"{/})\n    img.save(name)\n\n{magenta}time{/}.sleep({orange}60{/})   {dim}# one shot per minute{/}",
+      "after": 0.12
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Chỉ *~20 dòng*",
+     "Python thuần 🐍"
+    ],
+    "en": [
+     "Just *~20 lines*",
+     "of plain Python 🐍"
+    ]
+   }
+  },
+  {
+   "id": "results",
+   "beats": 7,
+   "say": {
+    "vi": "Một tuần sau: hơn mười nghìn tấm ảnh. Bắt tận tay người mượn tài khoản đặt pizza.",
+    "en": "A week later: over ten thousand shots. Caught someone ordering pizza on my account."
+   },
+   "motion": {
+    "type": "calc",
+    "label": {
+     "vi": "một tuần chạy ngầm",
+     "en": "one week running quietly"
+    },
+    "rows": [
+     {
+      "label": {
+       "vi": "Mỗi phút",
+       "en": "Every minute"
+      },
+      "value": {
+       "vi": "1 ảnh",
+       "en": "1 shot"
+      }
+     },
+     {
+      "label": {
+       "vi": "Sau 7 ngày",
+       "en": "After 7 days"
+      },
+      "value": {
+       "vi": "10.080 ảnh",
+       "en": "10,080 shots"
+      }
+     }
+    ],
+    "stamp": {
+     "vi": "BẮT TẬN TAY",
+     "en": "CAUGHT RED-HANDED"
+    }
+   },
+   "lines": {
+    "vi": [
+     "Bắt *quả tang* 😏",
+     "lúc *3:42 chiều*"
+    ],
+    "en": [
+     "Caught *red-handed* 😏",
+     "at *3:42 PM*"
+    ]
+   }
+  },
+  {
+   "id": "install",
+   "beats": 7,
+   "say": {
+    "vi": "Cài hai gói, chạy một lệnh. Nhớ nhé: chỉ dùng trên máy của chính bạn thôi.",
+    "en": "Install two packages, run one command. Just remember: only on your own computer."
+   },
+   "terminal": {
+    "title": "zsh — ~",
+    "fontSize": 26,
+    "cps": 26,
+    "start": 0.2,
+    "items": [
+     {
+      "cmd": "pip install mss pillow",
+      "enter": 0.3
+     },
+     {
+      "out": "{green}Successfully installed mss pillow{/}",
+      "after": 0.2
+     },
+     {
+      "cmd": "python thief_catcher.py",
+      "enter": 0.3
+     },
+     {
+      "out": "{dim}📸 shot saved: ~/thief/shot_2026-10-28_15-42-03.png{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Cài *2 bước*",
+     "chạy ngầm 🥷"
+    ],
+    "en": [
+     "*2 steps* to set up",
+     "runs in the background 🥷"
+    ]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Script đầy đủ trên *siri2moon.com*",
+   "en": "Full script on *siri2moon.com*"
+  },
+  "chips": [
+   "Python",
+   "mss",
+   "Pillow",
+   "Screenshots"
+  ],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "mẹo Python & AI mỗi ngày 🚀",
+    "Link bài viết ở bình luận ghim 📌"
+   ],
+   "en": [
+    "daily Python & AI tips 🚀",
+    "Link to the post in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/catch-computer-thief-python-script",
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   {
+    "name": "post-top",
+    "seconds": 7.0,
+    "keys": [
+     {
+      "t": 0,
+      "scroll": 0
+     },
+     {
+      "t": 1,
+      "scroll": 420
+     }
+    ]
+   }
+  ]
+ }
+}

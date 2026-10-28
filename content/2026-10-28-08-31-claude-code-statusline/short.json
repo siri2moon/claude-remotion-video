@@ -1,0 +1,151 @@
+{
+ "id": "2026-10-28-08-31-claude-code-statusline",
+ "kind": "post",
+ "theme": "siri2moon",
+ "source": {
+  "url": "https://siri2moon.com/posts/claude-code-statusline-setup",
+  "proof": "statusline-command.sh: script nguyên văn trong bài (bỏ CRLF), build-props chạy thật với JSON giả lập Claude Code ở 3 mức quota; màu trên video là màu script in ra"
+ },
+ "chip": {
+  "title": "SIRI2MOON",
+  "subtitle": "Claude Code"
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "motion": {
+    "type": "statusline",
+    "mode": "quota",
+    "label": "~/claude-remotion-video",
+    "script": "2026-10-28-08-31-claude-code-statusline/statusline-command.sh",
+    "input": {
+     "model": { "display_name": "Opus 4.6 (1M context)", "id": "claude-opus-4-6" },
+     "cwd": ".",
+     "context_window": { "used_percentage": 12, "total_input_tokens": 45200, "total_output_tokens": 3100 },
+     "rate_limits": { "seven_day": { "used_percentage": 4 } }
+    },
+    "quota": [64, 22, 7]
+   },
+   "lines": {
+    "vi": ["Claude *hết quota*", "*không báo trước*? 😱"],
+    "en": ["Claude hit the *limit*", "with *zero warning*? 😱"]
+   }
+  },
+  {
+   "id": "explain",
+   "beats": 8,
+   "motion": {
+    "type": "statusline",
+    "mode": "explain",
+    "label": "statusline-command.sh",
+    "script": "2026-10-28-08-31-claude-code-statusline/statusline-command.sh",
+    "input": {
+     "model": { "display_name": "Opus 4.6 (1M context)", "id": "claude-opus-4-6" },
+     "cwd": ".",
+     "context_window": { "used_percentage": 12, "total_input_tokens": 45200, "total_output_tokens": 3100 },
+     "rate_limits": { "seven_day": { "used_percentage": 4 } }
+    },
+    "quota": [64],
+    "rows": [
+     { "vi": "Model đang dùng", "en": "Current model" },
+     { "vi": "Nhánh git", "en": "Git branch" },
+     { "vi": "% context đã dùng", "en": "Context used" },
+     { "vi": "Token gửi ↑ / nhận ↓", "en": "Tokens in ↑ / out ↓" },
+     { "vi": "Tiền của phiên này", "en": "Session cost" },
+     { "vi": "Quota 5 giờ + 7 ngày", "en": "5-hour + 7-day quota" }
+    ]
+   },
+   "lines": {
+    "vi": ["*1 dòng* dưới Claude Code", "thấy *mọi thứ* 👀"],
+    "en": ["*One line* under Claude Code", "shows *everything* 👀"]
+   }
+  },
+  {
+   "id": "cost",
+   "beats": 7,
+   "motion": {
+    "type": "calc",
+    "label": { "vi": "giá theo token, cùng một model", "en": "price per token, same model" },
+    "rows": [
+     { "label": { "vi": "Token gửi đi ↑", "en": "Input tokens ↑" }, "value": "1×" },
+     { "label": { "vi": "Token nhận về ↓", "en": "Output tokens ↓" }, "value": "5×" }
+    ],
+    "stamp": { "vi": "ĐẮT GẤP 5", "en": "5× PRICIER" }
+   },
+   "lines": {
+    "vi": ["Token *nhận về*", "đắt *gấp 5* token gửi đi 💸"],
+    "en": ["*Output* tokens cost", "*5×* what input costs 💸"]
+   }
+  },
+  {
+   "id": "how",
+   "beats": 8,
+   "motion": {
+    "type": "pipeline",
+    "steps": [
+     { "icon": "🤖", "title": { "vi": "Claude Code gửi JSON", "en": "Claude Code sends JSON" }, "sub": "stdin: model, tokens, rate_limits" },
+     { "icon": "🔍", "title": { "vi": "jq đọc từng trường", "en": "jq reads each field" }, "sub": "jq -r '.model.display_name'" },
+     { "icon": "🧮", "title": { "vi": "awk tính tiền", "en": "awk works out the cost" }, "sub": { "vi": "token × giá model", "en": "tokens × model price" } },
+     { "icon": "🚦", "title": { "vi": "Tô màu theo quota", "en": "Colour by quota" }, "sub": { "vi": "xanh > 30% · vàng · đỏ < 10%", "en": "green > 30% · yellow · red < 10%" } },
+     { "icon": "📟", "title": { "vi": "Hiện dưới đáy terminal", "en": "Shown under the prompt" }, "sub": "echo -n \"$out\"" }
+    ]
+   },
+   "lines": {
+    "vi": ["Chỉ là *1 script bash*", "đọc JSON, in *1 dòng* 🧩"],
+    "en": ["It's just *a bash script*", "JSON in, *one line* out 🧩"]
+   }
+  },
+  {
+   "id": "install",
+   "beats": 8,
+   "terminal": {
+    "title": "zsh — ~",
+    "fontSize": 27,
+    "cps": 40,
+    "start": 0.2,
+    "items": [
+     { "cmd": "cat > ~/.claude/statusline-command.sh", "enter": 0.15 },
+     { "out": "{dim}#!/bin/bash … 125 lines …{/}", "after": 0.15 },
+     { "cmd": "chmod +x ~/.claude/statusline-command.sh", "enter": 0.15 },
+     { "cmd": "claude", "enter": 0.25 },
+     { "out": "{cyan}✦ Opus 4.6 (1M context){/} {gray}│{/} {yellow}⎇ main{/}\n{green}◈ 12%{/} {gray}│{/} {blue}⇅ 45.2K↑ 3.1K↓{/} {gray}│{/} {magenta}$ $0.91{/}\n{magenta}⚡{/} {gray}5h:{/}{green}64%left{/}{gray}({/}{cyan}↻2h14m{/}{gray}){/} {gray}7d:{/}{green}96%left{/}" }
+    ]
+   },
+   "lines": {
+    "vi": ["Cài *3 bước*, *1 phút* ⚙️", "code đầy đủ *trong bài*"],
+    "en": ["*3 steps*, *one minute* ⚙️", "full script *in the post*"]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "post-top",
+  "beats": 11,
+  "title": "SIRI2MOON",
+  "subtitle": {
+   "vi": "Script đầy đủ trên *siri2moon.com*",
+   "en": "Full script on *siri2moon.com*"
+  },
+  "chips": ["Claude Code", "Bash", "jq", "ANSI colors"],
+  "link": "siri2moon.com",
+  "dim": 0.85
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": { "vi": "Theo dõi @siri2moondev", "en": "Follow @siri2moondev" },
+  "lines": {
+   "vi": ["mẹo Claude Code mỗi ngày 🚀", "Link bài viết ở bình luận ghim 📌"],
+   "en": ["daily Claude Code tips 🚀", "Link to the post in the pinned comment 📌"]
+  }
+ },
+ "capture": {
+  "url": "https://siri2moon.com/posts/claude-code-statusline-setup",
+  "viewport": [540, 960, 2],
+  "loadWait": 5,
+  "css": "html { scroll-behavior: auto !important; }",
+  "shots": [
+   { "name": "post-top", "seconds": 7.0, "keys": [{ "t": 0, "scroll": 0 }, { "t": 1, "scroll": 420 }] }
+  ]
+ }
+}

@@ -1,0 +1,181 @@
+{
+  "url": "https://siri2moon.com/posts/catch-computer-thief-python-script",
+  "title": "How to Catch Your Computer Thief (Or That Sneaky Coworker) with Python 🕵️‍♂️",
+  "description": "Ever wondered who's been using your computer when you're away? This Python script will turn your Mac into a surveillance ninja, capturing screenshots every minute. Perfect for catching thieves, nosy roommates, or that colleague who keeps 'borrowing' your workstation!",
+  "cover": "https://siri2moon.com/assets/blog/catch-computer-thief-python-script/cover.jpg",
+  "pageHeight": 7183,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "The Problem: Trust Issues 🤷‍♂️",
+      "top": 891,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "The Solution: Python Surveillance Magic ✨",
+      "top": 1160,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Breaking Down the \"Thief Catcher 3000\" 🔧",
+      "top": 1975,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "1. The Imports: Our Spy Toolkit 🛠️",
+      "top": 2086,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "2. The Evidence Folder 📁",
+      "top": 2285,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "3. The Screenshot Function: Our Digital Camera 📸",
+      "top": 2559,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "4. The File Naming: Timestamp Evidence 🕐",
+      "top": 2824,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "5. The Infinite Loop: Never-Ending Vigilance 🔄",
+      "top": 3054,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Installation & Setup 🚀",
+      "top": 3353,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Real-World Results 📊",
+      "top": 3734,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Customization Options 🎛️",
+      "top": 4041,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Change the Screenshot Interval",
+      "top": 4178,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Add Email Alerts",
+      "top": 4324,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Multiple Monitor Support",
+      "top": 4469,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Legal Disclaimer (The Boring But Important Part) ⚖️",
+      "top": 4641,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Conclusion: Knowledge is Power 💪",
+      "top": 4961,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1315,
+      "height": 620,
+      "lang": "python",
+      "head": "import time\nimport os\nfrom datetime import datetime\nimport mss\nfrom PIL import Image\n"
+    },
+    {
+      "top": 2137,
+      "height": 116,
+      "lang": "python",
+      "head": "import time        # For making our script wait (patience is key in espionage)\nimport os          # For creating our secret evidence folder\nfrom datetime import datetime  # For timestamping our evidence (very CSI)\nimport mss         # The real MVP - super fast screenshots\nfrom PIL import Image  # For handling our spy photos\n"
+    },
+    {
+      "top": 2337,
+      "height": 62,
+      "lang": "python",
+      "head": "folder_path = \"/Users/binhnguyen/thief\"\nos.makedirs(folder_path, exist_ok=True)\n\nCopy"
+    },
+    {
+      "top": 2610,
+      "height": 80,
+      "lang": "python",
+      "head": "def take_screenshot():\n    with mss.mss() as sct:\n        screenshot = sct.grab(sct.monitors[1])  # Gotcha!\n\nCopy"
+    },
+    {
+      "top": 2876,
+      "height": 44,
+      "lang": "python",
+      "head": "filename = datetime.now().strftime(\"screenshot_%Y-%m-%d_%H-%M-%S.png\")\n\nCopy"
+    },
+    {
+      "top": 3105,
+      "height": 80,
+      "lang": "python",
+      "head": "while True:\n    take_screenshot()\n    time.sleep(60)  # Screenshot every minute\n\nCopy"
+    },
+    {
+      "top": 3456,
+      "height": 44,
+      "lang": "bash",
+      "head": "pip install mss pillow\n\nCopy"
+    },
+    {
+      "top": 3574,
+      "height": 44,
+      "lang": "bash",
+      "head": "python thief_catcher.py\n\nCopy"
+    },
+    {
+      "top": 4230,
+      "height": 62,
+      "lang": "python",
+      "head": "time.sleep(30)  # Every 30 seconds (more paranoid)\ntime.sleep(300) # Every 5 minutes (less paranoid)\n\nCopy"
+    },
+    {
+      "top": 4375,
+      "height": 62,
+      "lang": "python",
+      "head": "# Send yourself an email every time someone uses your computer\n# Because why not add some drama to your day?\n\nCopy"
+    },
+    {
+      "top": 4521,
+      "height": 80,
+      "lang": "python",
+      "head": "# Capture all monitors if you're running a multi-screen setup\nfor monitor in sct.monitors[1:]:  # Skip the \"All in One\" monitor\n    screenshot = sct.grab(monitor)\n\nCopy"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [],
+  "text": "Ever left your computer for a few minutes only to return and find your browser history mysteriously filled with \"how to make the perfect sandwich\" or your Slack status changed to \"Professional Nap Taker\"? 🤔\n\nWell, my paranoid friends, today we're going to solve this mystery once and for all! I present to you: The Ultimate Computer Surveillance Script (or as I like to call it, \"The Thief Catcher 3000\").\n\nThe Problem: Trust Issues 🤷‍♂️\n\nPicture this: You step away from your desk for a coffee break, and when you return, someone has clearly been messing with your computer. Your teammates deny everything with suspiciously innocent faces. Your roommate claims they were \"just checking the time\" (on YOUR computer, really?).\n\nTime to go full CSI mode! 🔍\n\nThe Solution: Python Surveillance Magic ✨\n\nHere's a delightfully sneaky Python script that will screenshot your computer every minute, automatically saving evidence to a folder I've cleverly named /thief (subtle, right?):\n\nimport time\nimport os\nfrom datetime import datetime\nimport mss\nfrom PIL import Image\n\n# Define your custom folder path\nfolder_path = \"/Users/binhnguyen/thief\"  # Change this to your desired folder\n\n# Ensure the folder exists\nos.makedirs(folder_path, exist_ok=True)\n\ndef take_screenshot():\n    # Create an mss instance for screen capture\n    with mss.mss() as sct:\n        # Capture the screen\n        screenshot = sct.grab(sct.monitors[1])  # Use the first monitor\n\n        # Convert to an Image object (Pillow)\n        img = Image.frombytes(\"RGB\", screenshot.size, screenshot.bgra, \"raw\", \"BGRX\")\n\n        # Define filename with timestamp\n        filename = datetime.now().strftime(\"screenshot_%Y-%m-%d_%H-%M-%S.png\")\n        file_path = os.path.join(folder_path, filename)\n\n        # Save the image\n        img.save(file_path)\n        print(f\"Screenshot saved: {file_path}\")\n\n# Run every 60 seconds\nwhile True:\n    take_screenshot()\n    time.sleep(60)\n\nCopy\nBreaking Down the \"Thief Catcher 3000\" 🔧\n\nLet's dissect this beautiful piece of surveillance art:\n\n1. The Imports: Our Spy Toolkit 🛠️\nimport time        # For making our script wait (patience is key in espionage)\nimport os          # For creating our secret evidence folder\nfrom datetime import datetime  # For timestamping our evidence (very CSI)\nimport mss         # The real MVP - super fast screenshots\nfrom PIL import Image  # For handling our spy photos\n\nCopy\n2. The Evidence Folder 📁\nfolder_path = \"/Users/binhnguyen/thief\"\nos.makedirs(folder_path, exist_ok=True)\n\nCopy\n\nI named the folder \"thief\" because subtlety is overrated. Every time someone opens this folder, they'll know EXACTLY what it's for. It's like putting up a \"Smile, you're on camera!\" sign, but funnier.\n\n3. The Screenshot Function: Our Digital Camera 📸\ndef take_screenshot():\n    with mss.mss() as sct:\n        screenshot = sct.grab(sct.monitors[1])  # Gotcha!\n\nCopy\n\nThe mss library is incredibly fast - faster than your coworker can close that \"definitely work-related\" YouTube video! It grabs screenshots so quickly, they won't even know what hit them.\n\n4. The File Naming: Timestamp Evidence 🕐\nfilename = datetime.now().strftime(\"screenshot_%Y-%m-%d_%H-%M-%S.png\")\n\nCopy\n\nEach screenshot gets a timestamp like screenshot_2024-12-22_14-30-45.png. This way, you'll know EXACTLY when someone was browsing your computer for cat videos at 2:30 PM on a Tuesday.\n\n5. The Infinite Loop: Never-Ending Vigilance 🔄\nwhile True:\n    take_screenshot()\n    time.sleep(60)  # Screenshot every minute\n\nCopy\n\nThis script runs FOREVER (or until you stop it). Every 60 seconds, SNAP! Another piece of evidence. It's like having a security guard that never gets tired, never asks for coffee breaks, and never judges you for your questionable browser history.\n\nInstallation & Setup 🚀\n\nFirst, install the required packages:\n\npip install mss pillow\n\nCopy\n\nThen just run the script:\n\npython thief_catcher.py\n\nCopy\n\nPro tip: Run this in the background or as a startup script for maximum stealth! 🥷\n\nReal-World Results 📊\n\nAfter running this for a week, here's what I discovered:\n\n3:42 PM Monday: Someone definitely used my computer to check their Instagram (busted!)\n11:23 AM Wednesday: Caught my roommate ordering pizza on MY DoorDash account (the audacity!)\n2:15 PM Friday: Evidence of someone playing online solitaire during \"important meetings\"\nCustomization Options 🎛️\n\nWant to make this even more diabolical? Here are some modifications:\n\nChange the Screenshot Interval\ntime.sleep(30)  # Every 30 seconds (more paranoid)\ntime.sleep(300) # Every 5 minutes (less paranoid)\n\nCopy\nAdd Email Alerts\n# Send yourself an email every time someone uses your computer\n# Because why not add some drama to your day?\n\nCopy\nMultiple Monitor Support\n# Capture all monitors if you're running a multi-screen setup\nfor monitor in sct.monitors[1:]:  # Skip the \"All in One\" monitor\n    screenshot = sct.grab(monitor)\n\nCopy\nLegal Disclaimer (The Boring But Important Part) ⚖️\n\nBefore you unleash your inner spy, remember:\n\nOnly use this on YOUR OWN computer\nBe aware of privacy laws in your area\nMaybe warn people if this is a shared computer (or don't, I'm not your mom)\nDon't use this to stalk people (seriously, that's not cool)\nConclusion: Knowledge is Power 💪\n\nNow you have the power to solve the mystery of \"Who Used My Computer?\" Will it be your sneaky coworker? Your curious roommate? Or will you discover it was just you, sleepwalking and ordering things online again?\n\nEither way, you'll have photographic evidence! And isn't that what life is really about? Having proof that you were right all along? 😏\n\nRemember: With great surveillance power comes great responsibility. Use this script wisely, and may your computer remain thief-free!\n\nP.S. - If you catch someone using this script on their computer, maybe it's time to have \"the talk\" about boundaries. Or just smile and wave at the camera! 👋"
+}
