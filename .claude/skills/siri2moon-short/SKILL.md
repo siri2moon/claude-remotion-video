@@ -33,8 +33,9 @@ Scripts: `S=.claude/skills/siri2moon-short/scripts` (chạy từ gốc repo).
   rồi lấy bài đầu trong `posts`.
 - Tên dự án → `kind: "project"`, tra `references/projects.md`. Dự án chưa có ở đó → đọc README
   của nó, chạy thử, rồi **thêm mục mới vào projects.md** trước khi làm.
-- Chỉ nói "làm video hôm nay" → chọn bài blog mới nhất chưa có thư mục trong `content/`
-  (`ls content | grep <slug>`), nói rõ đã chọn bài nào.
+- Chỉ nói "làm video hôm nay" → `node $S/mark-video.mjs --todo` (bài đã xuất bản chưa có video, đọc từ
+  D1 của blog), chọn bài hay nhất trong đó (mới, có chất liệu thật để quay), nói rõ đã chọn bài nào.
+- Bài đã có trong `mark-video.mjs --list` → **đừng làm lại**, báo user video cũ, trừ khi họ bảo làm bản mới.
 
 Đừng hỏi vặt. Hỏi chỉ khi không đoán được đầu vào.
 
@@ -121,6 +122,15 @@ Nếu chưa có file nào, gợi ý user các nguồn trong README đó. **Khôn
 
 Ghi `content/<dir>/dang-bai.md` theo mẫu trong `references/storytelling.md` (YouTube: tiêu đề,
 mô tả, bình luận ghim; TikTok; Facebook; khung ảnh bìa). Link bài blog gắn UTM theo nền tảng.
+
+### 8b. Đánh dấu đã làm
+
+```bash
+node $S/mark-video.mjs <dir>                    # dự án: thêm --post=<slug bài giới thiệu>
+```
+
+Ghi vào bảng `post_videos` của D1 blog, admin hiện cột **Video** + bộ lọc "No video yet". User đăng
+xong, chạy lại với `--youtube= --facebook= --tiktok=` để lưu link (link không truyền giữ nguyên).
 
 ### 9. Báo cáo
 
