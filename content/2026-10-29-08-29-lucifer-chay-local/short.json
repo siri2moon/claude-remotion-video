@@ -1,0 +1,532 @@
+{
+ "id": "2026-10-29-08-29-lucifer-chay-local",
+ "kind": "post",
+ "theme": "lucifer",
+ "project": "lucifer",
+ "source": {
+  "url": "https://siri2moon.com/posts/lucifer-getting-started-run-locally",
+  "proof": "footage quay thật từ Lucifer office + engine chế độ mô phỏng (sim brain); terminal dựng lại đúng lệnh và output thật trong bài; giọng đọc ElevenLabs (Brian)"
+ },
+ "chip": {
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Bắt đầu nhanh",
+   "en": "Getting started"
+  }
+ },
+ "narration": {
+  "model": "eleven_v3",
+  "volume": 1.15
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "say": {
+    "vi": "Công ty AI, chạy miễn phí ngay trên máy bạn.",
+    "en": "A whole AI company, free, on your laptop."
+   },
+   "lines": {
+    "vi": [
+     "Cả *công ty AI*",
+     "chạy *0đ* trên máy bạn 💻"
+    ],
+    "en": [
+     "A whole *AI company*",
+     "*free*, on your laptop 💻"
+    ]
+   }
+  },
+  {
+   "id": "setup",
+   "beats": 7,
+   "say": {
+    "vi": "Hai lệnh, hai terminal. Không cần API key.",
+    "en": "Two commands, two terminals. No API key needed."
+   },
+   "terminal": {
+    "title": "zsh — ~/lucifer",
+    "fontSize": 27,
+    "cps": 28,
+    "start": 0.2,
+    "items": [
+     {
+      "cmd": "git clone https://github.com/siri2moon/lucifer",
+      "enter": 0.2
+     },
+     {
+      "out": "{dim}Cloning into 'lucifer'... done.{/}",
+      "after": 0.15
+     },
+     {
+      "cmd": "uv run lucifer-engine serve",
+      "enter": 0.25
+     },
+     {
+      "out": "{green}Uvicorn running on http://0.0.0.0:4666{/}\n{dim}# no API key → simulation brain{/}",
+      "after": 0.2
+     },
+     {
+      "cmd": "pnpm dev",
+      "enter": 0.25
+     },
+     {
+      "out": "  {green}➜{/}  Local:   {cyan}http://localhost:5173/{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "*2 terminal* là chạy",
+     "không cần *API key* 🔑"
+    ],
+    "en": [
+     "*Two terminals*, that's it",
+     "no *API key* needed 🔑"
+    ]
+   }
+  },
+  {
+   "id": "assign",
+   "shot": "ui-assign",
+   "beats": 6,
+   "skip": 0.3,
+   "layout": "card",
+   "say": {
+    "vi": "Gõ một mục tiêu, bấm Assign.",
+    "en": "Type a goal and hit Assign."
+   },
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 400,
+     "zoom": 0.78
+    },
+    {
+     "f": 20,
+     "cx": 640,
+     "cy": 595,
+     "zoom": 2
+    },
+    {
+     "f": 94,
+     "cx": 640,
+     "cy": 595,
+     "zoom": 2
+    },
+    {
+     "f": 108,
+     "cx": 640,
+     "cy": 560,
+     "zoom": 1.6
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Gõ *một mục tiêu*",
+     "bấm *Assign* 🚀"
+    ],
+    "en": [
+     "Type *one goal*",
+     "hit *Assign* 🚀"
+    ]
+   }
+  },
+  {
+   "id": "follow",
+   "beats": 7,
+   "say": {
+    "vi": "CEO Lucifer chia việc, và camera bay theo từng lần giao.",
+    "en": "Lucifer, the CEO, splits the work, and the camera follows every hand-off."
+   },
+   "lines": {
+    "vi": [
+     "CEO *chia việc*",
+     "camera *bay theo* sao chổi ☄️"
+    ],
+    "en": [
+     "The CEO *splits the work*",
+     "camera *tails* the comets ☄️"
+    ]
+   }
+  },
+  {
+   "id": "mission",
+   "shot": "ui-mission",
+   "beats": 6,
+   "layout": "card",
+   "say": {
+    "vi": "Thẻ nhiệm vụ báo tiến độ theo từng giai đoạn.",
+    "en": "The mission card tracks every phase."
+   },
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 450,
+     "zoom": 1.1
+    },
+    {
+     "f": 30,
+     "cx": 640,
+     "cy": 560,
+     "zoom": 1.7
+    },
+    {
+     "f": 108,
+     "cx": 640,
+     "cy": 560,
+     "zoom": 1.7
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Theo dõi *từng giai đoạn*",
+     "ngay trên *thẻ nhiệm vụ* 📋"
+    ],
+    "en": [
+     "Track *every phase*",
+     "on the *mission card* 📋"
+    ]
+   }
+  },
+  {
+   "id": "done",
+   "shot": "ui-done",
+   "beats": 7,
+   "layout": "card",
+   "say": {
+    "vi": "Chưa tới ba mươi giây là xong, từng nhánh việc đều có dấu tích.",
+    "en": "Under thirty seconds later it is done, every branch ticked off."
+   },
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 400,
+     "zoom": 0.78
+    },
+    {
+     "f": 30,
+     "cx": 742,
+     "cy": 380,
+     "zoom": 1.5
+    },
+    {
+     "f": 126,
+     "cx": 742,
+     "cy": 390,
+     "zoom": 1.5
+    }
+   ],
+   "lines": {
+    "vi": [
+     "*Chưa tới 30 giây*: xong",
+     "đủ *cây giao việc* ✅"
+    ],
+    "en": [
+     "*Under 30 seconds*: done",
+     "every *hand-off* ticked ✅"
+    ]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "outro",
+  "beats": 11,
+  "rate": 0.9,
+  "dim": 0.62,
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Hướng dẫn đầy đủ trên *siri2moon.com*",
+   "en": "Full setup guide on *siri2moon.com*"
+  },
+  "chips": {
+   "vi": [
+    "uv",
+    "pnpm",
+    "Chế độ mô phỏng",
+    "0đ"
+   ],
+   "en": [
+    "uv",
+    "pnpm",
+    "Simulation mode",
+    "Free"
+   ]
+  },
+  "link": "siri2moon.com"
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "để xem mình xây Lucifer từ đầu 🚀",
+    "Link bài viết ở bình luận ghim 📌"
+   ],
+   "en": [
+    "to watch Lucifer being built 🚀",
+    "Link to the post in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "http://localhost:5173/",
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "loadWait": 6,
+  "setup": "await __cap.initR3F(); __cap.office = (await import('/src/state/office.ts')).useOffice; __cap.engine = (await import('/src/state/engine.ts')).engineApi; const s = __cap.office.getState(); s.setLang(__cap.lang); s.closeGuide(); if (s.followWork) s.toggleFollow(); __cap.followOff = () => { const o = __cap.office.getState(); if (o.followWork) o.toggleFollow(); }; __cap.newest = () => Object.values(__cap.office.getState().tasks).filter((t) => !t.parentId).sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];",
+  "shotSetup": "(shot) => { const s = __cap.office.getState(); if (!!shot.hud !== s.panelsVisible) s.togglePanels(); return (shot.hud ? '' : '.hud { display: none !important; }') + (shot.labels === false ? ' .labels { display: none !important; }' : '') + (shot.bubbles ? '' : ' .bubble { display: none !important; }'); }",
+  "shots": [
+   {
+    "name": "hook",
+    "seconds": 5,
+    "preroll": 1,
+    "actions": [
+     {
+      "at": -1,
+      "js": "__cap.engine.createTask({ title: __cap.lang === 'en' ? 'Build the product landing page' : 'Xây landing page cho sản phẩm', description: __cap.lang === 'en' ? 'Design, frontend code and copy' : 'Thiết kế, code frontend, viết nội dung', priority: 'high' }).then(() => new Promise(r => setTimeout(r, 8000)))"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -27,
+       8.5,
+       27
+      ],
+      "target": [
+       0,
+       6,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       -21,
+       9.5,
+       21
+      ],
+      "target": [
+       0,
+       6.5,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   {
+    "name": "ui-assign",
+    "seconds": 7,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "type": {
+     "at": 0.6,
+     "selector": ".assign__title",
+     "text": {
+      "vi": "Lên kế hoạch ra mắt app ghi chú AI",
+      "en": "Plan the launch of an AI note-taking app"
+     },
+     "cps": 16,
+     "submit": 0.5
+    },
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       26,
+       20,
+       58
+      ],
+      "target": [
+       3,
+       2,
+       11
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       20,
+       17,
+       46
+      ],
+      "target": [
+       1,
+       3,
+       4
+      ],
+      "fov": 38
+     }
+    ],
+    "css": ".assign__desc, .assign select { display: none !important; } .assign__title { min-width: 0; flex: 1; font-size: 17px; }",
+    "bubbles": true
+   },
+   {
+    "name": "follow",
+    "seconds": 8,
+    "actions": [
+     {
+      "at": -1,
+      "js": "(() => { const o = __cap.office.getState(); if (!o.followWork) o.toggleFollow(); return new Promise(r => setTimeout(r, 600)); })()"
+     }
+    ]
+   },
+   {
+    "name": "ui-mission",
+    "seconds": 6,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "actions": [
+     {
+      "at": -1,
+      "js": "(async () => { __cap.followOff(); await __cap.engine.createTask({ title: __cap.lang === \"en\" ? \"Plan a two-week marketing push\" : \"Lên kế hoạch marketing 2 tuần\", description: __cap.lang === \"en\" ? \"Channels, content calendar and budget\" : \"Kênh, lịch nội dung và ngân sách\", priority: \"high\" }); await new Promise(r => setTimeout(r, 7000)); })()"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       20,
+       17,
+       46
+      ],
+      "target": [
+       1,
+       3,
+       4
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       16,
+       15,
+       42
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     }
+    ],
+    "bubbles": true
+   },
+   {
+    "name": "ui-done",
+    "seconds": 7,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "actions": [
+     {
+      "at": -1,
+      "js": "(async () => { __cap.goal = () => Object.values(__cap.office.getState().tasks).find((t) => !t.parentId && t.title === (__cap.lang === \"en\" ? \"Plan the launch of an AI note-taking app\" : \"Lên kế hoạch ra mắt app ghi chú AI\")); const t0 = Date.now(); while (__cap.goal()?.status !== \"done\" && Date.now() - t0 < 120000) await new Promise(r => setTimeout(r, 500)); })()"
+     },
+     {
+      "at": 0.8,
+      "js": "__cap.office.getState().selectTask(__cap.goal().id)"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       16,
+       15,
+       42
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       14,
+       14,
+       40
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   {
+    "name": "outro",
+    "seconds": 8,
+    "actions": [
+     {
+      "at": -1,
+      "js": "__cap.office.getState().selectTask(null)"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       30,
+       10,
+       30
+      ],
+      "target": [
+       0,
+       6,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       50,
+       32,
+       62
+      ],
+      "target": [
+       0,
+       3,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   }
+  ]
+ }
+}
