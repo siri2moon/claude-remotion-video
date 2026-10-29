@@ -20,7 +20,7 @@ Mỗi kịch bản là một thư mục `content/<YYYY-MM-DD>-<HH>-<MM>-<slug>/`
 | `raw/s1.mov`… | user quay | Sau khi in PDF |
 | `script.json` | sinh tự động | Khi chạy `/tiktok-video` — bản dịch của `kichban.json` cho pipeline dựng |
 
-Quay xong → `/tiktok-video <slug>` dựng ra `out/<dir>.mp4`: jump-cut nhẹ tay, giữ khoảng lặng ở
+Quay xong → `/tiktok-video <slug>` dựng ra `out/<dir>/<dir>.mp4`: jump-cut nhẹ tay, giữ khoảng lặng ở
 cảnh twist, nhạc nền + SFX **tự tổng hợp bằng code** theo `music`/`sfx` của từng cảnh, snap zoom,
 chữ màn hình và phụ đề.
 

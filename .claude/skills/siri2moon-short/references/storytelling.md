@@ -84,7 +84,7 @@ User chê video toàn terminal/trang chữ là "chưa thu hút, chưa đặc s�
 ````markdown
 # <Tên video>: đăng bài
 
-Video: `out/<dir>.mp4` (1080×1920, 30 fps, <x> s, <lufs> LUFS) · Ảnh bìa: khung ở giây <t>
+Video: `out/<dir>/<dir>.mp4` (1080×1920, 30 fps, <x> s, <lufs> LUFS) · Ảnh bìa: khung ở giây <t>
 
 ## YouTube Shorts
 **Tiêu đề** (≤ 70 ký tự, từ khoá trước): ```<hook tiếng Việt> | <English keywords> #shorts```

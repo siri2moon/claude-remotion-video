@@ -2,9 +2,9 @@
 
 | Nền tảng | Video | Ngôn ngữ |
 |---|---|---|
-| YouTube Shorts | `out/2026-10-27-08-18-xuong-video-ai-tap-2-en.mp4` | 🇬🇧 English |
-| Facebook Reels | `out/2026-10-27-08-18-xuong-video-ai-tap-2-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-27-08-18-xuong-video-ai-tap-2.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| YouTube Shorts | `out/2026-10-27-08-18-xuong-video-ai-tap-2/2026-10-27-08-18-xuong-video-ai-tap-2-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/2026-10-27-08-18-xuong-video-ai-tap-2/2026-10-27-08-18-xuong-video-ai-tap-2-en.mp4` | 🇬🇧 English |
+| TikTok | `out/2026-10-27-08-18-xuong-video-ai-tap-2/2026-10-27-08-18-xuong-video-ai-tap-2.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
 
 Ảnh bìa: khung ở giây 2 (kịch bản "Hey guys!" + câu "AI-written scripts… all Hey guys"), thêm chữ to **PART 2/5** (YouTube/Facebook) hoặc **TẬP 2/5** (TikTok).
 Playlist: **"AI Video Studio"** trên YouTube/Facebook · **"Xưởng video AI"** trên TikTok.

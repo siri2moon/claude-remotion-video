@@ -1,6 +1,6 @@
 # Lucifer: đăng bài
 
-Video: `out/lucifer-gioi-thieu.mp4` (1080×1920, 30 fps, 42,6 s, -13 LUFS)
+Video: `out/2026-10-25-16-10-lucifer-gioi-thieu/lucifer-gioi-thieu.mp4` (1080×1920, 30 fps, 42,6 s, -13 LUFS)
 
 ## YouTube Shorts
 

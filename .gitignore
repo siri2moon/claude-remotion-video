@@ -10,6 +10,7 @@ node_modules/
 # footage thô và file trung gian — nặng, sinh lại được
 content/*/raw/
 content/*/footage/
+content/*/footage-*/
 content/*/audio/
 content/*/media.json
 content/*/timing.json

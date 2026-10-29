@@ -1,11 +1,11 @@
 ---
 name: ai-story
-description: Biến một câu chuyện triết lý sống thành video dọc 9:16 hoàn toàn bằng AI — lời bình do máy đọc, tranh minh hoạ do máy vẽ, không cần quay, không cần thu âm. Hợp chủ đề muôn kiếp nhân sinh, nhân quả, tiền kiếp, sống tỉnh thức, đối nhân xử thế. Xuất ra content/<date>-<time>-<slug>/story.json rồi dựng thành out/<dir>.mp4 có tiêu đề đứng yên, tranh chuyển mượt và phụ đề khớp từng câu. Dùng khi user dán một câu chuyện, một bài học cuộc sống, hoặc nói "làm video kể chuyện", "video AI", "video triết lý", "kiểu muôn kiếp nhân sinh".
+description: Biến một câu chuyện triết lý sống thành video dọc 9:16 hoàn toàn bằng AI — lời bình do máy đọc, tranh minh hoạ do máy vẽ, không cần quay, không cần thu âm. Hợp chủ đề muôn kiếp nhân sinh, nhân quả, tiền kiếp, sống tỉnh thức, đối nhân xử thế. Xuất ra content/<date>-<time>-<slug>/story.json rồi dựng thành out/<dir>/<dir>.mp4 có tiêu đề đứng yên, tranh chuyển mượt và phụ đề khớp từng câu. Dùng khi user dán một câu chuyện, một bài học cuộc sống, hoặc nói "làm video kể chuyện", "video AI", "video triết lý", "kiểu muôn kiếp nhân sinh".
 ---
 
 # AI Story Video
 
-Nhận **một câu chuyện** → xuất `out/<dir>.mp4`, 1080×1920 @ 30fps.
+Nhận **một câu chuyện** → xuất `out/<dir>/<dir>.mp4`, 1080×1920 @ 30fps.
 Giọng đọc và tranh đều sinh trên máy, **không API key, không mất tiền**.
 
 Định dạng dựng theo `docs/refer/muonkiepnhansinh.MP4`. Đặc tả bố cục và mọi con số đo
@@ -131,7 +131,7 @@ Gõ mỗi phần slug là đủ, mọi script tự tìm thư mục kết thúc b
 | `tts` | `audio/l###.wav`, `audio/voice.wav`, `timing.json` | Mỗi dòng một file → biết chính xác nó dài bao nhiêu |
 | `images` | `images/s##.png` | Mỗi cảnh một ảnh. **Chạy lại được**, ảnh nào có rồi thì bỏ qua |
 | `build-props` | `props.json` | Đổi giây ra frame, rải Ken Burns |
-| `render` | `out/<dir>.mp4` | Remotion |
+| `render` | `out/<dir>/<dir>.mp4` | Remotion |
 
 `images.mjs` lâu nên chạy nền được. Vẽ hỏng một cảnh thì sửa `image` trong `story.json`
 rồi `node $S/images.mjs <slug> --only=s07`, không phải làm lại cả bộ.
@@ -153,7 +153,7 @@ Báo cáo: đường dẫn mp4, thời lượng thật, số cảnh, mọi WARN,
 
 ```bash
 S=.claude/skills/ai-story/scripts
-node $S/render.mjs <slug> --frame=240   # ra out/<dir>-f240.png, vài giây
+node $S/render.mjs <slug> --frame=240   # ra out/<dir>/<dir>-f240.png, vài giây
 node $S/render.mjs <slug> --studio      # mở Remotion Studio, tua timeline
 ```
 
@@ -208,7 +208,7 @@ Màu, font, toạ độ, mọi con số đo từ video mẫu: `references/design
 │   ├── make-test-images.mjs    ảnh giả để chạy thử
 │   ├── images.mjs              tranh minh hoạ                  (--only= --force --dry)
 │   ├── build-props.mjs         → props.json
-│   ├── render.mjs              → out/<dir>.mp4                 (--studio --frame=)
+│   ├── render.mjs              → out/<dir>/<dir>.mp4                 (--studio --frame=)
 │   └── lib.mjs                 tiện ích chung
 └── assets/
     ├── styles.json             preset phong cách tranh

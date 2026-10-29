@@ -104,4 +104,4 @@ sinh ảnh — đọc nó trước khi đưa user duyệt.
 | `audio/l###.wav`, `audio/voice.wav`, `timing.json` | `tts.mjs` |
 | `images/s##.png` | `images.mjs` |
 | `props.json` | `build-props.mjs` |
-| `out/<dir>.mp4` | `render.mjs` |
+| `out/<dir>/<dir>.mp4` | `render.mjs` |

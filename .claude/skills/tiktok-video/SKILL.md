@@ -1,11 +1,11 @@
 ---
 name: tiktok-video
-description: Dựng video ngắn TikTok 9:16 từ kịch bản content/<dir>/script.json (tiktok-script) hoặc kichban.json (votri-script, hài vô tri) và footage tự quay trong content/<dir>/raw/. Nhạc nền và SFX tự tổng hợp bằng code, không cần file nhạc. Chạy pipeline 6 stage — preflight, tách tiếng, whisper word-timing, jump-cut khoảng lặng, build props, render Remotion — ra out/<dir>.mp4 có phụ đề động và highlight từ khoá. Dùng khi user nói "dựng video", "render video", "ghép footage", "làm video từ kịch bản", hoặc đã quay xong và muốn ra thành phẩm.
+description: Dựng video ngắn TikTok 9:16 từ kịch bản content/<dir>/script.json (tiktok-script) hoặc kichban.json (votri-script, hài vô tri) và footage tự quay trong content/<dir>/raw/. Nhạc nền và SFX tự tổng hợp bằng code, không cần file nhạc. Chạy pipeline 6 stage — preflight, tách tiếng, whisper word-timing, jump-cut khoảng lặng, build props, render Remotion — ra out/<dir>/<dir>.mp4 có phụ đề động và highlight từ khoá. Dùng khi user nói "dựng video", "render video", "ghép footage", "làm video từ kịch bản", hoặc đã quay xong và muốn ra thành phẩm.
 ---
 
 # TikTok Video Builder (Remotion)
 
-Nhận kịch bản + footage selfie user tự quay → xuất `out/<dir>.mp4`, 1080×1920 @ 30fps.
+Nhận kịch bản + footage selfie user tự quay → xuất `out/<dir>/<dir>.mp4`, 1080×1920 @ 30fps.
 Giọng thật từ clip, **không dùng TTS**.
 
 Skill này là **orchestrator**. Nó không chứa kiến thức Remotion — phần đó ủy quyền cho
@@ -89,7 +89,7 @@ Mỗi stage ghi ra một file trung gian, chạy lại độc lập được. Ch
 | `transcribe` | `timing.json` | Whisper lấy thời điểm, **chữ lấy từ `voiceover` gốc** |
 | `detect-cuts` | `cuts.json` | Tìm khoảng lặng → danh sách đoạn giữ lại |
 | `build-props` | `props.json` | Re-time toàn bộ theo footage thật, **tự sinh nhạc/SFX còn thiếu** |
-| `render` | `out/<dir>.mp4` | Remotion render |
+| `render` | `out/<dir>/<dir>.mp4` | Remotion render |
 
 ### Bước 3 — Đọc kỹ WARN
 
@@ -101,7 +101,7 @@ Pipeline chạy xong không có nghĩa là video ổn. Ba WARN phải báo lại
 
 ### Bước 4 — Báo cáo
 
-1. Đường dẫn `out/<dir>.mp4`, thời lượng thành phẩm.
+1. Đường dẫn `out/<dir>/<dir>.mp4`, thời lượng thành phẩm.
 2. Nếu thành phẩm lệch nhiều so với `durationSec` trong kịch bản → nói rõ (bình thường, timeline lấy theo footage thật).
 3. Mọi WARN ở bước 3.
 4. Nhạc nền và SFX có tên trong `audio-synth.mjs --list` được **tự tổng hợp** khi thiếu. Chỉ khi

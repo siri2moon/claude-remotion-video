@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 // Renders a short: build-props → music → Remotion render.
-//   node render.mjs <slug>                 out/<dir>.mp4
-//   node render.mjs <slug> --lang=en       out/<dir>-en.mp4 (English captions, same picture and music)
-//   node render.mjs <slug> --no-music      out/<dir>-khong-nhac.mp4: SFX only, to add trending music in the app
-//   node render.mjs <slug> --stills        grabs one frame mid-scene → out/<dir>-stills.jpg for review
+//   node render.mjs <slug>                 out/<dir>/<dir>.mp4
+//   node render.mjs <slug> --lang=en       out/<dir>/<dir>-en.mp4 (English captions, same picture and music)
+//   node render.mjs <slug> --no-music      out/<dir>/<dir>-khong-nhac.mp4: SFX only, to add trending music in the app
+//   node render.mjs <slug> --stills        grabs one frame mid-scene → out/<dir>/<dir>-stills.jpg for review
 //   node render.mjs <slug> --studio        opens Remotion Studio to scrub the timeline
 
 import { mkdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { contentDir, die, flagValue, hasFlag, info, ok, readJson, ROOT, SKILL, slugArg } from './lib.mjs';
+import { contentDir, die, flagValue, hasFlag, info, ok, outDir, readJson, ROOT, SKILL, slugArg } from './lib.mjs';
 
 const dir = slugArg();
 const lang = flagValue('lang', 'vi');
@@ -35,8 +35,7 @@ const npx = (args) => {
   const r = spawnSync('npx', ['remotion', ...args, '--public-dir=../content', `--props=${propsFile}`], { cwd: remotion, stdio: 'inherit' });
   if (r.status !== 0) die('remotion lỗi, xem log phía trên');
 };
-const out = join(ROOT, 'out');
-mkdirSync(out, { recursive: true });
+const out = outDir(dir);
 const name = suffix ? `${dir}-${suffix}` : dir;
 
 if (hasFlag('studio')) {

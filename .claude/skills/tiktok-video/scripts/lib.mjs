@@ -1,4 +1,4 @@
-// Tiện ích dùng chung cho các stage. Không phụ thuộc package ngoài.
+// Shared helpers for every stage. No external packages.
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -8,6 +8,13 @@ export const ROOT =
   process.env.PROJECT_ROOT ?? resolve(fileURLToPath(import.meta.url), '../../../../..');
 
 export const contentDir = (slug) => join(ROOT, 'content', slug);
+
+// Every video keeps its renders in its own folder, out/<dir>/, so out/ stays one folder per video.
+export const outDir = (dir) => {
+  const d = join(ROOT, 'out', dir);
+  mkdirSync(d, { recursive: true });
+  return d;
+};
 export const assetsDir = () => join(ROOT, 'content', '_assets');
 
 export const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'));

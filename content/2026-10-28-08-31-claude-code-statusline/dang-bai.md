@@ -2,9 +2,9 @@
 
 | Nền tảng | Video | Ngôn ngữ |
 |---|---|---|
-| YouTube Shorts | `out/2026-10-28-08-31-claude-code-statusline-en.mp4` | 🇬🇧 English |
-| Facebook Reels | `out/2026-10-28-08-31-claude-code-statusline-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-28-08-31-claude-code-statusline.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| YouTube Shorts | `out/2026-10-28-08-31-claude-code-statusline/2026-10-28-08-31-claude-code-statusline-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/2026-10-28-08-31-claude-code-statusline/2026-10-28-08-31-claude-code-statusline-en.mp4` | 🇬🇧 English |
+| TikTok | `out/2026-10-28-08-31-claude-code-statusline/2026-10-28-08-31-claude-code-statusline.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
 
 Ảnh bìa: khung ở giây 3 (quota **7%** đỏ rực), thêm chữ to **CLAUDE CODE STATUSLINE**.
 Playlist: **"Claude Code Tips"** trên YouTube/Facebook · **"Mẹo Claude Code"** trên TikTok.

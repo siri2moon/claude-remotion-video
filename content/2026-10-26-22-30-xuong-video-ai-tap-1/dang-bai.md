@@ -2,9 +2,9 @@
 
 | Nền tảng | Video | Ngôn ngữ |
 |---|---|---|
-| YouTube Shorts | `out/2026-10-26-22-30-xuong-video-ai-tap-1-en.mp4` | 🇬🇧 English |
-| Facebook Reels | `out/2026-10-26-22-30-xuong-video-ai-tap-1-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-26-22-30-xuong-video-ai-tap-1.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| YouTube Shorts | `out/2026-10-26-22-30-xuong-video-ai-tap-1/2026-10-26-22-30-xuong-video-ai-tap-1-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/2026-10-26-22-30-xuong-video-ai-tap-1/2026-10-26-22-30-xuong-video-ai-tap-1-en.mp4` | 🇬🇧 English |
+| TikTok | `out/2026-10-26-22-30-xuong-video-ai-tap-1/2026-10-26-22-30-xuong-video-ai-tap-1.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
 
 Ảnh bìa: khung ở giây 1,5 (terminal Claude Code + câu "Type one line…"), thêm chữ to **PART 1/5** (YouTube/Facebook) hoặc **TẬP 1/5** (TikTok).
 Playlist: **"AI Video Studio"** trên YouTube/Facebook · **"Xưởng video AI"** trên TikTok.

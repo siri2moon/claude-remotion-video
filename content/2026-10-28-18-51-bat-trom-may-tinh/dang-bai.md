@@ -2,9 +2,9 @@
 
 | Nền tảng | Video | Ngôn ngữ |
 |---|---|---|
-| YouTube Shorts | `out/2026-10-28-18-51-bat-trom-may-tinh-en.mp4` | 🇬🇧 English |
-| Facebook Reels | `out/2026-10-28-18-51-bat-trom-may-tinh-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-28-18-51-bat-trom-may-tinh.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| YouTube Shorts | `out/2026-10-28-18-51-bat-trom-may-tinh/2026-10-28-18-51-bat-trom-may-tinh-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/2026-10-28-18-51-bat-trom-may-tinh/2026-10-28-18-51-bat-trom-may-tinh-en.mp4` | 🇬🇧 English |
+| TikTok | `out/2026-10-28-18-51-bat-trom-may-tinh/2026-10-28-18-51-bat-trom-may-tinh.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
 
 Video 1080×1920, 30 fps, 42,6 s · **có giọng đọc ElevenLabs** (giọng George, eleven_v3).
 Ảnh bìa: khung ở giây 20 (**BẮT TẬN TAY**, đỏ rực), thêm chữ to **BẮT TRỘM MÁY TÍNH**.

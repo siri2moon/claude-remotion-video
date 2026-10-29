@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-// Stage cuối — render ra mp4.
-// Dùng: node render.mjs <slug> [--studio] [--frame=N]
-//   --studio   mở Remotion Studio để xem trước thay vì render
-//   --frame=N  render đúng một frame ra out/<dir>-fN.png — soi bố cục cực nhanh
-// Ra:   out/<dir>.mp4
+// Final stage: render the mp4.
+// Usage: node render.mjs <slug> [--studio] [--frame=N]
+//   --studio   open Remotion Studio to preview instead of rendering
+//   --frame=N  render a single frame to out/<dir>/<dir>-fN.png: the fastest way to check a layout
+// Output:   out/<dir>/<dir>.mp4
 
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, contentDir, die, flagValue, hasFlag, info, ok, slugArg } from './lib.mjs';
+import { ROOT, contentDir, die, flagValue, hasFlag, info, ok, outDir, slugArg } from './lib.mjs';
 
 const slug = slugArg();
 const dir = contentDir(slug);
@@ -21,8 +21,8 @@ if (!existsSync(join(remotionDir, 'node_modules'))) {
 const propsPath = join(dir, 'props.json');
 if (!existsSync(propsPath)) die(`thiếu content/${slug}/props.json — chạy build-props.mjs trước`);
 
-// publicDir = content/ nên staticFile('<dir>/images/s01.png') và
-// staticFile('_assets/bgm/lofi.mp3') đều trỏ đúng.
+// publicDir = content/, so staticFile('<dir>/images/s01.png') and
+// staticFile('_assets/bgm/lofi.mp3') both resolve.
 const common = ['--public-dir', join(ROOT, 'content'), `--props=${propsPath}`];
 
 if (hasFlag('studio')) {
@@ -31,26 +31,26 @@ if (hasFlag('studio')) {
   process.exit(0);
 }
 
-mkdirSync(join(ROOT, 'out'), { recursive: true });
+const out = outDir(slug);
 
 const frame = flagValue('frame', null);
 if (frame !== null) {
-  const png = join(ROOT, 'out', `${slug}-f${frame}.png`);
+  const png = join(out, `${slug}-f${frame}.png`);
   const s = spawnSync(
     'pnpm',
     ['exec', 'remotion', 'still', 'StoryVideo', png, `--frame=${frame}`, ...common],
     { cwd: remotionDir, stdio: 'inherit' },
   );
   if (s.status !== 0) process.exit(s.status ?? 1);
-  ok(`out/${slug}-f${frame}.png`);
+  ok(`out/${slug}/${slug}-f${frame}.png`);
   process.exit(0);
 }
 
-const outFile = join(ROOT, 'out', `${slug}.mp4`);
+const outFile = join(out, `${slug}.mp4`);
 const r = spawnSync('pnpm', ['exec', 'remotion', 'render', 'StoryVideo', outFile, ...common], {
   cwd: remotionDir,
   stdio: 'inherit',
 });
 
 if (r.status !== 0) process.exit(r.status ?? 1);
-ok(`out/${slug}.mp4`);
+ok(`out/${slug}/${slug}.mp4`);

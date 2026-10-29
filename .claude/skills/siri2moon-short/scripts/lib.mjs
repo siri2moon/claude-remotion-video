@@ -9,6 +9,13 @@ export const SKILL = resolve(fileURLToPath(import.meta.url), '../..');
 
 export const contentDir = (dir) => join(ROOT, 'content', dir);
 
+// Every video keeps its renders in its own folder, out/<dir>/, so out/ stays one folder per video.
+export const outDir = (dir) => {
+  const d = join(ROOT, 'out', dir);
+  mkdirSync(d, { recursive: true });
+  return d;
+};
+
 export const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
 export const writeJson = (p, data) => {
   mkdirSync(dirname(p), { recursive: true });

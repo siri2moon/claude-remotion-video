@@ -1,6 +1,6 @@
 # EC2 login đẹp: đăng bài
 
-Video: `out/2026-10-25-20-16-ec2-login-dep.mp4` (1080×1920, 30 fps, 33,6 s, -13,4 LUFS) · Ảnh bìa: khung ở giây 7 (banner NEBULA DEV)
+Video: `out/2026-10-25-20-16-ec2-login-dep/2026-10-25-20-16-ec2-login-dep.mp4` (1080×1920, 30 fps, 33,6 s, -13,4 LUFS) · Ảnh bìa: khung ở giây 7 (banner NEBULA DEV)
 
 ## YouTube Shorts
 

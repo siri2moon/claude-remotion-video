@@ -7,20 +7,20 @@ Dựng video dọc 9:16 bằng Claude Code + Remotion. Bốn định dạng, b�
 **A — Selfie quay thật.** Giọng thật, mặt thật, không TTS.
 
 ```
-châm ngôn ──/tiktok-script──▶ script.json ──▶ bạn quay theo shoot.md ──/tiktok-video──▶ out/<dir>.mp4
+châm ngôn ──/tiktok-script──▶ script.json ──▶ bạn quay theo shoot.md ──/tiktok-video──▶ out/<dir>/<dir>.mp4
                                                   raw/s1.mov …
 ```
 
 **B — Kể chuyện bằng tranh AI.** Không quay, không thu âm, chạy hết trên máy.
 
 ```
-câu chuyện ──/ai-story──▶ story.json ──▶ [duyệt] ──▶ giọng + tranh sinh trên máy ──▶ out/<dir>.mp4
+câu chuyện ──/ai-story──▶ story.json ──▶ [duyệt] ──▶ giọng + tranh sinh trên máy ──▶ out/<dir>/<dir>.mp4
 ```
 
 **C — Kịch bản hài vô tri (deadpan) để tự diễn.** Ra PDF cầm đọc khi quay, kèm chữ cho thumbnail và caption đăng bài.
 
 ```
-câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt] ──▶ kichban.pdf ──▶ bạn quay ──/tiktok-video──▶ out/<dir>.mp4
+câu nói ──/votri-script──▶ kichban.json ──▶ [duyệt] ──▶ kichban.pdf ──▶ bạn quay ──/tiktok-video──▶ out/<dir>/<dir>.mp4
                                                                       raw/s1.mov …   (nhạc + SFX máy tự sinh)
 ```
 
@@ -29,7 +29,7 @@ biến một bài trên siri2moon.com thành video: cảnh terminal động, tra
 màn thương hiệu, màn kết Siri. Không quay tay, không thu âm.
 
 ```
-bài blog / dự án ──/siri2moon-short──▶ short.json ──▶ capture (Chrome headless) ──▶ out/<dir>.mp4 + dang-bai.md
+bài blog / dự án ──/siri2moon-short──▶ short.json ──▶ capture (Chrome headless) ──▶ out/<dir>/<dir>.mp4 + dang-bai.md
 ```
 
 ## Skills
@@ -93,7 +93,7 @@ Hai file `.md` sinh tự động từ `script.json`, đừng sửa tay.
 ```
 
 Chạy 6 stage: preflight → tách tiếng → whisper word-timing → jump-cut → build props → render.
-Ra `out/<dir>.mp4`.
+Ra `out/<dir>/<dir>.mp4`.
 
 Gõ mỗi phần slug là đủ — mọi script tự tìm thư mục kết thúc bằng chuỗi đó,
 trùng nhiều thì lấy cái mới nhất:
@@ -133,7 +133,7 @@ Bước duyệt không bỏ được — sinh tranh mất khoảng 3,5 phút m�
 | **Bạn duyệt** | | |
 | Giọng đọc | `audio/`, `timing.json` | ~30s cho video 3 phút |
 | Tranh | `images/s01.png`… | ~3,5 phút một cảnh |
-| Dựng + render | `out/<dir>.mp4` | vài phút |
+| Dựng + render | `out/<dir>/<dir>.mp4` | vài phút |
 
 Chạy hoàn toàn trên máy: [VieNeu-TTS](https://github.com/pnnbao97/VieNeu-TTS) đọc,
 [mflux](https://github.com/filipstrand/mflux) + Z-Image Turbo vẽ.
@@ -250,7 +250,7 @@ Gõ mỗi phần slug là đủ. Pipeline tự nhận ra đây là thư mục v�
 | SFX | **Tổng hợp bằng code**, đặt đúng lúc: record scratch đầu cảnh, dế kêu ở khoảng lặng, "cộp"/"tưng" đúng từ được neo |
 | Hình | Snap zoom giật vào mắt ở cảnh twist, chữ màn hình theo kịch bản, phụ đề chạy theo giọng nói |
 
-Ra `out/<dir>.mp4`. Video ~60s render khoảng 2 phút. Lần đầu sẽ tải model whisper (~1.5GB) để
+Ra `out/<dir>/<dir>.mp4`. Video ~60s render khoảng 2 phút. Lần đầu sẽ tải model whisper (~1.5GB) để
 lấy nhịp giọng nói.
 
 Nhạc và SFX do code tạo ra nên **thuộc về bạn 100%**, đăng kiếm tiền không vướng bản quyền. Nghe
@@ -304,8 +304,8 @@ title/caption): sửa `.claude/skills/votri-script/references/craft.md`.
 ```
 
 Skill tự đọc bài (hoặc chạy dự án), viết `short.json`, quay, tự soi khung hình, dựng
-`out/<dir>.mp4` và viết `content/<dir>/dang-bai.md` (tiêu đề, mô tả, hashtag cho YouTube, TikTok,
-Facebook). Muốn bản tiếng Anh: "làm thêm bản tiếng Anh" → `out/<dir>-en.mp4`.
+`out/<dir>/<dir>.mp4` và viết `content/<dir>/dang-bai.md` (tiêu đề, mô tả, hashtag cho YouTube, TikTok,
+Facebook). Muốn bản tiếng Anh: "làm thêm bản tiếng Anh" → `out/<dir>/<dir>-en.mp4`.
 
 Chạy tay:
 
@@ -337,7 +337,7 @@ remotion/src/short/             composition "BrandShort"
 content/<dir>/                  mỗi video một thư mục
 content/_assets/{bgm,sfx}/      nhạc nền và hiệu ứng tiếng (máy tự sinh, chép đè để dùng file riêng)
 content/_assets/{short,brand}/  SFX của short + Siri, logo Siri2Moon
-out/                            thành phẩm
+out/                            thành phẩm, mỗi video một thư mục out/<dir>/
 docs/refer/                     video tham khảo + mẫu giọng
 docs/                           hồ sơ thiết kế
 sample/                         PDF kịch bản vô tri làm tay trước đây (tham khảo)

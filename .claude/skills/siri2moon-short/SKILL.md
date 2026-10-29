@@ -1,11 +1,11 @@
 ---
 name: siri2moon-short
-description: Làm video ngắn dọc 9:16 (YouTube Shorts, TikTok, Facebook Reels) quảng bá thương hiệu Siri2Moon — giới thiệu một dự án trong ecosystem (Lucifer…) bằng footage quay thật từ app đang chạy, hoặc biến một bài viết trên siri2moon.com thành video có cảnh terminal động, trang blog lia mượt, phụ đề tiếng Việt từng chữ, nhạc tổng hợp không bản quyền, màn thương hiệu và màn kết Siri. Xuất out/<dir>.mp4 kèm dang-bai.md (tiêu đề, mô tả, hashtag từng nền tảng); làm được bản tiếng Anh. Dùng khi user nói "làm video cho bài <…>", "video short giới thiệu <dự án>", "video marketing siri2moon", "làm video hôm nay", hoặc dán link bài siri2moon.com.
+description: Làm video ngắn dọc 9:16 (YouTube Shorts, TikTok, Facebook Reels) quảng bá thương hiệu Siri2Moon — giới thiệu một dự án trong ecosystem (Lucifer…) bằng footage quay thật từ app đang chạy, hoặc biến một bài viết trên siri2moon.com thành video có cảnh terminal động, trang blog lia mượt, phụ đề tiếng Việt từng chữ, nhạc tổng hợp không bản quyền, màn thương hiệu và màn kết Siri. Xuất out/<dir>/<dir>.mp4 kèm dang-bai.md (tiêu đề, mô tả, hashtag từng nền tảng); làm được bản tiếng Anh. Dùng khi user nói "làm video cho bài <…>", "video short giới thiệu <dự án>", "video marketing siri2moon", "làm video hôm nay", hoặc dán link bài siri2moon.com.
 ---
 
 # Siri2Moon Short
 
-Một lệnh → `out/<dir>.mp4` 1080×1920 @ 30 fps, 30–45 s, mọi cú cắt rơi đúng phách nhạc.
+Một lệnh → `out/<dir>/<dir>.mp4` 1080×1920 @ 30 fps, 30–45 s, mọi cú cắt rơi đúng phách nhạc.
 
 | Đầu vào | Hình | Ví dụ |
 |---|---|---|
@@ -93,14 +93,14 @@ node $S/capture.mjs <slug> --preview     # 8 khung mỗi shot → content/<dir>/
 ### 7. Duyệt khung hình rồi dựng
 
 ```bash
-node $S/render.mjs <slug> --stills      # một khung mỗi cảnh → out/<dir>-stills.jpg
+node $S/render.mjs <slug> --stills      # một khung mỗi cảnh → out/<dir>/<dir>-stills.jpg
 ```
 
 **Xem stills (Read)** và tự soi: chữ tràn/xuống dòng xấu, chữ đè lên chi tiết quan trọng, cảnh
 trống, terminal tràn ngang, nhãn che UI. Sửa đến khi sạch, rồi:
 
 ```bash
-node $S/render.mjs <slug>               # out/<dir>.mp4, in ra thời lượng và LUFS
+node $S/render.mjs <slug>               # out/<dir>/<dir>.mp4, in ra thời lượng và LUFS
 ```
 
 `render.mjs` tự chạy build-props và sinh nhạc (mỗi id một vòng hợp âm, cùng id thì cùng bài).
@@ -126,7 +126,7 @@ Cần một kiểu cảnh động mới thì tìm trong `.claude/skills/video-sh
 Nhạc tổng hợp (mặc định) chỉ là lót nền, **không bao giờ "hot trend"**. Mỗi video giao thêm:
 
 ```bash
-node $S/render.mjs <slug> --no-music    # out/<dir>-khong-nhac.mp4: để gắn nhạc trending trong app
+node $S/render.mjs <slug> --no-music    # out/<dir>/<dir>-khong-nhac.mp4: để gắn nhạc trending trong app
 ```
 
 User có file nhạc bản quyền (`content/_assets/music/`, xem README ở đó) → `"music": { "file": … }`

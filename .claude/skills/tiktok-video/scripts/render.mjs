@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// Stage 6 — render ra mp4.
-// Dùng: node render.mjs <slug> [--studio]
-//   --studio  mở Remotion Studio để xem trước thay vì render
-// Ra:   out/<dir>.mp4
+// Stage 6: render the mp4.
+// Usage: node render.mjs <slug> [--studio]
+//   --studio  open Remotion Studio to preview instead of rendering
+// Output:   out/<dir>/<dir>.mp4
 
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, contentDir, die, hasFlag, info, ok, slugArg } from './lib.mjs';
+import { ROOT, contentDir, die, hasFlag, info, ok, outDir, slugArg } from './lib.mjs';
 
 const slug = slugArg();
 const dir = contentDir(slug);
@@ -20,8 +20,8 @@ if (!existsSync(join(remotionDir, 'node_modules'))) {
 const propsPath = join(dir, 'props.json');
 if (!existsSync(propsPath)) die(`thiếu content/${slug}/props.json — chạy build-props.mjs trước`);
 
-// publicDir = content/ nên staticFile('<slug>/raw/s1.mov') và
-// staticFile('_assets/bgm/lofi.mp3') đều trỏ đúng.
+// publicDir = content/, so staticFile('<slug>/raw/s1.mov') and
+// staticFile('_assets/bgm/lofi.mp3') both resolve.
 const publicDir = join(ROOT, 'content');
 
 const common = ['--public-dir', publicDir, `--props=${propsPath}`];
@@ -32,8 +32,7 @@ if (hasFlag('studio')) {
   process.exit(0);
 }
 
-mkdirSync(join(ROOT, 'out'), { recursive: true });
-const outFile = join(ROOT, 'out', `${slug}.mp4`);
+const outFile = join(outDir(slug), `${slug}.mp4`);
 
 const r = spawnSync(
   'pnpm',
@@ -42,4 +41,4 @@ const r = spawnSync(
 );
 
 if (r.status !== 0) process.exit(r.status ?? 1);
-ok(`out/${slug}.mp4`);
+ok(`out/${slug}/${slug}.mp4`);

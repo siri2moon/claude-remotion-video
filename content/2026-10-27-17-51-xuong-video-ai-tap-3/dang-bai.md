@@ -2,9 +2,9 @@
 
 | Nền tảng | Video | Ngôn ngữ |
 |---|---|---|
-| YouTube Shorts | `out/2026-10-27-17-51-xuong-video-ai-tap-3-en.mp4` | 🇬🇧 English |
-| Facebook Reels | `out/2026-10-27-17-51-xuong-video-ai-tap-3-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-27-17-51-xuong-video-ai-tap-3.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| YouTube Shorts | `out/2026-10-27-17-51-xuong-video-ai-tap-3/2026-10-27-17-51-xuong-video-ai-tap-3-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/2026-10-27-17-51-xuong-video-ai-tap-3/2026-10-27-17-51-xuong-video-ai-tap-3-en.mp4` | 🇬🇧 English |
+| TikTok | `out/2026-10-27-17-51-xuong-video-ai-tap-3/2026-10-27-17-51-xuong-video-ai-tap-3.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
 
 Ảnh bìa: khung ở giây 1 (hai điện thoại BEFORE/AFTER), thêm chữ to **PART 3/5** (YouTube/Facebook) hoặc **TẬP 3/5** (TikTok).
 Playlist: **"AI Video Studio"** trên YouTube/Facebook · **"Xưởng video AI"** trên TikTok.

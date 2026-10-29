@@ -11,7 +11,7 @@ script.json + raw/*.mov
    ├─[3] transcribe     → timing.json
    ├─[4] detect-cuts    → cuts.json      ← SỬA TAY ĐƯỢC
    ├─[5] build-props    → props.json
-   └─[6] render         → out/<dir>.mp4
+   └─[6] render         → out/<dir>/<dir>.mp4
 ```
 
 ---
@@ -156,7 +156,7 @@ content/_assets/sfx/pop.mp3       ← tên khớp scene.sfx[]
 ## Stage 6 — `render.mjs <slug> [--studio]`
 
 ```bash
-pnpm exec remotion render TikTokVideo out/<dir>.mp4 \
+pnpm exec remotion render TikTokVideo out/<dir>/<dir>.mp4 \
   --public-dir <root>/content --props=content/<dir>/props.json
 ```
 
