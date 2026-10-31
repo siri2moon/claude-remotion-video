@@ -92,8 +92,10 @@ export type ShortScene = {
   motion?: MotionSpec;
   callouts?: Callout[];
   /** Scene audio (a real voice, clip audio, or ElevenLabs narration): background music ducks while it plays.
-   *  delay = frames to wait from the start of the scene before the audio starts. */
-  voice?: { src: string; startFrom: number; volume: number; delay?: number } | null;
+   *  delay = frames to wait from the start of the scene before the audio starts.
+   *  dur = frames the audio lasts (narration); when set, the music ducks only during it instead of the whole scene.
+   *  duck = music level while it plays (default 0.25). */
+  voice?: { src: string; startFrom: number; volume: number; delay?: number; dur?: number; duck?: number } | null;
   /** Frames skipped at the start of the footage. */
   startFrom: number;
   rate: number;

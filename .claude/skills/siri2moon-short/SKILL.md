@@ -123,7 +123,7 @@ Cần một kiểu cảnh động mới thì tìm trong `.claude/skills/video-sh
 
 ### 7b. Nhạc
 
-Nhạc tổng hợp (mặc định) chỉ là lót nền, **không bao giờ "hot trend"**. Mỗi video giao thêm:
+Nhạc tổng hợp (mặc định) chỉ là lót nền, **không bao giờ "hot trend"**. Bài tổng hợp tự dồn căng thẳng suốt cảnh hook rồi drop đúng cú cắt sang cảnh 2 (xem `storytelling.md` → Nhạc). Mỗi video giao thêm:
 
 ```bash
 node $S/render.mjs <slug> --no-music    # out/<dir>/<dir>-khong-nhac.mp4: để gắn nhạc trending trong app

@@ -68,6 +68,10 @@ User chê video toàn terminal/trang chữ là "chưa thu hút, chưa đặc s�
 ## Nhạc
 
 - Nhạc tổng hợp (mặc định) là lót nền an toàn, không bản quyền, nhưng **không tạo trend**.
+- Nhạc tổng hợp **mở bằng build-up dưới cảnh hook** (drone dập 1/16, cụm nốt nghịch rung, nhịp tim,
+  riser, snare dồn 8 → 16 → 32), **nín thở 1/16 phách** rồi **drop đúng cú cắt sang cảnh 2** (crash + kick + bass +
+  pad cùng vào). Hook càng dài, build-up càng dài: giữ hook 6–7 phách để có độ căng; dưới 2 phách thì không build-up.
+  Vì nhạc dồn lên điểm drop, cảnh 2 nên là **lời giải / cảnh đẹp nhất** của video, không phải cảnh lặng.
 - Tăng reach: giao kèm bản `--no-music`, user gắn âm thanh đang trend trong TikTok/Reels/Shorts
   (giữ âm gốc 30–50% cho SFX). Đây là cách duy nhất dùng nhạc trending hợp pháp.
 - Bản có nhạc sẵn (YouTube, nơi gắn nhạc trong app hạn chế hơn): dùng file từ thư viện có giấy phép,

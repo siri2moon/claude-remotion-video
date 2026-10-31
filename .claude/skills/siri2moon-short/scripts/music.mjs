@@ -1,13 +1,16 @@
 #!/usr/bin/env node
-// Nhạc nền + SFX cho short, tổng hợp bằng code (không sample, không vướng bản quyền).
+// Background music + SFX for a short, synthesized in code (no samples, no licensing issues).
 //   node music.mjs <slug> [--force]
-// Đọc props.json (chạy build-props.mjs trước) để biết video dài bao nhiêu và màn kết bắt đầu lúc nào.
-// Ghi content/<dir>/audio/bgm.wav: groove deep-house 100 BPM (pad hợp âm 7, arpeggio gảy, sub bass
-// sidechain), trống dừng đúng lúc vào màn kết. Bốn vòng hợp âm, chọn theo `music.progression`
-// trong short.json hoặc theo id, nên các video liên tiếp không trùng nhạc.
-// SFX dùng chung (whoosh, impact, shimmer, tick, pop) sinh một lần vào content/_assets/short/.
+// Reads props.json (run build-props.mjs first) for the video length, the end of the hook and the endcard start.
+// Writes content/<dir>/audio/bgm.wav in two parts:
+//   1. Build-up under the hook: a pulsing drone, a trembling minor-second cluster, a heartbeat, a noise
+//      riser and a snare roll that speeds up, then a short breath of silence.
+//   2. Drop on the first cut: crash, then a 100 BPM deep-house groove (7th-chord pads, plucked
+//      arpeggio, sidechained sub bass); the drums stop when the endcard starts.
+// Four chord progressions, picked by `music.progression` in short.json or by id, so consecutive videos differ.
+// Shared SFX (whoosh, impact, shimmer, tick, pop) are generated once into content/_assets/short/.
 //
-// 100 BPM: một phách 0,6 s, một ô nhịp 2,4 s. Video cắt đúng phách.
+// 100 BPM: a beat is 0.6 s, a bar 2.4 s. The video cuts on the beat.
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -19,7 +22,7 @@ const BEAT = 0.6;
 const BAR = BEAT * 4;
 const dir = slugArg();
 const short = loadShort(dir);
-// Bài nhạc thật (music.file) thì không tổng hợp nhạc nền, chỉ đảm bảo có SFX.
+// With a real track (music.file) there is no background to synthesize; only make sure the SFX exist.
 const synthBgm = !short.music?.file;
 const propsFile = join(contentDir(dir), 'props.json');
 if (!existsSync(propsFile)) throw new Error('thiếu props.json: chạy build-props.mjs trước');
@@ -114,29 +117,144 @@ function writeWav(path, [L, R]) {
 
 const VIDEO_S = props.durationInFrames / props.fps;
 const LENGTH = VIDEO_S + 2;
-const BARS = Math.ceil(LENGTH / BAR);
-/** Trống từ ô nhịp thứ 2 tới lúc vào màn kết; màn kết chỉ còn pad và arpeggio ngân. */
-const DRUMS_FROM = BAR * 1, DRUMS_TO = props.endcard.from / props.fps;
+/**
+ * The drop lands on the first cut, where the hook hands over to the body. The hook is a whole number of
+ * beats, so everything after it stays on the beat grid. A hook shorter than two beats gets no build-up.
+ */
+const hookEnd = props.scenes[0] ? (props.scenes[0].from + props.scenes[0].dur) / props.fps : 0;
+const DROP = hookEnd >= BEAT * 2 ? hookEnd : 0;
+/** Drums run from the drop to the endcard; the endcard keeps only the pads and arpeggio ringing out. */
+const DRUMS_TO = props.endcard.from / props.fps;
+const BARS = Math.ceil((LENGTH - DROP) / BAR);
 const PROGRESSIONS = [
-  // 0 · sang, mở, hơi hoài niệm: Fmaj7 · G6 · Am9 · Em7
+  // 0 · bright, open, a little nostalgic: Fmaj7 · G6 · Am9 · Em7
   [{ bass: 41, pad: [57, 60, 64, 65, 72] }, { bass: 43, pad: [59, 62, 64, 67, 71] }, { bass: 45, pad: [60, 64, 67, 71, 74] }, { bass: 40, pad: [59, 62, 64, 67, 71] }],
-  // 1 · tech, thúc tới: Am9 · Fmaj7 · C · G
+  // 1 · tech, driving: Am9 · Fmaj7 · C · G
   [{ bass: 45, pad: [57, 60, 64, 67, 71] }, { bass: 41, pad: [57, 60, 64, 65, 72] }, { bass: 48, pad: [55, 60, 64, 67, 72] }, { bass: 43, pad: [55, 59, 62, 67, 74] }],
-  // 2 · mơ màng, tươi: Dmaj9 · Bm7 · Gmaj7 · A
+  // 2 · dreamy, fresh: Dmaj9 · Bm7 · Gmaj7 · A
   [{ bass: 38, pad: [54, 57, 61, 64, 69] }, { bass: 35, pad: [54, 57, 59, 62, 66] }, { bass: 43, pad: [55, 59, 62, 66, 71] }, { bass: 45, pad: [57, 61, 64, 69, 73] }],
-  // 3 · đêm, sâu: Cm9 · Abmaj7 · Eb · Bb
+  // 3 · night, deep: Cm9 · Abmaj7 · Eb · Bb
   [{ bass: 36, pad: [55, 58, 62, 63, 67] }, { bass: 44, pad: [55, 60, 63, 67, 72] }, { bass: 39, pad: [55, 58, 63, 67, 70] }, { bass: 46, pad: [53, 58, 62, 65, 70] }],
 ];
 const hash = [...(short.id ?? dir)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 const CHORDS = PROGRESSIONS[(short.music?.progression ?? hash) % PROGRESSIONS.length];
 
-const pads = stereo(LENGTH), plucks = stereo(LENGTH), bass = stereo(LENGTH), drums = stereo(LENGTH);
+const pads = stereo(LENGTH), plucks = stereo(LENGTH), bass = stereo(LENGTH), drums = stereo(LENGTH), build = stereo(LENGTH);
 const noise = rng(7 + (hash % 1000));
 
-// Pads: three detuned saws per note, slow attack, lowpass opening over the intro.
+// ---------------------------------------------------------------------------
+// Build-up under the hook: everything rises toward the drop, then a breath of silence.
+// ---------------------------------------------------------------------------
+
+/** The last sixteenth before the drop is silent, so the drop lands harder. */
+const BUILD_END = DROP - BEAT / 4;
+if (DROP > 0) {
+  const rise = (t) => Math.min(1, Math.max(0, t / BUILD_END));
+  const fadeIn = (t) => Math.min(1, t / 0.3);
+  const root = CHORDS[0].bass;
+
+  // Drone: a sub sine plus two detuned saws on the root of the first chord, so the drop resolves it.
+  // The lowpass opens as the hook goes on, and the whole drone pulses on sixteenths.
+  const sub = hz(root) > 60 ? hz(root) / 2 : hz(root);
+  const droneLp = biquad('lowpass', 200, 1.3);
+  let p1 = 0, p2 = 0.5;
+  for (let i = 0; i < BUILD_END * SR; i++) {
+    const t = i / SR, r = rise(t);
+    if (i % 64 === 0) droneLp.set(180 + 1100 * r * r);
+    p1 += (hz(root) * 2 ** (-0.09 / 12)) / SR; p1 -= Math.floor(p1);
+    p2 += (hz(root) * 2 ** (0.09 / 12)) / SR; p2 -= Math.floor(p2);
+    const pulse = 0.5 + 0.5 * (1 - ((t / (BEAT / 4)) % 1)) ** 2;
+    const y = (Math.sin(TAU * sub * t) * 0.55 + droneLp(p1 + p2 - 1) * 0.4) * pulse * (0.35 + 0.65 * r) * fadeIn(t) * 0.5;
+    build[0][i] += y;
+    build[1][i] += y;
+  }
+
+  // A trembling minor second up high: the sound of something about to go wrong.
+  const top = CHORDS[0].pad[0] + 12;
+  for (const [k, note] of [top, top + 1].entries()) {
+    const lp = biquad('lowpass', 2600);
+    let ph = k * 0.3;
+    for (let i = 0; i < BUILD_END * SR; i++) {
+      const t = i / SR, r = rise(t);
+      ph += (hz(note) * (1 + 0.003 * Math.sin(TAU * 5.5 * t))) / SR; ph -= Math.floor(ph);
+      const tremolo = 0.55 + 0.45 * Math.sin(TAU * (8 + 6 * r) * t);
+      const y = lp(2 * ph - 1) * tremolo * (0.15 + 0.85 * r * r) * fadeIn(t) * 0.05;
+      build[k][i] += y;
+      build[1 - k][i] += y * 0.35;
+    }
+  }
+
+  // Heartbeat on every beat ("lub-dub"), growing louder.
+  for (let t0 = BEAT; t0 < BUILD_END - 0.05; t0 += BEAT) {
+    for (const [d, amp] of [[0, 0.42], [0.17, 0.28]]) {
+      const s = Math.round((t0 + d) * SR);
+      for (let i = 0; i < 0.22 * SR; i++) {
+        const t = i / SR;
+        const y = Math.sin(TAU * (48 * t + (70 / 30) * (1 - Math.exp(-t * 30)))) * Math.exp(-t * 16) * amp * (0.55 + 0.45 * rise(t0));
+        build[0][s + i] += y;
+        build[1][s + i] += y;
+      }
+    }
+  }
+
+  // Noise riser: a bandpass sweeping up the whole hook, swelling into the drop, slightly wider each side.
+  for (const c of [0, 1]) {
+    const bp = biquad('bandpass', 300, 1.1), n = rng(41 + c);
+    for (let i = 0; i < BUILD_END * SR; i++) {
+      const t = i / SR, r = rise(t);
+      if (i % 64 === 0) bp.set(300 * (7000 / 300) ** r);
+      build[c][i] += bp(n()) * r ** 2.5 * 0.42;
+    }
+  }
+
+  // Snare roll over the last bar (or half the hook if shorter): eighths, then sixteenths, then thirty-seconds,
+  // brightening and getting louder. It stays on the grid counted back from the drop.
+  const ROLL = Math.min(BAR, Math.max(BEAT, Math.floor(DROP / BEAT / 2) * BEAT));
+  const rollFrom = DROP - ROLL;
+  const snare = biquad('bandpass', 1800, 0.8), sn = rng(53);
+  for (let t0 = rollFrom; t0 < BUILD_END - 0.01; ) {
+    const u = (t0 - rollFrom) / ROLL;
+    const s = Math.round(t0 * SR), amp = 0.1 + 0.32 * u * u;
+    snare.set(1500 + 2800 * u);
+    for (let i = 0; i < 0.12 * SR; i++) {
+      const t = i / SR;
+      const y = (snare(sn()) * 1.6 + Math.sin(TAU * (185 + 60 * u) * t) * 0.5) * Math.exp(-t * 28) * amp;
+      build[0][s + i] += y;
+      build[1][s + i] += y;
+    }
+    t0 += u < 0.5 ? BEAT / 2 : u < 0.75 ? BEAT / 4 : BEAT / 8;
+  }
+
+  // Pitched riser under the roll: a saw gliding up two octaves.
+  const riseLp = biquad('lowpass', 1500);
+  let rp = 0;
+  for (let i = Math.round(rollFrom * SR); i < BUILD_END * SR; i++) {
+    const u = (i / SR - rollFrom) / (BUILD_END - rollFrom);
+    if (i % 64 === 0) riseLp.set(800 + 3000 * u);
+    rp += (hz(root + 24) * 4 ** u) / SR; rp -= Math.floor(rp);
+    const y = riseLp(2 * rp - 1) * u * u * 0.07;
+    build[0][i] += y;
+    build[1][i] += y;
+  }
+
+  reverb(build, { mix: 0.22, size: 1.1, damp: 0.4 });
+  // Gate the reverb tail so the breath before the drop is really silent.
+  for (let i = Math.round(BUILD_END * SR); i < build[0].length; i++) {
+    const g = Math.max(0, 1 - (i / SR - BUILD_END) / 0.02);
+    build[0][i] *= g;
+    build[1][i] *= g;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The groove, from the drop. Bars count from the drop, so the progression starts on its first chord there.
+// ---------------------------------------------------------------------------
+
+// Pads: three detuned saws per note. The first bar attacks at once and its lowpass blooms open.
 for (let bar = 0; bar < BARS; bar++) {
   const chord = CHORDS[bar % 4];
-  const t0 = bar * BAR, dur = BAR + 0.25;
+  const t0 = DROP + bar * BAR, dur = BAR + 0.25;
+  const attack = bar === 0 && DROP > 0 ? 0.02 : 0.35;
   for (const [k, note] of chord.pad.entries()) {
     for (const [v, det] of [-0.11, 0, 0.12].entries()) {
       const f = hz(note) * 2 ** (det / 12);
@@ -145,10 +263,10 @@ for (let bar = 0; bar < BARS; bar++) {
       const pan = (v - 1) * 0.6;
       const start = Math.round(t0 * SR), n = Math.round(dur * SR);
       for (let i = 0; i < n; i++) {
-        const t = i / SR, abs = t0 + t;
-        if (i % 64 === 0) lp.set(abs < BAR * 2 ? 500 + (abs / (BAR * 2)) * 1300 : 1800 + 400 * Math.sin(abs * 0.4));
+        const t = i / SR, rel = t0 + t - DROP;
+        if (i % 64 === 0) lp.set(rel < BAR ? 900 + (rel / BAR) * 900 : 1800 + 400 * Math.sin((t0 + t) * 0.4));
         ph += f / SR; ph -= Math.floor(ph);
-        const env = Math.min(1, t / 0.35) * Math.min(1, (dur - t) / 0.3);
+        const env = Math.min(1, t / attack) * Math.min(1, (dur - t) / 0.3);
         const y = lp(2 * ph - 1) * env * 0.05;
         pads[0][start + i] += y * (1 - pan * 0.5);
         pads[1][start + i] += y * (1 + pan * 0.5);
@@ -159,16 +277,16 @@ for (let bar = 0; bar < BARS; bar++) {
 
 // Plucked arpeggio (Karplus-Strong), eighth notes, ping-ponged left and right.
 const ARP = [0, 1, 2, 3, 4, 3, 2, 1];
-for (let bar = 0; bar < BARS - 1; bar++) {
+for (let bar = 0; bar < BARS; bar++) {
   const chord = CHORDS[bar % 4];
   for (let e = 0; e < 8; e++) {
-    const t0 = bar * BAR + e * (BEAT / 2);
+    const t0 = DROP + bar * BAR + e * (BEAT / 2);
     if (t0 > LENGTH - 1.5) break;
     const note = chord.pad[ARP[e]] + 12;
     const period = Math.round(SR / hz(note));
     const line = new Float32Array(period).map(() => noise() * 0.5);
     const n = Math.round(1.1 * SR), start = Math.round(t0 * SR);
-    const vel = (e % 2 === 0 ? 0.11 : 0.08) * (bar === 0 ? 0.7 : 1);
+    const vel = e % 2 === 0 ? 0.11 : 0.08;
     const pan = e % 2 === 0 ? -0.35 : 0.35;
     let prev = 0;
     for (let i = 0; i < n && start + i < pads[0].length; i++) {
@@ -184,8 +302,8 @@ for (let bar = 0; bar < BARS - 1; bar++) {
 
 // Kick envelope, for drums and for sidechain pumping.
 const kickTimes = [];
-for (let t = DRUMS_FROM; t < DRUMS_TO - 0.01; t += BEAT) kickTimes.push(t);
-kickTimes.unshift(0); // one soft hit under the opening impact
+for (let t = DROP; t < DRUMS_TO - 0.01; t += BEAT) kickTimes.push(t);
+if (DROP > 0) kickTimes.unshift(0); // one soft hit under the opening impact
 const duck = new Float32Array(pads[0].length).fill(1);
 for (const t of kickTimes) {
   const s = Math.round(t * SR);
@@ -193,10 +311,10 @@ for (const t of kickTimes) {
 }
 
 // Sub bass: root on the off-beat eighths, sine plus a little second harmonic.
-for (let bar = 1; bar < BARS; bar++) {
+for (let bar = 0; bar < BARS; bar++) {
   const f = hz(CHORDS[bar % 4].bass);
   for (let b = 0; b < 4; b++) {
-    const t0 = bar * BAR + b * BEAT + BEAT / 2;
+    const t0 = DROP + bar * BAR + b * BEAT + BEAT / 2;
     if (t0 > DRUMS_TO) break;
     const s = Math.round(t0 * SR), n = Math.round(0.28 * SR);
     for (let i = 0; i < n; i++) {
@@ -212,17 +330,27 @@ for (let bar = 1; bar < BARS; bar++) {
 // Drums.
 for (const [k, t0] of kickTimes.entries()) {
   const s = Math.round(t0 * SR);
+  // The kick on the drop hits a little harder than the rest.
+  const accent = DROP > 0 && k === 0 ? 0.8 : t0 === DROP ? 1.25 : 1;
   for (let i = 0; i < 0.45 * SR; i++) {
     const t = i / SR;
-    const f = 45 + 110 * Math.exp(-t * 28);
-    const y = Math.sin(TAU * (45 * t + (110 / 28) * (1 - Math.exp(-t * 28)))) * Math.exp(-t * 7) * 0.55 * (k === 0 ? 0.8 : 1) + (i < 60 ? noise() * 0.1 : 0);
-    void f;
+    const y = Math.sin(TAU * (45 * t + (110 / 28) * (1 - Math.exp(-t * 28)))) * Math.exp(-t * 7) * 0.55 * accent + (i < 60 ? noise() * 0.1 : 0);
     drums[0][s + i] += y;
     drums[1][s + i] += y;
   }
 }
+// Crash on the drop: bright noise with a long tail, a different noise per side for width.
+if (DROP > 0) {
+  for (const c of [0, 1]) {
+    const hp = biquad('highpass', 4500), n = rng(61 + c), s = Math.round(DROP * SR);
+    for (let i = 0; i < 2.2 * SR; i++) {
+      const t = i / SR;
+      drums[c][s + i] += hp(n()) * Math.exp(-t * 2.4) * 0.3;
+    }
+  }
+}
 const hat = biquad('highpass', 7500);
-for (let t = DRUMS_FROM + BEAT / 2; t < DRUMS_TO; t += BEAT) {
+for (let t = DROP + BEAT / 2; t < DRUMS_TO; t += BEAT) {
   const s = Math.round(t * SR);
   for (let i = 0; i < 0.07 * SR; i++) {
     const y = hat(noise()) * Math.exp(-(i / SR) * 60) * 0.16;
@@ -230,9 +358,9 @@ for (let t = DRUMS_FROM + BEAT / 2; t < DRUMS_TO; t += BEAT) {
     drums[1][s + i] += y;
   }
 }
-// Sixteenth shaker, very quiet, from bar 3 for motion.
+// Sixteenth shaker, very quiet, from the second bar after the drop for extra motion.
 const shaker = biquad('bandpass', 9000, 1.2);
-for (let t = BAR * 3; t < DRUMS_TO; t += BEAT / 4) {
+for (let t = DROP + BAR; t < DRUMS_TO; t += BEAT / 4) {
   const s = Math.round(t * SR);
   for (let i = 0; i < 0.04 * SR; i++) {
     const y = shaker(noise()) * Math.exp(-(i / SR) * 90) * 0.06;
@@ -241,7 +369,7 @@ for (let t = BAR * 3; t < DRUMS_TO; t += BEAT / 4) {
   }
 }
 const clap = biquad('bandpass', 1600, 0.9);
-for (let t = BAR * 2 + BEAT; t < DRUMS_TO; t += BEAT * 2) {
+for (let t = DROP + BEAT; t < DRUMS_TO; t += BEAT * 2) {
   const s = Math.round(t * SR);
   for (const d of [0, 0.011, 0.023]) {
     const o = Math.round(d * SR);
@@ -262,11 +390,11 @@ for (let i = 0; i < mixL.length; i++) {
   const d = duck[i];
   const t = i / SR;
   const fade = Math.min(1, t / 0.05) * Math.min(1, Math.max(0, (LENGTH - t) / 3));
-  mixL[i] = (pads[0][i] * d + plucks[0][i] * (0.6 + 0.4 * d) + bass[0][i] * d + drums[0][i]) * fade;
-  mixR[i] = (pads[1][i] * d + plucks[1][i] * (0.6 + 0.4 * d) + bass[1][i] * d + drums[1][i]) * fade;
+  mixL[i] = (pads[0][i] * d + plucks[0][i] * (0.6 + 0.4 * d) + bass[0][i] * d + drums[0][i] + build[0][i]) * fade;
+  mixR[i] = (pads[1][i] * d + plucks[1][i] * (0.6 + 0.4 * d) + bass[1][i] * d + drums[1][i] + build[1][i]) * fade;
 }
 if (synthBgm) writeWav(join(out, 'bgm.wav'), [mixL, mixR]);
-if (synthBgm) ok(`audio/bgm.wav: ${LENGTH.toFixed(1)}s, vòng hợp âm ${PROGRESSIONS.indexOf(CHORDS)}`);
+if (synthBgm) ok(`audio/bgm.wav: ${LENGTH.toFixed(1)}s, vòng hợp âm ${PROGRESSIONS.indexOf(CHORDS)}, ${DROP > 0 ? `build-up → drop ở ${DROP.toFixed(1)}s` : 'không build-up (hook quá ngắn)'}`);
 
 // ---------------------------------------------------------------------------
 // SFX

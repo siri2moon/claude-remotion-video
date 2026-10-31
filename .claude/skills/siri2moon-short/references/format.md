@@ -18,8 +18,8 @@ bản tiếng Anh dùng tiếng Việt.
 | `project` / `source.url` | | dự án nào / bài nào (ghi lại để làm lại sau) |
 | `chip` | | `{ title, subtitle }` nhãn phía trên suốt video. `title` viết HOA |
 | `series` | | Video thuộc series nhiều tập: `{ name, ep, of, next }`. Chip đổi thành `SIRI2MOON · <name> [TẬP ep/of]` (bản en: `EP`), màn kết thêm nút `▶ <next>` ("Tập 2: …"). `name`, `next` song ngữ |
-| `music` | | Nhạc tổng hợp: `{ progression: 0–3, volume: 0.9 }` (0 sang · 1 tech · 2 tươi · 3 đêm, mặc định theo id). Bài thật: `{ file: "_assets/music/x.mp3", start?: giây, bpm?: số, volume?: 1 }` |
-| `narration` | | Giọng đọc ElevenLabs, **mặc định tắt**: chỉ thêm khi user yêu cầu hoặc loại video cần lời dẫn (xem "Giọng đọc" bên dưới). `{ voice?: { vi, en }, model?: "eleven_v3", volume?: 1, speed?: 1, stability?: 0.5, style?: 0.3 }` |
+| `music` | | Nhạc tổng hợp: `{ progression: 0–3, volume: 0.9 }` (0 sang · 1 tech · 2 tươi · 3 đêm, mặc định theo id). Luôn mở bằng build-up dưới hook, drop ở cú cắt đầu tiên. Bài thật: `{ file: "_assets/music/x.mp3", start?: giây, bpm?: số, volume?: 1 }` |
+| `narration` | | Giọng đọc ElevenLabs, **mặc định tắt**: chỉ thêm khi user yêu cầu hoặc loại video cần lời dẫn (xem "Giọng đọc" bên dưới). `{ voice?: { vi, en }, model?: "eleven_v3", volume?: 1, duck?: 0.45, speed?: 1, stability?: 0.5, style?: 0.3 }` |
 | `scenes` | ✅ | danh sách cảnh, theo thứ tự xem |
 | `outro` | | màn logo |
 | `endcard` | | màn kết Siri |
@@ -78,7 +78,7 @@ Video "dễ hiểu" là video **cho thấy** chứ không chỉ kể: dùng dữ
 
 | `type` | Hình | Trường |
 |---|---|---|
-| `split` | Hai điện thoại TRƯỚC / SAU trượt vào, mũi tên giữa. Hook trước/sau rất mạnh | `before`, `after` (video trong content/), `labels` song ngữ. Thêm `voice` = file after để nghe tiếng |
+| `split` | Hai điện thoại TRƯỚC / SAU trượt vào, mũi tên giữa. Hook trước/sau rất mạnh | `before`, `after` (video trong content/, song ngữ được: `{ vi: …/footage/x.mp4, en: …/footage-en/x.mp4 }`), `labels` song ngữ. Thêm `voice` = file after để nghe tiếng |
 | `wave` | Sóng âm thật, đầu đọc quét, khoảng lặng đỏ lên rồi **khép lại**, đồng hồ giây đếm xuống, nhãn "−1,4s" | `audio`, `from`, `to` (giây), `cuts: "<cuts.json>#<scene>"` (hoặc `keep`), `cutAt` 0–1 phần cảnh, `label`, `silenceLabel`, `cutLabel` |
 | `words` | Chữ to sáng lên đúng lúc nói, dưới mỗi chữ là mốc giây | `timing: "<timing.json>#<scene>"`, `from` (giây), `tag`. Luôn kèm `voice` cùng đoạn |
 | `prompt` | Gõ câu mô tả (prompt) trong khung code, mũi tên ↓, tranh "hiện hình" (nhoè → nét, vạch quét) | `label`, `text` (song ngữ), `image`, `cps` (70) |
@@ -127,5 +127,5 @@ Video khoe giao diện hoặc chạy theo nhạc trend thì để tắt.
   - Cảnh hook đọc không quá 3,5 s.
   - Với `eleven_v3` có thể chèn tag cảm xúc như `[excited]`, `[whispers]`.
 - **Độ dài cảnh:** câu dài hơn cảnh thì cảnh tự dài ra (`beats` tăng), nên `validate.mjs` có thể báo cảnh dài. Khi đó rút gọn câu đọc chứ đừng để cảnh lê thê.
-- **Âm lượng:** nhạc nền tự hạ còn 25% trong cảnh có giọng. Cảnh có `voice` tiếng thật thì dùng tiếng thật, bỏ câu đọc.
+- **Âm lượng:** nhạc nền chỉ hạ **trong lúc đang đọc** (mặc định còn 45%, đổi bằng `narration.duck`), giữa các câu nhạc trồi lại đầy đủ. Tiếng thật (`voice`) thì hạ còn 25% suốt cảnh. Cảnh có `voice` tiếng thật thì dùng tiếng thật, bỏ câu đọc.
 - **Đăng TikTok:** bật nhãn "nội dung do AI tạo" khi video có giọng AI.

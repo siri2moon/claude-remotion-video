@@ -84,10 +84,16 @@ export const BrandShort: React.FC<ShortProps> = (props) => {
     return <AbsoluteFill style={{ background: theme.bg, color: '#fff', fontFamily, fontSize: 40, alignItems: 'center', justifyContent: 'center' }}>Chưa có props: chạy skill siri2moon-short</AbsoluteFill>;
   }
   const first = props.scenes[0];
-  // Scenes with a real voice: background music ducks to 25% so the words are clear, easing in/out over 6 frames.
+  // Background music ducks under scene audio so the words are clear, easing in/out over a few frames.
+  // A real voice ducks the whole scene to 25%; narration (with a known length) ducks only while it is spoken.
   const voiced = props.scenes.filter((sc) => sc.voice);
   const duck = (f: number) =>
-    voiced.reduce((v, sc) => Math.min(v, interpolate(f, [sc.from - 6, sc.from, sc.from + sc.dur - 4, sc.from + sc.dur + 4], [1, 0.25, 0.25, 1], clamp)), 1);
+    voiced.reduce((v, sc) => {
+      const a = sc.voice!;
+      const level = a.duck ?? 0.25;
+      const [on, off] = a.dur ? [sc.from + (a.delay ?? 0), sc.from + (a.delay ?? 0) + a.dur] : [sc.from, sc.from + sc.dur];
+      return Math.min(v, interpolate(f, [on - 6, on, off - 2, off + 8], [1, level, level, 1], clamp));
+    }, 1);
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg, fontFamily }}>
       {props.scenes.map((scene) => (

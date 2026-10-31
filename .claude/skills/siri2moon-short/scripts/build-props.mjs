@@ -81,7 +81,7 @@ function peaks(rel, from, to, bars) {
 /** Motion scene: converts seconds/beats to frames and reads real data (cuts.json, timing.json, waveforms). */
 function motion(sc, dur) {
   const m = sc.motion;
-  if (m.type === 'split') return { type: 'split', before: m.before, after: m.after, labels: tr(m.labels, lang) ?? ['TRƯỚC', 'SAU'] };
+  if (m.type === 'split') return { type: 'split', before: tr(m.before, lang), after: tr(m.after, lang), labels: tr(m.labels, lang) ?? ['TRƯỚC', 'SAU'] };
   if (m.type === 'wave') {
     const [from, to] = [m.from ?? 0, m.to];
     let keep = m.keep;
@@ -225,7 +225,11 @@ function ansiGroups(text) {
 const voiceOf = (sc) => {
   if (sc.voice) return { src: (need(sc.voice.src), sc.voice.src), startFrom: Math.round((sc.voice.skip ?? 0) * FPS), volume: sc.voice.volume ?? 1, delay: 0 };
   const said = narrationOf(dir, short, sc.id, lang);
-  return said ? { src: said.src, startFrom: 0, volume: short.narration.volume ?? 1, delay: Math.round(VOICE_IN * FPS) } : null;
+  // Narration ducks the music only while the line is spoken, and less than a real voice does: an AI read is
+  // clean and even, so the music can stay audible under it and come back up between lines.
+  return said
+    ? { src: said.src, startFrom: 0, volume: short.narration.volume ?? 1, delay: Math.round(VOICE_IN * FPS), dur: Math.round(said.seconds * FPS), duck: short.narration.duck ?? 0.45 }
+    : null;
 };
 
 function scene(sc, from) {
