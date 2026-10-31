@@ -1,0 +1,163 @@
+{
+  "url": "https://siri2moon.com/posts/claude-code-design-skills-impeccable-taste-skill-emil-kowalski",
+  "title": "3 Claude Code Design Skills That Fix AI-Made UI: Impeccable, Taste Skill and Emil Kowalski",
+  "description": "Install Emil Kowalski's skills, Impeccable and Taste Skill in Claude Code, learn when to use each, and see what happened when they audited a real site.",
+  "cover": "https://siri2moon.com/uploads/claude-code-design-skills-cover.jpg",
+  "pageHeight": 13541,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "TL;DR",
+      "top": 1130,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "What is a Claude Code skill?",
+      "top": 1802,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Installing the three skills globally",
+      "top": 2384,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "1. Emil Kowalski's skills: motion that feels right",
+      "top": 2894,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "2. Impeccable: a design director with commands",
+      "top": 4980,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "3. Taste Skill: landing pages that don't look AI-made",
+      "top": 6308,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "The real test: I pointed all three at this blog",
+      "top": 7465,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Round 1: the redesign, rejected",
+      "top": 7654,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Round 2: standardise, don't restyle",
+      "top": 8210,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "What I learned",
+      "top": 9426,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Which skill should you use?",
+      "top": 9759,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "FAQ",
+      "top": 10515,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Are these skills free?",
+      "top": 10580,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Do they work outside Claude Code?",
+      "top": 10738,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Will they slow down my agent or fill the context window?",
+      "top": 10895,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Will they change my site's style?",
+      "top": 11106,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "Can I install them for a single project only?",
+      "top": 11290,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Wrapping up",
+      "top": 11455,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Building something like this?",
+      "top": 11925,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1983,
+      "height": 130,
+      "lang": "text",
+      "head": "~/.claude/skills/\n└── impeccable/\n    ├── SKILL.md          # name, description, the instructions\n    ├── reference/        # loaded only when a command needs them\n    └── scripts/          # tools the agent can run\n"
+    },
+    {
+      "top": 2565,
+      "height": 88,
+      "lang": "bash",
+      "head": "npx skills add emilkowalski/skill   -g -a claude-code -s '*' -y\nnpx skills add pbakaus/impeccable   -g -a claude-code -s '*' -y\nnpx skills add Leonxlnx/taste-skill -g -a claude-code -s '*' -y\n\nCopy"
+    },
+    {
+      "top": 4620,
+      "height": 172,
+      "lang": "css",
+      "head": ".button {\n  transition: transform 160ms ease-out;\n}\n\n.button:active {\n  transform: scale(0.97);"
+    },
+    {
+      "top": 7256,
+      "height": 68,
+      "lang": "bash",
+      "head": "node ~/.claude/skills/design-taste-frontend/scripts/inspect.mjs https://siri2moon.com \\\n  --out .taste-skill/home\n\nCopy"
+    },
+    {
+      "top": 9131,
+      "height": 109,
+      "lang": "ts",
+      "head": "fontSize: {\n  // 13px floor for small text (labels, meta, captions), so nothing read is smaller.\n  xs: [\"0.8125rem\", { lineHeight: \"1.125rem\" }],\n},\n\nCopy"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [],
+  "text": "Ask an AI coding agent for a landing page and you get the same page every time: a centred headline, a small uppercase label above it, three icon cards, a soft purple gradient and a row of fake logos. Nothing in it is wrong, and nothing in it was decided.\n\nAgent skills are the fix that has finally started to work. A skill is a folder of instructions, references and scripts that Claude Code loads when a task matches it, so the agent works from a trained point of view instead of the average of everything it has seen. This week I installed the three most talked-about frontend design skills for Claude Code and pointed them at a real site: this blog.\n\nThis post covers what each skill does, how to install them globally in one command each, which one to reach for when, and what happened when I let them loose on siri2moon.com. One of the results got rejected, and that turned out to be the most useful lesson.\n\nTL;DR\nSKILL\tINSTALL\tBEST AT\tTHINK OF IT AS\nEmil Kowalski's skills\tnpx skills add emilkowalski/skill\tAnimation, interaction feel, component polish\tA design engineer reviewing your motion\nImpeccable\tnpx skills add pbakaus/impeccable\tAudits, critique, polish, design systems\tA design director with 23 commands\nTaste Skill\tnpx skills add Leonxlnx/taste-skill\tLanding pages and marketing sites that don't look AI-made\tAn art director plus a browser-based inspector\n\nUse Taste Skill to build a new page, Impeccable to audit and polish an existing one, and Emil's skills for anything that moves.\n\nWhat is a Claude Code skill?\n\nA skill is a directory with a SKILL.md file. Its frontmatter has a name and a description, and Claude Code reads every description at startup. When your request matches one, the agent loads the full instructions, along with any reference files or scripts the skill ships.\n\n~/.claude/skills/\n└── impeccable/\n    ├── SKILL.md          # name, description, the instructions\n    ├── reference/        # loaded only when a command needs them\n    └── scripts/          # tools the agent can run\n\nCopy\n\nSkills differ from a long system prompt in two ways:\n\nThey load on demand. The descriptions are short, and the 50 pages of typography and motion guidance only enter the context when you are actually doing design work.\nThey can ship tools. A skill can run a real browser, measure your page and hand the numbers back to the agent. That turns \"make it look good\" into a check that passes or fails.\nInstalling the three skills globally\n\nThe skills CLI installs a skill from a GitHub repository. I want these in every project, so I install them globally (-g) for Claude Code (-a claude-code), take every skill in the package (-s '*') and skip the prompts (-y):\n\nnpx skills add emilkowalski/skill   -g -a claude-code -s '*' -y\nnpx skills add pbakaus/impeccable   -g -a claude-code -s '*' -y\nnpx skills add Leonxlnx/taste-skill -g -a claude-code -s '*' -y\n\nCopy\n\nThey land in ~/.claude/skills/ (or in $CLAUDE_CONFIG_DIR/skills if you run Claude Code with a custom config directory, which I do). Restart Claude Code and they show up in the skill list.\n\nTip: if you keep separate Claude Code profiles, a global install only goes into the profile the CLI resolves. Check that the folder exists in the profile you actually use.\n\n1. Emil Kowalski's skills: motion that feels right\n\nEmil Kowalski built Sonner and Vaul and teaches animation for the web. His package is not one skill but 16. The core one, emil-design-eng, encodes his design-engineering philosophy, and the rest are focused tools:\n\nSKILL\tWHAT IT DOES\nemil-design-eng\tThe philosophy: when to animate, which easing, how fast, how components should feel\nanimate\tBuilds one animation from scratch, deciding in the right order\nreview-animations\tReviews motion code against a high craft bar. \"Default to flagging; approval is earned\"\nfind-animation-opportunities\tRead-only: finds places that should animate, and rejects the ones that shouldn't\nremove-animations\tFinds and removes motion the interface doesn't need\nanimation-performance\tKeeps animations inside the frame budget, finds why one drops frames\nbreak-ui\tFeeds your UI worst-case data: long names, missing fields, emoji, huge counts\nmobile-native\tSmall CSS and meta fixes that make a web app feel installed on a phone\napple-design, animate-expo, ask-sonner, pick-ui-library, prototype, animation-vocabulary, improve-animations, write-swift\tSprings and gestures, React Native, Sonner, library choice, live variants, a motion glossary, motion audits, modern Swift\n\nWhat makes it useful is that it gives you decisions, not taste words. The first question is always whether something should animate at all:\n\nHOW OFTEN THE USER SEES IT\tDECISION\n100+ times a day (keyboard shortcuts, command palette)\tNo animation, ever\nTens of times a day (hover, list navigation)\tRemove or drastically reduce\nOccasionally (modals, drawers, toasts)\tStandard animation\nRarely (onboarding, celebrations)\tCan add delight\n\nThen it gets specific: UI animations stay under 300 ms, entering elements use a strong ease-out such as cubic-bezier(0.23, 1, 0.32, 1), nothing scales in from scale(0) (start at 0.95 with opacity), popovers scale from their trigger and only transform and opacity get animated. Pressable things get a subtle press state:\n\n.button {\n  transition: transform 160ms ease-out;\n}\n\n.button:active {\n  transform: scale(0.97);\n}\n\nCopy\n\nReviews come back as a Before / After / Why table, which is easy to apply and easy to argue with.\n\nReach for it when you add or review any motion, build a component library, or your app \"works but feels cheap\".\n\n2. Impeccable: a design director with commands\n\nImpeccable, by Paul Bakaus, is the broadest of the three. It covers the whole frontend: layout, typography, colour, motion, UX copy, accessibility, responsive behaviour and native iOS and Android screens.\n\nIt works through 23 commands, grouped by what you're doing:\n\nCATEGORY\tCOMMANDS\nBuild\tshape, init, document, extract\nEvaluate\tcritique, audit\nRefine\tpolish, bolder, quieter, distill, harden, onboard\nEnhance\tanimate, colorize, typeset, layout, delight, overdrive\nFix\tclarify, adapt, optimize\nIterate\tlive, generate\n\nAsk for audit the blog or make the pricing page bolder and it loads that command's playbook. Two ideas run through all of them:\n\nModes. Every surface is Persuade (landing pages), Operate (dashboards, tools), Read (docs, articles) or Experience (portfolios). Ambition scales with the mode. A landing page gets a bold point of view; an article page gets precision and restraint.\nRefinement preserves, redesign replaces. A refinement keeps the identity, copy and behaviour you already have and fixes the details. A redesign deliberately replaces the look. The skill tells the agent never to split the difference by \"polishing\" a look it was asked to throw away.\n\nIt also keeps project memory in two files: PRODUCT.md (who the product is for and what it must do) and DESIGN.md (the tokens, components and rules). Every later command reads them, so the tenth change respects decisions made in the first. A bundled impeccable detect command scans your files for known anti-patterns and returns them as JSON.\n\nReach for it when you have an existing product and want a proper audit, a polish pass before launch, a documented design system, or one targeted change like \"this is too loud\".\n\n3. Taste Skill: landing pages that don't look AI-made\n\nTaste Skill (design-taste-frontend) calls itself the anti-slop frontend skill. Its author studied 247 curated gallery sites from One Page Love and Awwwards Sites of the Day, and turned what separated the best ones from the forgettable ones into a process:\n\nInventory the subject. List 8 to 12 things only this client has: its name and what it means, its street, its numbers, the one constraint it lives with.\nDraw a direction. scripts/draw.mjs deals three of 20 researched directions. The agent picks the one that can carry something from the inventory, and the script deals its type system, palette, hero and section layouts.\nFind the idea. One sentence: on this page, [something that belongs to the subject] becomes [the device the direction calls for]. If the sentence still works with a competitor's name in it, it's a category idea, not an idea.\nBuild, then gate. scripts/inspect.mjs opens the page in real Chrome at 1440, 768 and 390 px, measures the house rules and saves screenshots.\nLook and fix. The agent critiques its own screenshots, fixes the top three problems and repeats, up to three rounds.\n\nThe house rules are strict, and they are measured rather than hoped for: headlines of two lines or fewer, no eyebrow labels, no monospace decoration, no \"01 / 02 / 03\" numbering, no gradients, no resting shadows, no violet, no faded body text, and at least four real pictures on a page. A bundled assets.mjs searches open collections (Wikimedia Commons, Openverse, the Met, the Art Institute of Chicago) for commercially usable images and records their credits.\n\nYou can also run the inspector on its own against any URL:\n\nnode ~/.claude/skills/design-taste-frontend/scripts/inspect.mjs https://siri2moon.com \\\n  --out .taste-skill/home\n\nCopy\n\nReach for it when you're building a new landing page, product site, portfolio or one-pager, or someone says your site \"looks AI-generated\".\n\nThe real test: I pointed all three at this blog\n\nFeature lists are cheap, so I gave the three skills one job: make siri2moon.com more professional. Better layout, better colour, more consistent type, across the home page, the article pages and the static pages.\n\nRound 1: the redesign, rejected\n\nThe skills did exactly what they're built to do. Taste Skill's rules flagged the glows, gradients, glass cards and uppercase labels the site is built on, and the agent rebuilt the look to clear them: 37 files changed, 660 lines added and 1,186 removed. On paper it passed far more checks than the original.\n\nI looked at it and said what any site owner would: this is much uglier than the old one. Keep the old style, just standardise it.\n\nThe redesign was technically cleaner and still wrong, because the brief was mine to set and I never asked for a new identity. The dark night sky, the glow and the gradient headings are siri2moon. Impeccable's own rule says it plainly: refinement keeps the incumbent identity; redesign replaces it. Asking for \"more professional\" on a site you like is a refinement, and an agent with strong opinions will treat it as a redesign unless you say otherwise.\n\nThe whole attempt went into a git stash, not the bin, so nothing was lost.\n\nRound 2: standardise, don't restyle\n\nThe second pass used the same three skills as measuring tools instead of art directors. I ran Taste Skill's inspector on the live pages, kept every finding that was about legibility or correctness, and ignored every finding that was about the look I chose. What it found was real:\n\nPROBLEM THE INSPECTOR MEASURED\tFIX\n26 text blocks smaller than 13 px (labels at 11 px)\tRedefined Tailwind's text-xs as 13 px, so nothing readable goes below it\nCard body text at 14 px in mid grey\t15 px, one grey step lighter\nMarquee, Q&A labels, archive dates and footer headings under 4.5:1 contrast\tMoved up one grey step each\nArticle code asked for Fira Code, which was never loaded\tSystem monospace stack (SF Mono, Menlo, Cascadia Code…)\nInline code used word-break: break-all, splitting short names mid-word\tword-break: normal; overflow-wrap: anywhere\nCookie banner wrapped onto several rows on a phone\tOne row, shorter copy, smaller buttons\n\nThe type floor is a single change in tailwind.config.ts, and every existing text-xs in the codebase picks it up:\n\nfontSize: {\n  // 13px floor for small text (labels, meta, captions), so nothing read is smaller.\n  xs: [\"0.8125rem\", { lineHeight: \"1.125rem\" }],\n},\n\nCopy\n\nThe result: one commit touching 13 files, the same look, and small text down from 26 blocks to 2 on both the home page and the article page. The two left are the logo's tagline and the ⌘K hint, kept on purpose. The inspector still reports \"failures\" for the glows and gradients, and that's fine: those are choices, not mistakes.\n\nWhat I learned\nSay \"refine\" or \"redesign\" out loud. It's the single sentence that decides whether you get a fix or a new website.\nThe tools are better than the opinions. A headless browser measuring contrast, font sizes and fonts that never loaded found bugs I had shipped for months. The verdicts on taste are the part to argue with.\nKeep the failed attempt. A stash cost nothing and made rejecting the redesign a five-second decision instead of a lost afternoon.\nWhich skill should you use?\nYOUR SITUATION\tSTART WITH\nBuilding a new landing page or marketing site\tTaste Skill\nAn existing product needs an audit or a pre-launch polish\tImpeccable (audit, then polish)\nYou want a design system written down\tImpeccable (document, extract)\nAdding or reviewing animations\tEmil's animate and review-animations\nThe app works but \"feels cheap\"\tEmil's emil-design-eng, then mobile-native\nChecking a UI survives real data\tEmil's break-ui\nQuick objective checks on a live URL\tTaste Skill's inspect.mjs\n\nThey work well together because they overlap less than you'd think: Taste Skill decides what the page is, Impeccable keeps the whole product consistent, and Emil's skills make the parts that move feel right.\n\nFAQ\nAre these skills free?\n\nYes. All three are public GitHub repositories you install with npx skills add. Taste Skill's inspector needs Node 22+ and an installed Chrome, Edge or Chromium, and nothing else.\n\nDo they work outside Claude Code?\n\nA skill is plain Markdown plus scripts, so most of it works in any agent that supports the skills format. The skills CLI can target other agents with -a. These commands use -a claude-code.\n\nWill they slow down my agent or fill the context window?\n\nNot noticeably. Only the short descriptions load up front. The full instructions and references load when a task matches, and Impeccable loads a command's playbook only when you run that command.\n\nWill they change my site's style?\n\nThey can, and they will if you let them. Taste Skill in particular bans gradients, glows and violet. If you like your current look, say \"refine, keep the current style\" in your first message. That's the lesson from round 1 above.\n\nCan I install them for a single project only?\n\nYes. Drop the -g flag and the skill installs into the project's .claude/skills/, where you can commit it so your whole team gets it.\n\nWrapping up\n\nDesign skills don't give an agent taste on their own. They give it a process, a vocabulary and, best of all, tools that measure. Pair that with a clear brief (refine or redesign, keep or replace) and Claude Code goes from producing the average landing page to giving you design review you can actually use.\n\nIf you try them on your own project, I'd love to hear which one earned its place.\n\nWORK WITH ME\n\nBuilding something like this?\n\nI'm Binh — an AI & cloud engineer with 11+ years shipping production software. I take on consulting and build work. Tell me what you're working on and where it's stuck.\n\nWork with me\nConnect on LinkedIn"
+}

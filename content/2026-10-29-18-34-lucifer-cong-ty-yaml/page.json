@@ -1,0 +1,178 @@
+{
+  "url": "https://siri2moon.com/posts/lucifer-design-ai-company-org-chart-yaml",
+  "title": "Design Your Own AI Company in YAML",
+  "description": "Lucifer's company is one YAML file: departments, managers, personas, and a model and effort per employee. Learn the format, then build a small game studio of your own and watch the office lay out its decks.",
+  "cover": "https://siri2moon.com/uploads/lucifer-07-org-chart-yaml-cover.jpg",
+  "pageHeight": 9852,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "Anatomy of a company file",
+      "top": 1158,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "name and mission",
+      "top": 1849,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "defaults",
+      "top": 2032,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "departments",
+      "top": 2164,
+      "id": null
+    },
+    {
+      "tag": "h3",
+      "text": "employees",
+      "top": 2321,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Writing a good persona",
+      "top": 3189,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Choosing model and effort per role",
+      "top": 4058,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Translations",
+      "top": 4617,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Build your own: a tiny game studio",
+      "top": 5086,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Tips for a healthy org chart",
+      "top": 7277,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Next",
+      "top": 7622,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Building something like this?",
+      "top": 8255,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1287,
+      "height": 530,
+      "lang": "yaml",
+      "head": "name: Lucifer Corp\nmission: >\n  A digital product studio run entirely by AI agents: it takes ideas from the owner\n  and turns them into plans, designs, source code and launch content.\n\ndefaults:"
+    },
+    {
+      "top": 3318,
+      "height": 260,
+      "lang": null,
+      "head": "You are Michael, CTO in the Engineering department at Lucifer Corp.\n\nCompany mission: ...\n\nYour role and expertise:\nOwns the technical architecture and the engineering team. Picks the technology, ..."
+    },
+    {
+      "top": 4746,
+      "height": 224,
+      "lang": "yaml",
+      "head": "departments:\n  - { id: design, name: Design, color: \"#ec4899\", i18n: { vi: { name: Thiết kế } } }\n\nemployees:\n  - id: gabriel\n    title: Backend Engineer"
+    },
+    {
+      "top": 5215,
+      "height": 1340,
+      "lang": "yaml",
+      "head": "name: Pixel Forge\nmission: >\n  A tiny indie game studio run by AI agents. It turns the owner's game ideas into\n  design documents, prototypes in plain JavaScript and a launch plan. Scope is kept\n  small and honest: if something can't be built, say so.\n"
+    },
+    {
+      "top": 6629,
+      "height": 62,
+      "lang": "bash",
+      "head": "cd lucifer-engine\nLUCIFER_COMPANY=companies/pixel-forge.yaml uv run lucifer-engine serve\n\nCopy"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [
+    {
+      "path": "/posts/meet-lucifer-open-source-ai-company",
+      "title": "1. Meet Lucifer"
+    },
+    {
+      "path": "/posts/why-i-built-lucifer-visible-multi-agent-ai",
+      "title": "2. Why I built it"
+    },
+    {
+      "path": "/posts/lucifer-architecture-engine-office-protocol",
+      "title": "3. Architecture"
+    },
+    {
+      "path": "/posts/lucifer-getting-started-run-locally",
+      "title": "4. Getting started"
+    },
+    {
+      "path": "/posts/lucifer-connect-llm-claude-cloudflare-ai-gateway",
+      "title": "Cloudflare AI Gateway"
+    },
+    {
+      "path": "/posts/lucifer-office-tour-missions-work-links-follow-camera",
+      "title": "6. Office tour"
+    },
+    {
+      "path": "/posts/lucifer-real-delegation-crewai-multi-level",
+      "title": "Real Delegation with CrewAI: Going Beyond the Hierarchical Process"
+    },
+    {
+      "path": "/posts/lucifer-sandboxed-agent-tools-workspace",
+      "title": "9. Sandboxed tools"
+    },
+    {
+      "path": "/posts/lucifer-simulation-brain-test-multi-agent-without-tokens",
+      "title": "10. Simulation brain"
+    },
+    {
+      "path": "/posts/lucifer-3d-office-react-three-fiber",
+      "title": "11. 3D office with R3F"
+    },
+    {
+      "path": "/posts/lucifer-stream-agent-state-websocket-zustand",
+      "title": "12. WebSocket + zustand"
+    },
+    {
+      "path": "/posts/lucifer-visualize-workflow-work-links-follow-camera",
+      "title": "13. Visualizing workflow"
+    },
+    {
+      "path": "/posts/lucifer-roadmap-ai-company-that-ships",
+      "title": "roadmap"
+    },
+    {
+      "path": "/posts/lucifer-contributing-add-tool-theme-company-template",
+      "title": "15. Contributing"
+    }
+  ],
+  "text": "Building Lucifer: an open-source AI company you can watch · ⭐ GitHub\n\n🚀 Start here: 1. Meet Lucifer · 2. Why I built it · 3. Architecture\n\n📖 Use it: 4. Getting started · 5. Connect an LLM · 6. Office tour\n\n🛠 Build the engine: 7. Org chart in YAML · 8. Real delegation · 9. Sandboxed tools · 10. Simulation brain\n\n🎨 Build the office: 11. 3D office with R3F · 12. WebSocket + zustand · 13. Visualizing workflow\n\n🧭 What's next: 14. Roadmap · 15. Contributing\n\nIn Lucifer, a company is a single YAML file. It defines who works there, who reports to whom, what each person is good at and which model they think with. Change the file, restart the engine, and the office lays out new decks and desks to match. In this post we'll read the default company, then build a small game studio from scratch.\n\nAnatomy of a company file\n\nThe default org chart is lucifer-engine/companies/lucifer-corp.yaml. It has five parts:\n\nname: Lucifer Corp\nmission: >\n  A digital product studio run entirely by AI agents: it takes ideas from the owner\n  and turns them into plans, designs, source code and launch content.\n\ndefaults:\n  model: claude-opus-5-5\n  effort: medium\n\ndepartments:\n  - { id: executive, name: Executive, color: \"#f59e0b\" }\n  - { id: engineering, name: Engineering, color: \"#3b82f6\" }\n  # ...\n\nemployees:\n  - id: lucifer\n    name: Lucifer\n    title: CEO\n    department: executive\n    reportsTo: null\n    effort: high\n    color: \"#f59e0b\"\n    emoji: \"😈\"\n    persona: >\n      Head of the company and the owner's point of contact. Turns requests into clear goals,\n      splits the work between the CTO, CPO and CMO, then merges everything into a final report.\n      Does not write code or design; excels at decisions and at setting the quality bar.\n  # ...\n\nCopy\nname and mission\n\nThese go into every agent's backstory. The mission is the company's values in a few sentences. Lucifer Corp's includes \"mistakes are owned and reported, never hidden\", and that line nudges agents toward fail_task instead of producing filler.\n\ndefaults\n\nThe model and effort for anyone who doesn't set their own. effort is one of low, medium, high, xhigh or max.\n\ndepartments\n\nEach department has an id, a display name and a color. In the office, each department becomes a work zone, a deck on the yacht or a pergola on the beach, with a mat in that color.\n\nemployees\nFIELD\tREQUIRED\tMEANING\nid\t✔\tLowercase letters, digits and hyphens. Used by delegate_task and the API.\nname, title\t✔\tShown everywhere. The title also becomes the CrewAI agent's role.\ndepartment\t✔\tOne of the department ids.\nreportsTo\t\tThe manager's id. null for the head, who takes work from the owner.\npersona\t✔\tRole and expertise, in a few sentences. The most important field.\nmodel, effort\t\tOverride the defaults for this person.\ncolor, emoji\t\tWing tint, desk color and avatar.\ni18n\t\tTranslations for the office.\n\nThe loader validates the file when the engine starts. There must be exactly one head (reportsTo: null), every department must exist, and every reportsTo must point at a real employee. A mistake stops the engine with a clear message, before any agent starts working.\n\nWriting a good persona\n\nThe persona is what an agent \"is\". Lucifer builds each agent's backstory from it, plus its position in the company:\n\nYou are Michael, CTO in the Engineering department at Lucifer Corp.\n\nCompany mission: ...\n\nYour role and expertise:\nOwns the technical architecture and the engineering team. Picks the technology, ...\n\nYou report to Lucifer (CEO).\n\nDirect reports you can delegate to (use delegate_task with the exact id):\n- id \"gabriel\": Gabriel, Backend Engineer. Backend engineer: designs APIs and databases, ...\n- id \"raphael\": Raphael, Frontend Engineer. ...\n- id \"uriel\": Uriel, QA Engineer. ...\n\nCopy\n\nNotice that a manager sees only the first sentence of each report's persona. So:\n\nPut the expertise in the first sentence. \"Backend engineer: designs APIs and databases...\" tells a manager exactly when to pick this person.\nSay what a manager should delegate and what it should do itself. The CEO's persona says it \"does not write code or design\". That keeps it from doing the CTO's job.\nName the deliverables. \"Writes clean, tested TypeScript/Node.js code\" produces better files than \"is good at coding\".\n\nThe backstory never mentions the current task, so it's identical across all of an agent's work sessions. That makes the request prefix cacheable, which matters once you are paying for tokens.\n\nChoosing model and effort per role\n\nA useful rule of thumb:\n\nROLE\tSUGGESTED EFFORT\tWHY\nHead of company\thigh\tSplits vague goals, merges many results\nManagers (CTO, CPO, CMO)\thigh or medium\tPlanning and review\nSpecialists\tmedium\tFocused work with a clear brief\nWriters, simple formatting\tlow\tShort outputs, little reasoning\n\nWith Cloudflare AI Gateway, LUCIFER_MODEL sets one model for everyone and overrides the org chart.\n\nTranslations\n\nBase fields are English. Add translations under i18n, keyed by language code, for the company, departments and employees:\n\ndepartments:\n  - { id: design, name: Design, color: \"#ec4899\", i18n: { vi: { name: Thiết kế } } }\n\nemployees:\n  - id: gabriel\n    title: Backend Engineer\n    i18n:\n      vi:\n        title: Kỹ sư Backend\n        persona: >\n          Kỹ sư backend: thiết kế API và cơ sở dữ liệu, ...\n\nCopy\n\nTranslations are only for the office UI. Agents always get the English persona and reply in the language of the task.\n\nBuild your own: a tiny game studio\n\nLet's make a five-person indie studio. Create lucifer-engine/companies/pixel-forge.yaml:\n\nname: Pixel Forge\nmission: >\n  A tiny indie game studio run by AI agents. It turns the owner's game ideas into\n  design documents, prototypes in plain JavaScript and a launch plan. Scope is kept\n  small and honest: if something can't be built, say so.\n\ndefaults:\n  model: claude-opus-5-5\n  effort: medium\n\ndepartments:\n  - { id: studio, name: Studio, color: \"#f59e0b\" }\n  - { id: game, name: Game, color: \"#6366f1\" }\n  - { id: art, name: Art & Audio, color: \"#ec4899\" }\n\nemployees:\n  - id: director\n    name: Nova\n    title: Game Director\n    department: studio\n    reportsTo: null\n    effort: high\n    emoji: \"🎬\"\n    color: \"#f59e0b\"\n    persona: >\n      Game director: turns an idea into a clear vision and a scope that fits one week.\n      Splits work between design and art, then merges it into a one-page pitch.\n      Never writes code or draws.\n\n  - id: designer\n    name: Orion\n    title: Lead Game Designer\n    department: game\n    reportsTo: director\n    effort: high\n    emoji: \"🧩\"\n    color: \"#6366f1\"\n    persona: >\n      Game designer: core loop, mechanics, levels and balancing, written as a game design document.\n      Hands implementation to the gameplay programmer.\n\n  - id: programmer\n    name: Vega\n    title: Gameplay Programmer\n    department: game\n    reportsTo: designer\n    emoji: \"🕹️\"\n    color: \"#818cf8\"\n    persona: >\n      Gameplay programmer: builds small playable prototypes in a single HTML file with\n      plain JavaScript and canvas. Keeps code short and commented.\n\n  - id: artist\n    name: Lyra\n    title: Art Director\n    department: art\n    reportsTo: director\n    emoji: \"🎨\"\n    color: \"#ec4899\"\n    persona: >\n      Art director: visual style guides, palettes, character and UI descriptions in text.\n      Hands sound to the audio designer.\n\n  - id: audio\n    name: Echo\n    title: Audio Designer\n    department: art\n    reportsTo: artist\n    effort: low\n    emoji: \"🎧\"\n    color: \"#f472b6\"\n    persona: >\n      Audio designer: sound effect lists, music briefs and an audio style guide.\n\nCopy\n\nPoint the engine at it and start:\n\ncd lucifer-engine\nLUCIFER_COMPANY=companies/pixel-forge.yaml uv run lucifer-engine serve\n\nCopy\n\nThe office reads the company from the snapshot, so it needs no change. The Studio department, which holds the head, takes the sky deck. Game and Art & Audio take the next decks by size. Each department gets a mat in its color, and every employee gets a desk and wings in their color. Nova, as the head, becomes the seraph with two pairs of golden wings.\n\nTry the studio with the simulation brain, then with a real model:\n\nDesign a one-week arcade game about a lighthouse keeper A one-page pitch, a game design document in docs/gdd.md and a playable prototype in prototype/index.html.\n\nYou'll see Nova split the work between Orion and Lyra. Orion hands the prototype to Vega, Lyra hands the sound brief to Echo, and the results come back up to Nova for the pitch.\n\nUse a separate data directory and workspace for each company (LUCIFER_DATA_DIR=data-pixel-forge LUCIFER_WORKSPACE_DIR=workspace-pixel-forge), so tasks and files from different org charts don't mix.\n\nTips for a healthy org chart\nKeep spans small. Three to four reports per manager keeps briefs focused.\nTwo or three levels are plenty. Each level adds a work session for planning and another one for merging.\nGive the head nothing to build. Its job is to split, decide and merge.\nLet names carry meaning. The office shows names everywhere, so short, distinct names are easier to follow on screen.\nNext\n\nOrg charts are the what. How delegation actually runs, with one crew per session, parents waiting on their subtasks and the race that had to be avoided, is in Real delegation with CrewAI.\n\nIf you build a company you like, share it. A marketplace of company templates is on the roadmap, and a PR to siri2moon/lucifer is the first step.\n\nLucifer is open source under the MIT license. Clone it, run it for free with the simulation brain, and ⭐ star it if you'd like to follow along: github.com/siri2moon/lucifer.\n\nNext in the series: Real Delegation with CrewAI: Going Beyond the Hierarchical Process.\n\nWORK WITH ME\n\nBuilding something like this?\n\nI'm Binh — an AI & cloud engineer with 11+ years shipping production software. I take on consulting and build work. Tell me what you're working on and where it's stuck.\n\nWork with me\nConnect on LinkedIn"
+}

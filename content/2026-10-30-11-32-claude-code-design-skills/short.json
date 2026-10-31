@@ -1,0 +1,397 @@
+{
+  "id": "2026-10-30-11-32-claude-code-design-skills",
+  "kind": "post",
+  "theme": "siri2moon",
+  "source": {
+    "url": "https://siri2moon.com/posts/claude-code-design-skills-impeccable-taste-skill-emil-kowalski",
+    "proof": "hook quay thật: bản thiết kế lại bị từ chối (git stash, chạy local) và siri2moon.com đang chạy; lệnh cài và số đo 26 → 2 lấy từ bài và từ inspect.mjs thật; giọng đọc ElevenLabs"
+  },
+  "chip": {
+    "title": "SIRI2MOON",
+    "subtitle": "Claude Code"
+  },
+  "narration": {
+    "model": "eleven_v3",
+    "volume": 1.15
+  },
+  "music": {
+    "file": "_assets/music/tonight-again-instrumental.wav",
+    "start": 0,
+    "bpm": 124.75
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "beats": 6,
+      "big": true,
+      "motion": {
+        "type": "split",
+        "before": "2026-10-30-11-32-claude-code-design-skills/footage/redesign.mp4",
+        "after": "2026-10-30-11-32-claude-code-design-skills/footage/original.mp4",
+        "labels": {
+          "vi": [
+            "AI làm lại",
+            "Bản gốc"
+          ],
+          "en": [
+            "AI redesign",
+            "Original"
+          ]
+        }
+      },
+      "say": {
+        "vi": "Tôi cho AI thiết kế lại blog, và nó xấu hơn hẳn.",
+        "en": "I let AI redesign my blog, and it got worse."
+      },
+      "lines": {
+        "vi": [
+          "AI *làm lại* blog tôi",
+          "và nó *xấu hơn* 😱"
+        ],
+        "en": [
+          "AI *redesigned* my blog",
+          "and made it *worse* 😱"
+        ]
+      }
+    },
+    {
+      "id": "install",
+      "beats": 7,
+      "terminal": {
+        "title": "zsh — ~",
+        "fontSize": 27,
+        "cps": 40,
+        "start": 0.2,
+        "items": [
+          {
+            "cmd": "npx skills add {magenta}emilkowalski/skill{/} -g",
+            "enter": 0.15
+          },
+          {
+            "out": "{green}✓{/} 16 skills {dim}· animate, review-animations…{/}",
+            "after": 0.2
+          },
+          {
+            "cmd": "npx skills add {magenta}pbakaus/impeccable{/} -g",
+            "enter": 0.15
+          },
+          {
+            "out": "{green}✓{/} impeccable {dim}· audit, polish, critique…{/}",
+            "after": 0.2
+          },
+          {
+            "cmd": "npx skills add {magenta}Leonxlnx/taste-skill{/} -g",
+            "enter": 0.15
+          },
+          {
+            "out": "{green}✓{/} design-taste-frontend {dim}· inspect.mjs{/}"
+          }
+        ]
+      },
+      "say": {
+        "vi": "Mình dùng ba skill thiết kế cho Claude Code, cài bằng ba dòng lệnh.",
+        "en": "Three design skills for Claude Code. Three commands."
+      },
+      "lines": {
+        "vi": [
+          "*3 skill* thiết kế xịn",
+          "cài bằng *3 dòng lệnh* ⚡"
+        ],
+        "en": [
+          "Three *design skills*",
+          "*3 commands* to install ⚡"
+        ]
+      }
+    },
+    {
+      "id": "emil",
+      "beats": 7,
+      "motion": {
+        "type": "calc",
+        "label": "Emil Kowalski · motion",
+        "rows": [
+          {
+            "label": {
+              "vi": "Animation giao diện",
+              "en": "UI animation"
+            },
+            "value": "< 300ms"
+          },
+          {
+            "label": {
+              "vi": "Nút khi bấm",
+              "en": "Button press"
+            },
+            "value": {
+              "vi": "scale 0,97",
+              "en": "scale 0.97"
+            }
+          }
+        ],
+        "stamp": {
+          "vi": "MƯỢT TAY",
+          "en": "FEELS RIGHT"
+        }
+      },
+      "say": {
+        "vi": "Emil Kowalski lo animation: nhanh, và luôn có lý do.",
+        "en": "Emil Kowalski handles motion: fast, and always for a reason."
+      },
+      "lines": {
+        "vi": [
+          "*Emil Kowalski*: animation",
+          "phải *nhanh*, có *lý do* ✨"
+        ],
+        "en": [
+          "*Emil Kowalski*: motion",
+          "*fast*, never *for show* ✨"
+        ]
+      }
+    },
+    {
+      "id": "impeccable",
+      "beats": 8,
+      "motion": {
+        "type": "pipeline",
+        "steps": [
+          {
+            "icon": "🔍",
+            "title": "audit",
+            "sub": {
+              "vi": "a11y · hiệu năng · responsive",
+              "en": "a11y · performance · responsive"
+            }
+          },
+          {
+            "icon": "🧐",
+            "title": "critique",
+            "sub": {
+              "vi": "chấm điểm UX",
+              "en": "a scored UX review"
+            }
+          },
+          {
+            "icon": "🎨",
+            "title": "typeset · colorize",
+            "sub": {
+              "vi": "chữ và màu",
+              "en": "type and colour"
+            }
+          },
+          {
+            "icon": "✨",
+            "title": "polish",
+            "sub": {
+              "vi": "soát lần cuối trước khi ship",
+              "en": "the last pass before shipping"
+            }
+          },
+          {
+            "icon": "📘",
+            "title": "document",
+            "sub": {
+              "vi": "viết ra DESIGN.md",
+              "en": "writes DESIGN.md"
+            }
+          }
+        ]
+      },
+      "say": {
+        "vi": "Impeccable là giám đốc thiết kế, với hai mươi ba lệnh.",
+        "en": "Impeccable is a design director with 23 commands."
+      },
+      "lines": {
+        "vi": [
+          "*Impeccable*: 23 lệnh",
+          "như *giám đốc thiết kế* 🎨"
+        ],
+        "en": [
+          "*Impeccable*: 23 commands",
+          "like a *design director* 🎨"
+        ]
+      }
+    },
+    {
+      "id": "taste",
+      "beats": 8,
+      "motion": {
+        "type": "calc",
+        "label": "inspect.mjs · siri2moon.com",
+        "rows": [
+          {
+            "label": {
+              "vi": "Chữ dưới 13px · trước",
+              "en": "Text under 13px · before"
+            },
+            "value": "26"
+          },
+          {
+            "label": {
+              "vi": "Sau khi sửa",
+              "en": "After the fix"
+            },
+            "value": "2"
+          }
+        ],
+        "stamp": {
+          "vi": "ĐO BẰNG CHROME",
+          "en": "MEASURED"
+        }
+      },
+      "say": {
+        "vi": "Taste Skill đo bằng Chrome thật: hai mươi sáu lỗi chữ nhỏ, còn hai.",
+        "en": "Taste Skill measures in real Chrome. Tiny text: 26 down to 2."
+      },
+      "lines": {
+        "vi": [
+          "*Taste Skill* mở Chrome thật",
+          "đo từng *cỡ chữ* 📏"
+        ],
+        "en": [
+          "*Taste Skill* runs real Chrome",
+          "and *measures* every font 📏"
+        ]
+      }
+    },
+    {
+      "id": "lesson",
+      "beats": 7,
+      "shot": "lesson",
+      "layout": "card",
+      "keys": [
+        {
+          "f": 0,
+          "cx": 272,
+          "cy": 390,
+          "zoom": 1.85
+        },
+        {
+          "beat": 7,
+          "cx": 272,
+          "cy": 400,
+          "zoom": 1.93
+        }
+      ],
+      "say": {
+        "vi": "Bài học: nói rõ là chỉnh sửa, hay làm lại.",
+        "en": "The lesson: say refine, or redesign."
+      },
+      "lines": {
+        "vi": [
+          "Bài học: nói rõ *chỉnh sửa*",
+          "hay *làm lại* từ đầu 💡"
+        ],
+        "en": [
+          "Say *refine* or *redesign*",
+          "before AI *touches it* 💡"
+        ]
+      }
+    }
+  ],
+  "outro": {
+    "shot": "post-top",
+    "beats": 11,
+    "title": "SIRI2MOON",
+    "subtitle": {
+      "vi": "Hướng dẫn đầy đủ trên *siri2moon.com*",
+      "en": "The full guide on *siri2moon.com*"
+    },
+    "chips": [
+      "Claude Code",
+      "Impeccable",
+      "Taste Skill",
+      "Emil Kowalski"
+    ],
+    "link": "siri2moon.com",
+    "dim": 0.85
+  },
+  "endcard": {
+    "beats": 5,
+    "follow": {
+      "vi": "Theo dõi @siri2moondev",
+      "en": "Follow @siri2moondev"
+    },
+    "lines": {
+      "vi": [
+        "mẹo Claude Code mỗi ngày 🚀",
+        "Link bài viết ở bình luận ghim 📌"
+      ],
+      "en": [
+        "daily Claude Code tips 🚀",
+        "Link to the post in the pinned comment 📌"
+      ]
+    }
+  },
+  "capture": {
+    "url": "https://siri2moon.com/posts/claude-code-design-skills-impeccable-taste-skill-emil-kowalski",
+    "viewport": [
+      540,
+      960,
+      2
+    ],
+    "loadWait": 6,
+    "css": "html { scroll-behavior: auto !important; } [aria-label='Cookie consent'] { display: none !important; }",
+    "shots": [
+      {
+        "name": "redesign",
+        "url": "http://localhost:3000/",
+        "seconds": 6,
+        "keys": [
+          {
+            "t": 0,
+            "scroll": 0
+          },
+          {
+            "t": 1,
+            "scroll": 260
+          }
+        ]
+      },
+      {
+        "name": "original",
+        "url": "https://siri2moon.com/",
+        "seconds": 6,
+        "keys": [
+          {
+            "t": 0,
+            "scroll": 0
+          },
+          {
+            "t": 1,
+            "scroll": 260
+          }
+        ]
+      },
+      {
+        "name": "lesson",
+        "seconds": 8,
+        "keys": [
+          {
+            "t": 0,
+            "scroll": 9060
+          },
+          {
+            "t": 1,
+            "scroll": 9160
+          }
+        ],
+        "url": "https://siri2moon.com/posts/claude-code-design-skills-impeccable-taste-skill-emil-kowalski"
+      },
+      {
+        "name": "post-top",
+        "seconds": 7,
+        "keys": [
+          {
+            "t": 0,
+            "scroll": 0
+          },
+          {
+            "t": 1,
+            "scroll": 420
+          }
+        ],
+        "url": "https://siri2moon.com/posts/claude-code-design-skills-impeccable-taste-skill-emil-kowalski"
+      }
+    ]
+  }
+}

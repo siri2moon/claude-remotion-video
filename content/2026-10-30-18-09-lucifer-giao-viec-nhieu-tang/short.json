@@ -1,0 +1,478 @@
+{
+  "id": "2026-10-30-18-09-lucifer-giao-viec-nhieu-tang",
+  "kind": "post",
+  "theme": "lucifer",
+  "project": "lucifer",
+  "source": {
+    "url": "https://siri2moon.com/posts/lucifer-real-delegation-crewai-multi-level",
+    "proof": "footage quay thật: engine chế độ mô phỏng (lucifer-corp.yaml), CEO → Michael (CTO) → kỹ sư; terminal dựng lại đúng thông báo lỗi của delegate() trong bài; giọng đọc ElevenLabs"
+  },
+  "chip": {
+    "title": "LUCIFER",
+    "subtitle": {
+      "vi": "Giao việc nhiều tầng",
+      "en": "Multi-level delegation"
+    }
+  },
+  "narration": {
+    "model": "eleven_v3",
+    "volume": 1.15
+  },
+  "music": {
+    "file": "_assets/music/tonight-again-instrumental.wav",
+    "start": 0,
+    "bpm": 124.75
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "shot": "ceo",
+      "beats": 6,
+      "big": true,
+      "skip": 0.8,
+      "say": {
+        "vi": "Giao một mục tiêu, công ty AI tự chia việc xuống ba tầng.",
+        "en": "One goal, and the AI company splits it three levels deep."
+      },
+      "lines": {
+        "vi": [
+          "*1 mục tiêu*, công ty AI",
+          "chia việc *3 tầng* ☄️"
+        ],
+        "en": [
+          "Hand AI *one goal*",
+          "it splits *3 levels* ☄️"
+        ]
+      }
+    },
+    {
+      "id": "ceo",
+      "beats": 7,
+      "say": {
+        "vi": "CEO giao cho trưởng phòng, rồi chờ.",
+        "en": "The CEO hands it down, then waits."
+      },
+      "lines": {
+        "vi": [
+          "CEO giao cho *trưởng phòng*",
+          "rồi *chờ kết quả* ⏸️"
+        ],
+        "en": [
+          "The CEO *hands it down*",
+          "then *waits for results* ⏸️"
+        ]
+      },
+      "shot": "flow",
+      "skip": 2.5
+    },
+    {
+      "id": "team",
+      "beats": 7,
+      "say": {
+        "vi": "Trưởng phòng kỹ thuật lại chia tiếp cho các kỹ sư.",
+        "en": "The CTO splits it again for the engineers."
+      },
+      "lines": {
+        "vi": [
+          "Trưởng phòng *chia tiếp*",
+          "cho *kỹ sư* của mình 👷"
+        ],
+        "en": [
+          "The CTO *splits it again*",
+          "for *the engineers* 👷"
+        ]
+      },
+      "skip": 2.4
+    },
+    {
+      "id": "guard",
+      "beats": 8,
+      "terminal": {
+        "title": "delegate_task · Michael (CTO)",
+        "fontSize": 27,
+        "cps": 42,
+        "start": 0.2,
+        "prompt": "{dim}>>>{/} ",
+        "items": [
+          {
+            "cmd": "delegate_task({yellow}\"lilith\"{/}, {green}\"Backend API\"{/})",
+            "enter": 0.25
+          },
+          {
+            "out": "{red}✕ ValueError{/}: Lilith does not report\n  to you, so you cannot delegate to them",
+            "after": 0.4
+          },
+          {
+            "cmd": "delegate_task({yellow}\"gabriel\"{/}, {green}\"Backend API\"{/})",
+            "enter": 0.25
+          },
+          {
+            "out": "{green}✓ T-5e6f7a8b{/} → Gabriel {dim}· status: todo{/}"
+          }
+        ]
+      },
+      "say": {
+        "vi": "Giao sai sơ đồ? Code chặn lại ngay.",
+        "en": "Wrong person? The code blocks it."
+      },
+      "lines": {
+        "vi": [
+          "Giao *sai sơ đồ*?",
+          "*code chặn* ngay 🚫"
+        ],
+        "en": [
+          "Hand it to the *wrong person*?",
+          "the *code says no* 🚫"
+        ]
+      }
+    },
+    {
+      "id": "wake",
+      "beats": 8,
+      "motion": {
+        "type": "pipeline",
+        "steps": [
+          {
+            "icon": "👷",
+            "title": {
+              "vi": "Kỹ sư xong việc",
+              "en": "Engineers finish"
+            },
+            "sub": "Gabriel, Raphael → done"
+          },
+          {
+            "icon": "⏰",
+            "title": {
+              "vi": "Đánh thức CTO",
+              "en": "Wake the CTO"
+            },
+            "sub": {
+              "vi": "việc con cuối cùng đã xong",
+              "en": "the last subtask is done"
+            }
+          },
+          {
+            "icon": "🧩",
+            "title": {
+              "vi": "CTO gộp kết quả",
+              "en": "The CTO merges"
+            },
+            "sub": "reports/T-…-backend.md"
+          },
+          {
+            "icon": "⏰",
+            "title": {
+              "vi": "Đánh thức CEO",
+              "en": "Wake the CEO"
+            },
+            "sub": "_wake_parent()"
+          },
+          {
+            "icon": "📋",
+            "title": {
+              "vi": "Báo cáo cuối",
+              "en": "Final report"
+            },
+            "sub": {
+              "vi": "gộp cả cây việc",
+              "en": "the whole tree, merged"
+            }
+          }
+        ]
+      },
+      "say": {
+        "vi": "Xong việc, từng tầng tự thức dậy gộp kết quả.",
+        "en": "Results flow back up, level by level."
+      },
+      "lines": {
+        "vi": [
+          "Xong việc *báo ngược lên*",
+          "từng tầng *tự thức dậy* ⬆️"
+        ],
+        "en": [
+          "Results *flow back up*",
+          "each level *wakes up* ⬆️"
+        ]
+      }
+    },
+    {
+      "id": "tree",
+      "shot": "ui-tree",
+      "beats": 7,
+      "layout": "card",
+      "keys": [
+        {
+          "f": 0,
+          "cx": 640,
+          "cy": 400,
+          "zoom": 0.78
+        },
+        {
+          "f": 30,
+          "cx": 742,
+          "cy": 380,
+          "zoom": 1.5
+        },
+        {
+          "f": 126,
+          "cx": 742,
+          "cy": 390,
+          "zoom": 1.5
+        }
+      ],
+      "say": {
+        "vi": "Mỗi việc con đều thật, và huỷ được.",
+        "en": "Every subtask is real, and cancellable."
+      },
+      "lines": {
+        "vi": [
+          "Mỗi việc con *có thật*",
+          "trên bảng, *huỷ được* ✅"
+        ],
+        "en": [
+          "Every subtask is *real*",
+          "*tracked* and *cancellable* ✅"
+        ]
+      }
+    }
+  ],
+  "outro": {
+    "shot": "outro",
+    "beats": 11,
+    "rate": 0.9,
+    "dim": 0.62,
+    "title": "LUCIFER",
+    "subtitle": {
+      "vi": "Code giao việc đầy đủ trên *siri2moon.com*",
+      "en": "The full delegation code on *siri2moon.com*"
+    },
+    "chips": {
+      "vi": [
+        "CrewAI",
+        "Python",
+        "Multi-agent",
+        "0đ"
+      ],
+      "en": [
+        "CrewAI",
+        "Python",
+        "Multi-agent",
+        "Free"
+      ]
+    },
+    "link": "siri2moon.com"
+  },
+  "endcard": {
+    "beats": 5,
+    "follow": {
+      "vi": "Theo dõi @siri2moondev",
+      "en": "Follow @siri2moondev"
+    },
+    "lines": {
+      "vi": [
+        "để xem mình xây Lucifer từ đầu 🚀",
+        "Link bài viết ở bình luận ghim 📌"
+      ],
+      "en": [
+        "to watch Lucifer being built 🚀",
+        "Link to the post in the pinned comment 📌"
+      ]
+    }
+  },
+  "capture": {
+    "url": "http://localhost:5173/",
+    "viewport": [
+      540,
+      960,
+      2
+    ],
+    "loadWait": 6,
+    "shotSetup": "(shot) => { const s = __cap.office.getState(); if (!!shot.hud !== s.panelsVisible) s.togglePanels(); return (shot.hud ? '' : '.hud { display: none !important; }') + (shot.labels === false ? ' .labels { display: none !important; }' : '') + (shot.bubbles ? '' : ' .bubble { display: none !important; }'); }",
+    "setup": "await __cap.initR3F(); __cap.office = (await import('/src/state/office.ts')).useOffice; __cap.engine = (await import('/src/state/engine.ts')).engineApi; const s = __cap.office.getState(); s.setLang(__cap.lang); s.closeGuide(); if (s.followWork) s.toggleFollow(); __cap.followOff = () => { const o = __cap.office.getState(); if (o.followWork) o.toggleFollow(); }; __cap.newest = () => Object.values(__cap.office.getState().tasks).filter((t) => !t.parentId).sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0]; __cap.idle = async (ms = 120000) => { const t0 = Date.now(); while (Object.values(__cap.office.getState().tasks).some((t) => !['done','failed','cancelled'].includes(t.status)) && Date.now() - t0 < ms) await new Promise(r => setTimeout(r, 500)); }; __cap.goal = async (n) => { await __cap.idle(); await __cap.engine.createTask({ title: __cap.lang === 'en' ? 'Launch an AI note-taking app' : 'Ra mắt app ghi chú AI', description: __cap.lang === 'en' ? 'Technical architecture, backend API and product requirements' : 'Kiến trúc kỹ thuật, backend API và yêu cầu sản phẩm', priority: 'high' }); };",
+    "shots": [
+      {
+        "name": "ceo",
+        "seconds": 8,
+        "preroll": 1,
+        "actions": [
+          {
+            "at": -1,
+            "js": "(async () => { await __cap.goal(); const o = __cap.office.getState(); if (!o.followWork) o.toggleFollow(); await new Promise(r => setTimeout(r, 1200)); })()"
+          }
+        ]
+      },
+      {
+        "name": "team",
+        "seconds": 8,
+        "preroll": 1,
+        "actions": [
+          {
+            "at": -1,
+            "js": "(async () => { __cap.followOff(); await __cap.goal(); await new Promise(r => setTimeout(r, 3500)); })()"
+          }
+        ],
+        "keys": [
+          {
+            "t": 0,
+            "pos": [
+              -12,
+              11.5,
+              9
+            ],
+            "target": [
+              -7.5,
+              6.6,
+              -4
+            ],
+            "fov": 44
+          },
+          {
+            "t": 1,
+            "pos": [
+              -4,
+              11.5,
+              9
+            ],
+            "target": [
+              -5,
+              6.6,
+              -4
+            ],
+            "fov": 44
+          }
+        ]
+      },
+      {
+        "name": "flow",
+        "seconds": 8,
+        "preroll": 1,
+        "actions": [
+          {
+            "at": -1,
+            "js": "(async () => { __cap.followOff(); await __cap.goal(); await new Promise(r => setTimeout(r, 3000)); })()"
+          }
+        ],
+        "keys": [
+          {
+            "t": 0,
+            "pos": [
+              -28,
+              21,
+              24
+            ],
+            "target": [
+              -3,
+              5,
+              -4
+            ],
+            "fov": 44
+          },
+          {
+            "t": 1,
+            "pos": [
+              14,
+              23,
+              28
+            ],
+            "target": [
+              -3,
+              5,
+              -4
+            ],
+            "fov": 44
+          }
+        ]
+      },
+      {
+        "name": "ui-tree",
+        "seconds": 7,
+        "hud": true,
+        "viewport": [
+          1280,
+          800,
+          2
+        ],
+        "actions": [
+          {
+            "at": -1,
+            "js": "(async () => { __cap.followOff(); await __cap.idle(); })()"
+          },
+          {
+            "at": 0.8,
+            "js": "__cap.office.getState().selectTask(__cap.newest().id)"
+          }
+        ],
+        "keys": [
+          {
+            "t": 0,
+            "pos": [
+              16,
+              15,
+              42
+            ],
+            "target": [
+              -1,
+              4,
+              0
+            ],
+            "fov": 38
+          },
+          {
+            "t": 1,
+            "pos": [
+              14,
+              14,
+              40
+            ],
+            "target": [
+              -1,
+              4,
+              0
+            ],
+            "fov": 38
+          }
+        ]
+      },
+      {
+        "name": "outro",
+        "seconds": 8,
+        "actions": [
+          {
+            "at": -1,
+            "js": "__cap.office.getState().selectTask(null)"
+          }
+        ],
+        "keys": [
+          {
+            "t": 0,
+            "pos": [
+              30,
+              10,
+              30
+            ],
+            "target": [
+              0,
+              6,
+              -4
+            ],
+            "fov": 44
+          },
+          {
+            "t": 1,
+            "pos": [
+              50,
+              32,
+              62
+            ],
+            "target": [
+              0,
+              3,
+              -4
+            ],
+            "fov": 44
+          }
+        ]
+      }
+    ]
+  }
+}

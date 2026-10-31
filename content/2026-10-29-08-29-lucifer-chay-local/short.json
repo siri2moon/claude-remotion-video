@@ -528,5 +528,10 @@
     ]
    }
   ]
+ },
+ "music": {
+  "file": "_assets/music/tonight-again-instrumental.wav",
+  "start": 0,
+  "bpm": 124.75
  }
 }

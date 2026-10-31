@@ -1,0 +1,447 @@
+{
+ "id": "2026-10-29-18-34-lucifer-cong-ty-yaml",
+ "kind": "post",
+ "theme": "lucifer",
+ "project": "lucifer",
+ "source": {
+  "url": "https://siri2moon.com/posts/lucifer-design-ai-company-org-chart-yaml",
+  "proof": "footage quay thật: engine chế độ mô phỏng chạy lucifer-corp.yaml (trước) và pixel-forge.yaml đúng như trong bài (sau); terminal dựng lại đúng file YAML và log khởi động thật; giọng đọc ElevenLabs"
+ },
+ "chip": {
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Công ty trong YAML",
+   "en": "Org chart in YAML"
+  }
+ },
+ "narration": {
+  "model": "eleven_v3",
+  "volume": 1.15
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "beats": 6,
+   "big": true,
+   "motion": {
+    "type": "split",
+    "before": {
+     "vi": "2026-10-29-18-34-lucifer-cong-ty-yaml/footage/before.mp4",
+     "en": "2026-10-29-18-34-lucifer-cong-ty-yaml/footage-en/before.mp4"
+    },
+    "after": {
+     "vi": "2026-10-29-18-34-lucifer-cong-ty-yaml/footage/after.mp4",
+     "en": "2026-10-29-18-34-lucifer-cong-ty-yaml/footage-en/after.mp4"
+    },
+    "labels": [
+     "Lucifer Corp",
+     "Pixel Forge"
+    ]
+   },
+   "say": {
+    "vi": "Đổi một file YAML, đổi cả công ty AI.",
+    "en": "Change one YAML file, change the whole company."
+   },
+   "lines": {
+    "vi": [
+     "Đổi *1 file YAML*",
+     "đổi cả *công ty AI* 🏢"
+    ],
+    "en": [
+     "Change *one YAML file*",
+     "get a *new AI company* 🏢"
+    ]
+   }
+  },
+  {
+   "id": "yaml",
+   "beats": 7,
+   "say": {
+    "vi": "Mỗi nhân viên vài dòng: tên, sếp là ai, giỏi việc gì.",
+    "en": "A few lines per person: their name, their boss, what they are good at."
+   },
+   "terminal": {
+    "title": "zsh — ~/lucifer/lucifer-engine",
+    "fontSize": 27,
+    "cps": 30,
+    "start": 0.2,
+    "items": [
+     {
+      "cmd": "cat companies/pixel-forge.yaml",
+      "enter": 0.2
+     },
+     {
+      "out": "{magenta}name{/}: Pixel Forge\n{magenta}departments{/}:\n  - { {magenta}id{/}: game, {magenta}name{/}: Game }\n  - { {magenta}id{/}: art, {magenta}name{/}: Art & Audio }\n{magenta}employees{/}:\n  - {magenta}id{/}: director\n    {magenta}name{/}: {yellow}Nova{/}\n    {magenta}reportsTo{/}: {orange}null{/}  {dim}# the head{/}\n  - {magenta}id{/}: designer\n    {magenta}name{/}: {yellow}Orion{/}\n    {magenta}reportsTo{/}: director\n    {magenta}persona{/}: Core loop, levels…",
+      "after": 0.4
+     },
+     {
+      "cmd": "LUCIFER_COMPANY=companies/pixel-forge.yaml \\",
+      "enter": 0
+     },
+     {
+      "cmd": "  uv run lucifer-engine serve",
+      "prompt": "",
+      "enter": 0.25
+     },
+     {
+      "out": "😇 {green}Pixel Forge: 5 employees{/}, brain {cyan}sim{/}"
+     }
+    ]
+   },
+   "lines": {
+    "vi": [
+     "Mỗi người *vài dòng*",
+     "*sếp là ai*, giỏi gì ✍️"
+    ],
+    "en": [
+     "A *few lines* each",
+     "*their boss*, their job ✍️"
+    ]
+   }
+  },
+  {
+   "id": "nova",
+   "beats": 6,
+   "say": {
+    "vi": "Văn phòng tự xếp lại. Sếp mọc cánh vàng.",
+    "en": "The office rearranges itself. The boss gets golden wings."
+   },
+   "lines": {
+    "vi": [
+     "Văn phòng *tự xếp lại*",
+     "sếp thành *thiên thần* 👼"
+    ],
+    "en": [
+     "The office *rearranges itself*",
+     "the head is a *seraph* 👼"
+    ]
+   },
+   "skip": 2.6
+  },
+  {
+   "id": "delegate",
+   "beats": 7,
+   "say": {
+    "vi": "Giao một ý tưởng game, Nova chia việc cho thiết kế và mỹ thuật.",
+    "en": "Pitch a game idea, and Nova splits it between design and art."
+   },
+   "lines": {
+    "vi": [
+     "Giao *1 ý tưởng game*",
+     "Nova *chia việc* ngay ☄️"
+    ],
+    "en": [
+     "Pitch *one game idea*",
+     "Nova *splits the work* ☄️"
+    ]
+   },
+   "skip": 0.4
+  },
+  {
+   "id": "done",
+   "shot": "ui-done",
+   "beats": 7,
+   "layout": "card",
+   "say": {
+    "vi": "Mọi lần giao việc đi đúng sơ đồ tổ chức bạn vừa viết.",
+    "en": "Every hand-off follows the org chart you just wrote."
+   },
+   "keys": [
+    {
+     "f": 0,
+     "cx": 640,
+     "cy": 400,
+     "zoom": 0.78
+    },
+    {
+     "f": 30,
+     "cx": 742,
+     "cy": 380,
+     "zoom": 1.5
+    },
+    {
+     "f": 126,
+     "cx": 742,
+     "cy": 390,
+     "zoom": 1.5
+    }
+   ],
+   "lines": {
+    "vi": [
+     "Việc chạy *đúng sơ đồ*",
+     "bạn *vừa viết* ✅"
+    ],
+    "en": [
+     "Work follows *your chart*",
+     "*exactly as written* ✅"
+    ]
+   }
+  }
+ ],
+ "outro": {
+  "shot": "outro",
+  "beats": 11,
+  "rate": 0.9,
+  "dim": 0.62,
+  "title": "LUCIFER",
+  "subtitle": {
+   "vi": "Mẫu YAML đầy đủ trên *siri2moon.com*",
+   "en": "The full YAML guide on *siri2moon.com*"
+  },
+  "chips": {
+   "vi": [
+    "YAML",
+    "CrewAI",
+    "Persona",
+    "0đ"
+   ],
+   "en": [
+    "YAML",
+    "CrewAI",
+    "Persona",
+    "Free"
+   ]
+  },
+  "link": "siri2moon.com"
+ },
+ "endcard": {
+  "beats": 5,
+  "follow": {
+   "vi": "Theo dõi @siri2moondev",
+   "en": "Follow @siri2moondev"
+  },
+  "lines": {
+   "vi": [
+    "để xem mình xây Lucifer từ đầu 🚀",
+    "Link bài viết ở bình luận ghim 📌"
+   ],
+   "en": [
+    "to watch Lucifer being built 🚀",
+    "Link to the post in the pinned comment 📌"
+   ]
+  }
+ },
+ "capture": {
+  "url": "http://localhost:5173/",
+  "viewport": [
+   540,
+   960,
+   2
+  ],
+  "loadWait": 6,
+  "setup": "await __cap.initR3F(); __cap.office = (await import('/src/state/office.ts')).useOffice; __cap.engine = (await import('/src/state/engine.ts')).engineApi; const s = __cap.office.getState(); s.setLang(__cap.lang); s.closeGuide(); if (s.followWork) s.toggleFollow(); __cap.followOff = () => { const o = __cap.office.getState(); if (o.followWork) o.toggleFollow(); }; __cap.newest = () => Object.values(__cap.office.getState().tasks).filter((t) => !t.parentId).sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];",
+  "shotSetup": "(shot) => { const s = __cap.office.getState(); if (!!shot.hud !== s.panelsVisible) s.togglePanels(); return (shot.hud ? '' : '.hud { display: none !important; }') + (shot.labels === false ? ' .labels { display: none !important; }' : '') + (shot.bubbles ? '' : ' .bubble { display: none !important; }'); }",
+  "shots": [
+   {
+    "name": "before",
+    "seconds": 6,
+    "preroll": 2,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -9.5,
+       11,
+       13
+      ],
+      "target": [
+       -8.5,
+       5.6,
+       -4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 1,
+      "pos": [
+       -9.5,
+       10.6,
+       11.5
+      ],
+      "target": [
+       -8.5,
+       5.7,
+       -4
+      ],
+      "fov": 46
+     }
+    ]
+   },
+   {
+    "name": "after",
+    "seconds": 6,
+    "preroll": 2,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -9.5,
+       11,
+       13
+      ],
+      "target": [
+       -8.5,
+       5.6,
+       -4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 1,
+      "pos": [
+       -9.5,
+       10.6,
+       11.5
+      ],
+      "target": [
+       -8.5,
+       5.7,
+       -4
+      ],
+      "fov": 46
+     }
+    ]
+   },
+   {
+    "name": "nova",
+    "seconds": 9,
+    "preroll": 1,
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       -1.8,
+       11.2,
+       4.2
+      ],
+      "target": [
+       2.6,
+       8.9,
+       -4
+      ],
+      "fov": 40
+     },
+     {
+      "t": 1,
+      "pos": [
+       -0.6,
+       10.8,
+       2.6
+      ],
+      "target": [
+       2.6,
+       8.9,
+       -4
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   {
+    "name": "delegate",
+    "seconds": 8,
+    "actions": [
+     {
+      "at": -1,
+      "js": "(async () => { await __cap.engine.createTask({ title: __cap.lang === \"en\" ? \"Design a one-week arcade game about a lighthouse keeper\" : \"Thiết kế game arcade 1 tuần về người gác hải đăng\", description: __cap.lang === \"en\" ? \"One-page pitch, design doc and a playable prototype\" : \"Pitch 1 trang, tài liệu thiết kế và bản chơi thử\", priority: \"high\" }); const o = __cap.office.getState(); if (!o.followWork) o.toggleFollow(); await new Promise(r => setTimeout(r, 1500)); })()"
+     }
+    ]
+   },
+   {
+    "name": "ui-done",
+    "seconds": 7,
+    "hud": true,
+    "viewport": [
+     1280,
+     800,
+     2
+    ],
+    "actions": [
+     {
+      "at": -1,
+      "js": "(async () => { __cap.followOff(); __cap.goal = () => __cap.newest(); const t0 = Date.now(); while (__cap.goal()?.status !== \"done\" && Date.now() - t0 < 120000) await new Promise(r => setTimeout(r, 500)); })()"
+     },
+     {
+      "at": 0.8,
+      "js": "__cap.office.getState().selectTask(__cap.goal().id)"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       16,
+       15,
+       42
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     },
+     {
+      "t": 1,
+      "pos": [
+       14,
+       14,
+       40
+      ],
+      "target": [
+       -1,
+       4,
+       0
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   {
+    "name": "outro",
+    "seconds": 8,
+    "actions": [
+     {
+      "at": -1,
+      "js": "__cap.office.getState().selectTask(null)"
+     }
+    ],
+    "keys": [
+     {
+      "t": 0,
+      "pos": [
+       30,
+       10,
+       30
+      ],
+      "target": [
+       0,
+       6,
+       -4
+      ],
+      "fov": 44
+     },
+     {
+      "t": 1,
+      "pos": [
+       50,
+       32,
+       62
+      ],
+      "target": [
+       0,
+       3,
+       -4
+      ],
+      "fov": 44
+     }
+    ]
+   }
+  ]
+ },
+ "music": {
+  "file": "_assets/music/tonight-again-instrumental.wav",
+  "start": 0,
+  "bpm": 124.75
+ }
+}

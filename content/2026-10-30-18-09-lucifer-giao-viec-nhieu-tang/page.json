@@ -1,0 +1,172 @@
+{
+  "url": "https://siri2moon.com/posts/lucifer-real-delegation-crewai-multi-level",
+  "title": "Real Delegation with CrewAI: Going Beyond the Hierarchical Process",
+  "description": "CrewAI's hierarchical process has one manager layer and hides its subtasks. Lucifer runs one crew per work session instead and turns delegation into a tool call that creates a real task. Here is how, and the race condition it had to avoid.",
+  "cover": "https://siri2moon.com/uploads/lucifer-08-delegation-crewai-cover.jpg",
+  "pageHeight": 8746,
+  "viewport": [
+    540,
+    960
+  ],
+  "headings": [
+    {
+      "tag": "h2",
+      "text": "Why not Process.hierarchical",
+      "top": 1195,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "One work session, one crew",
+      "top": 1698,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Delegation is a tool call",
+      "top": 2374,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Waiting, then waking up",
+      "top": 3378,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "The race you have to avoid",
+      "top": 4894,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Failure travels up, too",
+      "top": 5782,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Cancellation travels down",
+      "top": 6005,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "What you get",
+      "top": 6228,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Next",
+      "top": 6547,
+      "id": null
+    },
+    {
+      "tag": "h2",
+      "text": "Building something like this?",
+      "top": 7130,
+      "id": null
+    }
+  ],
+  "code": [
+    {
+      "top": 1853,
+      "height": 380,
+      "lang": "python",
+      "head": "crew_agent = CrewAgent(\n    role=f\"{agent.title} ({agent.name})\",\n    goal=prompts.goal(agent),\n    backstory=prompts.backstory(company, agent, session.manager(), session.delegates()),\n    llm=llm,\n    tools=build_tools(session),"
+    },
+    {
+      "top": 2503,
+      "height": 421,
+      "lang": "python",
+      "head": "def delegate(self, assignee_id, title, description, priority=None) -> str:\n    self._assert_open()\n    assignee = self._store.get_agent(assignee_id)\n    if assignee is None:\n        raise ValueError(f'No employee with id \"{assignee_id}\"')\n    if not self._store.is_under(assignee.id, self.agent.id):"
+    },
+    {
+      "top": 3533,
+      "height": 442,
+      "lang": "python",
+      "head": "def _settle(self, session):\n    task = self._store.require_task(session.task.id)\n    if session.outcome == \"completed\":\n        self._wake_parent(task)\n    elif session.outcome == \"failed\":\n        self._wake_parent(task)"
+    },
+    {
+      "top": 4075,
+      "height": 213,
+      "lang": "python",
+      "head": "def _wake_parent(self, task):\n    if not task.parent_id:\n        return\n    parent = self._store.get_task(task.parent_id)\n    if parent is None or parent.status != \"waiting\":\n        return"
+    },
+    {
+      "top": 4388,
+      "height": 338,
+      "lang": null,
+      "head": "# Task T-1a2b3c4d: Launch an AI note-taking app\nPriority: normal\nLanguage: English. Write everything for this task in English, ...\n\nWe need a PRD, a technical architecture and a marketing plan\n"
+    },
+    {
+      "top": 5407,
+      "height": 109,
+      "lang": "python",
+      "head": "# Settling the status and waking the parent must happen under one lock; otherwise a\n# subtask can finish just as the parent moves to `waiting`, and the parent hangs forever.\nwith self._lock:\n    self._settle(session)\n\nCopy"
+    }
+  ],
+  "images": [],
+  "diagrams": [],
+  "posts": [
+    {
+      "path": "/posts/meet-lucifer-open-source-ai-company",
+      "title": "1. Meet Lucifer"
+    },
+    {
+      "path": "/posts/why-i-built-lucifer-visible-multi-agent-ai",
+      "title": "2. Why I built it"
+    },
+    {
+      "path": "/posts/lucifer-architecture-engine-office-protocol",
+      "title": "3. Architecture"
+    },
+    {
+      "path": "/posts/lucifer-getting-started-run-locally",
+      "title": "4. Getting started"
+    },
+    {
+      "path": "/posts/lucifer-connect-llm-claude-cloudflare-ai-gateway",
+      "title": "5. Connect an LLM"
+    },
+    {
+      "path": "/posts/lucifer-office-tour-missions-work-links-follow-camera",
+      "title": "6. Office tour"
+    },
+    {
+      "path": "/posts/lucifer-design-ai-company-org-chart-yaml",
+      "title": "7. Org chart in YAML"
+    },
+    {
+      "path": "/posts/lucifer-sandboxed-agent-tools-workspace",
+      "title": "Sandboxed Agent Tools: write_file, delegate_task and a Workspace Agents Can't Escape"
+    },
+    {
+      "path": "/posts/lucifer-simulation-brain-test-multi-agent-without-tokens",
+      "title": "10. Simulation brain"
+    },
+    {
+      "path": "/posts/lucifer-3d-office-react-three-fiber",
+      "title": "11. 3D office with R3F"
+    },
+    {
+      "path": "/posts/lucifer-stream-agent-state-websocket-zustand",
+      "title": "12. WebSocket + zustand"
+    },
+    {
+      "path": "/posts/lucifer-visualize-workflow-work-links-follow-camera",
+      "title": "13. Visualizing workflow"
+    },
+    {
+      "path": "/posts/lucifer-roadmap-ai-company-that-ships",
+      "title": "14. Roadmap"
+    },
+    {
+      "path": "/posts/lucifer-contributing-add-tool-theme-company-template",
+      "title": "15. Contributing"
+    }
+  ],
+  "text": "Building Lucifer: an open-source AI company you can watch · ⭐ GitHub\n\n🚀 Start here: 1. Meet Lucifer · 2. Why I built it · 3. Architecture\n\n📖 Use it: 4. Getting started · 5. Connect an LLM · 6. Office tour\n\n🛠 Build the engine: 7. Org chart in YAML · 8. Real delegation · 9. Sandboxed tools · 10. Simulation brain\n\n🎨 Build the office: 11. 3D office with R3F · 12. WebSocket + zustand · 13. Visualizing workflow\n\n🧭 What's next: 14. Roadmap · 15. Contributing\n\nCrewAI gives you two ways to run a team: Process.sequential, where tasks run one after another, and Process.hierarchical, where a manager agent hands work to the others. The hierarchical process looks like the obvious fit for a company. Lucifer doesn't use it. This post explains why, and how Lucifer does multi-level delegation instead.\n\nWhy not Process.hierarchical\n\nThe hierarchical process has two properties that don't fit a company:\n\nThere is a single manager layer. One manager delegates to workers. A CEO who delegates to a CTO who delegates to engineers doesn't map onto it.\nDelegation is synchronous, inside one run. The manager \"asks\" a worker and gets text back within the same kickoff(). The subtask never exists outside that run. There is nothing to show on a board, nothing to cancel and nothing that survives a restart.\n\nWhat I wanted was closer to how people work. A manager hands out work, ends their turn, and comes back when the team has delivered. Each subtask is a real thing with an id, a status, an assignee, a result and files.\n\nOne work session, one crew\n\nLucifer turns CrewAI around. Instead of one crew for the whole company, every work session is its own tiny crew: exactly one agent and one task, run sequentially.\n\ncrew_agent = CrewAgent(\n    role=f\"{agent.title} ({agent.name})\",\n    goal=prompts.goal(agent),\n    backstory=prompts.backstory(company, agent, session.manager(), session.delegates()),\n    llm=llm,\n    tools=build_tools(session),\n    allow_delegation=False,          # delegation is our own tool, not CrewAI's\n    max_iter=MAX_ITERATIONS,\n    step_callback=on_step,           # streams thoughts to the office, checks for cancellation\n)\ncrew_task = CrewTask(\n    description=prompts.task_brief(session),\n    expected_output=prompts.EXPECTED_OUTPUT,\n    agent=crew_agent,\n)\ncrew = Crew(agents=[crew_agent], tasks=[crew_task], process=Process.sequential)\noutput = crew.kickoff()\n\nCopy\n\nCrewAI still does what it's great at: the agent loop, tool calling, the LLM provider and prompt caching. Lucifer owns everything around it, from the org chart and the task queue to who works when.\n\nDelegation is a tool call\n\nManagers get a delegate_task tool. It doesn't call anyone. It creates a task in the engine:\n\ndef delegate(self, assignee_id, title, description, priority=None) -> str:\n    self._assert_open()\n    assignee = self._store.get_agent(assignee_id)\n    if assignee is None:\n        raise ValueError(f'No employee with id \"{assignee_id}\"')\n    if not self._store.is_under(assignee.id, self.agent.id):\n        raise ValueError(f\"{assignee.name} does not report to you, so you cannot delegate to them\")\n    sub = self._store.create_task(\n        title=title,\n        description=description,\n        assignee_id=assignee.id,\n        created_by_id=self.agent.id,\n        parent_id=self.task.id,\n        priority=priority or self.task.priority,\n        language=self.task.language or detect_language(f\"{title}\\n{description}\"),\n    )\n    self._store.log(\"task_delegated\", f'Delegated \"{sub.title}\" to {assignee.name}',\n                    agent_id=self.agent.id, task_id=sub.id, target_agent_id=assignee.id)\n    return sub.id\n\nCopy\n\nA few details matter here:\n\nThe org chart is enforced in code, not just in the prompt. If the model tries to hand work to someone outside its branch, the tool returns an error, and CrewAI passes that error back to the model so it can correct itself.\nPriority and language are inherited. A Vietnamese request stays Vietnamese all the way down.\nThe activity log records targetAgentId. That's what lets the office fly a comet from manager to report.\n\nThe tool's description tells the model what happens next: \"Delegate a subtask to a direct report. You will be called again with their result when they finish.\" The backstory adds: \"After delegating, end your turn.\"\n\nWaiting, then waking up\n\nWhen a manager's session ends, the engine decides the task's status in one place, _settle (simplified, without the activity logging):\n\ndef _settle(self, session):\n    task = self._store.require_task(session.task.id)\n    if session.outcome == \"completed\":\n        self._wake_parent(task)\n    elif session.outcome == \"failed\":\n        self._wake_parent(task)\n    elif task.status == \"cancelled\":\n        pass\n    elif session.cancelled.is_set():\n        # The engine stopped mid-run: put the task back in the queue.\n        self._store.update_task(task.id, status=\"todo\")\n    elif session.has_open_subtasks():\n        self._store.update_task(task.id, status=\"waiting\")\n    elif session.delegated_task_ids:\n        # The reports finished before this session ended: come back to merge their results.\n        self._store.update_task(task.id, status=\"todo\")\n    else:\n        # The brain ended without calling complete_task: treat its final answer as the result.\n        session.complete(session.last_thought or \"Done (no summary).\")\n        self._wake_parent(task)\n\nCopy\n\nAnd when any subtask finishes, done or failed, _wake_parent checks whether it was the last one:\n\ndef _wake_parent(self, task):\n    if not task.parent_id:\n        return\n    parent = self._store.get_task(task.parent_id)\n    if parent is None or parent.status != \"waiting\":\n        return\n    if all(t.terminal for t in self._store.subtasks(parent.id)):\n        self._store.update_task(parent.id, status=\"todo\")\n        self.nudge()\n\nCopy\n\nThe parent goes back to todo. On the next heartbeat its owner picks it up, and this time the brief contains the results:\n\n# Task T-1a2b3c4d: Launch an AI note-taking app\nPriority: normal\nLanguage: English. Write everything for this task in English, ...\n\nWe need a PRD, a technical architecture and a marketing plan\n\n## Work you delegated and the results\n- T-5e6f7a8b \"Technical architecture\" → done\n  Result: Architecture written to docs/tech/architecture.md: ...\n  Files: docs/tech/architecture.md, docs/tech/api.md\n- T-9c0d1e2f \"Product requirements\" → done\n  Result: ...\n\nReview your reports' results, read the related files if needed, then merge them and\ncomplete the task (or delegate more work if something is missing).\n\nCopy\n\nBecause this works the same at every level, a three-level tree needs no special case. Engineers finish and wake the CTO. The CTO merges, completes and wakes the CEO. The CEO merges everything into the final report.\n\nThe race you have to avoid\n\nTwo threads meet at the parent task: the manager's session settling it, and a report's session finishing a subtask. Without care, this can happen:\n\nThe CTO delegates to Gabriel, and its session starts to settle. has_open_subtasks() is true, because Gabriel hasn't finished.\nOn another thread, Gabriel finishes right now and calls _wake_parent. The parent is still in_progress, not waiting, so nothing happens.\nThe CTO's settle continues and sets the parent to waiting.\n\nNow the parent is waiting with no open subtasks, and nobody will ever wake it. Two things prevent that:\n\nSettling and waking never interleave. Both run under the engine's lock, so Gabriel's wake-up runs either before the CTO's settle starts or after it has finished, never in the middle:\n# Settling the status and waking the parent must happen under one lock; otherwise a\n# subtask can finish just as the parent moves to `waiting`, and the parent hangs forever.\nwith self._lock:\n    self._settle(session)\n\nCopy\nIf the reports finished first, _settle sees no open subtasks but a non-empty delegated_task_ids, and sends the parent straight back to todo so its owner returns to merge. That's the elif session.delegated_task_ids: branch above.\n\nThere is also a safety net for restarts: _wake_stalled_parents() runs when the engine starts and moves any waiting task whose subtasks are all finished back to todo.\n\nFailure travels up, too\n\nA subtask that fails, because the agent called fail_task or the brain crashed, still wakes its parent. The manager then sees → failed with the reason in its brief and decides what to do: delegate again, work around it, or report the gap upward. The failure is never swallowed.\n\nCancellation travels down\n\nPOST /api/tasks/{id}/cancel walks the subtree in one pass over the task list (no query per task), marks every open task cancelled, and signals any running session through a threading.Event. Brains check that event between steps, and the CrewAI step_callback raises to break out of the agent loop at the next step.\n\nWhat you get\nDelegation of any depth, following the org chart.\nEvery subtask is real: visible on the board, in the drawer's tree and on the yacht as a work link.\nManagers don't sit on a thread while they wait. A waiting parent takes up no worker, so LUCIFER_MAX_CONCURRENT is spent on agents doing actual work.\nRestarts are safe. State is in state.json, interrupted tasks go back to the queue, and stalled parents are woken.\nNext\n\nThe delegate_task tool is one of seven. The next post covers the others and the sandbox they run in: Sandboxed agent tools.\n\nThe code from this post is in engine.py, session.py and brains/crew.py on GitHub.\n\nLucifer is open source under the MIT license. Clone it, run it for free with the simulation brain, and ⭐ star it if you'd like to follow along: github.com/siri2moon/lucifer.\n\nNext in the series: Sandboxed Agent Tools: write_file, delegate_task and a Workspace Agents Can't Escape.\n\nWORK WITH ME\n\nBuilding something like this?\n\nI'm Binh — an AI & cloud engineer with 11+ years shipping production software. I take on consulting and build work. Tell me what you're working on and where it's stuck.\n\nWork with me\nConnect on LinkedIn"
+}
