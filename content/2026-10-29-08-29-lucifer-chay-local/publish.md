@@ -1,14 +1,15 @@
-# Run Lucifer locally: đăng bài
+# Run Lucifer locally: publishing
 
-| Nền tảng | Video | Ngôn ngữ |
+| Platform | Video | Language |
 |---|---|---|
 | YouTube Shorts | `out/2026-10-29-08-29-lucifer-chay-local/2026-10-29-08-29-lucifer-chay-local-en.mp4` | 🇬🇧 English |
 | Facebook Reels | `out/2026-10-29-08-29-lucifer-chay-local/2026-10-29-08-29-lucifer-chay-local-en.mp4` | 🇬🇧 English |
-| TikTok | `out/2026-10-29-08-29-lucifer-chay-local/2026-10-29-08-29-lucifer-chay-local.mp4` (gắn nhạc trend: `…-khong-nhac.mp4`) | 🇻🇳 Tiếng Việt |
+| TikTok | `out/2026-10-29-08-29-lucifer-chay-local/2026-10-29-08-29-lucifer-chay-local.mp4` (for a trending sound: `…-khong-nhac.mp4`) | 🇻🇳 Vietnamese |
 
-Video 1080×1920, 30 fps, ~36,6 s · **có giọng đọc ElevenLabs** (giọng Brian, eleven_v3).
-Ảnh bìa: khung ở giây 1–2 (du thuyền với vòng sao chổi sáng), thêm chữ to **AI COMPANY · FREE**.
-Playlist: **"Building Lucifer"** trên YouTube/Facebook · **"Xây Lucifer"** trên TikTok. Ghim kèm link video "Meet Lucifer" trước đó.
+1080×1920, 30 fps, ~36.6 s · **ElevenLabs narration** (Brian voice, eleven_v3).
+Music (with-music cut): **Tonight Again — Rod Kim (feat. Mostly Moss)**, AI-separated instrumental, choruses 1 and 2 joined. ⚠️ Commercial track: YouTube/Facebook may raise a Content ID claim (muted or shared revenue). To be safe, post the `-khong-nhac` cut and pick a sound in the app.
+Thumbnail: the frame at 1–2 s (the yacht with the glowing comet ring), with big text **AI COMPANY · FREE**.
+Playlist: **"Building Lucifer"** on YouTube/Facebook · **"Xây Lucifer"** on TikTok. Pin a link to the previous "Meet Lucifer" video.
 
 ## YouTube Shorts (English)
 
@@ -45,12 +46,12 @@ Two terminals, no API key. Type one goal, and Lucifer the CEO splits it across a
 #Siri2Moon #AIAgents #OpenSource #Coding
 ```
 
-## TikTok (Tiếng Việt)
+## TikTok (Vietnamese)
 
 **Caption:**
 ```
 Cả một công ty AI chạy 0đ ngay trên máy bạn 😇 2 terminal, không cần API key, giao 1 mục tiêu là cả team AI tự chia việc. Hướng dẫn ở link bio 👆 #Siri2Moon #AIAgent #LapTrinh #OpenSource #TechTok
 ```
-Thêm vào Playlist "Xây Lucifer". Gắn nhạc trend thì dùng bản `-khong-nhac`, âm gốc 30–50% (giữ giọng đọc + tiếng gõ phím).
+Add it to the "Xây Lucifer" playlist. For a trending sound, use the `-khong-nhac` cut with the original audio at 30–50% (keeps the narration and typing).
 
-**Lưu ý:** video có giọng AI → bật nhãn "Nội dung do AI tạo" khi đăng TikTok.
+**Note:** the video has an AI voice, so turn on the "AI-generated content" label when posting on TikTok.

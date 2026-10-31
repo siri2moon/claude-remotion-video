@@ -83,28 +83,42 @@ User chê video toàn terminal/trang chữ là "chưa thu hút, chưa đặc s�
 `follow`: "Theo dõi @siri2moondev". `lines`: 1 dòng lý do follow ("mẹo DevOps & AI mỗi ngày 🚀",
 "để xem mình xây Lucifer từ đầu 🚀") + 1 dòng chỉ link ("Link bài viết ở bình luận ghim 📌").
 
-## dang-bai.md (mẫu)
+## publish.md (mẫu)
+
+Viết **bằng tiếng Anh** (tiêu đề mục, ghi chú, YouTube, Facebook). Chỉ caption TikTok giữ tiếng Việt vì
+TikTok đăng bản tiếng Việt.
 
 ````markdown
-# <Tên video>: đăng bài
+# <Video title>: publishing
 
-Video: `out/<dir>/<dir>.mp4` (1080×1920, 30 fps, <x> s, <lufs> LUFS) · Ảnh bìa: khung ở giây <t>
+| Platform | Video | Language |
+|---|---|---|
+| YouTube Shorts | `out/<dir>/<dir>-en.mp4` | 🇬🇧 English |
+| Facebook Reels | `out/<dir>/<dir>-en.mp4` | 🇬🇧 English |
+| TikTok | `out/<dir>/<dir>.mp4` (for a trending sound: `…-khong-nhac.mp4`) | 🇻🇳 Vietnamese |
+
+1080×1920, 30 fps, <x> s, <lufs> LUFS · ElevenLabs narration (only when used)
+Music: <track> (⚠️ commercial track: possible Content ID claim; post the `-khong-nhac` cut to be safe)
+Thumbnail: frame at <t> s, with big text **<2–3 WORDS>**
+Playlist: "<English name>" on YouTube/Facebook · "<Vietnamese name>" on TikTok (series only)
 
 ## YouTube Shorts
-**Tiêu đề** (≤ 70 ký tự, từ khoá trước): ```<hook tiếng Việt> | <English keywords> #shorts```
-**Mô tả:** 2–3 câu VI + 1 câu EN, rồi link:
+**Title** (≤ 70 chars, keywords first): ```<hook> | <keywords> #shorts```
+**Description:** 2–3 sentences, then the links:
 ```
-📝 Bài viết đầy đủ: https://siri2moon.com/posts/<slug>?utm_source=youtube&utm_medium=shorts&utm_campaign=<slug>
-😇 Lucifer: https://github.com/siri2moon/lucifer   (chỉ khi liên quan)
-#Siri2Moon #<chủ đề> #<chủ đề> #LậpTrình
+📝 Full post: https://siri2moon.com/posts/<slug>?utm_source=youtube&utm_medium=shorts&utm_campaign=<english-campaign>
+😇 Lucifer on GitHub: https://github.com/siri2moon/lucifer   (only when relevant)
+#Siri2Moon #<topic> #<topic> #Coding
 ```
-**Bình luận ghim:** link bài (utm_source=youtube) + 1 câu hỏi mời bình luận.
-
-## TikTok
-**Caption** (≤ 150 ký tự trước hashtag): hook + lợi ích + "link ở bio 👆" + 3–5 hashtag.
+**Pinned comment:** post link (utm_source=youtube&utm_medium=comment) + one question inviting replies.
 
 ## Facebook Reels
-**Caption:** hook, 2 câu giá trị, link bài (utm_source=facebook), 3–4 hashtag.
+**Caption:** hook, 2 sentences of value, post link (utm_source=facebook), 3–4 hashtags.
+
+## TikTok
+**Caption** (Vietnamese, ≤ 150 chars before the hashtags): hook + benefit + "link ở bio 👆" + 3–5 hashtags.
+Notes: add to the playlist; for a trending sound use `-khong-nhac` with the original audio at 30–50%;
+turn on the "AI-generated content" label when the video has an AI voice.
 ````
 
 Hashtag 3–5 mỗi bài: 1 thương hiệu (`#Siri2Moon`), 1–2 chủ đề, 1–2 rộng. Bảng theo trụ nội dung:

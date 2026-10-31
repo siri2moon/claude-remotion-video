@@ -1,6 +1,6 @@
 ---
 name: siri2moon-short
-description: Làm video ngắn dọc 9:16 (YouTube Shorts, TikTok, Facebook Reels) quảng bá thương hiệu Siri2Moon — giới thiệu một dự án trong ecosystem (Lucifer…) bằng footage quay thật từ app đang chạy, hoặc biến một bài viết trên siri2moon.com thành video có cảnh terminal động, trang blog lia mượt, phụ đề tiếng Việt từng chữ, nhạc tổng hợp không bản quyền, màn thương hiệu và màn kết Siri. Xuất out/<dir>/<dir>.mp4 kèm dang-bai.md (tiêu đề, mô tả, hashtag từng nền tảng); làm được bản tiếng Anh. Dùng khi user nói "làm video cho bài <…>", "video short giới thiệu <dự án>", "video marketing siri2moon", "làm video hôm nay", hoặc dán link bài siri2moon.com.
+description: Làm video ngắn dọc 9:16 (YouTube Shorts, TikTok, Facebook Reels) quảng bá thương hiệu Siri2Moon — giới thiệu một dự án trong ecosystem (Lucifer…) bằng footage quay thật từ app đang chạy, hoặc biến một bài viết trên siri2moon.com thành video có cảnh terminal động, trang blog lia mượt, phụ đề tiếng Việt từng chữ, nhạc tổng hợp không bản quyền, màn thương hiệu và màn kết Siri. Xuất out/<dir>/<dir>.mp4 kèm publish.md (tiêu đề, mô tả, hashtag từng nền tảng, viết bằng tiếng Anh); làm được bản tiếng Anh. Dùng khi user nói "làm video cho bài <…>", "video short giới thiệu <dự án>", "video marketing siri2moon", "làm video hôm nay", hoặc dán link bài siri2moon.com.
 ---
 
 # Siri2Moon Short
@@ -66,7 +66,7 @@ node $S/new-dir.mjs <slug-không-dấu>      # in ra tên thư mục đầy đ�
 
 Mỗi part một video, cùng `series.name`, `ep`/`of`, `next` là tên tập sau (tập cuối: bỏ `next`).
 Thư mục `<slug-series>-tap-<n>`. Mở mỗi tập bằng **kết quả thật** của part đó (render thật code
-trong bài, hoặc video/PDF có sẵn trong `out/`, `content/`) rồi mới tới cách làm. `dang-bai.md`
+trong bài, hoặc video/PDF có sẵn trong `out/`, `content/`) rồi mới tới cách làm. `publish.md`
 nhắc thêm vào playlist/series cùng tên và ghim link tập trước.
 
 ### 5. Viết `short.json`
@@ -136,8 +136,9 @@ Nếu chưa có file nào, gợi ý user các nguồn trong README đó. **Khôn
 
 ### 8. Bài đăng
 
-Ghi `content/<dir>/dang-bai.md` theo mẫu trong `references/storytelling.md` (YouTube: tiêu đề,
-mô tả, bình luận ghim; TikTok; Facebook; khung ảnh bìa). Link bài blog gắn UTM theo nền tảng.
+Ghi `content/<dir>/publish.md` theo mẫu trong `references/storytelling.md` (YouTube: tiêu đề,
+mô tả, bình luận ghim; Facebook; TikTok; khung ảnh bìa). Link bài blog gắn UTM theo nền tảng.
+**File viết bằng tiếng Anh**: tiêu đề mục, ghi chú, phần YouTube và Facebook. Chỉ caption TikTok viết tiếng Việt.
 
 ### 8b. Đánh dấu đã làm
 
@@ -150,7 +151,7 @@ xong, chạy lại với `--youtube= --facebook= --tiktok=` để lưu link (lin
 
 ### 9. Báo cáo
 
-Đường dẫn mp4 (bản có nhạc + bản `-khong-nhac`, với bài blog thêm `-en` + `-en-khong-nhac`), thời lượng, LUFS, bảng phụ đề (cảnh | câu), file stills, `dang-bai.md`, và
+Đường dẫn mp4 (bản có nhạc + bản `-khong-nhac`, với bài blog thêm `-en` + `-en-khong-nhac`), thời lượng, LUFS, bảng phụ đề (cảnh | câu), file stills, `publish.md`, và
 những gì chưa kiểm được (không nghe được âm thanh). Tắt mọi server đã bật.
 
 ### Ngôn ngữ theo nền tảng (video từ blog siri2moon.com)
@@ -166,8 +167,8 @@ node $S/render.mjs <slug> --lang=en --no-music     # Reels, gắn nhạc trend
 node $S/capture.mjs <slug> --lang=en               # chỉ dự án có giao diện đổi ngôn ngữ → footage-en/
 ```
 
-`dang-bai.md`: phần YouTube và Facebook viết **toàn bộ bằng tiếng Anh**: tiêu đề, mô tả, bình luận ghim, hashtag,
-playlist "AI Video Studio", UTM `utm_campaign` tiếng Anh. Chỉ phần TikTok viết tiếng Việt.
+`publish.md` viết **toàn bộ bằng tiếng Anh**: tiêu đề mục, ghi chú, phần YouTube và Facebook (tiêu đề, mô tả,
+bình luận ghim, hashtag, tên playlist, UTM `utm_campaign`). Chỉ caption TikTok viết tiếng Việt.
 `lines.en` phải viết như người bản xứ nói, không dịch từng chữ.
 
 ---

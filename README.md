@@ -29,7 +29,7 @@ biến một bài trên siri2moon.com thành video: cảnh terminal động, tra
 màn thương hiệu, màn kết Siri. Không quay tay, không thu âm.
 
 ```
-bài blog / dự án ──/siri2moon-short──▶ short.json ──▶ capture (Chrome headless) ──▶ out/<dir>/<dir>.mp4 + dang-bai.md
+bài blog / dự án ──/siri2moon-short──▶ short.json ──▶ capture (Chrome headless) ──▶ out/<dir>/<dir>.mp4 + publish.md
 ```
 
 ## Skills
@@ -304,8 +304,8 @@ title/caption): sửa `.claude/skills/votri-script/references/craft.md`.
 ```
 
 Skill tự đọc bài (hoặc chạy dự án), viết `short.json`, quay, tự soi khung hình, dựng
-`out/<dir>/<dir>.mp4` và viết `content/<dir>/dang-bai.md` (tiêu đề, mô tả, hashtag cho YouTube, TikTok,
-Facebook). Muốn bản tiếng Anh: "làm thêm bản tiếng Anh" → `out/<dir>/<dir>-en.mp4`.
+`out/<dir>/<dir>.mp4` và viết `content/<dir>/publish.md` (tiêu đề, mô tả, hashtag cho YouTube, TikTok,
+Facebook, bằng tiếng Anh). Muốn bản tiếng Anh: "làm thêm bản tiếng Anh" → `out/<dir>/<dir>-en.mp4`.
 
 Chạy tay:
 
